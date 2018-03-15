@@ -1,6 +1,11 @@
-span {
-  color:white;
+.first {
   background: tomato;
-  border: 1px solid #666;
-
+  /* color:white;
+  border:1px solid pink; */
+}
+.second {
+  background: blueviolet;
+}
+.first, .second {
+  font-weight: bold;
 }
