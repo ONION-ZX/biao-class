@@ -1,23 +1,23 @@
 <style>
   .row {
-    font-size: 0;
+     font-size: 0;/*清除子元素间的空格 */
   }
 
   .col {
-    font-size: 15px;
+    font-size: 15px;/*由于字体大小的属性是继承下来的，所以要还原字体大小*/
     display: inline-block;
-    vertical-align: top;
+    vertical-align: top;/*向上对齐*/
   }
-
-  .sm {
+/*预置一些宽度，用于快速为元素设置宽度*/
+  .sm {/*small*/
     width: 20%;
   }
 
-  .md {
+  .md {/*medium*/
     width: 30%;
   }
 
-  .lg {
+  .lg {/*large*/
     width: 50%;
   }
 </style>
