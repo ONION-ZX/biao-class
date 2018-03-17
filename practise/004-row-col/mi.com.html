@@ -1,68 +1,63 @@
 <style>
-  body {
-    margin: 0;
-  }
-
-  .row {
-    font-size: 0;
-    margin-bottom: 2px; /*临时*/
-  }
-
-  .col {
-    font-size: 15px;
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .col:nth-child(odd) {
-    background: blueviolet;
-  }
-
-  .col:nth-child(even) {
-    background: tomato;
-  }
-
-  .container {
+body {
+  margin:0;
+}
+.row {
+  font-size: 0;
+  margin-bottom: 2px;
+}
+.container {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
+.col:nth-child(odd) {
+  background: blueviolet;
+}
+.col:nth-child(even) {
+  background: tomato;
+}
+.col{
+  vertical-align: top;
+  font-size: 15px;
+  display: inline-block;
+}
 </style>
-
 <div class="row">
-  <div style="width: 50%;" class="col">左</div>
-  <div style="width: 50%;" class="col">右</div>
+  <div style="width:50%" class="col">左</div>
+  <div style="width:50%" class="col">右</div>
 </div>
 <div class="first-screen container">
   <div class="row">
-    <div style="width: 20%;" class="col">LOGO</div>
-    <div style="width: 50%;" class="col">导航 页面</div>
-    <div style="width: 30%;" class="col">搜索</div>
+    <div style="width:20%" class="col">LOGO</div>
+    <div style="width:50%" class="col">导航 页面</div>
+    <div style="width:30%" class="col">搜索</div>
   </div>
   <div class="row">
-    <div style="width: 30%;" class="col">类目</div>
-    <div style="width: 70%;" class="col">轮播区</div>
+    <div style="width:40%" class="col">类目</div>
+    <div style="width:60%" class="col">轮播区</div>
   </div>
   <div class="row">
-    <div style="width: 25%;" class="col">促销单品</div>
-    <div style="width: 25%;" class="col">促销单品</div>
-    <div style="width: 25%;" class="col">促销单品</div>
-    <div style="width: 25%;" class="col">促销单品</div>
+    <div style="width:25%" class="col">促销商品</div>
+    <div style="width:25%" class="col">促销商品</div>
+    <div style="width:25%" class="col">促销商品</div>
+    <div style="width:25%" class="col">促销商品</div>
   </div>
 </div>
 <div class="main container">
   <div>
     <div class="row">
-      <div style="width: 50%;" class="col">小米闪购</div>
-      <div style="width: 50%;" class="col">翻页组件</div>
+      <div style="width:50%" class="col">小米闪购</div>
+      <div style="width:50%" class="col">翻页组件</div>
     </div>
     <div class="row">
-      <div style="width: 20%;" class="col">卡片</div>
-      <div style="width: 20%;" class="col">卡片</div>
-      <div style="width: 20%;" class="col">卡片</div>
-      <div style="width: 20%;" class="col">卡片</div>
-      <div style="width: 20%;" class="col">卡片</div>
+      <div style="width:20%" class="col">卡片</div>
+      <div style="width:20%" class="col">卡片</div>
+      <div style="width:20%" class="col">卡片</div>
+      <div style="width:20%" class="col">卡片</div>
+      <div style="width:20%" class="col">卡片</div>
     </div>
   </div>
+  <!-- n more -->
 </div>
 <div class="row"></div>
