@@ -3,11 +3,11 @@
     background: rgba(0, 0, 0, .5);
 }
 .main-promote {
-  background-color: rgb(250,226,180);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(slider01.jpg);
+  background-color: rgb(250,226,180);/*背景色*/
+  background-size: contain;/*背景图尺寸限制方式*/
+  background-repeat: no-repeat;/*不重复*/
+  background-position: center;/*背景图定位*/
+  background-image: url(slider01.jpg);/*背景图*/
 }
 .main-promote .cat a {
     font-size: 75%;
