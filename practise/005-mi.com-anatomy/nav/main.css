@@ -28,3 +28,6 @@
   color: #fff;
   background: rgba(0,0,0,.8);
 }
+.nav a:last-child:after {
+  display: none;
+}
