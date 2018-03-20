@@ -1,28 +1,30 @@
-.container {
-  max-width: 1000px;
+.nav {
+  background: rgba(0,0,0,.8);
+}
+.right,
+.left {
+  display: inline-block;
+  width: 50%;
 }
 .row {
   font-size: 0;
 }
-.nav {
-  background: rgba(0,0,0,.75);
-}
-.nav a {
-  padding: 10px 5px;
-  color: #aaa;
-  text-decoration: none;
-  font-size: 90%;
-  display: inline-block;
-}
-.nav a:hover {
-  background: rgba(0,0,0,.8);
-  color: #fff;
-}
-.right {
+.row .right {
   text-align: right;
 }
-.col {
-  width: 50%;
+.nav a {
   display: inline-block;
-  font-size: 15px;
+  color: #ccc;
+  padding: 10px 5px;
+  font-size: 80%;
+}
+.container a:after {
+  content: "|";
+  color:rgba(0,0,0,.2);
+  margin-left: 5px;
+  font-size: 150%;
+}
+.nav a:hover {
+  color: #fff;
+  background: rgba(0,0,0,.8);
 }
