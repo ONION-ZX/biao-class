@@ -1,43 +1,33 @@
-<link rel="stylesheet" href="../global/global.css">
-
 <style>
-  body {
-    font-family: sans-serif;
-  }
   .nav {
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.5);
   }
-  .nav-item a {
+
+  .nav a {
     display: inline-block;
     padding: 10px;
+    text-decoration: none;
   }
-  .nav-item a:hover {
+  .nav a:hover {
     background: rgba(0,0,0,.5);
-    color:#fff;
   }
-  .nav-item:after {
+  .nav-item:after{
     content: '';
     display: inline-block;
-    position: relative;
     width: 1px;
     height: 20px;
+    position: relative;
+    background:red;
     top: 5px;
-    background: rgba(0,0,0,.3);
   }
   .nav-item:last-child:after {
     display: none;
   }
-
-
 </style>
+
+
 <div class="nav">
-  <span class="nav-item">
-    <a href="">Item</a>
-  </span>
-  <span class="nav-item">
-    <a href="">Item</a>
-  </span>
-  <span class="nav-item">
-    <a href="">Item</a>
-  </span>
+  <span class="nav-item"><a href="">Item</a></span>
+  <span class="nav-item"><a href="">Item</a></span>
+  <span class="nav-item"><a href="">Item</a></span>
 </div>
