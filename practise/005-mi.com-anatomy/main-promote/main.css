@@ -1,21 +1,29 @@
+.container {
+  max-width: 900px;
+  margin:0 auto;
+}
+.main-promote .left,
+.main-promote .right{
+  display: inline-block;
+}
+.main-promote .left {
+  width: 15%;
+}
+.main-promote .right {
+  width: 85%;
+}
 .main-promote .cat {
-  width: 20%;
-  background: rgba(0,0,0,.8);
-}
-.main.promote .cat a{
-  font-size: 75%;
-  display: block;
-  padding: 8px 20px;
-  color: #eee;
-}
-.main-promote .slider {
-  width: 80%;
-}
-.row{
-  font-size: 0;
-}
-
-.main-promote .cat a:hover {
-  color: #fff;
+  padding: 5px;
   background: rgba(0,0,0,.5);
+}
+.main-promote .cat a {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: block;
+  color: #fff;
+  font-size: 15px;
+}
+.main-promote .cat a:hover{
+ background: rgba(0,0,0,.8);
 }
