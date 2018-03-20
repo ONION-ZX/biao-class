@@ -1,21 +1,22 @@
 .main-promote {
-  background-color: #fae3b5;
+  background: rgb(250,226,180);
   background-image: url(slider01.jpg);
-  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
 }
 .main-promote .cat {
-  background: rgba(0,0,0,.6);
+  background: rgba(0,0,0,.3);
   width: 20%;
 }
-.main-promote .cat a{
-  display: block;
-  color: #eee;
-  font-size: 15px;
+.main-promote a{
   padding: 8px 20px;
+  color: #eee;
+  text-align: center;
+  font-size: 75%;
+  display: block;
 }
 .main-promote .cat a:hover {
-  color: #fff;
-  background: rgba(0,0,0,.5);
+    color: #fff;
+    background: rgba(0, 0, 0, .5);
 }
