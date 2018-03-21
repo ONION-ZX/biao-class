@@ -1,0 +1,88 @@
+.nav {
+  margin-top: 20px;
+}
+.first-screen {
+  background-image: url(banner.jpg);
+  background-size: 140%;
+  background-position: center 0;
+  background-repeat: no-repeat;
+  min-height: 480px;
+  font-size: 18px;
+  overflow: auto;
+  /* -webkit-background-size: contain; */
+}
+
+.first-screen .left,
+.first-screen .right {
+  display: inline-block;
+}
+
+.first-screen .left {
+  width: 30%;
+}
+
+.first-screen .right {
+  width: 70%;
+  text-align: right;
+}
+
+.nav a {
+  margin-right: 5px;
+  display: inline-block;
+  color: #fff;
+}
+
+.nav .auth a {
+  font-size: 14px;
+  font-weight: normal;
+}
+.nav .link-group {
+  margin-top: 5px;
+}
+
+.nav .link-group a {
+  margin-right: 10px;
+  font-size: 17px;
+  font-weight: 500;
+}
+.logo, .location {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.logo {
+  width: 137px;
+  height: 66px;
+  background-position:-8px -370px;
+  background-repeat: no-repeat;
+  background-image: url(../img/sprite.png);
+  /* background: rgba(0,0,0,.2); */
+}
+
+.location {
+  color: #eee;
+  font-size: 65%;
+  padding: 5px;
+  background: rgba(0,0,0,.3);
+  border-radius: 20px;
+}
+
+.icon-location {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-image: url(../img/sprite.png);
+  background-position: -183px -14px;
+  margin-right: 3px;
+}
+
+.location .icon-location,
+.location .name {
+  position: relative;
+}
+.location .name {
+  display: inline-block;
+  bottom: 3px;
+  right: 4px;
+}
