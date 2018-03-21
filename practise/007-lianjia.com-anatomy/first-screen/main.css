@@ -33,7 +33,7 @@
 }
 
 .nav .auth a {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
 }
 .nav .link-group {
@@ -43,8 +43,21 @@
 .nav .link-group a {
   margin-right: 10px;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 600;
 }
+.nav .link-group a:last-child {
+  margin-right: 0;
+}
+
+.icon-travel {
+  display: inline-block;
+  width: 19px;
+  height: 22px;
+  /* vertical-align: bottom; */
+  /* position: relative;
+  top: -4px; */
+}
+
 .logo, .location {
   display: inline-block;
   vertical-align: middle;
@@ -60,10 +73,11 @@
 }
 
 .location {
+  height: 18px;
   color: #eee;
   font-size: 65%;
   padding: 5px;
-  background: rgba(0,0,0,.3);
+  background: rgba(0,0,0,.4);
   border-radius: 20px;
 }
 
@@ -73,7 +87,7 @@
   height: 18px;
   background-repeat: no-repeat;
   background-image: url(../img/sprite.png);
-  background-position: -183px -14px;
+  background-position: -183px -18px;
   margin-right: 3px;
 }
 
@@ -81,8 +95,21 @@
 .location .name {
   position: relative;
 }
+
 .location .name {
   display: inline-block;
-  bottom: 3px;
+  bottom: 5px;
   right: 4px;
+}
+
+.icon-log {
+  display: inline-block;
+  width: 18px;
+  height: 19px;
+  background-repeat: no-repeat;
+  /* background: rgba(0,0,0,.3); */
+  vertical-align: bottom;
+  position: relative;
+  background-image: url(../img/sprite.png);
+  background-position: -204px -18px;
 }
