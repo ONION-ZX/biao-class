@@ -113,3 +113,24 @@
   background-image: url(../img/sprite.png);
   background-position: -204px -18px;
 }
+
+.icon-publish {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  background-image: url(../img/sprite.png);
+  position: relative;
+  background-position: -222px -14px;
+}
+
+.main {
+  text-align: center;
+  font-size: 70px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.title {
+  margin-top: 120px;
+}
