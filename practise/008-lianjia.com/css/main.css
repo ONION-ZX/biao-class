@@ -314,6 +314,10 @@
   vertical-align: bottom;
 }
 
+.cat-promo-used .head {
+  padding-top: 50px;
+}
+
 .cat-promo-used .head .left {
   width: 40%;
 }
