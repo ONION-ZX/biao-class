@@ -1,0 +1,125 @@
+.nav {
+  margin-top: 20px;
+}
+
+.first-screen {
+    background-image: url(../img/banner.jpg);
+    background-size: 140%;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    height: 610px;
+    overflow: auto;
+}
+
+.nav .left,
+.nav .right,
+.logo,
+.location,
+.icon-location,
+.location .name,
+ .icon-log{
+  display: inline-block;
+}
+
+.nav a {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.nav .logo {
+  width: 130px;
+  height: 66px;
+  /* background: rgba(0,0,0,.2); */
+  position: relative;
+  background-position:-8px -370px;
+  background-image: url(../img/sprite.png);
+  margin-bottom: 0;
+  vertical-align: bottom;
+}
+
+.nav .location {
+  text-align: center;
+  padding:3px 10px;
+  /* height: 27px; */
+  background: rgba(0,0,0,.4);
+  border-radius: 15px;
+  margin-bottom:20px;
+}
+
+.icon-location {
+  /* display: inline-block; */
+  position: relative;
+  width: 10px;
+  height: 12px;
+  background-position: -189px -20px;
+  background-image: url(../img/sprite.png);
+}
+
+.nav .location .name {
+  font-size: 12px;
+  line-height: 12px;
+  color:#eee;
+  /* display: inline-block; */
+}
+.nav .left {
+  width: 30%;
+  vertical-align: bottom;
+}
+
+.nav .right {
+  width: 70%;
+}
+
+.nav .right .auth a {
+    font-size: 12px;
+}
+
+.nav .auth {
+  margin-bottom: 10px;
+}
+
+.icon-log {
+  width: 20px;
+  height: 20px;
+  /* background:rgba(0,0,0,.3); */
+  background-image: url(../img/sprite.png);
+  vertical-align: bottom;
+  position: relative;
+  background-position: -202px -16px;
+  margin-right: 3px;
+}
+
+.nav .link-group a {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 600;
+  margin-right: 13px;
+}
+
+.nav .link-group a:last-child {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+
+.icon-travel img {
+  display: inline-block;
+  width: 19px;
+  height: 22px;
+  /* vertical-align: bottom; */
+  /* position: relative;
+  top: -4px; */
+}
+
+.icon-publish {
+  width: 7px;
+  height: 15px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: relative;
+  /* background: rgba(0,0,0,.3); */
+  background-image: url(../img/sprite.png);
+  background-position: -225px -15px;
+  /* margin-left: 5px;
+  margin-right: 5px; */
+}
