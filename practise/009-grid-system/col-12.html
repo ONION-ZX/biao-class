@@ -9,11 +9,23 @@
   font-size: 0;
 }
 
-.col {
+.col,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
   display: inline-block;
   font-size: 15px;
   vertical-align: top;
-  height: 30px;
+  min-height: 50px;
   border: 1px solid blueviolet;
   margin-bottom: 10px;
 }
@@ -62,26 +74,34 @@
 }
 
 .col-12 {
-  width: 100%;
+  width: 100%
 }
 </style>
 <div class="row">
-  <div class="col col-3"></div>
-  <div class="col col-3"></div>
-  <div class="col col-3"></div>
-  <div class="col col-3"></div>
+  <div class="col-3"></div>
+  <div class="col-3"></div>
+  <div class="col-3"></div>
+  <div class="col-3"></div>
 </div>
 <div class="row">
-  <div class="col col-4"></div>
-  <div class="col col-4"></div>
-  <div class="col col-4"></div>
+  <div class="col-4"></div>
+  <div class="col-4"></div>
+  <div class="col-4"></div>
 </div>
 <div class="row">
-  <div class="col col-6"></div>
-  <div class="col col-6"></div>
+  <div class="col-6"></div>
+  <div class="col-6"></div>
 </div>
 <div class="row">
-  <div class="col col-2"></div>
-  <div class="col col-8"></div>
-  <div class="col col-2"></div>
+  <div class="col-2"></div>
+  <div class="col-8"></div>
+  <div class="col-2"></div>
+</div>
+
+<div class="row cut-5">
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col"></div>
 </div>
