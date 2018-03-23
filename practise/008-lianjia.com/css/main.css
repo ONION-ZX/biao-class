@@ -218,3 +218,36 @@
   top: 1px;
   height: 16px;
 }
+
+.service-list {
+  margin-top: 60px;
+}
+
+.service-list .service {
+  width: 25%;
+}
+
+.service .thumbnail img {
+  display: inline-block;
+  padding-left:80px;
+  width: 30%;
+  height: 30%;
+  margin-bottom: 15px;
+}
+
+.service .text {
+  text-align: center;
+}
+
+.service .text .title {
+  font-size: 18px;
+  display: inline-block;
+  color: rgb(57,64,67);
+  /* margin-bottom: 5px; */
+}
+.service .text .desc {
+  line-height: 18px;
+  color: rgb(176,179,180);
+  font-size: 12px;
+  margin-top: 3px;
+}
