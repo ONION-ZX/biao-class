@@ -220,7 +220,8 @@
 }
 
 .service-list {
-  margin-top: 60px;
+  padding-top:45px;
+  padding-bottom: 50px;
 }
 
 .service-list .service {
@@ -250,4 +251,65 @@
   color: rgb(176,179,180);
   font-size: 12px;
   margin-top: 3px;
+}
+
+.main .app {
+  background-image: url(../img/bg-app.jpg);
+  background-repeat: no-repeat;
+  background-size: 140%;
+  position: relative;
+  background-position: -253px 1px;
+  padding-top: 45px;
+  height: 479px;
+}
+
+.app .left .head {
+  width: 286px;
+  height: 118px;
+  background-image: url(../img/sprite.png);
+  background-position: -448px -379px;
+  background-repeat: no-repeat;
+  margin-bottom: 22px;
+}
+
+.app .left .desc {
+  line-height: 22px;
+  font-size: 80%;
+  color: rgb(51,51,51);
+}
+
+/* .app .download .left,
+.app .download .right {
+  width: 50%;
+} */
+
+.app .download {
+  margin-top: 38px;
+}
+
+.app .download .left {
+  height: 102px;
+}
+
+.app .download .left .row {
+  width: 134px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background: rgba(0,0,0,.2);
+  background-image: url(../img/sprite.png);
+}
+
+.app .download .left .iPhone {
+  background-position: -21px -139px;
+}
+
+.app .download .left .Android {
+  margin-top: 14px;
+  background-position: -21px -197px;
+}
+
+.app .download .right img {
+  width: 102px;
+  height: 102px;
+  vertical-align: bottom;
 }
