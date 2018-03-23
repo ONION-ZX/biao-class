@@ -124,3 +124,97 @@
   /* margin-left: 5px;
   margin-right: 5px; */
 }
+
+.center {
+  margin-top: 100px;
+  color:#fff;
+}
+
+.center .title .main {
+  font-size: 70px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.sub {
+  font-size: 20px;
+  text-align: center;
+}
+
+.search-area {
+  padding: 20px;
+  margin:0 auto;
+  width: 812px;
+  height: 127px;
+}
+
+.menu {
+  /* margin-left: auto; */
+  text-align: left;
+}
+
+.menu span {
+  vertical-align: bottom;
+  height: 32px;
+  color: #fff;
+  padding-right: 20px;
+  font-size: 14px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* .search-area .type > *.active {
+    color: #fff;
+} */
+
+.find {
+  height: 80px;
+  padding: 0;
+}
+.find .search-input,
+.search-btn {
+  height: 60px;
+  padding: 5px;
+  padding-left: 20px;
+  border: 0;
+  font-size: 14px;
+  /* line-height: 2; */
+  vertical-align: bottom;
+}
+
+.search-input {
+  width: 80%;
+}
+
+.search-btn {
+  font-size: 18px;
+  width:20%;
+  background: #00ae66;
+  color: #fff;
+}
+
+.botton {
+  cursor: pointer;
+  font-size: 12px;
+  padding-top: 70px;
+}
+
+.pen {
+  display: inline-block;
+}
+
+.pen a {
+  display: inline-block;
+  font-size: 10px;
+  color: #fff;
+  margin-right: 25px;
+}
+
+.pen a img {
+  margin-right: 3px;
+  position: relative;
+  left: 0;
+  top: 1px;
+  height: 16px;
+}

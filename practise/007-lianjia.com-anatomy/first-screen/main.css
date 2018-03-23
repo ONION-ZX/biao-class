@@ -147,7 +147,7 @@
   margin:0 auto;
   width: 812px;
   height: 127px;
-  positive: relative;
+  position: relative;
 }
 
 .menu {
