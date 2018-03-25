@@ -178,3 +178,32 @@
 .fast img {
   height: 100%;
 }
+
+.main {
+  margin-top: 22px;
+  background: rgb(245,245,245);
+  padding: 10px;
+}
+
+.head {
+  margin-bottom: 10px;
+}
+
+.promo .leader img {
+  height: 125%;
+}
+
+.promo .card-group .col {
+  padding: 10px;
+}
+
+.promo .card-group .card {
+  padding: 15px;
+  padding-top: 0;
+  vertical-align: top;
+  background: #fff;
+}
+
+.card-group .card .text {
+  text-align: center;
+}
