@@ -123,7 +123,7 @@
   height: 400px;
   /* width: 1100px; */
   background-image: url(../img/center-bg.jpg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -146,4 +146,35 @@
 
 .center .main-promo .leader a:hover {
   background: #ff6700;
+}
+
+.center .fast {
+  margin-top: 14px;
+  height: 170px;
+}
+
+.center .fast .channel {
+  height: 170px;
+  background:#5f5750;
+}
+
+.center .fast .channel .row {
+  height: 85px;
+}
+
+.center .fast .channel .row a {
+  padding-top: 30px;
+  text-align: center;
+  display: inline-block;
+  font-size: 15px;
+  color: rgb(207,205,203);
+  cursor: pointer;
+}
+
+.center .fast .channel .row a:hover {
+  color: #fff;
+}
+
+.fast img {
+  height: 100%;
 }
