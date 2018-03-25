@@ -238,3 +238,29 @@
 .theme .card-group .card:hover {
   box-shadow: 3px 2px 1px #888;
 }
+
+.footer .service {
+  background: #fff;
+  border-bottom: 1px solid #555;
+}
+
+.footer .service a {
+  padding: 20px;
+  font-size: 12px;
+  width: 20%;
+  display: inline-block;
+}
+
+.footer .service a:hover {
+  color: #ff6700;
+}
+
+.footer .service a:after {
+  content: '|';
+  margin-left: 20px;
+  font-size: 120%;
+}
+
+.footer .service a:last-child:after {
+  display: none;
+}
