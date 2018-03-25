@@ -190,7 +190,7 @@
 }
 
 .promo .leader img {
-  height: 125%;
+  height: 90%;
 }
 
 .promo .card-group .col {
@@ -233,4 +233,8 @@
   padding-top: 30px;
   vertical-align: top;
   background: #fff;
+}
+
+.theme .card-group .card:hover {
+  box-shadow: 3px 2px 1px #888;
 }
