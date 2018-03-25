@@ -207,3 +207,7 @@
 .card-group .card .text {
   text-align: center;
 }
+
+.promo .card-group .card:hover {
+  box-shadow: 1px 1px 1px #888;
+}
