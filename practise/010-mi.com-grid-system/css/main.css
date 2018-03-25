@@ -28,6 +28,7 @@
 
 .top {
   margin-top: 22px;
+  margin-bottom: 22px;
 }
 
 #logo {
@@ -115,5 +116,34 @@
 
 .rec-list .rec:hover {
   color: #fff;
+  background: #ff6700;
+}
+
+.center .main-promo {
+  height: 400px;
+  /* width: 1100px; */
+  background-image: url(../img/center-bg.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main-promo .leader {
+  background: rgba(0,0,0,.5);
+  /* padding: 20px; */
+  height: 400px;
+}
+
+.center .main-promo .leader a {
+  height: 30px;
+  color: #fff;
+  font-size: 15px;
+  display: block;
+  padding: 10px;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.center .main-promo .leader a:hover {
   background: #ff6700;
 }
