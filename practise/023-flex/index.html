@@ -1,0 +1,28 @@
+<style>
+  .row {
+    display: flex;
+  }
+  /*================*/
+  .row {
+    padding: 10px;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+  }
+  .col {
+    background: rgba(0, 0, 0, .05);
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    min-height: 150px;
+  }
+  .col-1 {
+    flex: 1;
+  }
+  .col-2 {
+    flex: 2;
+  }
+</style>
+
+<div class="row">
+  <div style="flex: 1;" class="col">A</div>
+  <div style="flex: 1;" class="col">A</div>
+  <div style="flex: 10;" class="col">B</div>
+</div>
