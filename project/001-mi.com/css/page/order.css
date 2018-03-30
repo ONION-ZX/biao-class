@@ -38,3 +38,11 @@
 .right a:after:hover {
   color: #555;
 }
+
+.body {
+  margin-top: 30px;
+}
+
+.body .left img {
+  position: fixed;
+}
