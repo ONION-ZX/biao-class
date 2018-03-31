@@ -1,0 +1,13 @@
+.logo {
+  background-image: url(../../img/login-logo.png);
+  width: 200px;
+  height: 98px;
+}
+.content {
+  margin-top: -19px;
+  background-image: url(../../img/login-bg.jpg);
+  height: 588px;
+  background-size: 180%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
