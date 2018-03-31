@@ -11,3 +11,7 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.content .log {
+  padding: 20px;
+}
