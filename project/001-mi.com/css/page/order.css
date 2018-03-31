@@ -57,9 +57,10 @@
 }
 
 .body .right {
-  width: 60%;
+  width: 50%;
   text-align: left;
   vertical-align: top;
+  margin-left: 10%;
 }
 
 .body .right .text .title h2 {
@@ -71,5 +72,294 @@
 }
 
 .body .right .text .desc {
+  margin-top: 10px;
   font-size: 1rem;
+}
+
+.text .desc {
+  line-height: 1.5rem;
+}
+
+.text .desc .slogan {
+  color: #ff6700;
+}
+
+.text .desc .content {
+  color: #b0b0b0;
+}
+
+.text .price {
+  font-size: 1.2rem;
+  color: #ff6700;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.btn .order {
+  background: #ff6700;
+  color: #fff;
+  padding: 10px;
+  padding-left: 15px;
+}
+
+.btn .order .left,
+.btn .order .right {
+  display: inline-block;
+  width: 50%;
+  font-size: 1rem;
+}
+
+.btn .order .right {
+  margin-left: 0;
+  text-align: right;
+}
+
+.btn .price {
+  font-size: 1rem;
+  background: #f9f9fa;
+  color: #ff6700;
+  padding: 10px;
+  padding-left: 15px;
+  font-size: 1.5rem;
+}
+
+.btn .address {
+  padding: 30px 40px 30px 32px;
+  background: #fafafa;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.btn .address i {
+  vertical-align: top;
+  color: #555;
+  font-size: 120%;
+}
+
+.btn .address .text {
+  line-height: 1.5rem;
+  display: inline-block;
+}
+
+.btn .address .text .tip,
+.btn .address .text a {
+  color: #ff6700;
+}
+
+.btn .address .text a {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.btn .address .text .tip {
+  display: block;
+}
+
+.version .title,
+.color .title,
+.service .title .left {
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.version .row .option {
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  width: 49%;
+  display: inline-block;
+}
+
+.version .row .option .right,
+.version .option3 .right {
+  text-align: right;
+}
+
+.version .row .sec {
+  margin-left: 2%;
+}
+
+
+.version .option3 {
+  margin-top: 10px;
+  width: 49%;
+  display: block;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.version .option3 .left,
+.version .option3 .right {
+  display: inline-block;
+}
+
+.version .option3 .left {
+  width: 60%;
+}
+
+.version .option3 .right {
+  width: 40%;
+  margin-left: 0;
+}
+
+/* .color .title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 10px;
+  margin-top: 40px;
+} */
+
+.color .options img {
+  width: 16px;
+  height: 16px;
+}
+
+.color .options .option {
+  padding: 15px;
+  text-align: center;
+  display: inline-block;
+  width: 49%;
+  font-size: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.color .options .sec {
+  margin-left: 2%;
+}
+
+.version .row .active,
+.color .options .active {
+  color: #ff6700;
+  border: 1px solid #ff6700;
+}
+
+.version ,.color {
+  margin-bottom: 25px;
+}
+
+.service .title .left,
+.service .title .right {
+  width: 50%;
+  display: inline-block;
+}
+
+.service .title .right {
+  margin-left: 0;
+  text-align: right;
+  color: #ff6700;
+  cursor: pointer;
+}
+
+.service .card-service {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.service .card-service .left {
+  display: inline-block;
+  width: 20%;
+  margin-right: 2%;
+}
+
+.service .card-service .right {
+  width: 78%;
+  display: inline-block;
+  text-align: right;
+}
+
+.service .card-service span {
+  display: block;
+}
+
+.service .card-service img {
+  margin-left: 50px;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+
+.service .card-service .right {
+  margin-left: 0;
+  text-align: left;
+}
+
+.service .card-service .right .left {
+  width: 60%;
+  display: inline-block;
+  margin-right: 0;
+}
+
+.service .card-service .right .left {
+  line-height: 1.5rem;
+}
+
+.service .card-service .right .title {
+  font-size: 1.3rem;
+}
+
+.service .card-service .right .promise {
+  margin-top: 7px;
+  color: #b0b0b0;
+}
+
+.service .card-service .right .read {
+  margin-top: 7px;
+  display: inline-block;
+  color: #757575;
+}
+
+.service .card-service .right a {
+  cursor: pointer;
+  display: inline-block;
+  color: #ff6700;
+}
+
+.service .card-service .right a:after {
+  content: '|';
+  color: #b0b0b0;
+  margin-left: 3px;
+}
+
+.card-total {
+  color: #616161;
+  background: #f9f9fa;
+  padding: 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.card-total .right {
+  text-align: right;
+}
+
+.card-total .total {
+  font-size: 1.7rem;
+  color: #ff6700;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.order-now {
+  width: 50%;
+  font-size: 1.2rem;
+  background: #ff6700;
+  color: #fff;
+  padding: 15px 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.back {
+  color: #b0b0b0;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
