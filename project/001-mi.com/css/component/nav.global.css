@@ -1,0 +1,33 @@
+.nav-global {
+  background: #333;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-global .left,
+.nav-global .right {
+  display: inline-block;
+  width: 50%;
+}
+
+.nav-global a {
+  display: inline-block;
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.nav-global a:hover {
+  color: #fff;
+}
+
+.nav-global a:after {
+  content: '|';
+  margin-left: 3px;
+  color: #424242;
+}
+
+.nav-global a:last-child:after {
+  display: none;
+}
