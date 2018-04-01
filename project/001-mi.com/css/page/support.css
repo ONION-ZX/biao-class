@@ -1,3 +1,29 @@
+a {
+  color: #757575;
+  font-size: 12px;
+}
+
+.content {
+  background: #f5f5f5;
+}
+
+.content .breadcrumb {
+  padding: 5px;
+  padding-left: 0;
+  height: 40px;
+}
+
+.breadcrumb a:after {
+  content: '/';
+  color: #757575;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.breadcrumb a:last-child:after {
+  display: none;
+}
+
 .menu a {
   display: block;
 }
