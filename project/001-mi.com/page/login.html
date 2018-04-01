@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../css/lib/normalize.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/common/global.css">
 <link rel="stylesheet" href="../css/page/login.css">
 
@@ -11,20 +12,42 @@
   <div class="container">
     <div class="log">
       <div class="row head">
-        <div class="col left">帐号登录</div>
-        <div class="col right">扫码登录</div>
+        <a class="col left active">帐号登录</a>
+        <a class="col right">扫码登录</a>
       </div>
       <div class="row form">
-        <input type="text">
-        <input type="text">
-        <button>登录</button>
+        <input type="text" placeholder="邮箱/手机号码/小米ID">
+        <input type="password" placeholder="密码">
+        <div class="btn">登录</div>
       </div>
       <div class="row problem">
         <div class="col left">手机短信登录/注册</div>
         <div class="col right">立即注册 | 忘记密码?</div>
       </div>
-      <div class="others"></div>
+      <div class="others">
+        <span>其他方式登录</span>
+        <div class="icons">
+          <i class="fab fa-qq"></i>
+          <i class="fab fa-weibo"></i>
+          <i class="fab fa-weixin"></i>
+          <i class="fab fa-apple-pay"></i>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<div class="footer"></div>
+<div class="footer">
+  <div class="container">
+    <div class="link-group">
+      <a>简体</a>
+      <a>繁体</a>
+      <a>English</a>
+      <a>常见问题</a>
+      <a>隐私政策</a>
+    </div>
+    <div class="meta">
+      <span>小米公司版权所有-京ICP备10046444-</span>
+      <span>京公网安备11010802020134号-京ICP证110507号</span>
+    </div>
+  </div>
+</div>

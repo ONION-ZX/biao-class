@@ -13,5 +13,106 @@
 }
 
 .content .log {
-  padding: 20px;
+  text-align: center;
+  float: right;
+  background: #fff;
+  min-height: 524px;
+  width: 410px;
+  margin-top: 40px;
+}
+
+.content .log .head {
+  padding: 30px;
+}
+
+.content .log .head .left,
+.content .log .head .right {
+  font-size: 1.7rem;
+  color: #666;
+}
+
+.content .log .head .active {
+  color: #ff6700;
+}
+
+.content .log .head a:after {
+  content: '|';
+  color: #e0e0e0;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.content .log .head a:last-child:after {
+  display: none;
+}
+
+.content .log .form input,
+.content .log .form .btn,
+ .content .log .problem,
+ .content .log .others {
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+}
+
+.content .log .form input {
+  font-size: 13px;
+  color: #333;
+  padding: 13px 16px 13px 14px;
+  height: 48px;
+  display: block;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+}
+
+.content .log .form .btn {
+  font-size: 15px;
+  background: #ff6700;
+  padding: 10px 15px;
+  display: block;
+  color: #fff;
+  height: 40px;
+  cursor: pointer;
+}
+
+.content .log .problem {
+  margin-top: 10px;
+}
+
+.content .log .problem .left,
+.content .log .problem .right {
+  display: inline-block;
+  width: 50%;
+}
+
+.content .log .problem .left {
+  text-align: left;
+  color: #ff6700;
+}
+
+.content .log .problem .right {
+  color: #999;
+}
+
+.content .log .others {
+  margin-top: 150px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.content .log .others span {
+  position: relative;
+  color: #bbb;
+  top: -10px;
+}
+
+.content .log .others i {
+  color: #bbb;
+  font-size: 130%;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.footer {
+  color: #757575;
+  text-align: center;
 }
