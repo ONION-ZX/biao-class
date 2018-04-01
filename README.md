@@ -1,1 +1,1 @@
-front-end studying routine
+front-end study routine
