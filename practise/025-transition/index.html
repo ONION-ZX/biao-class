@@ -3,14 +3,15 @@
    height: 100px;
    width: 100px;
    background: #b10;
-   -webkit-transition: height 3s;
-   -o-transition: height 3s;
-   transition: height 3s;
+   -webkit-transition:transform 3s;
+   -o-transition:transform 3s;
+   transition:transform 3s;
+   border-radius: 50%;
  }
 
  .box:hover {
+  transform: scale(.5) rotate(30deg);
    background: #01b;
-   height: 200px;
  }
 </style>
 
