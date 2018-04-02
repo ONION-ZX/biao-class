@@ -29,3 +29,24 @@
 .service a:last-child:after {
   display: none;
 }
+
+.footer .link-group {
+  padding-top: 30px;
+  display: inline-block;
+}
+
+.footer .link-group span {
+  color: #424242;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+
+.footer .link-group > * {
+  margin-bottom: 17px;
+  display: block;
+}
+
+.footer .link-group span {
+  margin-bottom: 25px;
+}
