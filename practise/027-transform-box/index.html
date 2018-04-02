@@ -1,15 +1,57 @@
 <style>
-  /* .parent {
-    perspective: 600px;
-  } */
+  body {
+    margin: 200px;
+  }
+  .parent {
+    perspective: 800px;
+  }
+  .box {
+    transform: rotateX(-20deg) rotateY(30deg);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+  .box:hover {
+    transform: rotateX(20deg) rotateY(50deg);
+  }
   .side {
-    display: inline-block;
+    position: absolute;
     width: 200px;
     height: 200px;
-    background: rgba(0,0,200,.2);
-    transform: translate(100px,100px) rotateY(40deg);
+    background: rgba(200, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, .8);
+  }
+  .top {
+    background: rgba(255, 0, 0, .6);
+    transform: translateY(-100px) rotateX(90deg);
+  }
+  .bottom {
+    background: rgba(255, 0, 0, .6);
+    transform: translateY(100px) rotateX(90deg);
+  }
+  .left {
+    background: rgba(0, 255, 0, .6);
+    transform: translateX(-100px) rotateY(90deg);
+  }
+  .right {
+    background: rgba(0, 255, 0, .6);
+    transform: translateX(100px) rotateY(90deg);
+  }
+  .front {
+    background: rgba(0, 0, 255, .6);
+    transform: translateZ(100px);
+  }
+  .back {
+    background: rgba(0, 0, 255, .6);
+    transform: translateZ(-100px);
   }
 </style>
 <div class="parent">
-  <div class="side"></div>
+  <div class="box">
+    <div class="side top"></div>
+    <div class="side bottom"></div>
+    <div class="side left"></div>
+    <div class="side right"></div>
+    <div class="side front"></div>
+    <div class="side back"></div>
+  </div>
 </div>
