@@ -1,6 +1,11 @@
 a {
+  cursor: pointer;
   color: #757575;
-  font-size: 12px;
+  font-size: 14px;
+}
+
+a:hover {
+  color: #ff6700;
 }
 
 .content {
@@ -25,5 +30,64 @@ a {
 }
 
 .menu a {
+  line-height: 34px;
   display: block;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  display: block;
+  line-height: 46px;
+  color: #212121;
+  font-size: 14px;
+}
+
+.content .sidebar,
+.content .service-right {
+  vertical-align: top;
+  background: #fff;
+  display: inline-block;
+}
+
+.content .sidebar {
+  margin-right: 20px;
+  padding: 38px 0 44px 30px;
+}
+
+.content .service-right {
+  padding: 28px 48px 80px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.sidebar hr {
+  width: 84px;
+  margin: 14px 0;
+  color: #dbdbdb;
+  display: block;
+}
+
+.sidebar .contact {
+  display: block;
+  font-size: 14px;
+  color: #757575;
+}
+
+.service-right h1 {
+  color: #b0b0b0;
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+.service-right .text {
+  padding-top: 40px;
+}
+
+.service-right .text {
+  font-size: 12px;
+}
+
+.service-right .text p {
+  margin-bottom: 30px;
 }
