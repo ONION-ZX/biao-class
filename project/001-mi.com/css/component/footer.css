@@ -1,0 +1,31 @@
+.footer a {
+  cursor: pointer;
+  color: #757575;
+  font-size: 12px;
+}
+
+.footer a:hover {
+  color: #ff6700;
+}
+
+.service {
+  padding: 27px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.service a {
+  text-align: center;
+  font-size: 14px;
+}
+
+.service a:after {
+  content: '|';
+  color:inherit;
+  color: #e0e0e0;
+  position: relative;
+  left: 60px;
+}
+
+.service a:last-child:after {
+  display: none;
+}
