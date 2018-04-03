@@ -59,7 +59,9 @@
 }
 
 .footer .contact {
+  float: right;
   padding: 27px;
+  padding-right: 0;
   font-size: 1rem;
 }
 
@@ -93,4 +95,61 @@
 .footer .contact .online:hover {
   background: #ff6700;
   color: #fff;
+}
+
+.footer .meta {
+  background: #fafafa;
+}
+
+.footer .meta .container > * {
+  vertical-align: top;
+  display: inline-block;
+  padding: 30px 0;
+}
+
+.footer .meta .container .logo {
+  background-image: url(../../img/logo-footer.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 45px;
+  width: 45px;
+  margin: 30px 0;
+  margin-right: 10px;
+}
+
+.footer .meta .info-text a {
+  color: #757575;
+}
+
+.footer .meta .info-text a:hover {
+  color: #ff6700;
+}
+
+.footer .meta .info-text .sites a:after {
+  content: '|';
+  color: #757575;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.footer .meta .info-text .sites a:last-child:after {
+  display: none;
+}
+
+.footer .meta .info-text .auth a,
+.footer .meta .info-text .auth span {
+  padding-top: 5px;
+  line-height: 1.5;
+  color: #757575;
+  display: block;
+  font-size: 12px;
+}
+.footer .meta .info-links a,
+.footer .meta .info-links img {
+  display: inline-block;
+}
+
+.footer .meta .info-links a img {
+  width: 95%;
+  height: 25px;
 }
