@@ -1,0 +1,20 @@
+.main-promo {
+  margin-top: 20px;
+  background: url(../../img/main-promo.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 460px;
+}
+
+.main-promo .sidebar {
+  padding-top: 25px;
+  height: 460px;
+  background: rgba(0,0,0,.5);
+}
+
+.main-promo .sidebar a {
+  text-align: center;
+  margin-bottom: 25px;
+  display: block;
+  color: #fff;
+}

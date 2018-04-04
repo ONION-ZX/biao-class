@@ -1,0 +1,143 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  color: #757575;
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  font-size: 0;
+  display: block;
+}
+
+.col {
+  font-size: 14px;
+  vertical-align: bottom;
+}
+
+.basic-info {
+  padding-top: 10px;
+  color: rgb(50, 17, 105);
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgb(50, 17, 105);
+}
+
+.basic-info .left,
+.basic-info .middle,
+.basic-info .right {
+  display: inline-block;
+}
+
+.basic-info .left {
+  width: 20%;
+}
+
+.basic-info .middle {
+  /* padding-top: 30px; */
+  width: 50%;
+}
+
+.basic-info .middle .fir,
+.basic-info .middle .sec {
+  display: inline-block;
+  width: 45%;
+}
+
+.basic-info .middle p {
+  margin-bottom: 0;
+  line-height: 1.6;
+  /* display: block; */
+}
+
+.basic-info .right {
+  height:150px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(../img/ava.jpg);
+  background-position: center;
+  width: 30%;
+  position: relative;
+  top: 50px;
+}
+
+.body {
+  margin-bottom: 100px;
+  border-top: 5px solid rgb(50,17,105);
+}
+
+.body .left,
+.body .right {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.body .left {
+  text-align: center;
+  color: #fff;
+  background: rgb(50,17,105);
+  height: 720px;
+  width: 23%;
+  font-size: 15px;
+}
+
+.body .left .inte {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+.body .left .edu {
+  padding-bottom: 10px;
+}
+
+.body .left .exp {
+  padding-top: 100px;
+}
+
+.body .left .ski {
+  padding-top: 250px;
+}
+
+.body .left .eval {
+  padding-top: 130px;
+}
+
+.body .right {
+  margin-top: 30px;
+  padding-left: 15px;
+  width: 75%;
+}
+
+.body .right p {
+  margin: 0;
+  padding: 0;
+}
+
+.body .right .intention,
+.body .right .education,
+.body .right .experience,
+.body .right .skill,
+.body .right .evaluate {
+  padding: 20px;
+  border-left: 1px solid rgb(50,17,105);
+  /* border-top: 1px solid rgb(50,17,105); */
+  border-bottom: 1px solid rgb(50,17,105);
+}
+
+.body .right .intention {
+  border-top: 1px solid rgb(50,17,105);
+}
+
+.body .right .experience,
+.body .right .skill {
+  padding-left: 0;
+}
