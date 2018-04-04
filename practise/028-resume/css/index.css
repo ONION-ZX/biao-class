@@ -84,13 +84,41 @@ html {
   text-align: center;
   color: #fff;
   background: rgb(50,17,105);
-  width: 25%;
-  line-height: 5rem;
+  height: 720px;
+  width: 23%;
+  font-size: 15px;
+}
+
+.body .left .inte {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+.body .left .edu {
+  padding-bottom: 10px;
+}
+
+.body .left .exp {
+  padding-top: 100px;
+}
+
+.body .left .ski {
+  padding-top: 250px;
+}
+
+.body .left .eval {
+  padding-top: 130px;
 }
 
 .body .right {
-  padding-left: 5px;
+  margin-top: 30px;
+  padding-left: 15px;
   width: 75%;
+}
+
+.body .right p {
+  margin: 0;
+  padding: 0;
 }
 
 .body .right .intention,
@@ -98,7 +126,17 @@ html {
 .body .right .experience,
 .body .right .skill,
 .body .right .evaluate {
+  padding: 20px;
   border-left: 1px solid rgb(50,17,105);
-  border-top: 1px solid rgb(50,17,105);
+  /* border-top: 1px solid rgb(50,17,105); */
   border-bottom: 1px solid rgb(50,17,105);
+}
+
+.body .right .intention {
+  border-top: 1px solid rgb(50,17,105);
+}
+
+.body .right .experience,
+.body .right .skill {
+  padding-left: 0;
 }
