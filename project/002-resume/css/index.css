@@ -28,7 +28,7 @@ html {
 .basic-info {
   padding-top: 10px;
   color: rgb(50, 17, 105);
-  padding-bottom: 50px;
+  padding-bottom: 20px;
   border-bottom: 1px solid rgb(50, 17, 105);
 }
 
@@ -60,14 +60,14 @@ html {
 }
 
 .basic-info .right {
-  height:150px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-image: url(../img/ava.jpg);
-  background-position: center;
+  height:130px;
   width: 30%;
-  position: relative;
-  top: 50px;
+}
+
+.basic-info .right img {
+  max-width: 60%;
+  border-radius: 50%;
+  margin-left: 30px;
 }
 
 .body {
@@ -128,13 +128,9 @@ html {
 .body .right .skill,
 .body .right .evaluate {
   padding: 20px;
-  border-left: 1px solid rgb(50,17,105);
+  /* border-left: 1px solid rgb(50,17,105); */
   /* border-top: 1px solid rgb(50,17,105); */
   border-bottom: 1px solid rgb(50,17,105);
-}
-
-.body .right .intention {
-  border-top: 1px solid rgb(50,17,105);
 }
 
 .body .right .experience,
