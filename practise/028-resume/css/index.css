@@ -71,6 +71,7 @@ html {
 }
 
 .body {
+  margin-bottom: 100px;
   border-top: 5px solid rgb(50,17,105);
 }
 
