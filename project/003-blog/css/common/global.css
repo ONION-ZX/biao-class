@@ -11,6 +11,12 @@
 
 a {
   text-decoration: none;
+  color: #c9bcc6;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #fff;
 }
 
 .row {
@@ -22,4 +28,8 @@ a {
   display: inline-block;
   font-size: 14px;
   vertical-align: top;
+}
+
+.right {
+  text-align: right;
 }
