@@ -78,7 +78,7 @@
   padding: 10px;
   display: block;
   padding-bottom: 25px;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 
 .btn img {
@@ -94,4 +94,31 @@
 .btn .pointer {
   left: 520px;
   top: 20px;
+}
+
+.content {
+  padding-top: 15px;
+  border-top: 1px dashed #d96969;
+  background: #eac9c9;
+}
+
+.content .cat {
+  display: block;
+  font-size: 30px;
+  color: #d96969;
+}
+
+.content .left,
+.content .right {
+  padding: 15px;
+  display: inline-block;
+  width: 50%;
+}
+
+.content .right {
+  text-align: left;
+}
+
+.content .left img {
+  max-width: 100%;
 }
