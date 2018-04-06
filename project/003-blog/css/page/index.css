@@ -1,11 +1,16 @@
 .first-screen {
-  padding-top: 30px;
+  padding-top: 10px;
+}
+
+.first-screen .name img {
+  display: inline-block;
+  margin-left: 300px;
 }
 
 .first-screen .main .col {
   display: inline-block;
   width: 33.333333%;
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .first-screen .main a {
@@ -13,11 +18,18 @@
   display: block;
 }
 
+.first-screen .main .code,
+.first-screen .main .music,
 .first-screen .main .book,
 .first-screen .main .film,
 .first-screen .main .vintage,
 .first-screen .main .outfit {
   position: relative;
+}
+
+.first-screen .main .code,
+.first-screen .main .music {
+  top:30px;
 }
 
 .first-screen .main .book {
@@ -55,4 +67,23 @@
 .first-screen .main .ava img {
   max-width: 100%;
   border-radius: 50%;
+}
+
+.btn {
+  display: block;
+  padding-bottom: 15px;
+  margin-top: 50px;
+}
+
+.btn img:hover {
+  border: 3px solid  #999;
+}
+
+.btn img {
+  padding: 10px;
+  border-radius: 50%;
+  border: 3px solid  #9d1f1f;
+  display: inline-block;
+  position: relative;
+  left: 340px;
 }
