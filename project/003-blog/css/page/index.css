@@ -70,8 +70,9 @@
 }
 
 .btn {
+  padding: 10px;
   display: block;
-  padding-bottom: 15px;
+  padding-bottom: 25px;
   margin-top: 50px;
 }
 
@@ -80,7 +81,7 @@
 }
 
 .btn img {
-  padding: 10px;
+
   border-radius: 50%;
   border: 3px solid  #9d1f1f;
   display: inline-block;
