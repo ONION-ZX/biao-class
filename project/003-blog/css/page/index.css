@@ -1,5 +1,10 @@
 .first-screen {
   padding-top: 10px;
+  background: #eac9c9;
+}
+
+.first-screen a {
+  color: #d96969;
 }
 
 .first-screen .name img {
@@ -76,15 +81,17 @@
   margin-top: 50px;
 }
 
-.btn img:hover {
-  border: 3px solid  #999;
+.btn img {
+  position: relative;
+  display: block;
+  position: relative;
 }
 
-.btn img {
+.btn .view {
+  left: 289px;
+}
 
-  border-radius: 50%;
-  border: 3px solid  #9d1f1f;
-  display: inline-block;
-  position: relative;
-  left: 340px;
+.btn .pointer {
+  left: 520px;
+  top: 20px;
 }

@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: sans-serif;
+}
+
 .container {
   max-width: 1100px;
   margin-left: auto;
