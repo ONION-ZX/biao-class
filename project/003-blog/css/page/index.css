@@ -1,0 +1,58 @@
+.first-screen {
+  padding-top: 30px;
+}
+
+.first-screen .main .col {
+  display: inline-block;
+  width: 33.333333%;
+  padding-top: 50px;
+}
+
+.first-screen .main a {
+  font-size: 30px;
+  display: block;
+}
+
+.first-screen .main .book,
+.first-screen .main .film,
+.first-screen .main .vintage,
+.first-screen .main .outfit {
+  position: relative;
+}
+
+.first-screen .main .book {
+  top: 137px;
+  right: 60px;
+}
+
+.first-screen .main .film {
+  top: 252px;
+  right: -25px;
+}
+
+.first-screen .main .vintage {
+  top: 137px;
+  left: 60px;
+}
+
+.first-screen .main .outfit {
+  top: 252px;
+  left: -25px;
+}
+
+.first-screen .main a:hover {
+  color: #9d1f1f;
+}
+
+.first-screen .main .left a {
+  text-align: right;
+}
+
+.first-screen .main .right a {
+  text-align: left;
+}
+
+.first-screen .main .ava img {
+  max-width: 100%;
+  border-radius: 50%;
+}
