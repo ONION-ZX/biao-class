@@ -17,7 +17,17 @@
 }
 
 .nav-article .search-area {
-  padding-left: 155px;
+  font-size: 0;
+  padding-left: 95px;
+}
+
+.nav-article .search-area .search,
+.nav-article .search-area button {
+  padding: 5px;
+  font-size: 15px;
+  display: inline-block;
+  margin: 0;
+  /* width: 50%; */
 }
 
 .article {
