@@ -102,10 +102,16 @@
   background: #eac9c9;
 }
 
-.content .cat {
-  display: block;
+.content .title a {
+  width: 50%;
+  display: inline-block;
   font-size: 30px;
   color: #d96969;
+}
+
+.content .title .more {
+  text-align: right;
+  font-size: 18px;
 }
 
 .content .left,
@@ -115,10 +121,98 @@
   width: 50%;
 }
 
-.content .right {
+.content .body .right {
   text-align: left;
 }
 
 .content .left img {
   max-width: 100%;
+}
+
+.content .right {
+  color: #898187;
+}
+
+.content .right .full {
+  padding: 10px;
+  margin-top: 50px;
+  border-radius: 50%;
+  border: 1px solid #9d1f1f;
+  color: #898187;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+}
+
+.content button {
+  position: relative;
+  left: 494px;
+  border: 1px solid #898187;
+  background: #eac9c9;
+  padding: 15px;
+  border-radius: 30%;
+  color: #d96969;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.content button:hover {
+  background: #fff;
+}
+
+.contact {
+  border-top: 1px dashed #d96969;
+  /* padding-left: 20px; */
+  /* padding-top: 150px; */
+  height: 600px;
+  background: #eac9c9;
+}
+
+.contact .main,
+.contact .way {
+  padding-top: 100px;
+  height: 599px;
+  display: inline-block;
+}
+
+.contact .main,
+.contact .way:hover {
+  background: #f8c3c3;
+}
+
+.contact .main {
+  color: #746370;
+  padding-left: 20px;
+  background: #eac9c9;
+  width: 30%;
+}
+
+.contact .main .slogan {
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 300px;
+}
+
+.contact .main .others a {
+  text-decoration: underline;
+  padding: 15px;
+  display: block;
+  font-size: 18px;
+  color: #746370;
+}
+
+.contact .way {
+  color: #746370;
+  padding-left: 15px;
+  width: 20%;
+}
+
+.contact .mail {
+  /* border-radius: 10%; */
+  background: #e7bcbc;
+}
+
+.contact .way .row {
+  margin-bottom: 20px;
+  font-size: 18px;
 }
