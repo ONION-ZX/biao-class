@@ -1,0 +1,32 @@
+.nav-article {
+  padding: 20px;
+  background: #9d1f1f;
+}
+
+.nav-article a {
+  font-size: 18px;
+}
+
+.nav-article > div {
+  display: inline-block;
+  width: 33.33333%;
+}
+
+.nav-article .cat a {
+  padding: 10px;
+}
+
+.nav-article .search-area {
+  padding-left: 155px;
+}
+
+.article {
+  background: #eac9c9;
+  text-align: center;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.article p {
+  text-align: left;
+}
