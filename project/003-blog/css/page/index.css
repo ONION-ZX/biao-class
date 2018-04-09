@@ -100,6 +100,7 @@
   padding-top: 15px;
   border-top: 1px dashed #d96969;
   background: #eac9c9;
+  padding-bottom: 30px;
 }
 
 .content .title a {
@@ -144,19 +145,18 @@
   text-align: center;
 }
 
-.content button {
+.content .more-bottom {
   position: relative;
   left: 494px;
   border: 1px solid #898187;
   background: #eac9c9;
-  padding: 15px;
+  padding: 10px;
   border-radius: 30%;
   color: #d96969;
   font-size: 30px;
-  margin-bottom: 30px;
 }
 
-.content button:hover {
+.content .more-bottom:hover {
   background: #fff;
 }
 
