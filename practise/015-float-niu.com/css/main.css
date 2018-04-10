@@ -1,0 +1,14 @@
+body {
+  background: #eee;
+}
+
+.head {
+  background: url(../img/slider-01.jpg);
+  background-position: center top;
+  background-size: cover;
+  min-height: 500px;
+}
+
+.nav {
+  background: #fff;
+}

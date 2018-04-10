@@ -60,8 +60,9 @@ var a = {
     'a','b',{v:666}
   ]
 }
-
 console.log(a.a1[2].v);
+
+// console.log(a.a1[2].v);
 
 var b = [
   1, 3, 'a', {
@@ -74,8 +75,9 @@ var b = [
     }
   }
 ]
-
 console.log(b[3].b2.c[0].z);
+
+// console.log(b[3].b2.c[0].z);
 
 var c = {
   a: {
@@ -93,6 +95,8 @@ var c = {
 
 console.log(c.a.d.p.yo[2]);
 
+// console.log(c.a.d.p.yo[2]);
+
 var d = [
   [1, 3, 'abc'],
   [
@@ -102,6 +106,8 @@ var d = [
 ]
 
 console.log(d[1][1].v[2].z);
+
+// console.log(d[1][1].v[2].z);
 
 var e = {
   a: [3, {
@@ -113,6 +119,8 @@ var e = {
 }
 
 console.log(e.a[1].v[2].p);
+
+// console.log(e.a[1].v[2].p);
 
 // // ==== Number
 // // 1;
@@ -180,56 +188,6 @@ console.log(e.a[1].v[2].p);
 // console.log(person.pet.name);
 // console.log(person.balance);
 
-var a = {
-  a1: [
-    'a', 'b', { v: 666 }
-  ]
-}
-
-console.log(a.a1[2].v);
-
-var b = [
-  1, 3, 'a', {
-    b2: {
-      a: 1,
-      v: 7,
-      c: [{
-        z: 666
-      }]
-    }
-  }
-]
-
-var c = {
-  a: {
-    u: 1,
-    d: {
-      o: {
-        z: { 1: 2, y: [1, 2] }
-      },
-      p: {
-        yo: [3, 5, 666]
-      }
-    }
-  }
-}
-
-var d = [
-  [1, 3, 'abc'],
-  [
-    'muhaha',
-    { d: 1, v: ['a', 'b', { z: 666 }] }
-  ]
-]
-
-var e = {
-  a: [3, {
-    b: 1,
-    v: [1, 3, {
-      p: 666
-    }]
-  }, 9]
-}
 
 // ====================
 
@@ -242,6 +200,9 @@ var person = {
 
 var a = '我叫' + person.name + ',' + '我今年' + person.age + '岁了';
 console.log(a);
+
+// var a = '我叫' + person.name + ',' + '我今年' + person.age + '岁了';
+// console.log(a);
 
 /* 打印出“我叫李拴蛋，我老婆叫王花花，今年18岁了” */
 
@@ -256,6 +217,9 @@ console.log(a);
 var b = '我叫' + person.name + ',' + '我老婆叫' + person.wife.name + ',' + '今年' + person.wife.age + '岁了';
 console.log(b);
 
+// var b = '我叫' + person.name + ',' + '我老婆叫' + person.wife.name + ',' + '今年' + person.wife.age + '岁了';
+// console.log(b);
+
 /* 打印出“我叫李拴蛋，我老婆一共有200块” */
 
  person = {
@@ -267,9 +231,14 @@ console.log(b);
     balance: 1200
   },
 }
+
 var interest = person.wife.balance - person.wife.huabei;
 var c = '我叫' + person.name + ',' + '我老婆一共有' + interest + '块';
 console.log(c);
+
+// var interest = person.wife.balance - person.wife.huabei;
+// var c = '我叫' + person.name + ',' + '我老婆一共有' + interest + '块';
+// console.log(c);
 
 /* 打印出“我叫李拴蛋，我丈人有3个朋友” */
 
@@ -285,6 +254,9 @@ console.log(c);
 
 var e = '我叫' + person.name + ',' + '我丈人有' + person.wife.dad.friends.length + '个朋友';
 console.log(e);
+
+// var e = '我叫' + person.name + ',' + '我丈人有' + person.wife.dad.friends.length + '个朋友';
+// console.log(e);
 
 /* 打印出“我叫李拴蛋，我丈人的第一个朋友叫王一，第三个朋友叫李三” */
 
@@ -313,6 +285,9 @@ console.log(e);
 var f = '我叫' + person.name + ',' + '我丈人的第一个朋友叫' + person.wife.dad.friends[0].name + ',' + '第三个朋友叫' + person.wife.dad.friends[2].name;
 console.log(f);
 
+// var f = '我叫' + person.name + ',' + '我丈人的第一个朋友叫' + person.wife.dad.friends[0].name + ',' + '第三个朋友叫' + person.wife.dad.friends[2].name;
+// console.log(f);
+
 /* 打印出“我叫李拴蛋，我丈人朋友们的孩子们的平均分是85.888888888” */
 
  person = {
@@ -336,9 +311,19 @@ console.log(f);
     }
   },
 }
-var total = person.wife.dad.friends[0].averageScore + person.wife.dad.friends[1].averageScore*3 + person.wife.dad.friends[2].averageScore*5;
-// console.log(total);
-var average = total / 9;
-// console.log(average);
-var e = '我叫' + person.name + ',' + '我丈人朋友们的孩子们的平均分是' + average;
-console.log(e);
+
+var total = person.wife.dad.friends[0].averageScore * person.wife.dad.friends[0].children + person.wife.dad.friends[1].averageScore * person.wife.dad.friends[1].children + person.wife.dad.friends[2].averageScore * person.wife.dad.friends[2].children;
+
+var num = person.wife.dad.friends[0].children + person.wife.dad.friends[1].children + person.wife.dad.friends[2].children;
+
+var ava = total / num;
+var g = '我叫' + person.name + ',' +'我丈人朋友们的孩子们的平均分是' + ava;
+console.log(g);
+
+
+// var total = person.wife.dad.friends[0].averageScore + person.wife.dad.friends[1].averageScore*3 + person.wife.dad.friends[2].averageScore*5;
+// // console.log(total);
+// var average = total / 9;
+// // console.log(average);
+// var e = '我叫' + person.name + ',' + '我丈人朋友们的孩子们的平均分是' + average;
+// console.log(e);

@@ -1,0 +1,16 @@
+<meta charset="utf-8">
+<input type="text" id="name" placeholder="姓名">
+<script>
+  var nameElement = document.querySelector('#name');
+  nameElement.addEventListener('change',function() {
+    var name = nameElement.value.trim();
+    switch (name) {
+      case '王花花':
+        console.log('你好王花花');
+        break;
+      default:
+        console.log('不约');
+
+    }
+  })
+</script>
