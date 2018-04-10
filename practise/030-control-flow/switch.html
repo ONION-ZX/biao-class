@@ -2,15 +2,23 @@
 <input type="text" id="name" placeholder="姓名">
 <script>
   var nameElement = document.querySelector('#name');
-  nameElement.addEventListener('change',function() {
+  nameElement.addEventListener('change',function () {
     var name = nameElement.value.trim();
-    switch (name) {
+
+    switch(name) {
       case '王花花':
         console.log('你好王花花');
         break;
+      case '李栓蛋':
+        console.log('mmp');
+      case '刘贝贝':
+        console.log('还我钱');
+        break;
+      case '赵可爽':
+        console.log('你好吗');
+        break;
       default:
-        console.log('不约');
-
+        console.log('不约!');
     }
   })
 </script>

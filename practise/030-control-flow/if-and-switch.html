@@ -1,0 +1,22 @@
+<meta charset="utf-8">
+<input type="text" id="name" placeholder="姓名">
+<input type="text" id="age" placeholder="年龄">
+<input type="text" id="phone" placeholder="手机号">
+
+<script>
+  var phone = '18999999999';
+  var name = 'whh';
+  var age = 29;
+
+  if(!phone) {
+    console.log('号码为必填项')
+  } else if(
+    !phone.startsWith('1') ||
+    phone.length != 11 ||
+    !parseInt(phone)
+  ) {
+    console.log('号码格式有误');
+  } else {
+    console.log('yo');
+  }
+</script>
