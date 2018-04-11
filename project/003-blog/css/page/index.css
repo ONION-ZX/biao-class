@@ -1,6 +1,7 @@
 .first-screen {
   padding-top: 10px;
   background: #eac9c9;
+  overflow: hidden;
 }
 
 .first-screen a {
