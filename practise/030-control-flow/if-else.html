@@ -13,30 +13,30 @@
 var ageElement = document.querySelector('#age');
 var nameElement = document.querySelector('#name');
 
-nameElement.addEventListener('change', function() {
-  var name = nameElement.value.trim();
-
-  if(!name) {
-    console.log('请输入姓名');
-  } else {
-    console.log(name + ',雷猴啊');
-  }
-})
-
-ageElement.addEventListener('change',function() {
-  var age = ageElement.value;
+ageElement.addEventListener('change', function() {
+  var age = ageElement.value.trim();
   age = parseInt(age);
 
-  if(!age && age!==0) {
-    console.log('年龄不能为空');
+  if(!age && age !== 0) {
+    console.log('年龄不能为空!');
   } else if(age < 1) {
     console.log('你逗我呢');
-  } else if (age == 18) {
+  } else if(age == 18) {
     console.log('刚成年');
   } else if(age > 18 && age < 40) {
     console.log('青年');
   } else {
     console.log('Yo');
+  }
+});
+
+nameElement.addEventListener('change', function() {
+  var name = nameElement.value.trim();
+
+  if(!name) {
+    console.log('姓名不能为空!');
+  } else {
+    console.log(name + ',雷猴啊');
   }
 })
 </script>

@@ -4,19 +4,50 @@
 <input type="text" id="phone" placeholder="手机号">
 
 <script>
-  var phone = '18999999999';
-  var name = 'whh';
-  var age = 29;
+var nameElement = document.querySelector('#name');
+var ageElement = document.querySelector('#age');
+var phoneElement = document.querySelector('#phone');
 
+nameElement.addEventListener('change', function() {
+  var name = nameElement.value.trim();
+
+  if(!name) {
+    console.log('姓名不能为空!');
+  } else if(isNaN(name) == false) {
+    console.log('姓名格式有误!')
+  } else {
+    console.log(name + ',雷猴啊');
+  }
+});
+
+ageElement.addEventListener('change',function() {
+  var age = ageElement.value.trim();
+  if(!age && age !==0) {
+    console.log('年龄不能为空');
+  } else if(age < 1) {
+    console.log('你逗我呢');
+  } else if(age == 18) {
+    console.log('刚成年');
+  } else if(age > 18 && age < 40) {
+    console.log('青年');
+  } else {
+    console.log('Yo');
+  }
+});
+
+phoneElement.addEventListener('change',function() {
+  var phone = phoneElement.value.trim();
   if(!phone) {
-    console.log('号码为必填项')
+    console.log('号码为必填项');
   } else if(
     !phone.startsWith('1') ||
     phone.length != 11 ||
     !parseInt(phone)
   ) {
     console.log('号码格式有误');
-  } else {
-    console.log('yo');
   }
+  else {
+    console.log('Yo');
+  }
+})
 </script>

@@ -1,19 +1,51 @@
-<style>
-  #box {
-    background: rgba(255,0,0,.5);
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top:10px;
-    left: 20px;
-  }
+<meta charset="utf-8">
+<input type="text" id="name" placeholder="姓名">
+<input type="text" id="age" placeholder="年龄">
+<input type="text" id="phone" placeholder="电话号码">
 
-  #parent {
-    background: rgba(0,0,255,.3);
-    width: 300px;
-    height: 1000px;
-    position: relative;
-    top: 20px;
-    left: 50px;
-  }
-</style>
+<script>
+  var nameElement = document.querySelector('#name');
+  var ageElement = document.querySelector('#age');
+  var phoneElement = document.querySelector('#phone');
+
+  nameElement.addEventListener('change',function () {
+    var name = nameElement.value.trim();
+    if(!name) {
+      console.log('姓名为必填项！');
+    } else if(isNaN(name) == false ) {
+      console.log('姓名格式有误!')
+    } else {
+      console.log(name + ',雷猴阿!')
+    }
+  });
+
+  ageElement.addEventListener('change',function () {
+    var age = ageElement.value.trim();
+    if(!age && age !==0) {
+      console.log('年龄为必填项!');
+    } else if(age < 1) {
+      console.log('你逗我呢?');
+    } else if (age == 18) {
+      console.log('刚成年');
+    } else if(age > 18 && age < 40) {
+      console.log('青年');
+    } else {
+      console.log('Yo');
+    }
+  });
+
+  phoneElement.addEventListener('change',function() {
+    var phone = phoneElement.value.trim();
+    if(!phone) {
+      console.log('电话号码为必填项!')
+    } else if(
+      phone.length != 11 ||
+      phone.startsWith != 1 ||
+      !parseInt(phone)
+    ) {
+      console.log('电话号码格式有误!')
+    } else {
+      console.log('Yo');
+    }
+  })
+</script>

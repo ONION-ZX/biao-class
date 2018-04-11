@@ -1,24 +1,23 @@
 <meta charset="utf-8">
 <input type="text" id="name" placeholder="姓名">
 <script>
-  var nameElement = document.querySelector('#name');
-  nameElement.addEventListener('change',function () {
-    var name = nameElement.value.trim();
-
-    switch(name) {
-      case '王花花':
-        console.log('你好王花花');
-        break;
-      case '李栓蛋':
-        console.log('mmp');
-      case '刘贝贝':
-        console.log('还我钱');
-        break;
-      case '赵可爽':
-        console.log('你好吗');
-        break;
-      default:
-        console.log('不约!');
-    }
-  })
+var nameElement = document.querySelector('#name');
+nameElement.addEventListener('change', function() {
+  var name = nameElement.value.trim();
+  switch (name) {
+    case '王花花':
+      console.log('你好王花花');
+      break;
+    case '李栓蛋':
+      console.log('你好李栓蛋');
+      break;
+    case '大师兄':
+      console.log('二师弟!');
+    case 'onion':
+      console.log('大师兄!');
+      break;
+    default:
+      console.log('不约!');
+  }
+})
 </script>
