@@ -156,4 +156,24 @@
   var result = divideBy2(999);
   console.log(result);
 
+  function baseConverter(decNumber, base) {
+    var remStack = new Stack(),
+        rem,
+        binaryString = '',
+        digits = '0123456789ABCDEF';
+
+      while(decNumber > 0){
+        rem = Math.floor(decNumber % base);//获得结果
+        remStack.push(rem);//放入栈中
+        decNumber = Math.floor(decNumber / base);
+      }
+
+      while (!remStack.isEmpty()) {
+         binaryString += remStack.pop().toString();
+      }
+      return binaryString;
+  }
+  var oct = baseConverter(16,8);
+  console.log(oct);
+
 </script>
