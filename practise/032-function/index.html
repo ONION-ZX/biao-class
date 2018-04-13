@@ -156,10 +156,11 @@
   var result = divideBy2(999);
   console.log(result);
 
+//修改算法使得适用于十进制转换为任何进制
   function baseConverter(decNumber, base) {
     var remStack = new Stack(),
         rem,
-        binaryString = '',
+        baseString = '',
         digits = '0123456789ABCDEF';
 
       while(decNumber > 0){
@@ -169,9 +170,9 @@
       }
 
       while (!remStack.isEmpty()) {
-         binaryString += remStack.pop().toString();
+         baseString += digits[remStack.pop()];
       }
-      return binaryString;
+      return baseString;
   }
   var oct = baseConverter(16,8);
   console.log(oct);
