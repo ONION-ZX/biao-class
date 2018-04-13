@@ -1,0 +1,327 @@
+<script>
+;(function () {
+  'use strict';
+
+  function wake(fir,sec,last) {
+    console.log('起床啦!');
+    if(fir)
+      fir();
+
+    console.log('洗漱完啦!');
+    if(sec)
+      sec();
+
+    console.log('换衣服啦');
+    if(last)
+      last();
+  }
+
+  function makeup() {
+    console.log('去洗漱...');
+  }
+
+  wake(makeup,
+      function() {
+        console.log('化妆中..');
+      },
+      function() {
+        console.log('出门啦!');
+      }
+  );
+
+  // function buy(money,success,fail) {
+  //   if(money) {
+  //     console.log('下单成功!')
+  //     if(success)
+  //       success();
+  //   } else {
+  //     console.log('下单失败!')
+  //     if(fail)
+  //       fail();
+  //   }
+  // }
+  //
+  // function tSuccess() {
+  //   console.log('实体订单');
+  //   console.log('通知仓库发货中');
+  //   console.log('已发货!');
+  // }
+  //
+  // function gameSuccess() {
+  //   console.log('虚拟货品 无需发货!');
+  // }
+  //
+  // function fail() {
+  //   console.log('钱呢钱呢钱呢???????');
+  // }
+  //
+  // buy(100,gameSuccess,fail);
+  // buy(0,gameSuccess,fail);
+  // buy(10,tSuccess,fail);
+  // buy(0,tSuccess,fail);
+
+  // function sit(soft,hard) {
+  //   if(soft)
+  //     soft();
+  //   console.log('真滴舒服!');
+  //   if(hard)
+  //     hard();
+  //   console.log('难受!');
+  // }
+  //
+  // function soft() {
+  //   console.log('沙发软座!');
+  // }
+  //
+  // function hard() {
+  //   console.log('冷板凳!');
+  // }
+  //
+  // sit(soft,hard);
+
+//   function eat(rice,noodles) {
+//     if(rice)
+//       rice();
+//       console.log('吃饭咯');
+//
+//     if(noodles)
+//       noodles();
+//     console.log('吃面条咯');
+//     console.log('吃面条咯');
+//   }
+//
+//   function rice() {
+//     console.log('米饭真好吃!');
+//   }
+//
+//   function noodles() {
+//     console.log('面条真好吃!');
+//   }
+//
+// eat(rice,noodles);//传函数本身而不是结果
+
+  // 睡觉
+  // @param Function before 睡觉前要做的事情
+  // function sleep(before) {
+  //   if(before)
+  //     before();
+  //
+  //   console.log('睡觉咯');
+  // }
+  //
+  // function brush() {
+  //   console.log('牙牙乐');
+  // }
+  //
+  // sleep(brush);
+
+  // function buy(money,success,fail) {
+  //   if(money) {
+  //     console.log('下单成功')
+  //     if(success)
+  //       success();
+  //   } else {
+  //     console.log('下单失败!');
+  //     if(fail);
+  //       fail();
+  //   }
+  // }
+  //
+  // function game_success() {
+  //   console.log('游戏单 无需发货');
+  // }
+  //
+  // function t_success() {
+  //   console.log('服饰单');
+  //   console.log('通知仓库中...');
+  //   console.log('发货中...');
+  // }
+  //
+  // function fail() {
+  //   console.log('钱呢???????');
+  // }
+  //
+  // buy(0,t_success,fail);
+  // buy(10,game_success,fail);
+  // buy(10,t_success,fail);
+  // buy(0,game_success,fail);
+
+//   function buy(money,success,fail) {
+//     if(money) {
+//       console.log('下单成功!');
+//       if(success)
+//         success();
+//     } else {
+//       console.log('下单失败!')
+//       if(fail)
+//         fail();
+//     }
+// }
+//     function game_success() {
+//       console.log('游戏单 无需实体发货');
+//     }
+//
+//     function t_success() {
+//       console.log('服饰单');
+//       console.log('通知仓库中..');
+//       console.log('发货中...');
+//     }
+//
+//     function fail() {
+//       console.log('钱呢???????');
+//     }
+//
+//   buy(0,t_success,fail);
+//   buy(100,t_success,fail);
+//   buy(200,game_success,fail);
+//   buy(0,game_success,fail);
+
+//   function buy(money,success,fail) {
+//     if(money) {
+//       console.log('下单成功!');
+//       if(success)
+//       success();
+//     } else {
+//       console.log('下单失败!');
+//       if(fail)
+//       fail();
+//     }
+// }
+//     function game_success () {
+//       console.log('游戏单,无需实体发货');
+//     }
+//
+//     function t_success() {
+//       console.log('服饰单');
+//       console.log('通知仓库中...');
+//       console.log('发货中...');
+//     }
+//
+//     function order_fail() {
+//       console.log('钱呢???????');
+//     }
+//     buy(100,game_success,order_fail);
+//     buy(20,t_success,order_fail);
+//     buy(0,game_success,order_fail);
+
+  // 购买
+  // @param Number money 付了多少钱
+  // @param Function success 当成功时执行的自定义代码
+  // @param Function fail 当失败时执行的自定义代码
+//   function buy(money,success,fail) {
+//     if(money) {
+//       console.log('下单成功!');
+//       if(success)
+//         success();
+//     } else {
+//       console.log('下单失败!');
+//       if(fail)
+//         fail();
+//     }
+//   }
+//
+// // 当购买游戏(虚拟产品之一)成功时执行的代码
+// function on_game_order_success() {
+//   console.log('游戏单,无需实体发货');
+// }
+//
+// // 当购买T恤(实体产品之一)成功时执行的代码
+// function on_tshirt_order_success() {
+//   console.log('服饰单');
+//   console.log('通知仓库中...');
+//   console.log('已通知仓库,发货中...')
+// }
+//
+// // 下单失败(未付款)时执行的代码
+// function on_order_fail() {
+//   console.log('钱呢');
+// }
+//
+// buy(100,on_game_order_success);
+// buy(0,on_tshirt_order_success,on_order_fail);
+
+//   function make_meal(attach,eat_raw,pref) {
+//     console.log('====');
+//
+//     console.log('买菜');
+//     if(attach)
+//       attach();
+//
+//     console.log('洗菜');
+//     if(eat_raw)
+//       eat_raw();
+//
+//     console.log('炒菜');
+//     if(pref)
+//       pref();
+//   }
+// function buy_pen() {
+//   console.log('捎只笔');
+// }
+//
+// make_meal(buy_pen,
+//   function() {
+//     console.log('给我个西红柿!')
+//   },
+//   function() {
+//     console.log('少放盐!')
+//   }
+// );
+  // function make_meal(attach,eat_raw,pref) {
+  //   console.log('======');
+  //
+  //   console.log('买菜');
+  //   if(attach)
+  //     attach();
+  //
+  //   console.log('洗菜');
+  //    if(eat_raw)
+  //      eat_raw();
+  //
+  //   console.log('炒菜');
+  //     if(pref);
+  //     pref();
+  // }
+  //
+  // function buy_pen() {
+  //   console.log('捎纸笔');
+  // }
+  //
+  // make_meal(buy_pen,
+  // function() {
+  //   console.log('给我个西红柿');
+  // },
+  // function() {
+  //   console.log('少放盐!')
+  // }
+  // )
+
+  // function make_meal(attach,eat_raw,pref) {
+  //   console.log('买菜');
+  //   if(attach)
+  //     attach();
+  //
+  //   console.log('洗菜');
+  //   if(eat_raw)
+  //     eat_raw();
+  //
+  //   console.log('炒菜');
+  //   if(pref)
+  //     pref();
+  // }
+  //
+  // function buy_pen() {
+  //   console.log('捎只笔');
+  // }
+  //
+  // make_meal(buy_pen,
+  //   function() {
+  //     console.log('给我个西红柿');
+  //   },
+  //   function() {
+  //     console.log('少放盐')
+  //   }
+  // );
+
+})();
+</script>
