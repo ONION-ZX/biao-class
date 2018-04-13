@@ -161,6 +161,9 @@
     var remStack = new Stack(),
         rem,
         baseString = '',
+        //十进制转换成二进制时余数为0或1
+        //十进制转换成八进制时余数为0到8
+        //十进制转换成16进制时余数为0到8和A-F(对应10-15)
         digits = '0123456789ABCDEF';
 
       while(decNumber > 0){
@@ -174,7 +177,7 @@
       }
       return baseString;
   }
-  var oct = baseConverter(16,8);
+  var oct = baseConverter(999,16);
   console.log(oct);
 
 </script>
