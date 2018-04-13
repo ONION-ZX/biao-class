@@ -30,11 +30,32 @@ function Stack() {
 
   // 清空栈
   this.clear = function() {
-    return items == [];
+    items = [];
   };
 
   this.print = function() {
     console.log(items.toString());
   };
-}
+};
+
+// 利用栈将十进制数转化为二进制
+
+function divideBy2(decNumber) {
+  var remStack = new Stack(),
+      rem,
+      binaryString = '';
+
+  while(decNumber > 0) {
+    rem = Math.floor(decNumber % 2);
+    remStack.push(rem);
+    decNumber = Math.floor(decNumber / 2);
+  };
+  while(!remStack.isEmpty()) {
+    binaryString += remStack.pop().toString();
+  };
+  return binaryString;
+};
+
+var result = divideBy2(200);
+console.log(result);
 </script>
