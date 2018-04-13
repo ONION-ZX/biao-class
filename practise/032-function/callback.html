@@ -2,32 +2,45 @@
 ;(function () {
   'use strict';
 
-  function wake(fir,sec,last) {
-    console.log('起床啦!');
-    if(fir)
-      fir();
+  // function sleep(before) {
+  //   if(before)
+  //     before();
+  //
+  //   console.log('睡觉咯');
+  // }
+  //
+  // function teeth() {
+  //   console.log('牙牙乐');
+  // }
+  //
+  // sleep(teeth);
 
-    console.log('洗漱完啦!');
-    if(sec)
-      sec();
-
-    console.log('换衣服啦');
-    if(last)
-      last();
-  }
-
-  function makeup() {
-    console.log('去洗漱...');
-  }
-
-  wake(makeup,
-      function() {
-        console.log('化妆中..');
-      },
-      function() {
-        console.log('出门啦!');
-      }
-  );
+  // function wake(fir,sec,last) {
+  //   console.log('起床啦!');
+  //   if(fir)
+  //     fir();
+  //
+  //   console.log('洗漱完啦!');
+  //   if(sec)
+  //     sec();
+  //
+  //   console.log('换衣服啦');
+  //   if(last)
+  //     last();
+  // }
+  //
+  // function makeup() {
+  //   console.log('去洗漱...');
+  // }
+  //
+  // wake(makeup,
+  //     function() {
+  //       console.log('化妆中..');
+  //     },
+  //     function() {
+  //       console.log('出门啦!');
+  //     }
+  // );
 
   // function buy(money,success,fail) {
   //   if(money) {
@@ -322,6 +335,37 @@
   //     console.log('少放盐')
   //   }
   // );
+  var product = {
+    price: 10,
+    type: 'Yo-100z'
+  }
+
+  function buy(money,success,fail) {
+    if(money > 0) {
+      console.log('支付成功短信发送中...');
+      success(product);
+    } else {
+      fail();
+    }
+  }
+
+  function on_game_order_success() {
+    console.log('激活码邮件发送中...');
+  }
+
+  function on_furniture_order_success(product) {
+    var msg = '正在生成通知短信:' +
+    '师傅你好，后天在南天门有个椅子要安装，家具型号[' + product.type + ']';
+
+    console.log(msg);
+    console.log('正在通知装配师傅...');
+  }
+
+  function on_tshirt_order_success() {
+    console.log('正在通知仓库发货...');
+  }
+
+  buy(100,on_furniture_order_success);
 
 })();
 </script>
