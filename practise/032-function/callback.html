@@ -2,6 +2,65 @@
 ;(function () {
   'use strict';
 
+//   var product = {
+//   price: 10,
+//   type: 'Yo-100z'
+// }
+// function buy(money, success, fail) {
+//   if (money > 0) {
+//     console.log('支付成功短信发送中...');
+//     success(product);
+//   } else {
+//     fail();
+//   }
+// }
+// function on_game_order_success() {
+//   console.log('激活码邮件发送中...');
+// }
+// function on_furniture_order_success(product) {
+//   var msg = '正在生成通知短信：' +
+//     '师傅你好，后天在南天门有个椅子要安装，家具型号[' +
+//     product.type +
+//     ']';
+//   console.log(msg);
+//   console.log('正在通知装配师傅...');
+// }
+// function on_tshirt_order_success() {
+//   console.log('正在通知仓库发货...');
+// }
+// // buy(100, on_game_order_success);
+// buy(100, on_furniture_order_success);
+
+  // var product = {
+  //   price: 10,
+  //   type: 'Yo-100z'
+  // }
+  //
+  // function buy(money,success,fail) {
+  //   if(money > 0) {
+  //     console.log('支付成功!短信发送中...');
+  //     success();
+  //   } else {
+  //     fail();
+  //   }
+  // }
+  //
+  // function gameSuccess() {
+  //   console.log('激活码邮件发送中...');
+  // }
+  //
+  // function furnitureSuccess(data) {
+  //   var msg = '正在生成通知短信:' + '师傅您好,后天在南天门有个椅子要安装，家具型号[' + data.type + ']';
+  //   console.log(msg);
+  //   console.log('正在通知装配师傅...');
+  // }
+  //
+  // function tSuccess() {
+  //   console.log('正在通知仓库发货...');
+  // }
+  //
+  // buy(100,furnitureSuccess);
+
   // function sleep(before) {
   //   if(before)
   //     before();
@@ -335,37 +394,71 @@
   //     console.log('少放盐')
   //   }
   // );
+
+
+  // var product = {
+  //   price: 10,
+  //   type: 'Yo-100z'
+  // }
+  //
+  // function buy(money,success,fail) {
+  //   if(money > 0) {
+  //     console.log('支付成功短信发送中...');
+  //     success(product);
+  //   } else {
+  //     fail();
+  //   }
+  // }
+  //
+  // function on_game_order_success() {
+  //   console.log('激活码邮件发送中...');
+  // }
+  //
+  // function on_furniture_order_success(data) {
+  //   var msg = '正在生成通知短信:' +
+  //   '师傅你好，后天在南天门有个椅子要安装，家具型号[' + data.type + ']';
+  //
+  //   console.log(msg);
+  //   console.log('正在通知装配师傅...');
+  // }
+  //
+  // function on_tshirt_order_success() {
+  //   console.log('正在通知仓库发货...');
+  // }
+  //
+  // buy(100,on_furniture_order_success);
+
   var product = {
     price: 10,
-    type: 'Yo-100z'
+    type:'Yo-10z'
   }
 
   function buy(money,success,fail) {
     if(money > 0) {
-      console.log('支付成功短信发送中...');
+      console.log('下单成功!');
       success(product);
     } else {
-      fail();
+      console.log('下单失败!');
     }
   }
 
-  function on_game_order_success() {
-    console.log('激活码邮件发送中...');
+  function gameSuccess() {
+    console.log('支付成功!短信发送中...');
   }
 
-  function on_furniture_order_success(product) {
-    var msg = '正在生成通知短信:' +
-    '师傅你好，后天在南天门有个椅子要安装，家具型号[' + product.type + ']';
-
+  function furnitureSuccess(data) {
+    var msg = '正在生成通知短信:师傅你好,后天在南天门有个椅子要安装,家具型号: [' + data.type + ']';
     console.log(msg);
     console.log('正在通知装配师傅...');
   }
 
-  function on_tshirt_order_success() {
-    console.log('正在通知仓库发货...');
+  function fail() {
+    console.log('钱呢?')
   }
 
-  buy(100,on_furniture_order_success);
-
+  buy(100,furnitureSuccess,fail);
+  buy(10,gameSuccess,fail);
+  buy(0,furnitureSuccess,fail);
+  buy(0,gameSuccess,fail);
 })();
 </script>
