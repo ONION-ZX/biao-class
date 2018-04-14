@@ -2,6 +2,57 @@
 ;(function () {
   'use strict';
 
+  var dress = {
+    cat: dress,
+    price: 1000,
+    color: blue,
+    style: cold
+  }
+
+  var tshirt = {
+    cat: tshirt,
+    price: 500,
+    color: white,
+    style: simple
+  }
+
+  var coat = {
+    cat: coat,
+    price: 1200,
+    color: black,
+    style: warm
+  }
+
+  function outfit(money,choice,comment,decide,fail) {
+    if(money>0) {
+      console.log('买点啥呢?')
+        choice(fir,sec,third);
+        comment(fir,sec,third);
+        decide();
+    } else {
+      console.log('别买了!')
+        fail();
+    }
+  }
+
+  function choice(fir,sec,third) {
+    var msg = '你说我是买' + fir.cat + '还是买' + sec.cat + '还是买' + third.cat + '呢?';
+    cosole.log(msg);
+  }
+
+  function comment(fir,sec,third) {
+    console.log('你买'+ fir.cat +'吧!');
+  }
+
+  function decide() {
+    console.log('那我买啦!');
+  }
+
+  function fail() {
+    console.log('没钱别买啦!');
+  }
+outfit(100,choice,comment,decide);
+
 //   var product = {
 //   price: 10,
 //   type: 'Yo-100z'
@@ -428,37 +479,37 @@
   //
   // buy(100,on_furniture_order_success);
 
-  var product = {
-    price: 10,
-    type:'Yo-10z'
-  }
-
-  function buy(money,success,fail) {
-    if(money > 0) {
-      console.log('下单成功!');
-      success(product);
-    } else {
-      console.log('下单失败!');
-    }
-  }
-
-  function gameSuccess() {
-    console.log('支付成功!短信发送中...');
-  }
-
-  function furnitureSuccess(data) {
-    var msg = '正在生成通知短信:师傅你好,后天在南天门有个椅子要安装,家具型号: [' + data.type + ']';
-    console.log(msg);
-    console.log('正在通知装配师傅...');
-  }
-
-  function fail() {
-    console.log('钱呢?')
-  }
-
-  buy(100,furnitureSuccess,fail);
-  buy(10,gameSuccess,fail);
-  buy(0,furnitureSuccess,fail);
-  buy(0,gameSuccess,fail);
+  // var product = {
+  //   price: 10,
+  //   type:'Yo-10z'
+  // }
+  //
+  // function buy(money,success,fail) {
+  //   if(money > 0) {
+  //     console.log('下单成功!');
+  //     success(product);
+  //   } else {
+  //     console.log('下单失败!');
+  //   }
+  // }
+  //
+  // function gameSuccess() {
+  //   console.log('支付成功!短信发送中...');
+  // }
+  //
+  // function furnitureSuccess(data) {
+  //   var msg = '正在生成通知短信:师傅你好,后天在南天门有个椅子要安装,家具型号: [' + data.type + ']';
+  //   console.log(msg);
+  //   console.log('正在通知装配师傅...');
+  // }
+  //
+  // function fail() {
+  //   console.log('钱呢?')
+  // }
+  //
+  // buy(100,furnitureSuccess,fail);
+  // buy(10,gameSuccess,fail);
+  // buy(0,furnitureSuccess,fail);
+  // buy(0,gameSuccess,fail);
 })();
 </script>
