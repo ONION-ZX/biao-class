@@ -5,54 +5,92 @@
   var dress = {
     cat: 'dress',
     price: 1000,
-    color: 'blue',
     style: 'cold',
+    color: 'blue',
   }
 
   var tshirt = {
     cat: 'tshirt',
     price: 500,
-    color: 'white',
     style: 'simple',
+    color: 'white',
   }
 
   var coat = {
-    cat: 'coat',
+    cat:'coat',
     price: 1200,
-    color: 'black',
     style: 'warm',
+    color: 'black',
   }
 
-  function outfit(money,fir,sec,third,fail) {
+  function outfit(money,fir,fail) {
     if(money > 0) {
       console.log('买点啥呢?');
       fir(dress,tshirt,coat);
-      sec(dress,tshirt,coat);
-      third(dress,tshirt,coat);
     } else {
+      console.log('别买了');
       fail();
-      console.log('没钱别买了!');
     }
   }
 
   function choice(a,b,c) {
-    var msg = '你说我是买' +  a.cat + '还是' + b.cat + '还是' + c.cat + '呢?';
+    var msg = '我喜欢' + a.color + '的' + a.cat + ',但是要' + a.price + '元!' + '我还是买' + b.cat + '或者' + c.cat + '吧!' + '它们分别只要' + b.price + '和' + c.price + '元!';
     console.log(msg);
   }
 
-  function comment(a,b,c) {
-    console.log('你买' + a.cat + '吧!');
-  }
+  outfit(100,choice);
 
-  function decide(a,b,c) {
-    console.log('那我买' + a.cat + '啦!');
-  }
-
-  function fail() {
-    console.log('没钱别买啦!');
-  }
-
-  outfit(100,choice,comment,decide,fail);
+  // var dress = {
+  //   cat: 'dress',
+  //   price: 1000,
+  //   color: 'blue',
+  //   style: 'cold',
+  // }
+  //
+  // var tshirt = {
+  //   cat: 'tshirt',
+  //   price: 500,
+  //   color: 'white',
+  //   style: 'simple',
+  // }
+  //
+  // var coat = {
+  //   cat: 'coat',
+  //   price: 1200,
+  //   color: 'black',
+  //   style: 'warm',
+  // }
+  //
+  // function outfit(money,fir,sec,third,fail) {
+  //   if(money > 0) {
+  //     console.log('买点啥呢?');
+  //     fir(dress,tshirt,coat);
+  //     sec(dress,tshirt,coat);
+  //     third(dress,tshirt,coat);
+  //   } else {
+  //     fail();
+  //     console.log('没钱别买了!');
+  //   }
+  // }
+  //
+  // function choice(a,b,c) {
+  //   var msg = '你说我是买' +  a.cat + '还是' + b.cat + '还是' + c.cat + '呢?';
+  //   console.log(msg);
+  // }
+  //
+  // function comment(a,b,c) {
+  //   console.log('你买' + a.cat + '吧!');
+  // }
+  //
+  // function decide(a,b,c) {
+  //   console.log('那我买' + a.cat + '啦!');
+  // }
+  //
+  // function fail() {
+  //   console.log('没钱别买啦!');
+  // }
+  //
+  // outfit(100,choice,comment,decide,fail);
 
 //   var dress = {
 //     cat: 'dress',
