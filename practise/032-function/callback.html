@@ -3,31 +3,31 @@
   'use strict';
 
   var dress = {
-    cat: dress,
+    cat: 'dress',
     price: 1000,
-    color: blue,
-    style: cold
+    color: 'blue',
+    style: 'cold',
   }
 
   var tshirt = {
-    cat: tshirt,
+    cat: 'tshirt',
     price: 500,
-    color: white,
-    style: simple
+    color: 'white',
+    style: 'simple',
   }
 
   var coat = {
-    cat: coat,
+    cat: 'coat',
     price: 1200,
-    color: black,
-    style: warm
+    color: 'black',
+    style: 'warm',
   }
 
   function outfit(money,choice,comment,decide,fail) {
     if(money>0) {
       console.log('买点啥呢?')
-        choice(fir,sec,third);
-        comment(fir,sec,third);
+        choice(dress,tshirt,coat);
+        comment(dress,tshirt,coat);
         decide();
     } else {
       console.log('别买了!')
@@ -35,13 +35,13 @@
     }
   }
 
-  function choice(fir,sec,third) {
-    var msg = '你说我是买' + fir.cat + '还是买' + sec.cat + '还是买' + third.cat + '呢?';
-    cosole.log(msg);
+  function choice(dress,tshirt,coat) {
+    var msg = '你说我是买' + dress.cat + '还是买' + tshirt.cat + '还是买' + coat.cat + '呢?';
+    console.log(msg);
   }
 
-  function comment(fir,sec,third) {
-    console.log('你买'+ fir.cat +'吧!');
+  function comment(dress,tshirt,coat) {
+    console.log('你买'+ dress.cat +'吧!');
   }
 
   function decide() {
@@ -57,10 +57,15 @@ outfit(100,choice,comment,decide);
 //   price: 10,
 //   type: 'Yo-100z'
 // }
+//
+//   var time = {
+//     date:'3月28日',
+//     clo: '3.30pm',
+//   }
 // function buy(money, success, fail) {
 //   if (money > 0) {
 //     console.log('支付成功短信发送中...');
-//     success(product);
+//     success(product,time);
 //   } else {
 //     fail();
 //   }
@@ -68,11 +73,11 @@ outfit(100,choice,comment,decide);
 // function on_game_order_success() {
 //   console.log('激活码邮件发送中...');
 // }
-// function on_furniture_order_success(product) {
+// function on_furniture_order_success(product,time) {
 //   var msg = '正在生成通知短信：' +
 //     '师傅你好，后天在南天门有个椅子要安装，家具型号[' +
 //     product.type +
-//     ']';
+//     ']' + '服务时间为:' + time.date + time.clo + ',请准时到达!';
 //   console.log(msg);
 //   console.log('正在通知装配师傅...');
 // }

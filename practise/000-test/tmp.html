@@ -58,4 +58,39 @@ function divideBy2(decNumber) {
 
 var result = divideBy2(200);
 console.log(result);
+
+//==================call back practise
+var product = {
+price: 10,
+type: 'Yo-100z',
+}
+
+var time = {
+  date:'3月28日',
+  clo: '3.30pm',
+}
+function buy(money, success, fail) {
+if (money > 0) {
+  console.log('支付成功短信发送中...');
+  success(product,time);
+} else {
+  fail();
+}
+}
+function on_game_order_success() {
+console.log('激活码邮件发送中...');
+}
+function on_furniture_order_success(product,time) {
+var msg = '正在生成通知短信：' +
+  '师傅你好，后天在南天门有个椅子要安装，家具型号[' +
+  product.type +
+  ']' + '服务时间为:' + time.date + time.clo + ',请准时到达!';
+console.log(msg);
+console.log('正在通知装配师傅...');
+}
+function on_tshirt_order_success() {
+console.log('正在通知仓库发货...');
+}
+// buy(100, on_game_order_success);
+buy(100, on_furniture_order_success);
 </script>
