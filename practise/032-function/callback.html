@@ -2,43 +2,77 @@
 ;(function () {
   'use strict';
 
-  var dress = {
-    cat: 'dress',
-    price: 1000,
-    style: 'cold',
-    color: 'blue',
-  }
+  var arr = [3,5,6,7,8,9,10,11];
 
-  var tshirt = {
-    cat: 'tshirt',
-    price: 500,
-    style: 'simple',
-    color: 'white',
-  }
-
-  var coat = {
-    cat:'coat',
-    price: 1200,
-    style: 'warm',
-    color: 'black',
-  }
-
-  function outfit(money,fir,fail) {
-    if(money > 0) {
-      console.log('买点啥呢?');
-      fir(dress,tshirt,coat);
-    } else {
-      console.log('别买了');
-      fail();
+  function odd(arr,condition) {
+    for(var i = 0; i < arr.length; i++) {
+      var item = arr[i];
+      condition(item);
     }
   }
 
-  function choice(a,b,c) {
-    var msg = '我喜欢' + a.color + '的' + a.cat + ',但是要' + a.price + '元!' + '我还是买' + b.cat + '或者' + c.cat + '吧!' + '它们分别只要' + b.price + '和' + c.price + '元!';
-    console.log(msg);
+  function condition(item) {
+    if(item % 2 == 1) {
+      console.log(item);
+    }
   }
 
-  outfit(100,choice);
+  odd(arr,condition);
+
+  // var a = [1,2,3,4,5,6,7,8,9];
+  //
+  // function each(arr,condition) {
+  //   for(var i = 0; i < arr.length; i++) {
+  //     var item = arr[i];
+  //     condition(item);
+  //   }
+  // }
+  //
+  // function reson(item) {
+  //   if(item % 2 ==0)
+  //     console.log(item);
+  // }
+  //
+  // each(a,reson);
+
+
+  // var dress = {
+  //   cat: 'dress',
+  //   price: 1000,
+  //   style: 'cold',
+  //   color: 'blue',
+  // }
+  //
+  // var tshirt = {
+  //   cat: 'tshirt',
+  //   price: 500,
+  //   style: 'simple',
+  //   color: 'white',
+  // }
+  //
+  // var coat = {
+  //   cat:'coat',
+  //   price: 1200,
+  //   style: 'warm',
+  //   color: 'black',
+  // }
+  //
+  // function outfit(money,fir,fail) {
+  //   if(money > 0) {
+  //     console.log('买点啥呢?');
+  //     fir(dress,tshirt,coat);
+  //   } else {
+  //     console.log('别买了');
+  //     fail();
+  //   }
+  // }
+  //
+  // function choice(a,b,c) {
+  //   var msg = '我喜欢' + a.color + '的' + a.cat + ',但是要' + a.price + '元!' + '我还是买' + b.cat + '或者' + c.cat + '吧!' + '它们分别只要' + b.price + '和' + c.price + '元!';
+  //   console.log(msg);
+  // }
+  //
+  // outfit(100,choice);
 
   // var dress = {
   //   cat: 'dress',
