@@ -84,20 +84,47 @@
   var menu = document.querySelector('#menu-trigger')
     , content = document.querySelector('#menu-content');
 
-  menu.addEventListener('click',function(e) {
-    // 防止跳转(因为触发器是<a>所以有默认跳转的行为)
-    e.preventDefault();
+    menu.addEventListener('click',function(e) {
+      e.preventDefault();
+      menu.focus();
 
-    // 如果当前菜单可见
-    if(content.style.display == 'inline-block') {
-      //隐藏它
-      content.style.display = 'none';
-    } else {
-      //否则就显示它
+      if(is_visible()){
+        hide();
+      } else {
+        show();
+      }
+    });
+
+    menu.addEventListener('blur',function() {
+      hide();
+    })
+
+    function show() {
       content.style.display = 'inline-block';
     }
-    // content.style.display = 'inline-block';
-  });
+
+    function hide() {
+      content.style.display = 'none';
+    }
+
+    function is_visible() {
+      return content.style.display = 'inline-block';
+    }
+
+  // menu.addEventListener('click',function(e) {
+  //   // 防止跳转(因为触发器是<a>所以有默认跳转的行为)
+  //   e.preventDefault();
+  //
+  //   // 如果当前菜单可见
+  //   if(content.style.display == 'inline-block') {
+  //     //隐藏它
+  //     content.style.display = 'none';
+  //   } else {
+  //     //否则就显示它
+  //     content.style.display = 'inline-block';
+  //   }
+  //   // content.style.display = 'inline-block';
+  // });
 
 </script>
 
