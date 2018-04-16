@@ -1,0 +1,102 @@
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+  }
+  .container {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .row {
+    font-size: 0;
+  }
+  .col {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+  }
+  .col.left,
+  .col.right {
+    width: 50%;
+  }
+  .left {
+    text-align: left;
+  }
+  .right {
+    text-align: right;
+  }
+  /*========================*/
+  .nav {
+    line-height: 1;
+  }
+  .nav .container {
+    position: relative;
+  }
+  .nav a {
+    padding: 5px;
+  }
+  .nav,
+  #menu-content {
+    background: #aaa;
+  }
+  #menu-content {
+    display: none;
+    font-size: 15px;
+    width: 100px;
+    position: absolute;
+    right: 0;
+    top: 24px;
+    text-align: center;
+  }
+  #menu-content a {
+    display: block;
+  }
+</style>
+
+<div class="row nav">
+  <div class="container">
+    <div class="col left">
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+    </div>
+    <div class="col right">
+      <a href="#">Item</a>
+      <a id="menu-trigger" href="#">MENU</a>
+    </div>
+    <div id="menu-content">
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var menu = document.querySelector('#menu-trigger')
+    , content = document.querySelector('#menu-content');
+
+  menu.addEventListener('click',function(e) {
+    e.preventDefault();
+    content.style.display = 'inline-block';
+  });
+</script>
+
+<!-- <script>
+  var menu_trigger = document.querySelector('#menu-trigger')
+    , menu_content = document.querySelector('#menu-content');
+
+  menu_trigger.addEventListener('click',function(event) {
+    event.preventDefault();
+    menu_content.style.display = 'inline-block';
+  });
+
+</script> -->

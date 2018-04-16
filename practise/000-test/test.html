@@ -1,92 +1,54 @@
-<style>
-  div {
-    margin:0;
-    padding: 0;
-    border:1px solid #555;
+<script>
+  function Stack() {
+    var items = [];
+
+    this.push = function(element) {
+      items.push(element);
+    }
+
+    this.pop = function() {
+      return items.pop();
+    }
+
+    this.peek = function() {
+      return items[items.length-1];
+    }
+
+    this.isEmpty = function() {
+      return items.length == 0;
+    }
+
+    this.size = function() {
+      return items.length();
+    }
+
+    this.clear = function() {
+      items = [];
+    }
+
+    this.print = function() {
+      console.log(items.toString());
+    }
   }
 
-  a {
-    text-decoration: none;
-    border:1px solid red;
+  function baseConverter(decNumber,base) {
+    var remStack = new Stack(),
+        rem,
+        baseString = '',
+        digits = '0123456789ABCDEF';
+
+        while(decNumber > 0) {
+          rem = Math.floor(decNumber % base);
+          remStack.push(rem);
+          decNumber = Math.floor(decNumber / base);
+        }
+
+        while (!remStack.isEmpty()) {
+          baseString += digits[remStack.pop()];
+        }
+        return baseString;
   }
-</style>
 
-<div>
-  <div>
-    <a href="">item</a>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-<!-- <link rel="stylesheet" href="lib/normalize.css">
-<link rel="stylesheet" href="css/global.css">
-<link rel="stylesheet" href="css/main.css">
-
-<div class="row nav global">
-  <div class="container">
-    <div class="col-6">
-      <a href="#">小米</a>
-      <a href="#">黑米</a>
-      <a href="#">大米</a>
-      <a href="#">黄米</a>
-      <a href="#">黑米</a>
-    </div>
-    <div class="col-6 right">
-      <a href="#">登录</a>
-      <a href="#">注册</a>
-    </div>
-  </div>
-</div>
-<div class="first-screen">
-  <div class="container">
-    <div class="row top">
-      <div class="col-2">
-        <a id="logo"></a>
-        <div class="gif"></div>
-      </div>
-      <div class="col-7 nav page">
-        <a href="#">小米手机</a>
-        <a href="#">红米</a>
-        <a href="#">电视</a>
-        <a href="#">盒子</a>
-        <a href="#">小米手机</a>
-        <a href="#">红米</a>
-        <a href="#">电视</a>
-        <a href="#">盒子</a>
-      </div>
-      <div class="col-3">
-        <form id="search-area">
-          <input id="search" class="col-8" type="search">
-          <button id="search-submit" class="col-4" type="submit">搜索</button>
-          <span class="rec-list">
-            <a href="#" class="rec">红米Note</a>
-            <a href="#" class="rec">Mix发布会</a>
-          </span>
-        </form>
-      </div>
-    </div>
-    <div class="row">
-      <div id="main-promo">
-        <div class="col-2 cat-list">
-          <a href="#">手机 电话卡</a>
-          <a href="#">电视 盒子</a>
-          <a href="#">笔记本</a>
-          <a href="#">智能 家电</a>
-          <a href="#">手机 电话卡</a>
-          <a href="#">电视 盒子</a>
-          <a href="#">笔记本</a>
-          <a href="#">智能 家电</a>
-          <a href="#">笔记本</a>
-          <a href="#">智能 家电</a>
-        </div>
-        <div class="col-10"></div>
-      </div>
-    </div>
-  </div>
-</div> -->
+  var result = baseConverter(69,16);
+  console.log(result);
+</script>

@@ -1,0 +1,108 @@
+<!-- <button>Yo</button> -->
+<a class="trigger" href="http://baidu.com">Yo.</a>
+<input class="search" style="border:1px solid pink" type="text">
+
+
+
+<script>
+ ;(function() {
+   'use strict';
+
+   var trigger = document.querySelector('.trigger');
+   var search = document.querySelector('.search');
+
+   trigger.addEventListener('mouseenter',function() {
+     console.log('mouseenter');
+   });
+
+   trigger.addEventListener('mouseleave',function() {
+     console.log('mouseleave');
+   });
+
+   search.addEventListener('focus',function() {
+     console.log('focus');
+   });
+
+   search.addEventListener('blur',function() {
+     console.log('blur');
+   });
+
+   // var trigger = document.querySelector('.trigger');
+   // var search = document.querySelector('.search');
+   //
+   // trigger.addEventListener('mouseenter',function() {
+   //   console.log('mouseenter');
+   // });
+   //
+   // trigger.addEventListener('mouseleave',function() {
+   //   console.log('mouseleave');
+   // });
+   //
+   // search.addEventListener('focus',function() {
+   //   console.log('focus');
+   // });
+   //
+   // search.addEventListener('blur',function() {
+   //   console.log('blur');
+   // });
+
+   // var trigger_list = document.querySelectorAll('.trigger');
+   // for(var i = 0; i < trigger_list.length; i++) {
+   //   var trigger = trigger_list[i];
+   //
+   //   trigger.addEventListener('click',function(event) {
+   //     event.preventDefault();
+   //     console.log('yooooooop');
+   //   });
+   // }
+
+   // var user = {
+   //   name: 'whh',
+   //
+   //   say_hi: function() {
+   //     console.log('Yo');
+   //   }
+   // }
+   //
+   // user.say_hi();
+
+ //   var trigger_list = document.querySelectorAll('.trigger');
+ //
+ //   // 迭代元素组
+ //   for (var i = 0; i < trigger_list.length; i++) {
+ //     var trigger = trigger_list[i];
+ //
+ //   // 给每个元素分别绑定事件
+ //   trigger.addEventListener('click',function(event) {
+ //     event.preventDefault();
+ //     console.log('你好世界');
+ //   });
+ // }
+// var a = document.querySelector('a');
+// a.addEventListener('click',function(ele) {
+//   ele.preventDefault();
+//   console.log('你好');
+// })
+
+// var trigger = document.querySelector('.trigger');
+// var search = document.querySelector('.search');
+//
+// trigger.addEventListener('mouseenter',function() {
+//   console.log('鼠标进入');
+// });
+//
+// trigger.addEventListener('mouseleave',function() {
+//   console.log('鼠标移出');
+// });
+//
+// search.addEventListener('focus',function() {
+//   console.log('已聚焦');
+// });
+//
+// search.addEventListener('blur',function() {
+//   console.log('已失焦');
+// })
+
+
+ })();
+</script>

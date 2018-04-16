@@ -73,6 +73,36 @@
 </script> -->
 
 <script>
+//============================优先队列的实现
+function PriorQueue() {
+  var items = [];
+
+  function QueueElement (element,priority) {//要添加到队列的元素及其在队列中的优先级
+    this.element = element;
+    this.priority = priority;
+  }
+
+  this.enqueue = function(element,priority) {
+    var queueElement = new QueueElement(element,priority);
+
+    if(this.isEmpty) {
+      items.push(queueElement);//如果队列为空 可以直接将元素入列
+    } else { //否则就需要比较该元素与其他元素的优先级
+      var added = false;
+      for(var i = 0; i < items.length; i++) {
+        if (quequeElement.priority < items[i].priority) {//找到一个比要添加的元素的priority值更大(优先级更低)的项时 就把新元素插到它之前
+          items.splice(i,0,quequeElement);//插入新元素
+          added = true;
+          break;//终止队列循环
+        }
+        if(!added) {//如果要添加元素的priority值大鱼任何已有的元素 将他添加到队列的末尾即可
+          items.push(queueElement);
+        }
+      }
+    }
+  }
+}
+
   // var ff = [];
   // ff[1] = 1;
   // ff[2] = 2;
@@ -95,89 +125,92 @@
   // console.log(total);
 
   // 实现栈
-  function Stack() {
-    // 用数组保存栈中的元素
-    var items = [];
+  // function Stack() {
+  //   // 用数组保存栈中的元素
+  //   var items = [];
+  //
+  //   // 往栈里添加新元素
+  //   this.push = function(element) {
+  //     items.push(element);
+  //   };
+  //
+  //   // 移除栈里的元素
+  //   this.pop = function() {
+  //     return items.pop();
+  //   };
+  //
+  //   // 返回栈顶的元素
+  //   this.peek = function() {
+  //     return items[items.length-1];
+  //   };
+  //
+  //   // 判断栈是否为空
+  //   this.isEmpty = function() {
+  //     return items.length == 0;
+  //   };
+  //
+  //   // 返回栈的长度
+  //   this.size = function () {
+  //     return items.length();
+  //   };
+  //
+  //   // 清空栈
+  //   this.clear = function() {
+  //     items == [];
+  //   };
+  //
+  //   this.print = function() {
+  //     console.log(items.toString());
+  //   };
+  // };
 
-    // 往栈里添加新元素
-    this.push = function(element) {
-      items.push(element);
-    };
-
-    // 移除栈里的元素
-    this.pop = function() {
-      return items.pop();
-    };
-
-    // 返回栈顶的元素
-    this.peek = function() {
-      return items[items.length-1];
-    };
-
-    // 判断栈是否为空
-    this.isEmpty = function() {
-      return items.length == 0;
-    };
-
-    // 返回栈的长度
-    this.size = function () {
-      return items.length();
-    };
-
-    // 清空栈
-    this.clear = function() {
-      items == [];
-    };
-
-    this.print = function() {
-      console.log(items.toString());
-    };
-  };
-
-  // 利用栈将十进制数字转化为二进制
-  function divideBy2(decNumber) {
-
-    var remStack = new Stack(),
-        rem,
-        binaryString = '';
-
-    while (decNumber > 0) {//满足和2做整除的条件
-      rem = Math.floor(decNumber % 2);//获得结果
-      remStack.push(rem);//放入栈中
-      decNumber = Math.floor(decNumber / 2);//让结果和2做整除
-    }
-
-    while (!remStack.isEmpty()) {
-       binaryString += remStack.pop().toString();
-    }
-
-    return binaryString;
-  }
-  var result = divideBy2(999);
-  console.log(result);
+//   // 利用栈将十进制数字转化为二进制
+//   function divideBy2(decNumber) {
+//
+//     var remStack = new Stack(),
+//         rem,
+// //因为我们只给一部分进制发明了专用符号，直接用数字显示会有歧义
+// //如果是字符串的话就没事儿了，因为我们知道生成的字符串是几进制
+//         binaryString = '';
+//
+//     while (decNumber > 0) {//满足和2做整除的条件
+//       rem = Math.floor(decNumber % 2);//获得结果
+//       remStack.push(rem);//放入栈中
+//       decNumber = Math.floor(decNumber / 2);//让结果和2做整除
+//     }
+//
+//     while (!remStack.isEmpty()) {
+//        binaryString += remStack.pop().toString();
+//     }
+//
+//     return binaryString;
+//   }
+//   var result = divideBy2(999);
+//   console.log(result);
 
 //修改算法使得适用于十进制转换为任何进制
-  function baseConverter(decNumber, base) {
-    var remStack = new Stack(),
-        rem,
-        baseString = '',
-        //十进制转换成二进制时余数为0或1
-        //十进制转换成八进制时余数为0到8
-        //十进制转换成16进制时余数为0到8和A-F(对应10-15)
-        digits = '0123456789ABCDEF';
-
-      while(decNumber > 0){
-        rem = Math.floor(decNumber % base);//获得结果
-        remStack.push(rem);//放入栈中
-        decNumber = Math.floor(decNumber / base);
-      }
-
-      while (!remStack.isEmpty()) {
-         baseString += digits[remStack.pop()];
-      }
-      return baseString;
-  }
-  var oct = baseConverter(47,16);
-  console.log(oct);
+  // function baseConverter(decNumber, base) {
+  //   var remStack = new Stack(),
+  //       rem,
+  //       baseString = '',
+  //       //十进制转换成二进制时余数为0或1
+  //       //十进制转换成八进制时余数为0到8
+  //       //十进制转换成16进制时余数为0到8和A-F(对应10-15)
+  //       digits = '0123456789ABCDEF';
+  //
+  //     while(decNumber > 0){
+  //       rem = Math.floor(decNumber % base);//获得结果
+  //       remStack.push(rem);//放入栈中
+  //       decNumber = Math.floor(decNumber / base);
+  //     }
+  //
+  //     while (!remStack.isEmpty()) {
+  //       //移除栈中的元素弄把出栈的元素连接成字符串
+  //        baseString += digits[remStack.pop()];
+  //     }
+  //     return baseString;
+  // }
+  // var oct = baseConverter(47,16);
+  // console.log(oct);
 
 </script>
