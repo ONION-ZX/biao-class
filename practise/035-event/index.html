@@ -1,0 +1,15 @@
+<button class="el">Yo</button>
+
+<script>
+  var el = document.querySelector('.el');
+
+  var on_click = function() {
+    console.log(1);
+  }
+
+  el.addEventListener('click',on_click);
+  el.addEventListener('click',function() {
+    console.log(2);
+  });
+  el.removeEventListener('click',on_click);
+</script>
