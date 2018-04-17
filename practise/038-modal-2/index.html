@@ -1,0 +1,82 @@
+<style>
+  body {
+    /*margin: 0;*/
+    font-size: 20px;
+  }
+  button {
+    font-size: 20px;
+    padding: 10px;
+  }
+  .mask,
+  .modal {
+    position: fixed;
+  }
+  .mask {
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+  }
+  .modal {
+    top: 100px;
+    bottom: 100px;
+    left: 100px;
+    right: 100px;
+    padding: 20px;
+    background: #fff;
+    border: 2px solid #ccc;
+  }
+  .modal .toolbar {
+    float: right;
+  }
+  .show {
+    display: block;
+  }
+</style>
+
+<div>
+  <nav>
+    <button class="login">登录</button>
+  </nav>
+
+  <div class="mask">
+    <div class="modal">
+      <div class="toolbar">
+        <button class="close">关闭</button>
+      </div>
+      <h3>登录</h3>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque fugiat laboriosam possimus quam, repudiandae
+      similique vel! Consequatur, dignissimos, dolor magni neque nulla odit porro praesentium, recusandae reprehenderit
+      similique tempore unde.
+    </div>
+  </div>
+</div>
+
+<script>
+  var login = document.querySelector('.login')
+    , mask = document.querySelector('.mask')
+    , modal = mask.querySelector('.modal')
+    ,close = document.querySelector('.close')
+  ;
+
+  function hide() {
+    mask.classList.remove('show');
+  }
+
+  function show() {
+    mask.classList.add('show');
+  }
+
+  login.addEventListener('click',show);
+  mask.addEventListener('click',function(e) {
+    if(e.target === close || e.target === mask)
+      hide();
+  })
+  document.addEventListener('keyup',function(e) {
+    if(e.code !== 'Escape')
+      return;
+    hide();
+  })
+</script>
