@@ -55,25 +55,24 @@
 </div>
 
 <script>
-  var login = document.querySelector('.login')
-    , mask = document.querySelector('.mask')
-    , modal = mask.querySelector('.modal')
-    ,close = document.querySelector('.close')
-  ;
-
-  function hide() {
-    mask.classList.remove('show');
-  }
+  var login = document.querySelector('.login');
+  var mask = document.querySelector('.mask');
+  var modal = mask.querySelector('.modal');
+  var close = modal.querySelector('.close');
 
   function show() {
     mask.classList.add('show');
+  }
+
+  function hide() {
+    mask.classList.remove('show');
   }
 
   login.addEventListener('click',show);
   mask.addEventListener('click',function(e) {
     if(e.target === close || e.target === mask)
       hide();
-  })
+  });
   document.addEventListener('keyup',function(e) {
     if(e.code !== 'Escape')
       return;
