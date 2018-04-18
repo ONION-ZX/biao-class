@@ -1,0 +1,67 @@
+<style>
+  [hidden] {
+    display: none;
+  }
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  nav {
+    background: #777;
+  }
+  nav > * {
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block;
+  }
+  #menu-content {
+    display: block;
+    background: #444;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    color: #fff;
+    transition: left 1s;
+  }
+  #menu-content > * {
+    padding: 15px 20px;
+  }
+  #menu-content > div:hover {
+    background: rgba(0, 0, 0, .1);
+  }
+  #menu-content[hidden] {
+    left: -100%;
+  }
+  /*#menu-trigger {*/
+  /*}*/
+</style>
+
+<nav>
+  <span id="menu-trigger">MENU</span>
+</nav>
+
+<div id="menu-content" hidden>
+  <div id="menu-close">收起</div>
+  <div>Item</div>
+  <div>Item</div>
+  <div>Item</div>
+  <div>Item</div>
+  <div>Item</div>
+  <div>Item</div>
+  <div>Item</div>
+</div>
+
+<script>
+  var menu_trigger = document.querySelector('#menu-trigger')
+    , menu_content = document.querySelector('#menu-content')
+    , menu_close = document.querySelector('#menu-close')
+  ;
+  menu_trigger.addEventListener('click', function () {
+    menu_content.hidden = !menu_content.hidden;
+  });
+  menu_close.addEventListener('click', function () {
+    menu_content.hidden = true;
+  })
+</script>

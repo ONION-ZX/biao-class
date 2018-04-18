@@ -122,6 +122,45 @@
   for(var i = 0; i < li_all.length; i++) {
     var li = li_all[i];
     li.addEventListener('click',function(e) {
+      var list = this.querySelector('ul');
+      if(!list || e.target !== this)
+        return;
+      list.hidden = !list.hidden;
+    });
+  }
+</script> -->
+
+<!-- <script>
+  var li_list = document.querySelectorAll('li');
+  for(var i = 0; i < li_list.length; i++) {
+    var li = li_list[i];
+    li.addEventListener('click',function(e) {
+      var list = this.querySelector('ul');
+      if(!list || e.target !== this)
+        return;
+      list.hidden = !list.hidden;
+    });
+  }
+</script> -->
+
+<!-- <script>
+  var li_all = document.querySelectorAll('li');
+  for(var i = 0; i < li_all.length; i++) {
+    var li = li_all[i];
+    li.addEventListener('click',function(e) {
+      var list = this.querySelector('ul');
+      if(!list || e.target !== this)
+        return;
+      list.hidden = !list.hidden;
+    });
+  }
+</script> -->
+
+<!-- <script>
+  var li_all = document.querySelectorAll('li');
+  for(var i = 0; i < li_all.length; i++) {
+    var li = li_all[i];
+    li.addEventListener('click',function(e) {
       var ul_under = this.querySelector('ul');
 
       if(!ul_under || e.target !== this)
