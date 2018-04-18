@@ -1,0 +1,133 @@
+<style>
+  [hidden] {
+    display: none !important;
+  }
+  body {
+    font-size: 30px;
+  }
+  li {
+    cursor: pointer;
+    user-select: none;
+  }
+  ul {
+    display: block;
+  }
+  /*li:hover {*/
+  /*font-weight: bold;*/
+  /*}*/
+  /*ul {*/
+  /*font-weight: normal;*/
+  /*}*/
+</style>
+
+<ul>
+  <li>Item1
+    <ul>
+      <li>Item1-1
+        <ul>
+          <li>Item1-1-1</li>
+          <li>Item1-1-2</li>
+          <li>Item1-1-3</li>
+        </ul>
+      </li>
+      <li>Item1-2
+        <ul>
+          <li>Item1-2-1</li>
+          <li>Item1-2-2</li>
+          <li>Item1-2-3</li>
+        </ul>
+      </li>
+      <li>Item1-3
+        <ul>
+          <li>Item1-3-1</li>
+          <li>Item1-3-2</li>
+          <li>Item1-3-3</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Item2
+    <ul>
+      <li>Item2-1</li>
+      <li>Item2-2</li>
+      <li>Item2-3</li>
+    </ul>
+  </li>
+  <li>Item3
+    <ul>
+      <li>Item3-1
+        <ul>
+          <li>Item1
+            <ul>
+              <li>Item1-1
+                <ul>
+                  <li>Item1-1-1</li>
+                  <li>Item1-1-2</li>
+                  <li>Item1-1-3</li>
+                </ul>
+              </li>
+              <li>Item1-2
+                <ul>
+                  <li>Item1-2-1</li>
+                  <li>Item1-2-2</li>
+                  <li>Item1-2-3</li>
+                </ul>
+              </li>
+              <li>Item1-3
+                <ul>
+                  <li>Item1-3-1</li>
+                  <li>Item1-3-2</li>
+                  <li>Item1-3-3</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Item2
+            <ul>
+              <li>Item2-1</li>
+              <li>Item2-2</li>
+              <li>Item2-3</li>
+            </ul>
+          </li>
+          <li>Item3
+            <ul>
+              <li>Item3-1</li>
+              <li>Item3-2</li>
+              <li>Item3-3</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Item3-2</li>
+      <li>Item3-3</li>
+    </ul>
+  </li>
+</ul>
+
+<script>
+  var li_all = document.querySelectorAll('li');
+  for(var i = 0; i < li_all.length; i++) {
+    var li = li_all[i];
+    li.addEventListener('click',function(e) {
+      var list = this.querySelector('ul');
+      if(!list || e.target !== this)
+        return;
+      list.hidden = !list.hidden;
+    });
+  }
+</script>
+
+<!-- <script>
+  var li_all = document.querySelectorAll('li');
+  for(var i = 0; i < li_all.length; i++) {
+    var li = li_all[i];
+    li.addEventListener('click',function(e) {
+      var ul_under = this.querySelector('ul');
+
+      if(!ul_under || e.target !== this)
+        return;
+
+      ul_under.hidden = !ul_under.hidden;
+    });
+  }
+</script> -->
