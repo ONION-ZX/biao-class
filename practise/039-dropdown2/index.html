@@ -1,0 +1,118 @@
+
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+  }
+  input {
+    max-width: 100%;
+  }
+  .container {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .row {
+    font-size: 0;
+  }
+  .col {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+  }
+  .col.left,
+  .col.right {
+    width: 50%;
+  }
+  .left {
+    text-align: left;
+  }
+  .right {
+    text-align: right;
+  }
+  /*========================*/
+  .nav {
+    line-height: 1;
+  }
+  .nav .container {
+    position: relative;
+  }
+  .nav a {
+    padding: 5px;
+  }
+  .nav,
+  #menu-content {
+    background: #aaa;
+  }
+  #menu-content {
+    display: none;
+    font-size: 15px;
+    width: 240px;
+    position: absolute;
+    right: 0;
+    top: 24px;
+    text-align: center;
+  }
+  #menu-content a {
+    display: block;
+  }
+  #menu-content.show {
+    display: inline-block;
+  }
+</style>
+
+<div class="row nav">
+  <div class="container">
+    <div class="col left">
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+      <a href="#">Item</a>
+    </div>
+    <div class="col right">
+      <a href="#">Item</a>
+      <a id="menu-trigger" href="#">MENU</a>
+    </div>
+    <div id="menu-content">
+      <h3>登录</h3>
+      <input type="text"><br>
+      <input type="text"><br>
+      <button>登录</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var menu_trigger = document.querySelector('#menu-trigger');
+  var menu_content  = document.querySelector('#menu-content');
+
+  function visible() {
+    return menu_content.classList.contains('show');
+  }
+
+  function show() {
+    menu_content.classList.add('show');
+  }
+
+  function hide() {
+    menu_content.classList.remove('show');
+  }
+
+  menu_trigger.addEventListener('click',function() {
+    visible() ? hide() : show();
+  });
+
+  document.addEventListener('click',function(e) {
+    var el = e.target;//点击源
+    var menu = el.closest('#menu-content');
+
+    if(!menu && el !== menu_trigger)
+      hide();
+  })
+
+</script>
