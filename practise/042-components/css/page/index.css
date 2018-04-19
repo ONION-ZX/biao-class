@@ -307,6 +307,10 @@ body {
   font-weight: 500;
 }
 
+.modal .close:hover {
+  color: #444;
+}
+
 /*login==============================*/
 .login {
   position: absolute;
