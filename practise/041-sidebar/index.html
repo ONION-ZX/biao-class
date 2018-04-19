@@ -54,14 +54,16 @@
 </div>
 
 <script>
-  var menu_trigger = document.querySelector('#menu-trigger')
-    , menu_content = document.querySelector('#menu-content')
-    , menu_close = document.querySelector('#menu-close')
-  ;
-  menu_trigger.addEventListener('click', function () {
-    menu_content.hidden = !menu_content.hidden;
-  });
-  menu_close.addEventListener('click', function () {
-    menu_content.hidden = true;
-  })
+var menuTrigger = document.querySelector('#menu-trigger');
+var menuContent = document.querySelector('#menu-content');
+var menuClose = document.querySelector('#menu-close');
+
+menuTrigger.addEventListener('click',function() {
+  menuContent.hidden = !menuContent.hidden;
+});
+
+menuClose.addEventListener('click',function() {
+  menuContent.hidden = true;
+});
+
 </script>
