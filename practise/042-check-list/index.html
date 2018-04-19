@@ -18,8 +18,8 @@
 
 <div>
   <button id="all">全选</button>
-  <!--<button id="none">全不选</button>-->
-  <!--<button id="reverse">倒置</button>-->
+  <button id="none">全不选</button>
+  <button id="reverse">倒置</button>
 </div>
 
 <label>
@@ -55,11 +55,209 @@
 
 <script>
   var all = document.querySelector('#all');
+  var none = document.querySelector('#none');
+  var reverse = document.querySelector('#reverse');
   var list = document.querySelectorAll('[type = checkbox]');
 
   all.addEventListener('click',function() {
-    list.forEach(function(item,index) {
+    list.forEach(function(item) {
       item.checked = true;
     });
   });
+
+  none.addEventListener('click',function() {
+    list.forEach(function(item) {
+      item.checked = false;
+    });
+  });
+
+  reverse.addEventListener('click',function() {
+    list.forEach(function(item) {
+      item.checked = !item.checked;
+    });
+  });
+
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item == except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function() {
+      uncheck_all(this);
+    });
+  });
 </script>
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function() {
+      uncheck_all(this);
+    });
+  });
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function() {
+      uncheck_all(this);
+    })
+  })
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function(e) {
+      if(e.ctrlKey || e.meraKey)
+        return;
+
+      uncheck_all(this);
+    });
+  });
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function() {
+      uncheck_all(this);
+    })
+  })
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function(){
+      uncheck_all(this);
+    })
+  })
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+
+      item.checked = false;
+    });
+  }
+</script> -->
+
+<!-- <script>
+  var list = document.querySelectorAll('[type = checkbox]');
+
+  function uncheck_all(except) {
+    list.forEach(function(item) {
+      if(item === except)
+        return;
+
+      item.checked = false;
+    });
+  }
+
+  list.forEach(function(item) {
+    item.addEventListener('click',function() {
+      uncheck_all(this);
+    });
+  });
+</script> -->
+
+<!-- <script>
+  var all = document.querySelector('#all');
+  var none = document.querySelector('#none');
+  var reverse = document.querySelector('#reverse');
+  var list = document.querySelectorAll('[type = checkbox]');
+
+  all.addEventListener('click',function() {
+    list.forEach(function(item) {
+      item.checked = true;
+    });
+  });
+
+  none.addEventListener('click',function() {
+    list.forEach(function(item) {
+      item.checked = false;
+    });
+  });
+
+  reverse.addEventListener('click',function() {
+    list.forEach(function(item) {
+      item.checked = !item.checked;
+    });
+  });
+
+</script> -->
+
+<!-- 全选 -->
+<!-- <script>
+var all = document.querySelector('#all');
+var list = document.querySelectorAll('[type = checkbox]');
+
+all.addEventListener('click',function() {
+list.forEach(function(item,index) {
+item.checked = true;
+});
+});
+</script> -->
+
+<!-- 全不选 -->
+<!-- <script>
+  var none = document.querySelector('#none');
+  var list = document.querySelectorAll('[type=checkbox]');
+  none.addEventListener('click', function () {
+    list.forEach(function (item) {
+      item.checked = false;
+    });
+  })
+</script> -->
