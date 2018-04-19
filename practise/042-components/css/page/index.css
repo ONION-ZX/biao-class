@@ -313,14 +313,37 @@ body {
 
 /*login==============================*/
 .login {
+  width: 341px;
   position: absolute;
-  float: right;
+  padding: 30px;
+  top:60px;
+  left: 1000px;
   display: inline-block;
-  background: #9d1f1f;
+  background: #eac9c9;
+
+}
+
+.login .item {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  font-size: 0;
+  border-bottom: 1px solid #a59f9f;
+}
+
+.login .item input,
+.login .item span {
+  color:#a59f9f;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.login .item span {
+  width: 30%;
 }
 
 .login input {
+  padding: 5px;
+  width: 70%;
   border: none;
-  display: block;
-  background: #9d1f1f;
+  background: #eac9c9;
 }

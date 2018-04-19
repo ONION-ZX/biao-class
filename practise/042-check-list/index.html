@@ -1,0 +1,65 @@
+<style>
+  body {
+    font-family: sans-serif;
+    font-size: 20px;
+  }
+  label {
+    display: block;
+    padding: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  label:hover {
+    background: rgba(0, 0, 255, .1);
+  }
+</style>
+
+<div>
+  <button id="all">全选</button>
+  <!--<button id="none">全不选</button>-->
+  <!--<button id="reverse">倒置</button>-->
+</div>
+
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+
+<script>
+  var all = document.querySelector('#all');
+  var list = document.querySelectorAll('[type = checkbox]');
+
+  all.addEventListener('click',function() {
+    list.forEach(function(item,index) {
+      item.checked = true;
+    });
+  });
+</script>
