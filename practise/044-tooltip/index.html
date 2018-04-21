@@ -1,0 +1,225 @@
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+  .tip-trigger {
+    background: pink;
+  }
+  .tip {
+    position: fixed;
+    background: #222;
+    color: #fff;
+    padding: 5px;
+    /*-webkit-border-radius: 3px;*/
+    /*-moz-border-radius: 3px;*/
+    /*border-radius: 3px;*/
+    -webkit-box-shadow: 0 0 2px #000;
+    -moz-box-shadow: 0 0 2px #000;
+    box-shadow: 0 0 2px #000;
+    opacity: .8;
+  }
+</style>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+<span data-tip="Yoooooo" class="tip-trigger">Yo</span>
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimos eum facilis
+<!--<div class="tip">Yoooooo</div>-->
+
+illum nobis, placeat ut? Accusamus assumenda eos facere libero quas. Accusantium eveniet maxime placeat repellat tempora voluptatum!
+
+<script>
+  var tip_trigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  tip_trigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+
+  tip_trigger.addEventListener('mouseleave',function() {
+    hide_tip();
+  });
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    tip = document.createElement('div');
+    tip.classList.add('tip');
+    tip.innerText = tip_trigger.dataset.tip;
+    document.body.appendChild(tip);
+  }
+
+  function hide_tip() {
+    tip.remove();
+    tip = null;
+  }
+
+  function position_tip() {
+    var position = tip_trigger.getBoundingClientRect();
+    tip.style.top = position.top - tip.offsetHeight - 2;
+    tip.style.left = position.left;
+  }
+
+</script>
+
+<!-- <script>
+  var tipTrigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  tipTrigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+
+  tipTirgger.addEventListener('mouseleave',function() {
+    hide_tip();
+  });
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    tip = document.createElement('div');
+    tip.classList.add('tip');
+    tip.innerText = tipTrigger.dataset.tip;
+    document.body.appendChild(tip);
+  }
+
+  function hide_tip() {
+    tip.remove();
+    tip = null;
+  }
+
+  function position_tip() {
+    var position = tipTrigger.getBoundingClientRect();
+    tip.style.top = position.top - tip.offsetHeight - 2;
+    tip.style.left = position.left;
+  }
+</script> -->
+
+<!-- <script>
+  var tipTrigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  tipTrigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+
+  tipTrigger.addEventListener('mouseleave',function() {
+    hide_tip();
+  });
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    tip = document.createElement('div');
+    tip.classList.add('tip');
+    tip.innerText = tipTrigger.dataset.tip;
+    document.body.appendChild(tip);
+  }
+
+  function hide_tip() {
+    tip.remove();
+    tip = null;
+  }
+
+  function position_tip() {
+    var position = tipTrigger.getBoundingClientRect();
+    tip.style.top = position.top - tip.offsetHeight - 2;
+    tip.style.left = position.left;
+  }
+</script> -->
+
+<!-- <script>
+  var tipTrigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    tip = document.createElement('div');
+    tip.classList.add('tip');
+    tip.innerText = tipTrigger.dataset.tip;
+    document.body.appendChild(tip);
+  }
+
+  function hide_tip() {
+    tip.remove();
+    tip = null;
+  }
+
+  function position_tip() {
+    var position = tipTrigger.getBoundingClientRect();
+    tip.style.top = position.top - tip.offsetHeight - 2;
+    tip.style.left = position.left;
+  }
+
+  tipTrigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+  tipTrigger.addEventListener('mouseleave',hide_tip);
+</script> -->
+
+<!-- <script>
+  var tip_trigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  // 当鼠标进入tip-trigger
+  tip_trigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+
+  // 当鼠标移出tip-trigger
+  tip_trigger.addEventListener('mouseleave',function() {
+    hide_tip();
+  });
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    // 创建tip元素
+    tip = document.createElement('div');
+    tip.classList.add('tip'); //添加类
+    tip.innerText = tip_trigger.dataset.tip; //添加内部文字
+    document.body.appendChild(tip); //添加到body上
+  }
+
+  function hide_tip() {
+    tip.remove(); //从DOM中移除tip
+    tip = null; //清空tip
+  }
+
+  function position_tip() {
+    var position = tip_trigger.getBoundingClientRect();
+    tip.style.top = position.top - tip.offsetHeight - 2;
+    tip.style.left = position.left;
+  }
+</script> -->
