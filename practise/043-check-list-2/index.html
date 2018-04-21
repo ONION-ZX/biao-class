@@ -1,0 +1,95 @@
+<style>
+  * {
+    vertical-align: middle;
+  }
+  .toolbar {
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    padding: 5px 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  label:hover {
+    background: rgba(0, 0, 255, 0.1);
+  }
+</style>
+
+<div class="toolbar">
+  <button id="all">全选</button>
+  <button id="none">全不选</button>
+  <button id="reverse">反选</button>
+</div>
+
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+
+<script>
+  var 列表 = document.querySelectorAll('[type = checkbox]')
+    , 起点打勾没
+    , 起点
+    , 终点
+    , 从上往下选的
+  ;
+
+  列表.forEach(function(被点的,当前索引) {
+    被点的.addEventListener('click',function(e) {
+      if(e.shiftKey) {
+        终点 = 当前索引;
+        从上往下选的 = 起点 < 终点;
+
+        列表.forEach(function(每一个,当前索引2) {
+
+          var 小于起点大于终点 = 当前索引2 < 起点 || 当前索引2 > 终点;
+          var 大于起点小于终点 = 当前索引2 > 起点 || 当前索引2 < 终点;
+          var 不在选择范围内 = (从上往下选的 && 小于起点大于终点) || (!从上往下选的 && 大于起点小于终点);
+
+          if(不在选择范围内)
+            return;
+
+          每一个.checked = 起点打勾没;
+        });
+      } else {
+        起点 = 当前索引;
+        起点打勾没 = 被点的.checked;
+      }
+    });
+  });
+</script>
