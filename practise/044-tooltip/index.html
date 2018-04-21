@@ -49,6 +49,50 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. At corporis dignissimo
 illum nobis, placeat ut? Accusamus assumenda eos facere libero quas. Accusantium eveniet maxime placeat repellat tempora voluptatum!
 
 <script>
+  var tipTrigger = document.querySelector('.tip-trigger');
+  var tip;
+
+  tipTrigger.addEventListener('mouseenter',function() {
+    show_tip();
+    position_tip();
+  });
+
+  tipTrigger.addEventListener('mouseleave',function() {
+    hide_tip();
+  });
+
+  function show_tip() {
+    if(tip)
+      return;
+
+    tip = document.createElement('div');
+    tip.classList.add('tip');
+    tip.innerText = tipTrigger.dataset.tip;
+    document.body.appendChild(tip);
+  }
+
+  function hide_tip() {
+    tip.remove();
+    tip = null;
+  }
+
+  function position_tip() {
+    var position = tipTrigger.getBoundingClientRect(); //获取tipTrigger位置信息
+
+    // console.log(tip.offsetWidth);
+    if(body.offsetWidth - position.right >= tip.offsetWidth + 3) {
+      //在右边显示
+      tip.style.top = position.top;
+      tip.style.left = position.right + 3;
+    } else {
+      //在左边显示
+      tip.style.top = position.top;
+      tip.style.left = position.left - tip.offsetWidth - 3;
+    }
+  }
+</script>
+
+<!-- <script>
   var tip_trigger = document.querySelector('.tip-trigger');
   var tip;
 
@@ -82,7 +126,7 @@ illum nobis, placeat ut? Accusamus assumenda eos facere libero quas. Accusantium
     tip.style.left = position.left;
   }
 
-</script>
+</script> -->
 
 <!-- <script>
   var tipTrigger = document.querySelector('.tip-trigger');
