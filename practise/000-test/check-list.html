@@ -76,7 +76,7 @@
         overhand = start < end;
 
         list.forEach(function(each,sec_index) {
-
+          //smaller than start and bigger than end
           var stsabte = sec_index < start || sec_index > end;
           var btsaste = sec_index > start || sec_index < end;
           var out_of_range = (overhand && stsabte ) || (!overhand && btsaste);
