@@ -1,0 +1,40 @@
+<form id="search-form">
+  <input id="search-input" type="search" placeholder="随便输个github用户试试">
+  <button type="submit">搜索</button>
+</form>
+
+<script>
+  var form = document.getElementById('search-form')
+  input = document.getElementById('search-input');
+  init();
+  /*入口函数*/
+  function init() {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var username = input.value;
+      search(username);
+    });
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username, function (data) {
+      console.log(data);
+    });
+  }
+  /*发送请求
+  * @param url String 请求地址
+  * @param fn Function 回调函数
+  * @param method String 请求方法，默认为get
+  * */
+  function send(url, f, method) {
+    method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method, url);
+    http.send();
+    http.addEventListener('load', function () {
+      var data = JSON.parse(this.responseText);
+      if (f)
+        fn(data);
+    });
+  }
+</script>
