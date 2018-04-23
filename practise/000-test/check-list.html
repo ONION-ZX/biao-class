@@ -1,0 +1,95 @@
+<style>
+  * {
+    vertical-align: middle;
+  }
+  .toolbar {
+    margin-bottom: 10px;
+  }
+  label {
+    display: block;
+    padding: 5px 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  label:hover {
+    background: rgba(0, 0, 255, 0.1);
+  }
+</style>
+
+<div class="toolbar">
+  <button id="all">全选</button>
+  <button id="none">全不选</button>
+  <button id="reverse">反选</button>
+</div>
+
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+<label>
+  <input type="checkbox"> Item
+</label>
+
+<script>
+  var list = document.querySelectorAll('[type = checkbox]')
+    , start_status
+    , start
+    , end
+    , overhand
+  ;
+
+  list.forEach(function(clicked,current_index) {
+    clicked.addEventListener('click',function(e) {
+      if(e.shiftKey) {
+        end = current_index;
+        overhand = start < end;
+
+        list.forEach(function(each,sec_index) {
+
+          var stsabte = sec_index < start || sec_index > end;
+          var btsaste = sec_index > start || sec_index < end;
+          var out_of_range = (overhand && stsabte ) || (!overhand && btsaste);
+
+          if(out_of_range)
+            return;
+
+          each.checked = start_status;
+        });
+      } else {
+        start = current_index;
+        start_status = clicked.checked;
+      }
+    });
+  });
+</script>
