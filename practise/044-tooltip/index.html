@@ -79,9 +79,10 @@ illum nobis, placeat ut? Accusamus assumenda eos facere libero quas. Accusantium
 
   function position_tip() {
     var position = tipTrigger.getBoundingClientRect(); //获取tipTrigger位置信息
+    var condition = body.offsetWidth - position.right >= tip.offsetWidth + 3;
 
     // console.log(tip.offsetWidth);
-    if(body.offsetWidth - position.right >= tip.offsetWidth + 3) {
+    if(condition) {
       //在右边显示
       tip.style.top = position.top;
       tip.style.left = position.right + 3;
