@@ -1,0 +1,53 @@
+<script>
+  //========= 计时器 ============
+  // var timer = setTimeout(function() {
+  //   console.log('yo');
+  // },2000);
+
+  //======== 清除倒计时 ==========
+  // clearTimeout(timer);
+
+  //========== 每隔多久执行一次 ============
+  // var count = 0;
+  // var timer = setInterval(function(){
+  //   console.log(count);
+  //   count++;
+  //
+  //   if(count > 3) {
+  //     // 清除间隔执行
+  //     clearInterval(timer);
+  //   }
+  // },500);
+</script>
+
+<!-- ================== 事件 ================-->
+<button id = "x">Yo</button>
+
+<script>
+  function on_click () {
+    console.log('yo');
+    x.removeEventListener('click',on_click);
+  }
+  x.addEventListener('click',on_click);
+</script>
+
+<!--============= 异步请求 ==============-->
+<script>
+  // fetch接口
+  fetch('https://api.github.com/users/ONION-ZX')
+    .then(function(res) {
+      res.json().then(function(d) {
+        console.log(d);
+      })
+    });
+
+  //XML HttpRequest接口
+  var http = new XMLHttpRequest();
+  http.open('get','https://api.github.com/users/biaoyansu');
+  http.send();
+
+  http.addEventListener('load',function() {
+    var obj = JSON.parse(this.responseText);
+    console.log(obj);
+  });
+</script>

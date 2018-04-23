@@ -62,6 +62,8 @@
 </label>
 
 <script>
+
+/*列表中所有的checkbox都有可能被作为起点或终点，所以首先就要选中所有checkbox。*/
   var list = document.querySelectorAll('[type = checkbox]')
     , start_status
     , start
@@ -69,11 +71,16 @@
     , overhand
   ;
 
+  /* 要分别让他们监听点击事件，如果其中任何一个checkbox被点击了，就要检测是否是按着Shift点的。*/
   list.forEach(function(clicked,current_index) {
     clicked.addEventListener('click',function(e) {
-      if(e.shiftKey) {
+      if(e.shiftKey) {  // 如果按着shift，那就是终点，同时记录终点是列表中的第几个
         end = current_index;
         overhand = start < end;
+
+      //既然已经有了终点，那就意味着两个边界都确定了，而且当终点确定时，起点要能看的见，也就是说起点和终点要分开存，不能被终点给覆盖掉，因为我们要确定两个边界都是正确的。
+      //然后遍历所有的元素，看他们是否在选择范围内
+      //检查当前正在遍历的元素是否大于起点，小于终点。
 
         list.forEach(function(each,sec_index) {
           //smaller than start and bigger than end
