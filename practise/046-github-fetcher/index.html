@@ -19,6 +19,67 @@
 
   init();
 
+  // 入口函数
+  function init() {
+    form.addEventListener('submit',function(e) {
+      // 禁止默认行为
+      e.preventDefault();
+      // 拿到用户输入的用户名
+      var username = input.value;
+      // 搜索此用户
+      search(username);
+    });
+  }
+
+  // 用取到的数据生成HTML
+  function render_user() {
+    var html =
+        ` id: ${user.login} <br>
+        头像: <img src = "${user.avatar_url}">
+        `
+
+        el_user.innerHTML = html;
+  }
+
+  // 通过用户名获取用户数据
+  function search(username) {
+    send('https://api.github.com/users/' + username, function(data) {
+      console.log(data);
+      // 将上方的user变量用新数据覆盖，以保证所有函数可见
+      user = data;
+      // 渲染页面(生成HTML)
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    var method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    // 当请求返回
+    http.addEventListener('load',function() {
+      // 拿到响应字符串(JSON格式)，并转为JS可以理解的对象
+      var data = JSON.parse(this.responseText);
+
+      // 检查调用我的人是否想在拿到数据后插入自己的代码，
+      // 如果有就执行他的代码
+      // 并且把数据给人家
+      if(f)
+        f(data);
+    });
+  }
+</script>
+
+<!-- <script>
+  var form = document.getElementById('search-form');
+  var input = document.getElementById('search-input');
+  var el_user = document.getElementById('user');
+  var user;
+
+  init();
+
   function init() {
     form.addEventListener('submit',function(e) {
       e.preventDefault();
@@ -57,7 +118,7 @@
         f(data);
     });
   }
-</script>
+</script> -->
 
 <!-- <script>
   var form = document.getElementById('search-form')

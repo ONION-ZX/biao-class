@@ -1,0 +1,221 @@
+<style>
+  img {
+    max-width: 80px;
+  }
+</style>
+
+<form id="search-form">
+  <input id="search-input" type="search" placeholder="随便输个github用户试试">
+  <button type="submit">搜索</button>
+</form>
+
+<div id="user"></div>
+
+<script>
+
+  var user,
+      input = document.getElementById('search-input');
+      form = document.getElementById('search-form');
+      el_user = document.getElementById('user');
+
+  init();
+
+  // 入口函数
+  function init() {
+    // 为表单绑定事件
+    form.addEventListener('submit',function(e) {
+      // 阻止默认行为
+      e.preventDefault();
+      // 获取用户输入的用户名
+      var username = input.value;
+      // 搜索
+      search(username);
+    });
+  }
+  // 生成HTML页面
+  function render_user() {
+    var html =  `
+                id: ${user.login} <br>
+                头像: <img src = "${user.avatar_url}">
+                `
+    el_user.innerHTML = html;
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username,function(data) {
+      user = data;
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    http.addEventListener('load',function(){
+      var data = JSON.parse(this.responseText);
+      if(f)
+      f(data);
+    });
+  }
+</script>
+
+<!-- <script>
+
+  var input = document.getElementById('search-input')
+    , form = document.getElementById('search-form')
+    , el_user = document.getElementById('user')
+    , user;
+
+  init();
+
+  function init() {
+    form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      var username = input.value;
+      search(username);
+    });
+  }
+
+  function render_user() {
+    var html =
+    ` id: ${user.login} <br>
+    头像: <img src="${user.avatar_url}">
+    `
+    el_user.innerHTML = html;
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username ,function(data) {
+      user = data;
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    var method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    http.addEventListener('load',function(){
+      var data = JSON.parse(this.responseText);
+      if(f)
+      f(data);
+    });
+  }
+</script> -->
+
+<!-- <script>
+var form = document.getElementById('search-form');
+var input = document.getElementById('search-input');
+var el_user = document.getElementById('user');
+var user;
+  init();
+
+  // 入口函数
+  function init() {
+    form.addEventListener('submit',function(e) {
+      // 禁止默认行为
+      e.preventDefault();
+      // 拿到用户输入的用户名
+      var username = input.value;
+      // 搜索此用户
+      search(username);
+    });
+  }
+
+  function render_user() {
+    var html =
+      `id: ${user.login} <br>
+      头像: <img src="${user.avatar_url}">`
+
+      el_user.innerHTML = html;
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username ,function(data) {
+      user = data;
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    var method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    http.addEventListener('load',function() {
+      var data = JSON.parse(this.responseText);
+
+      if(f)
+        f(data);
+    });
+  }
+</script> -->
+
+<!-- <script>
+  var form = document.getElementById('search-form')
+    , input = document.getElementById('search-input')
+    , el_user = document.getElementById('user')
+    , user
+  ;
+
+  init();
+
+  // 入口函数
+  function init() {
+    form.addEventListener('submit',function(e) {
+      // 禁止默认行为
+      e.preventDefault();
+      // 拿到用户输入的用户名
+      var username = input.value;
+      // 搜索此用户
+      search(username);
+    });
+  }
+
+  // 用取到的数据生成HTML
+  function render_user() {
+    var html =
+        ` id: ${user.login} <br>
+        头像: <img src = "${user.avatar_url}">
+        `
+
+        el_user.innerHTML = html;
+  }
+
+  // 通过用户名获取用户数据
+  function search(username) {
+    send('https://api.github.com/users/' + username,
+    function(data) {
+    console.log(data);
+    // 将上方的user变量用新数据覆盖，以保证所有函数可见
+    user = data;
+    // 渲染页面
+    render_user();
+   });
+  }
+
+  function send(url,f,method) {
+    var method = method || 'get';
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    // 当请求返回
+    http.addEventListener('load',function() {
+      // 拿到响应字符串(JSON格式)，并转为JS可以理解的对象
+      var data = JSON.parse(this.responseText);
+
+      // 检查调用我的人是否想在拿到数据后插入自己的代码
+      // 如果有就执行他的代码
+      // 并且把数据给人家
+      if(f)
+        f(data);
+    });
+  }
+</script> -->
