@@ -1,24 +1,94 @@
+<style>
+  img {
+    max-width: 80px;
+  }
+</style>
+
 <form id="search-form">
   <input id="search-input" type="search" placeholder="随便输个github用户试试">
   <button type="submit">搜索</button>
 </form>
 
+<div id="user"></div>
+
 <script>
-  var form = document.getElementById('search-form')
-  input = document.getElementById('search-input');
+  var form = document.getElementById('search-form');
+  var input = document.getElementById('search-input');
+  var el_user = document.getElementById('user');
+  var user;
+
   init();
-  /*入口函数*/
+
   function init() {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit',function(e) {
       e.preventDefault();
       var username = input.value;
       search(username);
     });
   }
 
+  function render_user() {
+    var html =
+    ` id: ${user.login} <br>
+    头像: <img src = "${user.avatar_url}">
+    `
+
+    el_user.innerHTML = html;
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username, function(data) {
+      console.log(data);
+      user = data;
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    method = method || 'get';
+
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    http.addEventListener('load',function() {
+      var data = JSON.parse(this.responseText);
+      if(f)
+        f(data);
+    });
+  }
+</script>
+
+<!-- <script>
+  var form = document.getElementById('search-form')
+    , input = document.getElementById('search-input')
+    , el_user = document.getElementById('user')
+    , user
+  ;
+  init();
+  /*入口函数*/
+  function init() {
+    // send('https://api.ipify.org?format=json', function (data) {
+    //   console.log(data);
+    // });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var username = input.value;
+      search(username);
+    });
+  }
+  function render_user() {
+    var html =
+      ` id: ${user.login} <br>
+     头像：<img src="${user.avatar_url}">
+    `
+    el_user.innerHTML = html;
+  }
   function search(username) {
     send('https://api.github.com/users/' + username, function (data) {
       console.log(data);
+      user = data;
+      render_user();
     });
   }
   /*发送请求
@@ -26,15 +96,15 @@
   * @param fn Function 回调函数
   * @param method String 请求方法，默认为get
   * */
-  function send(url, f, method) {
-    method = method || 'get';
+  function send(url, fn, methed) {
+    methed = methed || 'get';
     var http = new XMLHttpRequest();
-    http.open(method, url);
+    http.open(methed, url);
     http.send();
     http.addEventListener('load', function () {
       var data = JSON.parse(this.responseText);
-      if (f)
+      if (fn)
         fn(data);
     });
   }
-</script>
+</script> -->
