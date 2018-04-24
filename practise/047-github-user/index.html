@@ -1,0 +1,201 @@
+<style>
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  input, button {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  img {
+    max-width: 100px;
+  }
+  .placeholder {
+    opacity: .5;
+    font-size: 80%;
+  }
+  .title {
+    font-weight: bold;
+  }
+</style>
+<h1>Github用户详情</h1>
+
+<form id="search-form">
+  <input type="search" id="search-input" placeholder="请输入用户名" autocomplete="off">
+  <button type="submit">Yo</button>
+</form>
+
+<div id="user-info"></div>
+
+<script>
+  var user;
+  var el_form = document.getElementById('search-form');
+  var el_input = document.getElementById('search-input');
+  var el_user_info = document.getElementById('user-info');
+  var timer;
+
+  init();
+
+  function init() {
+    el_input.addEventListener('keyup',function(e) {
+      var username = el_input.value;
+      clearTimeout(timer);
+      if(!username)
+        return;
+
+      timer = setTimeout(function() {
+        find_user(username);
+      },500);
+    });
+  }
+
+  function render() {
+    if(!user) {
+      el_user_info.innerHTML = '<div class="placeholder">暂无用户</div>';
+      return;
+    } else {
+      el_user_info.innerHTML = `
+      <div class = "field">
+        <span class="title">用户名</span>
+        <span class="value">${user.login}</span>
+      </div>
+      <div class = "field">
+        <span class="bio">介绍</span>
+        <span class="value">${user.bio}</span>
+      </div>
+      <div class = "field">
+        <span class="ava">头像</span>
+        <span class="value"><img src="${user.avatar_url}"></span>
+      </div>
+      `;
+    }
+  }
+
+  function find_user(username) {
+    send('https://api.github.com/users/' + username,function(data) {
+      user = data;
+      render();
+    },function() {
+      user = null;
+      render();
+    });
+  }
+
+  function send(url,onload,onfail,method) {
+    method = method || 'get';
+
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+    http.addEventListener('load',function(){
+      var data = JSON.parse(this.responseText);
+
+      if(http.status ==200) {
+        if(onload)
+          onload(data);
+      } else {
+        if(onfail)
+          onfail(data);
+      }
+    });
+  }
+</script>
+
+<!-- <script>
+  var user // 用户数据
+    , el_form = document.getElementById('search-form') // 搜索表单
+    , el_input = document.getElementById('search-input') // 搜索表单中的input
+    , el_user_info = document.getElementById('user-info') // 用于显示用户数据的div
+    , timer // 计时器
+  ;
+  init();
+  /*入口函数*/
+  function init() {
+    /*绑定事件，一旦用户有输入，就开始查找*/
+    el_input.addEventListener('keyup', function () {
+      /*获取输入的用户名*/
+      var username = el_input.value;
+      /*有任何新的输入，清除上一次的倒计时*/
+      clearTimeout(timer);
+      /*如果用户名为空就直接返回*/
+      if (!username)
+        return;
+      /*重新计时*/
+      timer = setTimeout(function () {
+        /*一旦时间超过500毫秒才开始发送请求*/
+        find_user(username);
+      }, 500);
+    });
+  }
+  /*跟send一样，用于发送异步请求，只不过，他的功能仅限于查找用户*/
+  function find_user(username) {
+    send(
+      'https://api.github.com/users/' + username,
+      function (data) { // 当成功时执行
+        user = data;
+        render();
+      },
+      function () { // 当失败时执行
+        user = null;
+        render();
+      }
+    );
+  }
+  /*通用函数，专门发送请求
+  * @param url String 请求地址
+  * @param onload Function 当成功时执行的回调函数
+  * @param onfail Function 当失败时执行的回调函数
+  * @param method String 请求方法 (get|post|patch|delete|option)
+  * */
+  function send(url, onload, onfail, method) {
+    /*如果没传方法，默认为get*/
+    method = method || 'get';
+    /*准备发射*/
+    var http = new XMLHttpRequest();
+    http.open(method, url);
+    /*发射*/
+    http.send();
+    /*当请求返回时*/
+    http.addEventListener('load', function () {
+      /*解析返回结果（JSON格式的字符串）*/
+      var data = JSON.parse(http.responseText);
+      /*如果请求成功
+      * 2xx：成功
+      * 3xx：跳转
+      * 4xx：出错（客户端的锅）
+      * 5xx：出错（服务器的锅）
+      * */
+      if (http.status == 200) {
+        /*执行请求成功的回调函数*/
+        if (onload)
+          onload(data);
+      } else {
+        /*执行请求失败的回调函数*/
+        if (onfail)
+          onfail(data);
+      }
+    })
+  }
+  function render() {
+    console.log(user);
+    if (!user) {
+      el_user_info.innerHTML = '<div class="placeholder">暂无用户</div>';
+      return;
+    }
+    el_user_info.innerHTML = `
+    <div class="field">
+     <span class="title">用户名</span>
+     <span class="value">${user.login}</span>
+    </div>
+    <div class="field">
+     <span class="title">介绍</span>
+     <span class="value">${user.bio}</span>
+    </div>
+    <div class="field">
+     <span class="title">头像</span>
+     <span class="value"><img src="${user.avatar_url}"></span>
+    </div>
+    `;
+  }
+<!-- </script> -->
