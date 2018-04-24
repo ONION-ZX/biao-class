@@ -12,6 +12,52 @@
 <div id="user"></div>
 
 <script>
+
+  var form = document.getElementById('search-form');
+  var input = document.getElementById('search-input');
+  var el_user = document.getElementById('user');
+  var user;
+  init();
+
+  function init() {
+     form.addEventListener('submit',function(e) {
+       e.preventDefault();
+       username = input.value;
+       search(username);
+     });
+  }
+
+  function render_user() {
+    var html = `
+    id: ${user.login} <br>
+    avatar: <img src="${user.avatar_url}">
+    `
+    el_user.innerHTML = html;
+  }
+
+  function search(username) {
+    send('https://api.github.com/users/' + username, function(data) {
+      user = data;
+      render_user();
+    });
+  }
+
+  function send(url,f,method) {
+    method = method || 'get';
+
+    var http = new XMLHttpRequest();
+    http.open(method,url);
+    http.send();
+
+    http.addEventListener('load',function() {
+      var data = JSON.parse(this.responseText);
+      if(f)
+        f(data);
+    });
+  }
+</script>
+
+<!-- <script>
   var form = document.getElementById('search-form');
   var input = document.getElementById('search-input');
   var el_user = document.getElementById('user');
@@ -70,7 +116,7 @@
         f(data);
     });
   }
-</script>
+</script> -->
 
 <!-- <script>
   var form = document.getElementById('search-form');
