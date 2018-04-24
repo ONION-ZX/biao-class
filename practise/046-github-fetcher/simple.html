@@ -1,0 +1,62 @@
+<script>
+  var username = 'bang';
+  var http = new XMLHttpRequest();
+
+  http.open('get','https://api.github.com/users/' + username);
+  http.send();
+
+  http.addEventListener('load',function() {
+    var text = this.responseText;
+    var data = JSON.parse(text);
+    console.log(data);
+  });
+
+</script>
+
+<!-- <script>
+  var username = 'ONION-ZX';
+  var http = new XMLHttpRequest();
+  http.open('get','https://api.github.com/users/' + username);
+  http.send();
+
+  http.addEventListener('load',function() {
+    var text = this.responseText;
+    var data = JSON.parse(text);
+    console.log(data);
+  });
+</script> -->
+
+<!-- <script>
+  var username = 'bang666';
+  var http = new XMLHttpRequest();
+  http.open('get','https://api.github.com/users/' + username);
+  http.send();
+
+  http.addEventListener('load',function() {
+    var text = this.responseText;
+    var data = JSON.parse(text);
+    console.log(data);
+  });
+</script> -->
+
+<!-- <script>
+
+  var username = 'bang666';
+
+  // 准备发射
+  var http = new XMLHttpRequest();
+  // 怎么发射，和往哪发射
+  http.open('get','https://api.github.com/users/' + username);
+  // 发射
+  http.send();
+
+  // 一旦触发load事件就说明请求结束了，数据返回了
+  http.addEventListener('load',function() {
+    // 在这一步我们拿到的仅仅是字符串
+    var text = this.responseText;
+
+    // 转换数据
+    var data = JSON.parse(text);
+    console.log(data);
+  });
+</script> -->
