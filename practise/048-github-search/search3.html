@@ -1,0 +1,99 @@
+<style>
+  body {
+    background: #eee;
+    font-family: sans-serif;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  a {
+    text-decoration: none;
+    color: #777;
+  }
+  button, input {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  .user {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .1);
+    margin: 10px;
+  }
+  .user > * {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    color: #555;
+    font-size: 80%;
+  }
+  .username {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  .avatar {
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    padding: 0;
+  }
+</style>
+<form id="search-form">
+  <input id="search-input" type="text">
+  <button type="submit">搜索</button>
+</form>
+<div id="amount"></div>
+<div id="user-list"></div>
+
+<script>
+  var el_user_list = document.getElementById('user-list');
+  var el_form = document.getElementById('search-form');
+  var el_input = document.getElementById('search-input');
+  var res;
+
+  init();
+
+  function init () {
+    detect_submit();
+  }
+
+  function detect_submit () {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+
+      var keyword = el_input.value;
+      if(!keyword) {
+        alert('你闹呢?');
+        return;
+      }
+        search(keyword);
+    });
+  }
+
+  function search(keyword) {
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword);
+    http.send();
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      render();
+    });
+  }
+
+  function render() {
+    var html = '';
+    res.items.forEach(function(user) {
+      html = html + `
+      <div class="user">
+        <img class="avatar" src="${user.avatar_url}">
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a href="${user.url}">${user.url}</a></div>
+        </div>
+      </div>
+      `
+    });
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+  }
+
+</script>
