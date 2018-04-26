@@ -39,6 +39,9 @@
   form button {
     width: 20%;
   }
+  [hidden] {
+    display: none !important;
+  }
   .block {
     display: block;
     width: 100%;
@@ -83,8 +86,14 @@
     border-right: 1px solid rgba(0, 0, 0, .1);
     padding: 0;
   }
-  #load-more {
-    /*display: none;*/
+  #top {
+    padding: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, .6);
+    border: 0;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
   }
 </style>
 
@@ -101,10 +110,104 @@
   </form>
   <div id="amount"></div>
   <div id="user-list"></div>
-  <button id="next" class="block">加载更多</button>
+  <button id="next" class="block" hidden>加载更多</button>
+</div>
+
+<div class="toolbar">
+  <button id="top">Top</button>
 </div>
 
 <script>
+var el_user_list = document.getElementById('user-list')
+  , el_form = document.getElementById('search-form')
+  , el_input = document.getElementById('search-input')
+  , el_next = document.getElementById('next')
+  , page = 1
+  , keyword
+  , res // 返回数据
+  , el_top = document.getElementById('top')
+;
+
+init();
+
+function init() {
+  detect_submit();
+  detect_next_page();
+}
+
+function detect_submit() {
+  el_form.addEventListener('submit',function(e) {
+    e.preventDefault();
+    keyword = el_input.value;
+    if(!keyword) {
+      alert('你闹呢?');
+      return;
+    }
+    reset_page();
+    reset_user_list();
+    search(keyword);
+  });
+}
+
+function reset_page() {
+  page = 1;
+}
+
+function reset_user_list() {
+  el_user_list.innerHTML = '';
+}
+
+function detect_next_page() {
+  el_next.addEventListener('click',function() {
+    page ++;
+    search();
+  });
+}
+
+function search() {
+  // 防止疯狂点
+  el_next.disabled = true;
+  el_next.innerText = '加载中...';
+
+  var http = new XMLHttpRequest();
+  http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
+  http.send();
+
+  http.addEventListener('load',function() {
+    res = JSON.parse(this.responseText);
+    render();
+    el_next.disabled = false;
+    el_next.innerText = '加载更多...';
+  });
+}
+
+function render() {
+  var html = el_user_list.innerHTML;
+  res.items.forEach(function(user) {
+    html = html + `
+    <div class="user">
+      <a class="avatar" target="_blank" href="${user.html_url}">
+      <img src="${user.avatar_url}">
+      </a>
+      <div class="info">
+        <div class="username">${user.login}</div>
+        <div><a target = "_blank" href = "${user.html_url}"></a></div>
+      </div>
+    </div>
+    `;
+  });
+  el_user_list.innerHTML = html;
+  document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+}
+
+function back_top() {
+  el_top.addEventListener('click',function() {
+    window.scrollTo(0,0);
+  });
+}
+</script>
+
+<!-- <script>
    var el_user_list = document.getElementById('user-list'),
        el_form = document.getElementById('search-form'),
        el_input = document.getElementById('search-input'),
@@ -142,6 +245,7 @@
   function search() {
     var http = new XMLHttpRequest();
     http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
+    http.setRequestHeader('Authorization', 'Basic ' + btoa('username: 2526544ae919c5ded646a60876ef3aa075ebef5c'));
     http.send();
 
     http.addEventListener('load',function() {
@@ -170,7 +274,7 @@
     el_user_list.innerHTML = html;
     document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
   }
-</script>
+</script> -->
 
 <!-- <script>
   var el_form = document.getElementById('search-form');
