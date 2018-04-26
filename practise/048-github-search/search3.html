@@ -101,10 +101,78 @@
   </form>
   <div id="amount"></div>
   <div id="user-list"></div>
-  <button id="load-more" class="block">加载更多</button>
+  <button id="next" class="block">加载更多</button>
 </div>
 
 <script>
+   var el_user_list = document.getElementById('user-list'),
+       el_form = document.getElementById('search-form'),
+       el_input = document.getElementById('search-input'),
+       el_next = document.getElementById('next'),
+       keyword,
+       page = 1,
+       res;
+
+  init();
+
+  function init() {
+    detect_submit();
+    detect_next_page();
+  }
+
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('你闹呢?');
+        return;
+      }
+      search(keyword);
+    });
+  }
+
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page++;
+      search();
+    });
+  }
+
+  function search() {
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
+    http.send();
+
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      render();
+    });
+  }
+
+  function render() {
+    var html = el_user_list.innerHTML;
+
+    res.items.forEach(function(user) {
+      html = html +   `
+      <div class="user">
+        <a class="avatar" target="_blank" href="${user.html_url}">
+        <img src="${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target = "_blank" href = "${user.html_url}"></a></div>
+        </div>
+      </div>
+      `;
+    });
+
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+  }
+</script>
+
+<!-- <script>
   var el_form = document.getElementById('search-form');
   var el_input = document.getElementById('search-input');
   var el_user_list = document.getElementById('user-list');
@@ -155,7 +223,7 @@
     el_user_list.innerHTML = html;
     document.getElementById('amount').innerHTML = `共有${res.total_count}项结果`;
   }
-</script>
+</script> -->
 
 <!-- <script>
   var el_form = document.getElementById('search-form');
