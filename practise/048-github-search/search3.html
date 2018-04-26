@@ -110,7 +110,7 @@
   </form>
   <div id="amount"></div>
   <div id="user-list"></div>
-  <button id="next" class="block" hidden>加载更多</button>
+  <button id="next" class="block">加载更多</button>
 </div>
 
 <div class="toolbar">
@@ -133,6 +133,7 @@ init();
 function init() {
   detect_submit();
   detect_next_page();
+  back_top();
 }
 
 function detect_submit() {
