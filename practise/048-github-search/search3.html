@@ -126,6 +126,124 @@
 </div>
 
 <script>
+;(function() {
+  'use strict';
+
+  var el_user_list = document.getElementById('user-list')
+    , el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_next = document.getElementById('next')
+    , el_placeholder = document.getElementById('placeholder')
+    , el_top = document.getElementById('top')
+    , no_more
+    , amount
+    , keyword
+    , page = 1
+    , limit = 8
+  ;
+
+  // 返回数据
+  var res;
+
+  init();
+
+  // 入口函数
+  function init() {
+    detect_submit();
+    detect_next_page();
+    detect_click_top();
+  }
+
+  // 绑定提交事件,检测提交
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('are u kidding me?');
+        return;
+      }
+      //每输入一次关键词都要重置页码
+      reset_page();
+      //并且重置用户列表
+      reset_user_list();
+      //然后发出搜索请求
+      search(keyword);
+    });
+  }
+
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page ++;
+      search();
+    });
+  }
+
+  function search() {
+    el_next.disabled = true;
+    el_next.innerText = '加载中...';
+
+    var http = new XMLHttpRequest;
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
+    http.send();
+
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      amount = res.total_count;
+      render();
+      el_next.disabled = false;
+      el_next.innerText = '加载更多';
+    });
+  }
+
+  function detect_click_top() {
+    el_top.addEventListener('click',function() {
+      window.scrollTo(0,0);
+    });
+  }
+
+  function reset_page() {
+    page = 1;
+  }
+
+  function reset_user_list() {
+    el_user_list.innerHTML = '';
+  }
+
+  function render() {
+    var html = el_user_list.innerHTML;
+
+    res.items.forEach(function(user) {
+      html = html + `
+      <div class="user">
+        <a class="avatar" target="_blank" href="${user.html_url}">
+          <img src="${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+        </div>
+      </div>
+      `;
+    });
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+
+    no_more = page * limit >= amount;
+
+    if(no_more) {
+      el_next.hidden = true;
+      el_placeholder.hidden = false;
+    } else {
+      el_next.hidden = false;
+      el_placeholder.hidden = true;
+    }
+  }
+
+})();
+</script>
+
+<!-- <script>
   var el_user_list = document.getElementById('user-list')
     , el_form = document.getElementById('search-form')
     , el_input = document.getElementById('search-input')
@@ -164,8 +282,6 @@
       reset_page();
       // 重置用户列表HTML
       reset_user_list();
-      /*隐藏两个只有得到结果才有意义的组件*/
-      el_placeholder.hidden = el_next.hidden = true;
       search(keyword);
     });
   }
@@ -176,7 +292,7 @@
     el_next.innerText = '加载中...';
     var http = new XMLHttpRequest();
     http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
-    http.setRequestHeader('Authorization', 'Basic ' + btoa('ONION-ZX:54b9321236673a59ab571167b365156329d6739e'));
+    // http.setRequestHeader('Authorization', 'Basic ' + btoa('ONION-ZX:54b9321236673a59ab571167b365156329d6739e'));
     http.send();
 
     http.addEventListener('load',function() {
@@ -247,7 +363,7 @@
       el_placeholder.hidden = true;
     }
   }
-</script>
+</script> -->
 
 <!-- <script>
   ;(function () {
