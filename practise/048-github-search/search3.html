@@ -40,7 +40,7 @@
     width: 20%;
   }
   [hidden] {
-    display: none;
+    display: none !important;
   }
   .block {
     display: block;
@@ -60,7 +60,7 @@
   .tac {
     text-align: center;
   }
-  #placeholer {
+  #placeholder {
     font-size: 80%;
     opacity: .7;
   }
@@ -118,7 +118,7 @@
   <div id="amount"></div>
   <div id="user-list"></div>
   <button id="next" class="block" hidden>加载更多</button>
-  <div class="tac" id="placeholer" hidden>谋了 - . -</div>
+  <div class="tac" id="placeholder" hidden>谋了 - . -</div>
 </div>
 
 <div class="toolbar">
@@ -126,6 +126,130 @@
 </div>
 
 <script>
+  var el_user_list = document.getElementById('user-list')
+    , el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_top = document.getElementById('top')
+    , el_next = document.getElementById('next')
+    , el_placeholder = document.getElementById('placeholder')
+    , no_more
+    , keyword
+    , amount
+    , page = 1
+    , limit = 5
+  ;
+
+  //返回数据
+  var res;
+
+  init();
+
+  // 入口函数
+  function init() {
+    detect_submit();
+    detect_next_page();
+    detect_click_top();
+  }
+
+  // 绑定表单提交事件
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('are u kidding me?');
+        return;
+      }
+      // 重置页码
+      reset_page();
+      // 重置用户列表HTML
+      reset_user_list();
+      /*隐藏两个只有得到结果才有意义的组件*/
+      el_placeholder.hidden = el_next.hidden = true;
+      search(keyword);
+    });
+  }
+
+  function search() {
+    //禁用(防止疯狂点)
+    el_next.disabled = true;
+    el_next.innerText = '加载中...';
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
+    http.setRequestHeader('Authorization', 'Basic ' + btoa('ONION-ZX:54b9321236673a59ab571167b365156329d6739e'));
+    http.send();
+
+    http.addEventListener('load',function() {
+      // 获取返回数据
+      res = JSON.parse(this.responseText);
+      amount = res.total_count;
+      // 渲染
+      render();
+
+      //当若干秒后数据返回就重新启用按钮
+      el_next.disabled = false;
+      el_next.innerText = '加载更多'
+    });
+  }
+
+  function reset_page() {
+    page = 1;
+  }
+
+  function reset_user_list() {
+    el_user_list.innerHTML = '';
+  }
+
+  //监听翻页
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page ++ ;
+      search();
+    });
+  }
+
+  //点击回到顶部
+  function detect_click_top() {
+    el_top.addEventListener('click',function() {
+      window.scrollTo(0,0);
+    });
+  }
+
+  function render() {
+    //初始化HTML
+    var html = el_user_list.innerHTML;
+
+    res.items.forEach(function(user) {
+      html = html + `
+      <div class="user">
+        <a class="avatar" target="_blank" href="${user.html_url}">
+          <img src="${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+        </div>
+      </div>
+      `;
+    });
+
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML =  `共有${res.total_count}条结果`;
+    el_next.hidden = false;
+
+    no_more = page * limit >= amount;
+
+    if(no_more) {
+      el_next.hidden = true;
+      el_placeholder.hidden = false;
+    } else {
+      el_next.hidden = false;
+      el_placeholder.hidden = true;
+    }
+  }
+</script>
+
+<!-- <script>
   ;(function () {
     'use strict';
     /*模板床*/
@@ -134,12 +258,12 @@
       , el_input = document.getElementById('search-input')
       , el_next = document.getElementById('next')
       , el_top = document.getElementById('top')
-      , el_placeholer = document.getElementById('placeholer')
+      , el_placeholder = document.getElementById('placeholder')
       , keyword
       , no_more
       , amount
       , page = 1
-      , limit = 10
+      , limit = 15
     ;
     /*返回的数据*/
     var res;
@@ -147,6 +271,13 @@
     /*通过用户名搜Github用户
     * @param String keyword 关键词
     * */
+    /*初始化*/
+    function init() {
+      detect_submit();
+      detect_next_page();
+      detect_click_top();
+    }
+
     function search() {
       /*禁用按钮，因为用很坏（防止疯狂点）*/
       el_next.disabled = true;
@@ -170,12 +301,7 @@
         el_next.innerText = '加载更多';
       });
     }
-    /*初始化*/
-    function init() {
-      detect_submit();
-      detect_next_page();
-      detect_click_top();
-    }
+
     /*绑定表单提交事件*/
     function detect_submit() {
       el_form.addEventListener('submit', function (e) {
@@ -190,15 +316,22 @@
         reset_page();
         /*重置用户列表HTML*/
         reset_user_list();
+        /*隐藏两个只有得到结果才有意义的组件*/
+        el_placeholder.hidden = el_next.hidden = true;
         search(keyword);
       });
     }
+
+    /*重置页码为1*/
     function reset_page() {
       page = 1;
     }
+
+    /*清空已渲染内容*/
     function reset_user_list() {
       el_user_list.innerHTML = '';
     }
+
     /*监听翻页*/
     function detect_next_page() {
       el_next.addEventListener('click', function () {
@@ -206,545 +339,49 @@
         search();
       });
     }
+
+    /*监听点击回到顶部*/
     function detect_click_top() {
       el_top.addEventListener('click', function() {
         window.scrollTo(0, 0);
       });
     }
-    /**
-     * 通过数据生成HTML
-     */
+
+    /*通过数据生成HTML*/
     function render() {
       /*初始化HTML*/
       var html = el_user_list.innerHTML;
-      console.log(res);
       /*遍历用户列表*/
       res.items.forEach(function (user) {
         /*每个用户都追加到HTML后面*/
         html = html + `
-  <div class="user">
-    <a class="avatar" target="_blank" href="${user.html_url}">
-      <img src="${user.avatar_url}">
-    </a>
-    <div class="info">
-      <div class="username">${user.login}</div>
-      <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
-    </div>
-  </div>
-    `;
+        <div class="user">
+          <a class="avatar" target="_blank" href="${user.html_url}">
+            <img src="${user.avatar_url}">
+          </a>
+          <div class="info">
+            <div class="username">${user.login}</div>
+            <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+          </div>
+        </div>
+        `;
       });
       /*将生成的HTML写入模板床*/
       el_user_list.innerHTML = html;
-      document
-        .getElementById('amount')
-        .innerHTML = `共有${res.total_count}条结果`;
+      document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
       el_next.hidden = false;
       /*如果每页的数量乘以页数大于总数就说明当前页就是最后一页*/
       no_more = page * limit >= amount;
-      /*
-      el_next.hidden = no_more;
-      el_placeholer.hidden = !no_more;
-      */
       /*如果没有更多*/
       if(no_more) {
         /*隐藏翻页按钮*/
         el_next.hidden = true;
         /*显示"谋了"*/
-        el_placeholer.hidden = false;
+        el_placeholder.hidden = false;
       } else { // 否则正好相反
         el_next.hidden = false;
-        el_placeholer.hidden = true;
+        el_placeholder.hidden = true;
       }
     }
   })();
-</script>
-
-<!-- <script>
-  var el_form = document.getElementById('search-form')
-    , el_input = document.getElementById('search-input')
-    , el_user_list = document.getElementById('user-list')
-    , el_next = document.getElementById('next')
-    , el_placeholder = document.getElementById('placeholer')
-    , top = document.getElementById('top')
-    , page = 1
-    , limit = 10
-    , no_more
-    , amount
-    , res
-    , keyword
-  ;
-
-  init();
-
-  function init() {
-    detect_submit();
-    detect_next_page();
-    detect_click_top();
-  }
-
-  function detect_submit() {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-      keyword = el_input.value;
-      if(!keyword) {
-        alert('你闹呢?');
-        return;
-      }
-
-      // 充值页码
-      reset_page();
-      // 重置用户列表HTML
-      reset_user_list();
-
-      search(keyword);
-    });
-  }
-
-  // 监听翻页
-  function detect_next_page() {
-    el_next.addEventListener('click',function() {
-      page ++;
-      search();
-    });
-  }
-
-  function detect_click_top() {
-    top.addEventListener('click',function() {
-      window.scrollTo(0,0);
-    });
-  }
-
-  function reset_page() {
-    page = 1;
-  }
-
-  function reset_user_list() {
-    el_user_list.innerHTML = '';
-  }
-
-  function search() {
-    el_next.disabled = true;
-    el_next.innerText = '加载中...';
-
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
-    http.send();
-
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-
-      // 拿到搜索结果总数
-      amount = res.total_count;
-      render();
-
-      el_next.disabled = false;
-      el_next.innerText = '加载更多';
-    });
-  }
-
-  function render() {
-    var html = el_user_list.innerHTML;
-    res.items.forEach(function(user) {
-      html = html + `
-      <div class="user">
-        <a class="avatar" target="_blank" href="${user.html_url}">
-        <img src="${user.avatar_url}">
-        </a>
-        <div class="info">
-          <div class="username">${user.login}</div>
-          <div><a target = "_blank" href = "${user.html_url}"></a></div>
-        </div>
-      </div>
-      `;
-    });
-    el_user_list.innerHTML = html;
-    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
-    el_next.hidden = false;
-
-    // 如果每页的数量乘以页数大于总数就说明当前页就是最后一页
-    no_more = page * limit >= amount;
-
-    if(no_more) {
-      // 隐藏翻页按钮
-      el_next.hidden = true;
-      // 显示"谋了"
-      el_next.hidden = false;
-    } else {
-      el_next.hidden = false;
-      el_next.hidden = true;
-    }
-  }
-
-</script> -->
-
-<!-- <script>
-var el_user_list = document.getElementById('user-list')
-  , el_form = document.getElementById('search-form')
-  , el_input = document.getElementById('search-input')
-  , el_next = document.getElementById('next')
-  , page = 1
-  , keyword
-  , res // 返回数据
-  , el_top = document.getElementById('top')
-;
-
-init();
-
-function init() {
-  detect_submit();
-  detect_next_page();
-  back_top();
-}
-
-function detect_submit() {
-  el_form.addEventListener('submit',function(e) {
-    e.preventDefault();
-    keyword = el_input.value;
-    if(!keyword) {
-      alert('你闹呢?');
-      return;
-    }
-    reset_page();
-    reset_user_list();
-    search(keyword);
-  });
-}
-
-function reset_page() {
-  page = 1;
-}
-
-function reset_user_list() {
-  el_user_list.innerHTML = '';
-}
-
-function detect_next_page() {
-  el_next.addEventListener('click',function() {
-    page ++;
-    search();
-  });
-}
-
-function search() {
-  // 防止疯狂点
-  el_next.disabled = true;
-  el_next.innerText = '加载中...';
-
-  var http = new XMLHttpRequest();
-  http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
-  http.setRequestHeader('Authorization', 'Basic ' + btoa('ONION-ZX:cda48b8f0480cce9ea0a566e6989c646d5bf31a5'));
-  http.send();
-
-  http.addEventListener('load',function() {
-    res = JSON.parse(this.responseText);
-    render();
-    el_next.disabled = false;
-    el_next.innerText = '加载更多...';
-  });
-}
-
-function render() {
-  var html = el_user_list.innerHTML;
-  res.items.forEach(function(user) {
-    html = html + `
-    <div class="user">
-      <a class="avatar" target="_blank" href="${user.html_url}">
-      <img src="${user.avatar_url}">
-      </a>
-      <div class="info">
-        <div class="username">${user.login}</div>
-        <div><a target = "_blank" href = "${user.html_url}"></a></div>
-      </div>
-    </div>
-    `;
-  });
-  el_user_list.innerHTML = html;
-  document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
-}
-
-function back_top() {
-  el_top.addEventListener('click',function() {
-    window.scrollTo(0,0);
-  });
-}
-</script> -->
-
-<!-- <script>
-   var el_user_list = document.getElementById('user-list'),
-       el_form = document.getElementById('search-form'),
-       el_input = document.getElementById('search-input'),
-       el_next = document.getElementById('next'),
-       keyword,
-       page = 1,
-       res;
-
-  init();
-
-  function init() {
-    detect_submit();
-    detect_next_page();
-  }
-
-  function detect_submit() {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-      keyword = el_input.value;
-      if(!keyword) {
-        alert('你闹呢?');
-        return;
-      }
-      search(keyword);
-    });
-  }
-
-  function detect_next_page() {
-    el_next.addEventListener('click',function() {
-      page++;
-      search();
-    });
-  }
-
-  function search() {
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
-    http.setRequestHeader('Authorization', 'Basic ' + btoa('username: 2526544ae919c5ded646a60876ef3aa075ebef5c'));
-    http.send();
-
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-      render();
-    });
-  }
-
-  function render() {
-    var html = el_user_list.innerHTML;
-
-    res.items.forEach(function(user) {
-      html = html +   `
-      <div class="user">
-        <a class="avatar" target="_blank" href="${user.html_url}">
-        <img src="${user.avatar_url}">
-        </a>
-        <div class="info">
-          <div class="username">${user.login}</div>
-          <div><a target = "_blank" href = "${user.html_url}"></a></div>
-        </div>
-      </div>
-      `;
-    });
-
-    el_user_list.innerHTML = html;
-    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
-  }
-</script> -->
-
-<!-- <script>
-  var el_form = document.getElementById('search-form');
-  var el_input = document.getElementById('search-input');
-  var el_user_list = document.getElementById('user-list');
-  var res;
-
-  init();
-
-  function init() {
-    detect_submit();
-  }
-
-  function detect_submit() {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-      var keyword = el_input.value;
-      if(!keyword) {
-        alert('你闹呢?');
-        return;
-      }
-      search(keyword);
-    });
-  }
-
-  function search(keyword) {
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword);
-    http.send();
-
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-      render();
-    });
-  }
-
-  function render() {
-    var html = '';
-    res.items.forEach(function(user) {
-      html = html + `
-       <div class="user">
-         <img class = "avatar" src = "${user.avatar_url}">
-         <div class = "info">
-           <div class="username">${user.login}</div>
-           <div><a href = "${user.url}">${user.url}</a></div>
-         </div>
-       </div>
-      `;
-    });
-    el_user_list.innerHTML = html;
-    document.getElementById('amount').innerHTML = `共有${res.total_count}项结果`;
-  }
-</script> -->
-
-<!-- <script>
-  var el_form = document.getElementById('search-form');
-  var el_input = document.getElementById('search-input');
-  var el_user_list = document.getElementById('user-list');
-  var res;
-
-  init();
-  function init() {
-    detect_submit();
-  }
-
-  function search(keyword) {
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword);
-    http.send();
-
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-      render();
-    });
-  }
-
-  function render() {
-    var html = '';
-    res.items.forEach(function(user) {
-      html = html + `
-      <div class="user">
-        <img class="avatar" src = "${user.avatar_url}">
-        <div class="info">
-          <div class="username">${user.login}</div>
-          <div><a href = "${user.url}">${user.url}</a></div>
-        </div>
-      </div>
-      `;
-    });
-    el_user_list.innerHTML = html;
-    document.getElementById('amount').innerHTML = `共有${res.total_count}项`;
-  }
-
-  function detect_submit() {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-      var keyword = el_input.value;
-      if(!keyword) {
-        return;
-      }
-      search(keyword);
-    });
-  }
-</script> -->
-
-<!-- <script>
-  var res; //返回的数据
-  var el_form = document.getElementById('search-form');
-  var el_input = document.getElementById('search-input');
-  var user_list = document.getElementById('user-list');
-
-  init();
-
-  function init() {
-    detect_submit();
-  }
-
-  function search(keyword) {
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword);
-    http.send();
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-      render();
-    });
-  }
-
-  function detect_submit() {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-      var keyword = el_input.value;
-      if(!keyword) {
-        alert('你闹呢?');
-        return;
-      } search(keyword);
-    });
-  }
-
-  function render() {
-    var html = '';
-    res.items.forEach(function(user) {
-      html = html + `
-      <div class="user">
-        <a class="avatar" target="_blank" href="${user.html_url}">
-          <img src="${user.avatar_url}">
-        </a>
-        <div class="info">
-          <div class="username">${user.login}</div>
-          <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
-        </div>
-      </div>
-    `
-    });
-  user_list.innerHTML = html;
-  document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`
-  }
-</script> -->
-
-<!-- <script>
-  var el_user_list = document.getElementById('user-list');
-  var el_form = document.getElementById('search-form');
-  var el_input = document.getElementById('search-input');
-  var res;
-
-  init();
-
-  function init () {
-    detect_submit();
-  }
-
-  function detect_submit () {
-    el_form.addEventListener('submit',function(e) {
-      e.preventDefault();
-
-      var keyword = el_input.value;
-      if(!keyword) {
-        alert('你闹呢?');
-        return;
-      }
-        search(keyword);
-    });
-  }
-
-  function search(keyword) {
-    var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword);
-    http.send();
-    http.addEventListener('load',function() {
-      res = JSON.parse(this.responseText);
-      render();
-    });
-  }
-
-  function render() {
-    var html = '';
-    res.items.forEach(function(user) {
-      html = html + `
-      <div class="user">
-        <img class="avatar" src="${user.avatar_url}">
-        <div class="info">
-          <div class="username">${user.login}</div>
-          <div><a href="${user.url}">${user.url}</a></div>
-        </div>
-      </div>
-      `
-    });
-    el_user_list.innerHTML = html;
-    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
-  }
-
 </script> -->
