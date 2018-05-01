@@ -139,6 +139,7 @@
     , el_top = document.getElementById('top')
     , el_next = document.getElementById('next')
     , el_placeholder = document.getElementById('placeholder')
+    , no_more
     , keyword
     , limit = 8
     , page = 1
@@ -225,13 +226,17 @@
     document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
     el_next.hidden = false;
 
-    if(page * limit >= amount) {
-      el_next.hidden = true;
-      el_placeholder.hidden = false;
-    } else {
-      el_next.hidden = false;
-      el_placeholder.hidden = true;
-    }
+    no_more = page * limit > amount;
+    el_next.hidden = no_more;
+    el_placeholder.hidden = !no_more;
+
+    // if(page * limit >= amount) {
+    //   el_next.hidden = true;
+    //   el_placeholder.hidden = false;
+    // } else {
+    //   el_next.hidden = false;
+    //   el_placeholder.hidden = true;
+    // }
   }
 </script>
 
