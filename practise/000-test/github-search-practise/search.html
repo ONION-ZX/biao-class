@@ -90,6 +90,15 @@
     display: none !important;
   }
 
+  .tac {
+    text-align: center;
+  }
+
+  .placeholder {
+    font-size: 80%;
+    opacity: .7;
+  }
+
   #top {
   padding: 10px;
   color: #fff;
@@ -116,6 +125,7 @@
   <div id="amount"></div>
   <div id="user-list"></div>
   <button id="next" class="block" hidden>加载更多</button>
+  <div class = "tac" id = "placeholder" hidden>谋了- . -</div>
 </div>
 
 <div class="toolbar">
@@ -128,6 +138,7 @@
     , el_user_list = document.getElementById('user-list')
     , el_top = document.getElementById('top')
     , el_next = document.getElementById('next')
+    , el_placeholder = document.getElementById('placeholder')
     , keyword
     , limit = 8
     , page = 1
@@ -180,6 +191,8 @@
 
     http.addEventListener('load',function() {
       res = JSON.parse(this.responseText);
+      //拿到搜索结果总数
+      amount = res.total_count;
       render();
       el_next.disabled = false;
       el_next.innerText = '加载更多';
@@ -211,6 +224,14 @@
     el_user_list.innerHTML = html;
     document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
     el_next.hidden = false;
+
+    if(page * limit >= amount) {
+      el_next.hidden = true;
+      el_placeholder.hidden = false;
+    } else {
+      el_next.hidden = false;
+      el_placeholder.hidden = true;
+    }
   }
 </script>
 
