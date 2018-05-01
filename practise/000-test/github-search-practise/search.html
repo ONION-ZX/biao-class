@@ -143,6 +143,7 @@
   }
 
   function detect_submit() {
+
     el_form.addEventListener('submit',function(e) {
       e.preventDefault();
       keyword = el_input.value;
@@ -150,8 +151,20 @@
         alert('are u kidding me?');
         return;
       }
+      reset_page();
+      reset_user_list();
       search(keyword);
     });
+  }
+
+  //复位页码
+  function reset_page() {
+    page = 1;
+  }
+
+  //清空之前搜索的内容
+  function reset_user_list () {
+    el_user_list.innerHTML = '';
   }
 
   function detect_next_page() {
@@ -197,6 +210,7 @@
     el_next.hidden = false;
   }
 
+  //返回顶部
   function detect_click_top () {
     el_top.addEventListener('click',function() {
       window.scrollTo(0,0);
