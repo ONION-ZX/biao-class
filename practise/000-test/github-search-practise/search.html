@@ -1,0 +1,255 @@
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  body {
+    background: #eee;
+    font-family: sans-serif;
+    color: #333;
+    margin: 0;
+  }
+  h1 {
+    font-size: 25px;
+    font-weight: lighter;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  a {
+    text-decoration: none;
+    color: #777;
+  }
+  form {
+    font-size: 0;
+  }
+  button, input {
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: 0;
+    color: #555;
+  }
+  form input {
+    width: 80%;
+    border-right: 0;
+  }
+  form button {
+    width: 20%;
+  }
+
+  .block {
+    display: block;
+    width: 100%;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+  }
+  .container > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #amount {
+    font-size: 80%;
+    color: #aaa;
+  }
+  .user {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .user > * {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    color: #555;
+    font-size: 80%;
+  }
+  .user .info > * {
+    margin-bottom: 2px;
+  }
+  .username {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  .avatar {
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    padding: 0;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+</style>
+
+<div class="container">
+  <h1>GayHub用户搜索</h1>
+  <form id="search-form">
+    <input id="search-input"
+           type="text"
+           autofocus
+           autocomplete="off"
+           placeholder="请输入用户名"
+    >
+    <button type="submit">搜索</button>
+  </form>
+  <div id="amount"></div>
+  <div id="user-list"></div>
+  <button id="next" class="block" hidden>加载更多</button>
+</div>
+
+<script>
+  var el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_user_list = document.getElementById('user-list')
+    , el_next = document.getElementById('next')
+    , keyword
+    , page = 1
+  ;
+
+  init();
+
+  function init() {
+    detect_submit();
+    detect_next_page();
+  }
+
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('are u kidding me?')
+        return;
+      }
+      search(keyword);
+    })
+  }
+
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page ++;
+      search();
+    });
+  }
+
+  function search() {
+
+    // search开始后数据未返回的时候禁用按钮(防止疯狂点击)
+    el_next.disabled = true;
+    el_next.innerText = '加载中...';
+
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
+    http.send();
+
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      render();
+
+      // 当若干秒后数据返回重新启用按钮
+      el_next.disabled = false;
+      el_next.innerText = '加载更多';
+    });
+  }
+
+  function render() {
+    var html = el_user_list.innerHTML;
+    res.items.forEach(function(user) {
+      html = html + `
+        <div class="user">
+          <a class="avatar" target = "_blank" href = "${user.html_url}">
+            <img src = "${user.avatar_url}">
+          </a>
+          <div class="info">
+            <div class="username">${user.login}</div>
+            <div><a target = "_blank" href = "${user.html_url}">${user.html_url}</a></div>
+          </div>
+        </div>
+      `;
+    });
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+
+    el_next.hidden = false;
+  }
+</script>
+
+<!-- <script>
+  var el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_amount = document.getElementById('amount')
+    , el_user_list = document.getElementById('user-list')
+    , el_next = document.getElementById('next')
+    , keyword
+    , page = 1
+  ;
+
+  var res;
+
+  init();
+
+  function init() {
+    detect_submit();
+    detect_next_page();
+  }
+
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('你闹呢?');
+        return;
+      }
+      search();
+    });
+  }
+
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page ++;
+      search();
+    });
+  }
+
+  function search() {
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page);
+    http.send();
+
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      render();
+    });
+  }
+  function render() {
+    var html = el_user_list.innerHTML;
+    res.items.forEach(function(user) {
+      html = html + `
+      <div class="user">
+        <a class="avatar" target="_blank" href="${user.html_url}">
+          <img src="${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+        </div>
+      </div>
+      `
+    });
+
+    el_user_list.innerHTML = html;
+    el_amount.innerHTML =  `共有${res.total_count}条结果`;
+  }
+</script> -->

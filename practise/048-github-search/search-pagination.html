@@ -1,0 +1,302 @@
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  body {
+    background: #eee;
+    font-family: sans-serif;
+    color: #333;
+    margin: 0;
+  }
+  h1 {
+    font-size: 25px;
+    font-weight: lighter;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  a {
+    text-decoration: none;
+    color: #777;
+  }
+  form {
+    font-size: 0;
+  }
+  button, input {
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: 0;
+    color: #555;
+  }
+  form input {
+    width: 80%;
+    border-right: 0;
+  }
+  form button {
+    width: 20%;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  .block {
+    display: block;
+    width: 100%;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+  }
+  .container > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .tac {
+    text-align: center;
+  }
+  #placeholer {
+    font-size: 80%;
+    opacity: .7;
+  }
+  #amount {
+    font-size: 80%;
+    color: #aaa;
+  }
+  .user {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .user > * {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    color: #555;
+    font-size: 80%;
+  }
+  .user .info > * {
+    margin-bottom: 2px;
+  }
+  .username {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  .avatar {
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    padding: 0;
+  }
+  #top {
+    padding: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, .6);
+    border: 0;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+  }
+  .pager.active {
+    border: 2px solid #000;
+  }
+</style>
+
+<div class="container">
+  <h1>GayHub用户搜索</h1>
+  <form id="search-form">
+    <input id="search-input"
+           type="text"
+           autofocus
+           autocomplete="off"
+           placeholder="请输入用户名"
+    >
+    <button type="submit">搜索</button>
+  </form>
+  <div id="amount"></div>
+  <div id="user-list"></div>
+  <div class="tac" id="placeholer" hidden>谋了 - . -</div>
+  <div id="pagination-container">
+    <div></div>
+    <div id="pagination"></div>
+    <div></div>
+  </div>
+</div>
+<div class="toolbar">
+  <button id="top">Top</button>
+</div>
+
+<script>
+  ;(function() {
+    'use strict';
+
+    var el_user_list = document.getElementById('user-list')
+      , el_form = document.getElementById('search-form')
+      , el_input = document.getElementById('search-input')
+      , el_top = document.getElementById('top')
+      , el_placeholder = document.getElementById('placeholder')
+      , el_pagination = document.getElementById('pagination')
+      , keyword
+      , no_more
+      , amount
+      , page
+      , page_amount
+      , max_page_btn = 20
+      , current_page = 1
+      , limit = 10
+    ;
+
+    // 返回的数据
+    var res;
+
+    init();
+
+    function init() {
+      detect_submit();
+      detect_click_top();
+    }
+
+    function detect_submit() {
+      el_form.addEventListener('submit',function(e) {
+        e.preventDefault();
+        keyword = el_input.value;
+        if(!keyword) {
+          alert('are u kidding me ?');
+          return;
+        }
+          reset_page();
+          reset_user_list();
+          search(keyword);
+          clear_pagination();
+      });
+    }
+
+    function search() {
+      var http = new XMLHttpRequest();
+      http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + current_page + '&per_page' + limit);
+      http.send();
+
+      http.addEventListener('load',function() {
+        res = JSON.parse(http.responseText);
+        amount = res.total_count;
+        render();
+        render_pagination();
+      });
+    }
+
+    function reset_page() {
+      current_page = 1;
+    }
+
+   //清空已渲染内容
+    function reset_user_list() {
+      el_user_list.innerHTML = '';
+    }
+
+    function detect_click_top() {
+      el_top.addEventListener('click',function() {
+        window.scrollTo(0,0);
+      });
+    }
+
+    function render() {
+      var html = '';
+      res.items.forEach(function (user) {
+        html = html + `
+          <div class="user">
+            <a class="avatar" target = "_blank" href = "${user.html_url}">
+              <img src = "${user.avatar_url}">
+            </a>
+            <div class="info">
+              <div class="username">${user.login}</div>
+              <div><a target = "_blank" href = "${user.html_url}"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      el_user_list.innerHTML = html;
+      document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+
+      no_more = current_page * limit >= amount;
+
+      if(no_more) {
+        el_placeholder.hidden = false;
+      } else {
+        el_placeholder.hidden = true;
+      }
+    }
+
+    function clear_pagination() {
+      el_pagination.innerHTML = '';
+    }
+
+    function render_pagination() {
+      clear_pagination();
+      get_page_amount();
+
+      var start
+        , end
+        , middle = Math.ceil(max_page_btn / 2)
+        , reaching_left = current_page <= middle
+        , reaching_right = current_page >= page_amount - middle
+      ;
+
+      if(reaching_left) {
+        start = 1;
+        end = max_page_btn;
+      } else if( reaching_right) {
+        start = page_amount - max_page_btn;
+        end = page_amount;
+      } else {
+        start = current_page - middle + 1;
+        end = current_page + middle - 1;
+      }
+
+      if(start < 1) {
+        start = 1;
+      }
+
+      if(end > page_amount) {
+        end = page_amount;
+      }
+
+      // 通过指定开始和结束动态的追加翻页按钮
+      for(var i = start; i <= end; i++) {
+        var num = i;
+        // 生成btn按钮
+        var btn = document.createElement('button');
+        // 指定它是第几页的按钮
+        btn.innerText = num;
+
+        // 给所有页码加pager类，方便以后指定样式
+        btn.classList.add('pager');
+
+        // 如果当前页等于正在迭代的按钮，就给按钮加一个激活的类，不然用户不知道自己当前在第几页
+        if(current_page == num) {
+          btn.classList.add('active');
+        }
+
+        el_pagination.appendChild(btn);
+        btn.addEventListener('click',make_function_on_page_change(num));
+      }
+    }
+
+    function make_function_on_page_change(num) {
+      return function(e) {
+        current_page = num;
+        search();
+      }
+    }
+
+    // 获取页面总数
+    function get_page_amount() {
+      page_amount = Math.ceil(amount / limit);
+    }
+  })();
+</script>
