@@ -136,6 +136,107 @@
   var el_form = document.getElementById('search-form')
     , el_input = document.getElementById('search-input')
     , el_user_list = document.getElementById('user-list')
+    , el_next = document.getElementById('next')
+    , el_top = document.getElementById('top')
+    , el_placeholder = document.getElementById('placeholder')
+    , no_more
+    , keyword
+    , limit = 10
+    , page = 1
+  ;
+  var res;
+
+  init();
+
+  function init() {
+    detect_submit();
+    detect_next_page();
+    detect_click_top();
+  }
+
+  function detect_next_page() {
+    el_next.addEventListener('click',function() {
+      page ++;
+      search();
+    });
+  }
+
+  function detect_submit() {
+    el_form.addEventListener('submit',function(e) {
+      e.preventDefault();
+      keyword = el_input.value;
+      if(!keyword) {
+        alert('are u kidding me?');
+        return;
+      }
+      reset_page();
+      reset_user_list();
+      search(keyword);
+    });
+  }
+
+  function detect_click_top() {
+    el_top.addEventListener('click',function() {
+      window.scrollTo(0,0);
+    });
+  }
+
+  function reset_page() {
+    page = 1;
+  }
+
+  function reset_user_list() {
+    el_user_list.innerHTML = '';
+  }
+
+  function search() {
+    el_next.disabled = true;
+    el_next.innerText = '加载中...';
+
+    var http = new XMLHttpRequest();
+    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
+    http.send();
+
+    http.addEventListener('load',function() {
+      res = JSON.parse(this.responseText);
+      amount = res.total_count;
+      render();
+      el_next.disabled = false;
+      el_next.innerText = '加载更多';
+    });
+  }
+
+  function render() {
+    var html = el_user_list.innerHTML;
+
+    res.items.forEach(function(user) {
+      html = html +　`
+      <div class="user">
+      <a class="avatar" target="_blank" href="${user.html_url}">
+        <img src="${user.avatar_url}">
+      </a>
+      <div class="info">
+        <div class="username">${user.login}</div>
+        <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+      </div>
+    </div>
+      `;
+    });
+    el_user_list.innerHTML = html;
+    document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+
+    no_more = page * limit >= amount;
+    el_next.hidden = no_more;
+    el_placeholder.hidden = !no_more;
+  }
+
+
+</script>
+
+<!-- <script>
+  var el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_user_list = document.getElementById('user-list')
     , el_top = document.getElementById('top')
     , el_next = document.getElementById('next')
     , el_placeholder = document.getElementById('placeholder')
@@ -163,6 +264,7 @@
       }
       reset_page();
       reset_user_list();
+      el_placeholder.hidden = el_next.hidden = true;
       search(keyword);
     });
   }
@@ -238,7 +340,7 @@
     //   el_placeholder.hidden = true;
     // }
   }
-</script>
+</script> -->
 
 <!-- <script>
   var el_form = document.getElementById('search-form')
