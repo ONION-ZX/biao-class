@@ -39,7 +39,9 @@
   form button {
     width: 20%;
   }
-
+  [hidden] {
+    display: none !important;
+  }
   .block {
     display: block;
     width: 100%;
@@ -55,7 +57,13 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
-
+  .tac {
+    text-align: center;
+  }
+  #placeholer {
+    font-size: 80%;
+    opacity: .7;
+  }
   #amount {
     font-size: 80%;
     color: #aaa;
@@ -85,30 +93,15 @@
     border-right: 1px solid rgba(0, 0, 0, .1);
     padding: 0;
   }
-
-  [hidden] {
-    display: none !important;
-  }
-
-  .tac {
-    text-align: center;
-  }
-
-  .placeholder {
-    font-size: 80%;
-    opacity: .7;
-  }
-
   #top {
-  padding: 10px;
-  color: #fff;
-  background: rgba(0, 0, 0, .6);
-  border: 0;
-  position: fixed;
-  right: 10px;
-  bottom: 0;
-}
-
+    padding: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, .6);
+    border: 0;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+  }
 </style>
 
 <div class="container">
@@ -125,14 +118,286 @@
   <div id="amount"></div>
   <div id="user-list"></div>
   <button id="next" class="block" hidden>加载更多</button>
-  <div class = "tac" id = "placeholder" hidden>谋了- . -</div>
+  <div class="tac" id="placeholer" hidden>谋了 - . -</div>
 </div>
 
 <div class="toolbar">
-  <button id = "top">TOP</button>
+  <button id="top">Top</button>
 </div>
-
 <script>
+  ;(function () {
+    'use strict';
+    /*模板床*/
+    var el_user_list = document.getElementById('user-list')
+      , el_form = document.getElementById('search-form')
+      , el_input = document.getElementById('search-input')
+      , el_next = document.getElementById('next')
+      , el_top = document.getElementById('top')
+      , el_placeholer = document.getElementById('placeholer')
+      , keyword
+      , no_more
+      , amount
+      , page = 1
+      , limit = 15
+    ;
+    /*返回的数据*/
+    var res;
+    init();
+    /*通过用户名搜Github用户
+    * @param String keyword 关键词
+    * */
+    function search() {
+      /*禁用按钮，因为用很坏（防止疯狂点）*/
+      el_next.disabled = true;
+      el_next.innerText = '加载中...';
+      /*准备发射*/
+      var http = new XMLHttpRequest();
+      http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
+      // http.setRequestHeader('Authorization', 'Basic ' + btoa('biaoyansu:c8d54e18a621965a67fcff3a6ad17f0c8085670f'));
+      /*发射*/
+      http.send();
+      /*返回后*/
+      http.addEventListener('load', function () {
+        /*解析（将JSON格式的字符串转换为JS能理解的数据）返回数据*/
+        res = JSON.parse(http.responseText);
+        /*拿到搜索结果总数*/
+        amount = res.total_count;
+        /*既然有了数据，不就可以渲染了吗？*/
+        render();
+        /*当若干秒后数据返回就重新启用按钮*/
+        el_next.disabled = false;
+        el_next.innerText = '加载更多';
+      });
+    }
+    /*初始化*/
+    function init() {
+      detect_submit();
+      detect_next_page();
+      detect_click_top();
+    }
+    /*绑定表单提交事件*/
+    function detect_submit() {
+      el_form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        /*获取输入的关键词*/
+        keyword = el_input.value;
+        if (!keyword) {
+          alert('你闹呢');
+          return;
+        }
+        /*重置页码*/
+        reset_page();
+        /*重置用户列表HTML*/
+        reset_user_list();
+        /*隐藏两个只有得到结果才有意义的组件*/
+        el_placeholer.hidden = el_next.hidden = true;
+        document.getElementById('amount').innerHTML = '';
+        search(keyword);
+      });
+    }
+    /*重置页码为1*/
+    function reset_page() {
+      page = 1;
+    }
+    /*清空已渲染内容*/
+    function reset_user_list() {
+      el_user_list.innerHTML = '';
+    }
+    /*监听翻页*/
+    function detect_next_page() {
+      el_next.addEventListener('click', function () {
+        page++;
+        search();
+      });
+    }
+    /*监听点击回到顶部*/
+    function detect_click_top() {
+      el_top.addEventListener('click', function() {
+        window.scrollTo(0, 0);
+      });
+    }
+    /**
+     * 通过数据生成HTML
+     */
+    function render() {
+      /*初始化HTML*/
+      var html = el_user_list.innerHTML;
+      /*遍历用户列表*/
+      res.items.forEach(function (user) {
+        /*每个用户都追加到HTML后面*/
+        html = html + `
+  <div class="user">
+    <a class="avatar" target="_blank" href="${user.html_url}">
+      <img src="${user.avatar_url}">
+    </a>
+    <div class="info">
+      <div class="username">${user.login}</div>
+      <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+    </div>
+  </div>
+    `;
+      });
+      /*将生成的HTML写入模板床*/
+      el_user_list.innerHTML = html;
+      document
+        .getElementById('amount')
+        .innerHTML = `共有${res.total_count}条结果`;
+      el_next.hidden = false;
+      /*如果每页的数量乘以页数大于总数就说明当前页就是最后一页*/
+      no_more = page * limit >= amount;
+      /*
+      el_next.hidden = no_more;
+      el_placeholer.hidden = !no_more;
+      */
+      /*如果没有更多*/
+      if(no_more) {
+        /*隐藏翻页按钮*/
+        el_next.hidden = true;
+        /*显示"谋了"*/
+        el_placeholer.hidden = false;
+      } else { // 否则正好相反
+        el_next.hidden = false;
+        el_placeholer.hidden = true;
+      }
+    }
+  })();
+</script>
+
+<!-- <script>
+  ;(function () {
+    'use strict';
+    /*模板床*/
+    var el_user_list = document.getElementById('user-list')
+      , el_form = document.getElementById('search-form')
+      , el_input = document.getElementById('search-input')
+      , el_next = document.getElementById('next')
+      , el_top = document.getElementById('top')
+      , el_placeholer = document.getElementById('placeholer')
+      , keyword
+      , no_more
+      , amount
+      , page = 1
+      , limit = 10
+    ;
+    /*返回的数据*/
+    var res;
+    init();
+    /*通过用户名搜Github用户
+    * @param String keyword 关键词
+    * */
+    function search() {
+      /*禁用按钮，因为用很坏（防止疯狂点）*/
+      el_next.disabled = true;
+      el_next.innerText = '加载中...';
+      /*准备发射*/
+      var http = new XMLHttpRequest();
+      http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
+      // http.setRequestHeader('Authorization', 'Basic ' + btoa('biaoyansu:c8d54e18a621965a67fcff3a6ad17f0c8085670f'));
+      /*发射*/
+      http.send();
+      /*返回后*/
+      http.addEventListener('load', function () {
+        /*解析（将JSON格式的字符串转换为JS能理解的数据）返回数据*/
+        res = JSON.parse(http.responseText);
+        /*拿到搜索结果总数*/
+        amount = res.total_count;
+        /*既然有了数据，不就可以渲染了吗？*/
+        render();
+        /*当若干秒后数据返回就重新启用按钮*/
+        el_next.disabled = false;
+        el_next.innerText = '加载更多';
+      });
+    }
+    /*初始化*/
+    function init() {
+      detect_submit();
+      detect_next_page();
+      detect_click_top();
+    }
+    /*绑定表单提交事件*/
+    function detect_submit() {
+      el_form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        /*获取输入的关键词*/
+        keyword = el_input.value;
+        if (!keyword) {
+          alert('你闹呢');
+          return;
+        }
+        /*重置页码*/
+        reset_page();
+        /*重置用户列表HTML*/
+        reset_user_list();
+        search(keyword);
+      });
+    }
+    function reset_page() {
+      page = 1;
+    }
+    function reset_user_list() {
+      el_user_list.innerHTML = '';
+    }
+    /*监听翻页*/
+    function detect_next_page() {
+      el_next.addEventListener('click', function () {
+        page++;
+        search();
+      });
+    }
+    function detect_click_top() {
+      el_top.addEventListener('click', function() {
+        window.scrollTo(0, 0);
+      });
+    }
+    /**
+     * 通过数据生成HTML
+     */
+    function render() {
+      /*初始化HTML*/
+      var html = el_user_list.innerHTML;
+      console.log(res);
+      /*遍历用户列表*/
+      res.items.forEach(function (user) {
+        /*每个用户都追加到HTML后面*/
+        html = html + `
+  <div class="user">
+    <a class="avatar" target="_blank" href="${user.html_url}">
+      <img src="${user.avatar_url}">
+    </a>
+    <div class="info">
+      <div class="username">${user.login}</div>
+      <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+    </div>
+  </div>
+    `;
+      });
+      /*将生成的HTML写入模板床*/
+      el_user_list.innerHTML = html;
+      document
+        .getElementById('amount')
+        .innerHTML = `共有${res.total_count}条结果`;
+      el_next.hidden = false;
+      /*如果每页的数量乘以页数大于总数就说明当前页就是最后一页*/
+      no_more = page * limit >= amount;
+      /*
+      el_next.hidden = no_more;
+      el_placeholer.hidden = !no_more;
+      */
+      /*如果没有更多*/
+      if(no_more) {
+        /*隐藏翻页按钮*/
+        el_next.hidden = true;
+        /*显示"谋了"*/
+        el_placeholer.hidden = false;
+      } else { // 否则正好相反
+        el_next.hidden = false;
+        el_placeholer.hidden = true;
+      }
+    }
+  })();
+</script> -->
+
+<!-- <script>
   var el_form = document.getElementById('search-form')
     , el_input = document.getElementById('search-input')
     , el_user_list = document.getElementById('user-list')
@@ -224,14 +489,20 @@
     });
     el_user_list.innerHTML = html;
     document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+    el_next.hidden = false;
 
     no_more = page * limit >= amount;
-    el_next.hidden = no_more;
-    el_placeholder.hidden = !no_more;
+    if(no_more) {
+      el_next.hidden = true;
+      el_placeholder.hidden = false;
+    } else {
+      el_next.hidden = false;
+      el_placeholder.hidden = true;
+    }
   }
 
 
-</script>
+// <!-- </script>  -->
 
 <!-- <script>
   var el_form = document.getElementById('search-form')
