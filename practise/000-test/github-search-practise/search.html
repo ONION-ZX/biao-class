@@ -175,7 +175,7 @@
     el_next.innerText = '加载中...';
 
     var http = new XMLHttpRequest();
-    http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page' + limit);
+    http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + page + '&per_page=' + limit);
     http.send();
 
     http.addEventListener('load',function() {
