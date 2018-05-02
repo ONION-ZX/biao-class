@@ -1,42 +1,22 @@
-
-<div id="pagination"></div>
+<div id = "pagination"></div>
 
 <script>
-  var page_amount = 100
-    , max_btn_length = 5
-    , current_page = 1
-    , el_pagination = document.getElementById('pagination')
-  ;
   render();
+
   function render() {
-    el_pagination.innerHTML = '';
-    var start
+    var el_pagination = document.getElementById('pagination')
+      , start
+      , middle = Math.ceil(max_btn_length / 2);
       , end
-      , middle = Math.ceil(max_btn_length / 2)
-      , reaching_left = current_page <= middle
-      , reaching_right = current_page >= page_amount - middle
     ;
-    if (reaching_left) {
-      start = 1;
-      end = max_btn_length;
-    } else if (reaching_right) {
-      start = page_amount - (max_btn_length - 1);
-      end = page_amount;
-    } else {
-      start = current_page - (middle - 1);
-      end = current_page + (middle - 1);
-    }
-    for (var i = start; i <= end; i++) {
+
+    for(var i = start; i <= end; i++) {
       var btn = document.createElement('button');
       btn.innerText = i;
-      btn.dataset.page = i;
-      if (i == current_page)
+      if(i === current_page) {
         btn.style.background = 'pink';
+      }
       el_pagination.appendChild(btn);
-      btn.addEventListener('click', function (e) {
-        current_page = parseInt(e.currentTarget.dataset.page);
-        render();
-      });
     }
   }
 </script>
