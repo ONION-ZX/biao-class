@@ -1,3 +1,28 @@
+var send = require('./send.js');
+var ele = require('./element');
+
+function user(keyword, on_success, config) {
+  /*默认配置*/
+  var def = {
+    page: 1,
+    limit: 10,
+    keyword: 'yo',
+  };
+
+  /*合并用户配置*/
+  config = Object.assign({}, def, config);
+
+  send.request('get','https://api.github.com/search/users?q=' + keyword + '&page=' + config.page + '&per_page=' + config.limit);
+
+  ele.http.addEventListener('load', function () {
+    var data = JSON.parse(this.responseText);
+    on_success(data)
+  });
+}
+
+module.exports = {
+  user: user
+}
 // function user(keyword,on_success,config) {
 //   var def = {
 //     page: 1,
@@ -30,31 +55,6 @@
 * @param Object config 配置项
 * */
 
-var send = require('./send.js');
-var ele = require('./element');
-
-function user(keyword, on_success, config) {
-  /*默认配置*/
-  var def = {
-    page: 1,
-    limit: 10,
-    keyword: 'yo',
-  };
-
-  /*合并用户配置*/
-  config = Object.assign({}, def, config);
-
-  send.request('get','https://api.github.com/search/users?q=' + keyword + '&page=' + config.page + '&per_page=' + config.limit);
-
-  ele.http.addEventListener('load', function () {
-    var data = JSON.parse(this.responseText);
-    on_success(data)
-  });
-}
-
-module.exports = {
-  user: user
-}
 // function user(keyword,on_success,config) {
 //   var def = {
 //     page: 1,

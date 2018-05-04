@@ -5,6 +5,7 @@ var form = document.getElementById('search-form')
   , input = document.getElementById('search-input')
   , next = document.getElementById('next')
   , user_list = document.getElementById('user-list')
+  , top = document.getElementById('top')
   , http = new XMLHttpRequest()
 ;
 
@@ -31,6 +32,8 @@ function render_user_list(data) {
   });
 }
 
+
+
 function hide_next() {
   next.hidden = true;
 }
@@ -43,6 +46,7 @@ module.exports = {
   form: form,
   input: input,
   next: next,
+  top: top,
   show_next: show_next,
   hide_next: hide_next,
   render_user_list: render_user_list,

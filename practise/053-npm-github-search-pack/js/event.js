@@ -7,6 +7,12 @@ var el = require('./element')
   , keyword
 ;
 
+function detect_click_top() {
+  el.top.addEventListener('click',function() {
+    window.scrollTo(0,0);
+  });
+}
+
 /*监听搜索表单提交事件*/
 function detect_submit() {
   el.form.addEventListener('submit', function (e) {
@@ -44,12 +50,14 @@ function detect_next_page() {
 function add_events() {
   detect_submit();
   detect_next_page();
+  detect_click_top();
 }
 
 module.exports = {
   detect_submit: detect_submit,
   add_events: add_events,
   detect_next_page: detect_next_page,
+  detect_click_top: detect_click_top,
 };
 // var el = require('./element')
 //   , search = require('./search')
