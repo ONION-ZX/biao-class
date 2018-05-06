@@ -102,8 +102,23 @@
     right: 10px;
     bottom: 0;
   }
+  #pagination-container {
+    text-align: center;
+  }
+  #pagination-container > * {
+    display: inline-block;
+  }
+  .pager {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-left-width: 0;
+  }
+  .pager:first-child {
+    border-left-width: 1px;
+  }
   .pager.active {
-    border: 2px solid #000;
+    background: rgba(0, 0, 0, .2);
+    color: #000;
   }
 </style>
 
@@ -121,10 +136,10 @@
   <div id="amount"></div>
   <div id="user-list"></div>
   <div class="tac" id="placeholer" hidden>谋了 - . -</div>
-  <div id="pagination-container">
-    <div></div>
+  <div id="pagination-container" hidden>
+    <div id = "pagination-start" class="pager">首页</div>
     <div id="pagination"></div>
-    <div></div>
+    <div id = "pagination-end" class="pager">末页</div>
   </div>
 </div>
 <div class="toolbar">
@@ -140,8 +155,12 @@
     , el_input = document.getElementById('search-input')
     , el_top = document.getElementById('top')
     , el_placeholer = document.getElementById('placeholer')
-    , el_pagination = document.getElementById('pagination')
+    , el_pagination_container = document.getElementById('pagination-container')
+    , el_pagination = el_pagination_container.querySelector('#pagination')
+    , el_pagination_start = el_pagination_container.querySelector('#pagination-start')
+    , el_pagination_end = el_pagination_container.querySelector('#pagination-end')
     , max_page_btn = 5
+    , MAX_LIMIT = 1000
     , keyword
     , no_more
     , amount
@@ -181,6 +200,26 @@
   function init() {
     detect_submit();
     detect_click_top();
+    detect_click_pagination();
+  }
+
+  function detect_click_pagination() {
+    el_pagination_start.addEventListener('click',function() {
+      goto_page(1);
+    });
+    el_pagination_end.addEventListener('click',function() {
+      goto_page(page_amount);
+    });
+  }
+
+  function goto_page(page) {
+    var max_user_limit_reached = page * limit > MAX_LIMIT;
+    if(max_user_limit_reached) {
+      current_page = MAX_LIMIT / limit
+    } else {
+      current_page = page;
+    }
+    search();
   }
 
   /*绑定表单提交事件*/
@@ -201,7 +240,8 @@
       el_placeholer.hidden = true;
       search(keyword);
 
-      clear_pagination()
+      clear_pagination();
+
     });
   }
 
@@ -269,7 +309,16 @@
     el_pagination.innerHTML = '';
   }
 
+  function hide_pagination() {
+    el_pagination_container.hidden = true;
+  }
+
+  function show_pagination() {
+    el_pagination_container.hidden = false;
+  }
+
   function render_pagination() {
+    show_pagination();
     clear_pagination();
     get_page_amount();
 

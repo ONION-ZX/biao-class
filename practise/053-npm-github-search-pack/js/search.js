@@ -1,10 +1,10 @@
 function user(keyword, on_success, config) {
   /*默认配置*/
   let def = {
-    page: config.page || 1,
-    limit: config.limit || 5,
-    keyword: keyword || 'yo',
-  };
+    page: 1,
+    limit: 5,
+    keyword: 'yo',
+  },
 
   /*合并用户配置*/
   config = Object.assign({}, def, config);
@@ -18,7 +18,7 @@ function user(keyword, on_success, config) {
     if (statusCode == 200) {
       var data = JSON.parse(this.responseText);
       on_success(data)
-    }else {
+    } else {
       console.error('hhh');
     }
   }
