@@ -5,6 +5,14 @@ var form = document.getElementById('search-form')
   , top = document.getElementById('top')
 ;
 
+function hide_next() {
+  next.hidden = true;
+}
+
+function show_next() {
+  next.hidden = false;
+}
+
 function render_user_list(data) {
   var html = user_list.innerHTML;
   data.forEach(function(user) {
@@ -24,6 +32,8 @@ function render_user_list(data) {
 }
 
 module.exports = {
+  show_next: show_next,
+  hide_next: hide_next,
   form: form,
   input: input,
   next: next,
