@@ -1,0 +1,19 @@
+{
+  "name": "053-npm-github-search-pack-2",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack -wd",
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "D": "^1.0.0",
+    "webpack": "^4.8.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
