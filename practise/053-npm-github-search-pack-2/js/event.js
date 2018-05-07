@@ -22,7 +22,8 @@ function detect_submit() {
     e.preventDefault();
     keyword = el.input.value;
     search.user(keyword,function(data) {
-      el.render_user_list(data.items);
+      var items = data.items;
+      el.render_user_list(items);
     });
   });
 }
