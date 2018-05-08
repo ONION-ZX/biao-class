@@ -313,11 +313,13 @@
         //当删除按钮被点击时，找到被删除的那条
           , kwd = el_history.dataset.history;
 
-        find_and_delete(el_history,kwd);
+        if(find_and_delete(el_history,kwd)) {
+          overwrite_history_list(history_list);
+          render_history_list();
+          
+        }
 
         // history_list.pop();
-        overwrite_history_list(history_list);
-        render_history_list();
       });
     });
   }
