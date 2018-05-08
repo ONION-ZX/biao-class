@@ -309,11 +309,26 @@
       });
 
       el_delete.addEventListener('click',function() {
-        history_list.pop();
+        var el_history = this.closest('.history')
+        //当删除按钮被点击时，找到被删除的那条
+          , kwd = el_history.dataset.history;
+
+        find_and_delete(el_history,kwd);
+
+        // history_list.pop();
         overwrite_history_list(history_list);
         render_history_list();
       });
     });
+  }
+
+  function find_and_delete(arr,element) {
+    var shit_index = arr.indexOf(element);
+    if(shit_index == -1)
+      return false;
+
+    arr.splice(shit_index,1);
+    return true;
   }
 
   function set_keyword(kwd) {
