@@ -260,8 +260,13 @@
       render();
       render_pagination();
     });
-    history_list.push(keyword);
+    append_history(keyword);
     overwrite_history_list(history_list);
+  }
+
+  function append_history(kwd) {
+    find_and_delete('history_list',kwd);
+    history_list.ushift(kwd);
   }
 
   function overwrite_history_list(data) {
@@ -315,8 +320,8 @@
 
         if(find_and_delete(el_history,kwd)) {
           overwrite_history_list(history_list);
+          // 重新渲染
           render_history_list();
-          
         }
 
         // history_list.pop();
