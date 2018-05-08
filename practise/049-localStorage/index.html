@@ -1,0 +1,11 @@
+<script>
+  var data = ['mmm','nnn','ooo'];
+  var json = JSON.stringify(data);
+  localStorage.setItem('history_list',json);
+</script>
+
+<script>
+  var data = localStorage.getItem('history_list');
+  var json = JSON.parse(data);
+  console.log(json);
+</script>
