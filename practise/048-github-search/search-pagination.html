@@ -304,10 +304,10 @@
   function detect_click_document() {
     document.documentElement.addEventListener('click',function(e) {
       var target = e.target;
-      if(!target.closest('#search-input') || !target.closest('#history-list'))
+      if(target.closest('#search-input') || target.closest('#history-list'))
         return;
 
-        hide_history_list();
+      hide_history_list();
     });
   }
 
