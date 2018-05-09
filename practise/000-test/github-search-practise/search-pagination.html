@@ -176,7 +176,7 @@
 </style>
 
 <div class="container">
-  <h1>GayHub用户搜索</h1>
+  <h1>GitHub用户搜索</h1>
   <form id="search-form">
     <input id="search-input"
            type="search"
@@ -185,7 +185,7 @@
            placeholder="请输入用户名"
     >
     <button type="submit">搜索</button>
-    <div id="history-list" hidden></div>
+    <div id="history-list"></div>
   </form>
   <div id="amount"></div>
   <div id="user-list"></div>
@@ -205,49 +205,329 @@
 </div>
 
 <script>
-  ;(function() {
-    'use strict';
+;(function() {
+  'use strict';
 
-    var el_user_list = document.getElementById('user-list')
-      , el_form = document.getElementById('search-form')
-      , el_input = document.getElementById('search-input')
-      , el_top = document.getElementById('top')
-      , el_placeholer = document.getElementById('placeholer')
-      , el_pagination_container = document.getElementById('pagination-container')
-      , el_pagination = el_pagination_container.querySelector('#pagination')
-      , el_pagination_start = el_pagination_container.querySelector('#pagination-start')
-      , el_pagination_end = el_pagination_container.querySelector('#pagination-end')
-      , max_page_btn = 5
-      , MAX_LIMIT = 1000
-      , keyword
-      , no_more
-      , amount
-      , page_amount
-      , current_page = 1
-      , limit = 5
+  var el_user_list = document.getElementById('user-list')
+    , el_form = document.getElementById('search-form')
+    , el_input = document.getElementById('search-input')
+    , el_top = document.getElementById('top')
+    , el_placeholer = document.getElementById('placeholer')
+    , el_pagination_container = document.getElementById('pagination-container')
+    , el_pagination = el_pagination_container.querySelector('#pagination')
+    , el_pagination_start = el_pagination_container.querySelector('#pagination-start')
+    , el_pagination_end = el_pagination_container.querySelector('#pagination-end')
+    , el_history_list = document.getElementById('history-list')
+    , history_list
+    , max_page_btn = 5
+    , MAX_LIMIT = 1000
+    , keyword
+    , no_more
+    , amount
+    , page_amount
+    , current_page = 1
+    , limit = 5
+  ;
+  /*返回的数据*/
+  var res;
+  init();
+
+  /*通过用户名搜Github用户
+  * @param String keyword 关键词
+  * */
+
+  /*初始化*/
+  function init() {
+    reload_history_list();
+    render_history_list();
+    detect_submit();
+    detect_click_top();
+    detect_click_pagination();
+    // detect_click_history_delete();
+    //@1 detect_click_history_list();
+  }
+
+  function search() {
+    /*准备发射*/
+    var http = new XMLHttpRequest();
+    http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + current_page + '&per_page=' + limit);
+    http.send();
+
+    http.addEventListener('load', function () {
+      res = JSON.parse(http.responseText);
+      /*拿到搜索结果总数*/
+      amount = res.total_count;
+      render();
+      render_pagination();
+    });
+    append_history(keyword);
+    overwrite_history_list(history_list);
+  }
+
+  function append_history(kwd) {
+    find_and_delete('history_list',kwd);
+    history_list.unshift(kwd);
+
+  }
+
+  function overwrite_history_list(data) {
+    store_set('history_list',data);
+  }
+
+//@1
+// function detect_click_history_list() {
+//   el_history_list.addEventListener('click',function(e) {
+//     var history_list_wrapper = e.target.closest('.history');
+//     if(!history_list_wrapper)
+//       return;
+//     var keyword =  history_list_wrapper.dataset.history;
+//     set_keyword(keyword);
+//   });
+// }
+
+
+  function reload_history_list() {
+    history_list = store_get('history_list');
+  }
+
+  function render_history_list() {
+    el_history_list.innerHTML = '';
+    history_list.forEach(function(history) {
+      var el_delete
+        , el_history = document.createElement('div');
+      el_history.classList.add('history');
+      el_history.dataset.history = history;
+      el_history.innerHTML =  `
+        <div class="text">${history}</div>
+        <div class="tool">
+          <span class="delete">删除</span>
+        </div>
+      `;
+      el_delete = el_history.querySelector('.delete');
+      el_history_list.appendChild(el_history);
+      el_history.addEventListener('click',function(e) {
+        //若点击到删除按钮直接返回(不上屏也不搜索)
+        if(e.target.classList.contains('delete'))
+          return;
+        //当本条历史记录被点击时将搜索框的关键词改为对应的历史关键词
+        set_keyword(this.dataset.history);
+        search();
+      });
+
+      el_delete.addEventListener('click',function() {
+        var el_history = this.closest('.history')
+        //当删除按钮被点击时，找到被删除的那条
+          , kwd = el_history.dataset.history;
+
+        if(find_and_delete(el_history,kwd)) {
+          overwrite_history_list(history_list);
+          // 重新渲染
+          render_history_list();
+        }
+
+        // history_list.pop();
+      });
+    });
+  }
+
+  function find_and_delete(arr,element) {
+    var shit_index = arr.indexOf(element);
+    if(shit_index == -1)
+      return false;
+
+    arr.splice(shit_index,1);
+    return true;
+  }
+
+  function set_keyword(kwd) {
+    el_input.value = kwd;
+    keyword = kwd;
+  }
+
+  function store_set(key,val) {
+    var json = JSON.stringify(val);
+    localStorage.setItem(key,json)
+  }
+
+  function store_get(key) {
+    var data = localStorage.getItem(key);
+    return JSON.parse(data);
+  }
+
+  function detect_click_pagination() {
+    el_pagination_start.addEventListener('click',function() {
+      goto_page(1);
+    });
+    el_pagination_end.addEventListener('click',function() {
+      goto_page(page_amount);
+    });
+  }
+
+  function goto_page(page) {
+    var max_user_limit_reached = page * limit > MAX_LIMIT;
+    if(max_user_limit_reached) {
+      current_page = MAX_LIMIT / limit;
+    } else {
+      current_page = page;
+    }
+    search();
+  }
+
+  /*绑定表单提交事件*/
+  function detect_submit() {
+    el_form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      /*获取输入的关键词*/
+      keyword = el_input.value;
+      if (!keyword) {
+        alert('你闹呢');
+        return;
+      }
+      /*重置页码*/
+      reset_page();
+      /*重置用户列表HTML*/
+      reset_user_list();
+      el_placeholer.hidden = true;
+      search(keyword);
+      clear_pagination();
+    });
+  }
+
+  /*重置页码为1*/
+  function reset_page() {
+    current_page = 1;
+  }
+
+  /*清空已渲染内容*/
+  function reset_user_list() {
+    el_user_list.innerHTML = '';
+  }
+
+  function detect_click_top() {
+    el_top.addEventListener('click', function () {
+      window.scrollTo(0, 0);
+    });
+  }
+
+  /*渲染*/
+  function render() {
+    /*初始化HTML*/
+    var html = '';
+    /*遍历用户列表*/
+    res.items.forEach(function (user) {
+      /*每个用户都追加到HTML后面*/
+      html = html + `
+    <div class="user">
+      <a class="avatar" target="_blank" href="${user.html_url}">
+        <img src="${user.avatar_url}">
+      </a>
+      <div class="info">
+        <div class="username">${user.login}</div>
+        <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+      </div>
+    </div>
+      `;
+        });
+        /*将生成的HTML写入模板床*/
+        el_user_list.innerHTML = html;
+        document
+          .getElementById('amount')
+          .innerHTML = `共有${res.total_count}条结果`;
+        /*如果每页的数量乘以页数大于总数就说明当前页就是最后一页*/
+        no_more = current_page * limit >= amount;
+        /*
+        .hidden = no_more;
+        el_placeholer.hidden = !no_more;
+        */
+        /*如果没有更多*/
+        if (no_more) {
+          el_placeholer.hidden = false;
+        } else {
+          el_placeholer.hidden = true;
+        }
+      }
+
+  function get_page_amount() {
+    page_amount = Math.ceil(amount / limit);
+  }
+
+  function clear_pagination() {
+    el_pagination.innerHTML = '';
+  }
+
+  function hide_pagination() {
+    el_pagination_container.hidden = true;
+  }
+
+  function show_pagination() {
+    el_pagination_container.hidden = false;
+  }
+
+  function render_pagination() {
+    show_pagination();
+    clear_pagination();
+    get_page_amount();
+
+    var start
+      , end
+      , middle = Math.ceil(max_page_btn / 2);
     ;
 
-    var res;
-    init();
+    var reaching_left = current_page <= middle
+      , reaching_right = current_page >= page_amount - middle;
 
-    function init() {
-      detect_submit();
-      detect_click_top();
-      detect_click_pagination();
+    if(reaching_left) {
+      // 设按钮开始为1
+      start = 1;
+      // 设结束为可视按钮最大值
+      end = max_page_btn;
+    } else if(reaching_right) {
+
+      start = page_amount - max_page_btn;
+      end = page_amount;
+
+    } else {
+      start = current_page - middle + 1;
+      end = current_page + middle - 1;
     }
 
-    function search() {
-      var http = new XMLHttpRequest();
-      http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + current_page + '&per_page=' + limit);
-      http.send();
-
-      http.addEventListener('load',function() {
-        res = JSON.parse(http.responseText);
-        amount = res.total_count;
-
-        render();
-        render_pagination();
-      })
+    if(start < 1 ) {
+      start = 1;
     }
-  })();
+
+    if(end > page_amount) {
+      end = page_amount;
+    }
+
+    // 通过指定开始和结束追加翻页按钮
+    for(var i =start; i <= end; i++) {
+      var num = i;
+      var btn = document.createElement('button');
+      btn.innerText = num;
+
+      // 给所有页码加pager类 方便以后指定样式
+      btn.classList.add('pager');
+
+      // 如果当前页等于正在迭代的按钮，给它添加一个激活类
+      if(current_page == num)
+        btn.classList.add('active');
+
+      el_pagination.appendChild(btn);
+
+      btn.addEventListener('click',make_function_on_page_change(num));
+    }
+  }
+
+  function make_function_on_page_change (num) {
+    return function() {
+
+      // 让当前页码等于点击按钮序号，然后再search，不然永远都在第一页
+      current_page = num;
+      search();
+      // 给被点击的按钮加一个激活的类告诉用户当前所在页码
+      // this.classList.add('active');
+    }
+  }
+
+})();
 </script>

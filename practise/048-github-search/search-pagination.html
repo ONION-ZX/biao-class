@@ -240,6 +240,7 @@
   function init() {
     reload_history_list();
     render_history_list();
+
     detect_submit();
     detect_click_top();
     detect_click_pagination();
@@ -265,8 +266,8 @@
   }
 
   function append_history(kwd) {
-    find_and_delete('history_list',kwd);
-    history_list.ushift(kwd);
+    find_and_delete(history_list,kwd);
+    history_list.unshift(kwd);
   }
 
   function overwrite_history_list(data) {
@@ -318,12 +319,11 @@
         //当删除按钮被点击时，找到被删除的那条
           , kwd = el_history.dataset.history;
 
-        if(find_and_delete(el_history,kwd)) {
+        if(find_and_delete(history_list,kwd)) {
           overwrite_history_list(history_list);
           // 重新渲染
           render_history_list();
         }
-
         // history_list.pop();
       });
     });
@@ -365,7 +365,7 @@
   function goto_page(page) {
     var max_user_limit_reached = page * limit > MAX_LIMIT;
     if(max_user_limit_reached) {
-      current_page = MAX_LIMIT / limit
+      current_page = MAX_LIMIT / limit;
     } else {
       current_page = page;
     }
@@ -440,9 +440,8 @@
         */
         /*如果没有更多*/
         if (no_more) {
-          /*显示"谋了"*/
           el_placeholer.hidden = false;
-        } else { // 否则正好相反
+        } else {
           el_placeholer.hidden = true;
         }
       }
