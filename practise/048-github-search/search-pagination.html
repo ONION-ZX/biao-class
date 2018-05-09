@@ -393,13 +393,39 @@
   }
 
   function store_set(key,val) {
-    var json = JSON.stringify(val);
-    localStorage.setItem(key,json)
+    if(!key || !val)
+      return;
+    var value = null;
+    switch(typeof(val)) {
+      case "string":
+      value = val;
+      break
+      case "object":
+      value = JSON.stringify(val);
+      break;
+      case "number", "boolean":
+      value = val;
+      break
+    }
+    if(value) {
+      localStorage.setItem(key,value)
+    }
   }
 
   function store_get(key) {
+    if(!key || key == '')
+      return;
     var data = localStorage.getItem(key);
-    return JSON.parse(data);
+    if(!data) {
+      return null;
+    }
+    var data_obj = null;
+    try {
+      data_obj = JSON.parse(data);
+    } catch(error) {
+      console.log(error);
+    }
+    return data_obj;
   }
 
   function detect_click_pagination() {
