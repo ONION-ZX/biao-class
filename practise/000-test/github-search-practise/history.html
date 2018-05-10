@@ -1,5 +1,339 @@
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  body {
+    background: #eee;
+    font-family: sans-serif;
+    color: #333;
+    margin: 0;
+  }
+  h1 {
+    font-size: 25px;
+    font-weight: lighter;
+    color: #aaa;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  a {
+    text-decoration: none;
+    color: #777;
+  }
+  form {
+    position: relative;
+    font-size: 0;
+  }
+  button, input {
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: 0;
+    color: #555;
+  }
+  button:focus,
+  button:hover,
+  input:focus {
+    border-color: rgba(0, 0, 200, .4);
+  }
+  form input {
+  }
+  form button {
+    width: 20%;
+    border-left: 0;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  .block {
+    display: block;
+    width: 100%;
+  }
+  .container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .container > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .tac {
+    text-align: center;
+  }
+  #placeholer {
+    font-size: 80%;
+    opacity: .7;
+  }
+  #amount {
+    font-size: 80%;
+    color: #aaa;
+  }
+  .user {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .user > * {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    color: #555;
+    font-size: 80%;
+  }
+  .user .info > * {
+    margin-bottom: 2px;
+  }
+  .username {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+  }
+  .avatar {
+    border-right: 1px solid rgba(0, 0, 0, .1);
+    padding: 0;
+  }
+  #top {
+    padding: 10px;
+    color: #fff;
+    background: rgba(0, 0, 0, .6);
+    border: 0;
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+  }
+  #pagination-container {
+    text-align: center;
+  }
+  #pagination-container > * {
+    display: inline-block;
+  }
+  .pager {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-left-width: 0;
+  }
+  .pager:first-child {
+    border-left-width: 1px;
+  }
+  .pager.active {
+    background: rgba(0, 0, 0, .2);
+    color: #000;
+  }
+  form input,
+  #history-list {
+    width: 80%;
+  }
+  #history-list {
+    z-index: 1;
+    position: absolute;
+    max-height: 300px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-top: 0;
+    font-size: 14px;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    cursor: default;
+  }
+  .history {
+    padding: 5px 10px;
+    font-size: 0;
+  }
+  .history:hover {
+    background: rgba(0, 0, 200, .1);
+  }
+  .history .text,
+  .history .tool {
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .history .text {
+    width: 70%;
+    font-size: .9rem;
+  }
+  .history .tool {
+    display: none;
+    width: 30%;
+    font-size: .6rem;
+    text-align: right;
+    color: #aaa;
+  }
+  .history:hover .tool {
+    display: inline-block;
+  }
+  .history .tool > * {
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <h1>GitHub用户搜索</h1>
+  <form id="search-form">
+    <input id="search-input"
+           type="search"
+           autofocus
+           autocomplete="off"
+           placeholder="请输入用户名"
+    >
+    <button type="submit">搜索</button>
+    <div id="history-list" hidden></div>
+  </form>
+  <div id="amount"></div>
+  <div id="user-list"></div>
+  <div class="tac" id="placeholer" hidden>谋了 - . -</div>
+  <div id="pagination-container" hidden>
+    <div>
+      <button id="pagination-start" class="pager">首页</button>
+    </div>
+    <div id="pagination"></div>
+    <div>
+      <button id="pagination-end" class="pager">末页</button>
+    </div>
+  </div>
+</div>
+<div class="toolbar">
+  <button id="top">Top</button>
+</div>
+
+<script>
 var el_history_list = document.getElementById('history-list')
   , history_list
+
+init();
+
+function init() {
+  reload_history_list();
+  render_history_list();
+
+  bind_events();
+}
+
+function bind_events() {
+  detect_submit();
+  detect_click_top();
+  detect_click_pagination();
+  detect_click_input();
+  detect_click_document();
+}
+
+function search() {
+  var http = new XMLHttpRequest();
+  http.open('get','https://api.github.com/search/users?q=' + keyword + '&page=' + current_page + '&per_page=' + limit);
+  http.send();
+
+  http.addEventListener('load',function() {
+    res = JSON.parse(http.responseText);
+    amount = res.total_count;
+    render();
+    render_pagination();
+  });
+  append_history(keyword);
+}
+
+function render() {
+  var html = '';
+  res.items.forEach(function(user) {
+    html = html + `
+      <div class="user">
+        <a class="avatar" target = "_blank" href = "${user.html_url}">
+          <img src = "${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target = "_blank" href = "${user.html_url}">${user.html_url}</a></div>
+        </div>
+      </div>
+    `;
+  });
+  el_user_list.innerHTML = html;
+  document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+  no_more = current_page * limit >= amount;
+  if(no_more)
+    el_placeholer.hidden = false;
+  el_placeholer.hidden = true;
+}
+
+function render_pagination() {
+  get_page_amount();
+  show_pagination();
+  clear_pagination();
+
+  var start
+    , end
+    , middle = Math.ceil(max_page_btn / 2);
+
+    var reaching_left = current_page <= middle
+      , reaching_right = current_page >= page_amount - middle
+    ;
+
+    if(reaching_left) {
+      start = 1;
+      end = max_page_btn;
+    } else if(reaching_right) {
+      start = page_amount - max_page_btn;
+      end = page_amount;
+    } else {
+      start = current_page - middle + 1;
+      end = current_page + middle - 1;
+    }
+
+    if(start < 1) {
+      start = 1;
+    }
+
+    if(end > page_amount) {
+      end = page_amount;
+    }
+
+    for(var i = start; i <= end; i++) {
+      var num = i;
+      var btn = document.createElement('button');
+      btn.innerText = num;
+
+      btn.classList.add('pager');
+
+      if(current_page == num) {
+        btn.classList.add('active');
+
+      el_pagination.appendChild(btn);
+
+      btn.addEventListener('click',make(num))
+      }
+    }
+
+    }
+}
+
+function make(num) {
+  return function() {
+    current_page = num;
+    search();
+  }
+
+function get_page_amount() {
+  page_amount = Math.ceil(amount / limit);
+}
+
+function clear_pagination() {
+  el_pagination.innerHTML = '';
+}
+
+function show_pagination() {
+  el_pagination_container.hidden = false;
+}
+
+function hide_pagination() {
+  el_pagination_container.hidden = true;
+}
 
 function reload_history_list() {
   history_list = store_set('history_list');
@@ -13,4 +347,57 @@ function store_get(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-function
+function render_history_list() {
+  el_history_list.innerHTML = '';
+  history_list.forEach(function(history) {
+    var el_history = document.createElement('div');
+    el_history.classList.add('history');
+    el_history.dataset.history = history;
+
+    el_history.innerHTML = `
+      <div class="text">${history}</div>
+      <div class="tool">
+        <span class="delete">删除</span>
+      </div>
+    `;
+    el_history_list.appendChild(el_history);
+    el_delete = el_history.querySelector('.delete');
+    el_history.addEventListener('click',function(e) {
+      if(e.target.classList.contains('delete'))
+        return;
+      set_keyword(this.dataset.history);
+      search()''
+    });
+
+    el_delete.addEventListener('click',function() {
+      var el_history = this.closest('.history')
+        , kwd = el_history.dataset.history;
+
+        if(find_and_delete(history_list,kwd)) {
+          overwrite_history_list(history_list);
+          setTimeout(function() {
+            render_history_list();
+          },0);
+
+          if(!history_list.length) {
+            el_history_list.hidden = true;
+          }
+        }
+    });
+  });
+}
+
+function set_keyword(kwd) {
+  el_input.value = kwd;
+  keyword = kwd;
+}
+
+function find_and_delete(arr,element) {
+  var shit_index = arr.indexOf(element);
+  if(shit_index == -1)
+    return false;
+  arr.splice(shit_index,1)
+  return true;
+}
+
+</script>
