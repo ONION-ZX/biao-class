@@ -1,24 +1,77 @@
+var ele = require('./element')
+  , share = require('./share')
+  , keyword = share.get_keyword();
+  , no_more
+  , res
+;
+
 function search() {
   /*准备发射*/
   var http = new XMLHttpRequest();
-  http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + current_page + '&per_page=' + limit);
+  http.open('get', 'https://api.github.com/search/users?q=' + share.get_keyword() + '&page=' + share.get_current_page() + '&per_page=' + share.get_limit());
+
+  //有重复 删除再写入 无重复 直接写入
+  var history = require('./history');
+  history.append(share.get_keyword());
+
   http.send();
 
   http.addEventListener('load', function () {
     res = JSON.parse(http.responseText);
     /*拿到搜索结果总数*/
-    amount = res.total_count;
+    share.set_amount(res.total_count);
     render();
     render_pagination();
   });
-  append_history(keyword);
 }
 
-function set_keyword() {
-  
+function render() {
+  var html = '';
+  res.items.forEach(function(user) {
+    html = html + `
+      <div class="user">
+        <a class="avatar" target="_blank" href="${user.html_url}">
+          <img src="${user.avatar_url}">
+        </a>
+        <div class="info">
+          <div class="username">${user.login}</div>
+          <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
+        </div>
+      </div>
+    `;
+  });
+  ele.user_list.innerHTML = html;
+  document.getElementById('amount').innerHTML = `共有${res.total_count}条结果`;
+
+  no_more = share.get_current_page() * share.get_limit() >= share.get_amount();
+
+  if(no_more)
+    ele.placeholer.hidden = false;
+  ele.placeholer.hidden = true;
+}
+
+function set_keyword(kwd) {
+  ele.input.value = kwd;
+  keyword = kwd;
+}
+
+function reset_page() {
+  share.set_current_page(1);
+}
+
+function reset_user_list() {
+  ele.user_list.innerHTML = '';
+}
+
+function get_page_amount() {
+  page_amount = Math.ceil(share.get_amount() / share.get_limit());
 }
 
 module.exports = {
   search: search,
   set_keyword: set_keyword,
+  reset_page: reset_page,
+  reset_user_list: reset_user_list,
+  clear_pagination: clear_pagination,
+  hide_pagination: hide_pagination,
 }

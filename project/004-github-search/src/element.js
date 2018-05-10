@@ -1,17 +1,13 @@
-var keyword
-  , limit
-  ,
+var output = {
+  form: document.getElementById('search-form'),
+  input: document.getElementById('search-input'),
+  placeholder: document.getElementById('placeholder'),
+  top: document.getElementById('top'),
+  pagination: document.getElementById('pagination'),
+  pagination_start: document.getElementById('pagination_start'),
+  pagination_end: document.getElementById('pagination_end'),
+  pagination_container: document.getElementById('pagination_container'),
+  user_list: document.getElementById('user-list')
+};
 
-function get_keyword() {
-  return keyword;
-}
-
-function set_keyword(val) {
-  keyword = val;
-}
-
-module.exports = {
-  get_keyword: get_keyword,
-  set_keyword: set_keyword,
-  
-}
+module.exports  = output;
