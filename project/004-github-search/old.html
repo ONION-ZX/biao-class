@@ -50,29 +50,9 @@
     // detect_blur_input();
   }
 
-  function search() {
-    /*准备发射*/
-    var http = new XMLHttpRequest();
-    http.open('get', 'https://api.github.com/search/users?q=' + keyword + '&page=' + current_page + '&per_page=' + limit);
-    http.send();
 
-    http.addEventListener('load', function () {
-      res = JSON.parse(http.responseText);
-      /*拿到搜索结果总数*/
-      amount = res.total_count;
-      render();
-      render_pagination();
-    });
-    append_history(keyword);
-  }
 
   // 将关键词写入历史记录
-  function append_history(kwd) {
-    // 先删
-    find_and_delete(history_list,kwd);
-    history_list.unshift(kwd);
-    overwrite_history_list(history_list);
-  }
 
   function overwrite_history_list(data) {
     store_set('history_list',data);
@@ -113,116 +93,7 @@
     });
   }
 
-  function show_history_list() {
-    if(!history_list || !history_list.length)
-     return;
-    el_history_list.hidden = false;
-  }
 
-  function hide_history_list() {
-    el_history_list.hidden = true;
-  }
-
-
-  function reload_history_list() {
-    history_list = store_get('history_list');
-  }
-
-  function render_history_list() {
-    el_history_list.innerHTML = '';
-    history_list.forEach(function(history) {
-      var el_delete
-        , el_history = document.createElement('div');
-      el_history.classList.add('history');
-      el_history.dataset.history = history;
-      el_history.innerHTML =  `
-        <div class="text">${history}</div>
-        <div class="tool">
-          <span class="delete">删除</span>
-        </div>
-      `;
-      el_delete = el_history.querySelector('.delete');
-      el_history_list.appendChild(el_history);
-      el_history.addEventListener('click',function(e) {
-        //若点击到删除按钮直接返回(不上屏也不搜索)
-        if(e.target.classList.contains('delete'))
-          return;
-        //当本条历史记录被点击时将搜索框的关键词改为对应的历史关键词
-        set_keyword(this.dataset.history);
-        search();
-      });
-
-      el_delete.addEventListener('click',function() {
-        var el_history = this.closest('.history')
-        //当删除按钮被点击时，找到被删除的那条
-          , kwd = el_history.dataset.history;
-
-        if(find_and_delete(history_list,kwd)) {
-          overwrite_history_list(history_list);
-          // 重新渲染
-          setTimeout(function() {
-            render_history_list();
-          },0);
-
-          if(!history_list.length) {
-            el_history_list.hidden = true;
-          }
-        }
-        // history_list.pop();
-      });
-    });
-  }
-
-  function find_and_delete(arr,element) {
-    var shit_index = arr.indexOf(element);
-    //如果删除失败 直接返回
-    if(shit_index == -1)
-      return false;
-
-    arr.splice(shit_index,1);
-    return true;
-  }
-
-  function set_keyword(kwd) {
-    el_input.value = kwd;
-    keyword = kwd;
-  }
-
-  function store_set(key,val) {
-    if(!key || !val)
-      return;
-    var value = null;
-    switch(typeof(val)) {
-      case "string":
-      value = val;
-      break
-      case "object":
-      value = JSON.stringify(val);
-      break;
-      case "number", "boolean":
-      value = val;
-      break
-    }
-    if(value) {
-      localStorage.setItem(key,value)
-    }
-  }
-
-  function store_get(key) {
-    if(!key || key == '')
-      return;
-    var data = localStorage.getItem(key);
-    if(!data) {
-      return null;
-    }
-    var data_obj = null;
-    try {
-      data_obj = JSON.parse(data);
-    } catch(error) {
-      console.log(error);
-    }
-    return data_obj;
-  }
 
   function detect_click_pagination() {
     el_pagination_start.addEventListener('click',function() {
