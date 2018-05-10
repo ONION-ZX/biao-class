@@ -36,6 +36,14 @@ function set_amount(val) {
   amount = val;
 }
 
+function get_current_page() {
+  return current_page;
+}
+
+function set_current_page(val) {
+  current_page = val;
+}
+
 module.exports = {
   get_keyword: get_keyword,
   set_keyword: set_keyword,
@@ -43,4 +51,6 @@ module.exports = {
   set_limit: set_limit,
   get_keyword: get_keyword,
   set_amount: set_amount,
+  get_current_page: get_current_page,
+  set_current_page: set_current_page,
 }
