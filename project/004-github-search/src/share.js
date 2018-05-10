@@ -35,3 +35,12 @@ function get_amount() {
 function set_amount(val) {
   amount = val;
 }
+
+module.exports = {
+  get_keyword: get_keyword,
+  set_keyword: set_keyword,
+  get_limit: get_limit,
+  set_limit: set_limit,
+  get_keyword: get_keyword,
+  set_amount: set_amount,
+}
