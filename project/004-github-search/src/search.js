@@ -4,12 +4,13 @@ var el = require('./element')
   , page_amount
   , max_page_btn = 5
   , res
+  , MAX_LIMIT = 999
 ;
 
 
 function goto_page(page) {
 
-  var max_user_limit_reached = page * limit > MAX_LIMIT;
+  var max_user_limit_reached = share.get_current_page() * share.get_limit() > MAX_LIMIT;
 
   if (max_user_limit_reached) {
     current_page = share.set_current_page(Math.floor(MAX_LIMIT / limit));
@@ -214,15 +215,13 @@ function search() {
 
   history.append(share.get_keyword());
 
-  http.setRequestHeader('Authorization', 'Basic ' + btoa('biaoyansu:94bfe1cf32b7aa3d0c2cbdd94958510841afece0'));
-
   /*发射*/
   http.send();
 
   /*返回后*/
   http.addEventListener('load', function () {
     /*解析（将JSON格式的字符串转换为JS能理解的数据）返回数据*/
-    res = JSON.parse(http.responseText);
+    res = JSON.parse(this.responseText);
 
     /*拿到搜索结果总数*/
     share.set_amount(res.total_count);
@@ -233,6 +232,7 @@ function search() {
 }
 
 module.exports = {
+  goto_page: goto_page,
   search: search,
   reset_page: reset_page,
   reset_user_list: reset_user_list,

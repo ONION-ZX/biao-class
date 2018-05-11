@@ -53,10 +53,10 @@ function detect_click_top() {
 
 function detect_click_pagination() {
   el.pagination_start.addEventListener('click', function () {
-    goto_page(1);
+    search.goto_page(1);
   });
   el.pagination_end.addEventListener('click', function () {
-    goto_page(page_amount);
+    search.goto_page(share.get_amount());
   });
 }
 
