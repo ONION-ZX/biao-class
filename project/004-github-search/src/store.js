@@ -1,5 +1,5 @@
 function get(key) {
-  var data = localStroage.getItem(key);
+  var data = localStorage.getItem(key);
   return JSON.parse(data);
 }
 

@@ -47,8 +47,8 @@ function render() {
   no_more = share.get_current_page() * share.get_limit() >= share.get_amount();
 
   if(no_more)
-    ele.placeholer.hidden = false;
-  ele.placeholer.hidden = true;
+    ele.placeholder.hidden = false;
+  ele.placeholder.hidden = true;
 }
 
 function set_keyword(kwd) {
@@ -97,10 +97,10 @@ function render_pagination() {
     , end
     , max_page_btn
     , middle = Math.ceil(max_page_btn / 2)
-    , page_amount = share.get_page_amount()
+    , page_amount = share.get_amount()
     , current_page = share.get_current_page()
     , reaching_left = current_page <= middle
-    , reaching_left = current_page >= page_amount - middle
+    , reaching_right = current_page >= page_amount - middle
   ;
 
   if(reaching_left) {

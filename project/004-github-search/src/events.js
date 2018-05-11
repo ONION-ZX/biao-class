@@ -1,6 +1,7 @@
 var ele = require('./element')
   , search = require('./search')
   , history = require('./history')
+  , share = require('./share')
 ;
 
 function bind_all() {
@@ -14,14 +15,16 @@ function bind_all() {
 function detect_submit() {
   ele.form.addEventListener('submit',function(e) {
     e.preventDefault();
+
     var keyword = share.set_keyword(ele.input.value);
     if(!keyword) {
       alert('please input some keyword...');
       return;
     }
-    reset_page();
-    reset_user_list();
-    ele.placeholer.hidden = true;
+    search.reset_page();
+    search.reset_user_list();
+
+    ele.placeholder.hidden = true;
     search.search(keyword);
 
     search.clear_pagination();
@@ -31,7 +34,7 @@ function detect_submit() {
 
 function detect_click_top() {
   ele.top.addEventListener('click',function() {
-    window.scrollTo(0,0)l
+    window.scrollTo(0,0);
   });
 }
 
@@ -52,7 +55,7 @@ function detect_click_input() {
 }
 
 function detect_click_document() {
-  documet.documentElement.addEventListener('click',function(e) {
+  document.documentElement.addEventListener('click',function(e) {
     var target = e.target;
 
     var in_search_input = target.closest('#search-input')

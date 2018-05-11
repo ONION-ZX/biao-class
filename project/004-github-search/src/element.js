@@ -4,9 +4,9 @@ var output = {
   placeholder: document.getElementById('placeholder'),
   top: document.getElementById('top'),
   pagination: document.getElementById('pagination'),
-  pagination_start: document.getElementById('pagination_start'),
-  pagination_end: document.getElementById('pagination_end'),
-  pagination_container: document.getElementById('pagination_container'),
+  pagination_start: document.getElementById('pagination-start'),
+  pagination_end: document.getElementById('pagination-end'),
+  pagination_container: document.getElementById('pagination-container'),
   user_list: document.getElementById('user-list')
 };
 

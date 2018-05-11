@@ -1,4 +1,4 @@
-var store = require('./store');
+var store = require('./store')
   , search = require('./search')
   , util = require('./util')
   , el_list = document.getElementById('history-list')
