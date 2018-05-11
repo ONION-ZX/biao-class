@@ -1,5 +1,5 @@
 var history = require('./history')
-  , events = require('./events')
+  , event = require('./event')
 ;
 
 init();
@@ -7,5 +7,5 @@ init();
 function init() {
   history.reload_list();
   history.render_list();
-  events.bind_all();
+  event.bind_all();
 }

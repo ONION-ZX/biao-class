@@ -10,4 +10,4 @@ var output = {
   user_list: document.getElementById('user-list')
 };
 
-module.exports  = output;
+module.exports = output;
