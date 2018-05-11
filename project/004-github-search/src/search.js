@@ -152,6 +152,7 @@ module.exports = {
   search: search,
   set_keyword: set_keyword,
   reset_page: reset_page,
+  go_to_page: go_to_page,
   reset_user_list: reset_user_list,
   clear_pagination: clear_pagination,
   hide_pagination: hide_pagination,
