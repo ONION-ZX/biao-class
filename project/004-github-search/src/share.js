@@ -1,6 +1,6 @@
 var keyword
-  , current_page
-  , limit = 5
+  , current_page = 1
+  , limit = 10
   , amount
 ;
 

@@ -44,7 +44,7 @@ function detect_click_pagination() {
     search.go_to_page(1);
   });
   ele.pagination_end.addEventListener('click',function() {
-    search.go_to_page(page_amount);
+    search.go_to_page(share.get_amount());
   })
 }
 

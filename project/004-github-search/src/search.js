@@ -2,6 +2,8 @@ var ele = require('./element')
   , share = require('./share')
   , keyword = share.get_keyword()
   , limit = share.get_limit()
+  , MAX_LIMIT = 999
+  , page_amount
   , no_more
   , res
 ;
@@ -89,6 +91,7 @@ function hide_pagination() {
 }
 
 function render_pagination() {
+
   show_pagination();
   clear_pagination();
   get_page_amount();
@@ -123,6 +126,7 @@ function render_pagination() {
   }
 
   for(var i = start; i <= end; i++) {
+    console.log(1);
     var num = i;
     var btn = document.createElement('button');
     btn.innerText = num;
@@ -131,16 +135,14 @@ function render_pagination() {
     if(current_page == num) {
       btn.classList.add('active');
     }
-
-    ele.pagination.appendChild(btn);
     btn.addEventListener('click',make(num));
   }
+}
 
-  function make(num) {
-    return function() {
-      current_page = share.set_current_page(num);
-      search();
-    }
+function make(num) {
+  return function() {
+    current_page = share.set_current_page(num);
+    search();
   }
 }
 
