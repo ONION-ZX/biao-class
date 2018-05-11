@@ -4,60 +4,6 @@
 ;(function() {
   'use strict';
 
-  var el_user_list = document.getElementById('user-list')
-    , el_form = document.getElementById('search-form')
-    , el_input = document.getElementById('search-input')
-    , el_top = document.getElementById('top')
-    , el_placeholer = document.getElementById('placeholer')
-    , el_pagination_container = document.getElementById('pagination-container')
-    , el_pagination = el_pagination_container.querySelector('#pagination')
-    , el_pagination_start = el_pagination_container.querySelector('#pagination-start')
-    , el_pagination_end = el_pagination_container.querySelector('#pagination-end')
-    , el_history_list = document.getElementById('history-list')
-    , history_list
-    , max_page_btn = 5
-    , MAX_LIMIT = 1000
-    , keyword
-    , no_more
-    , amount
-    , page_amount
-    , current_page = 1
-    , limit = 10
-  ;
-  /*返回的数据*/
-  var res;
-  init();
-
-  /*通过用户名搜Github用户
-  * @param String keyword 关键词
-  * */
-
-  /*初始化*/
-  function init() {
-    reload_history_list();
-    render_history_list();
-    bind_events();
-    // detect_click_history_delete();
-    //@1 detect_click_history_list();
-  }
-
-  function bind_events() {
-    detect_submit();
-    detect_click_top();
-    detect_click_pagination();
-    detect_click_input();
-    detect_click_document();
-    // detect_blur_input();
-  }
-
-
-
-  // 将关键词写入历史记录
-
-  function overwrite_history_list(data) {
-    store_set('history_list',data);
-  }
-
 //@1
 // function detect_click_history_list() {
 //   el_history_list.addEventListener('click',function(e) {
@@ -92,8 +38,6 @@
       show_history_list();
     });
   }
-
-
 
   function detect_click_pagination() {
     el_pagination_start.addEventListener('click',function() {
@@ -134,16 +78,6 @@
     });
   }
 
-  /*重置页码为1*/
-  function reset_page() {
-    current_page = 1;
-  }
-
-  /*清空已渲染内容*/
-  function reset_user_list() {
-    el_user_list.innerHTML = '';
-  }
-
   function detect_click_top() {
     el_top.addEventListener('click', function () {
       window.scrollTo(0, 0);
@@ -151,46 +85,6 @@
   }
 
   /*渲染*/
-  function render() {
-    /*初始化HTML*/
-    var html = '';
-    /*遍历用户列表*/
-    res.items.forEach(function (user) {
-      /*每个用户都追加到HTML后面*/
-      html = html + `
-    <div class="user">
-      <a class="avatar" target="_blank" href="${user.html_url}">
-        <img src="${user.avatar_url}">
-      </a>
-      <div class="info">
-        <div class="username">${user.login}</div>
-        <div><a target="_blank" href="${user.html_url}">${user.html_url}</a></div>
-      </div>
-    </div>
-      `;
-        });
-        /*将生成的HTML写入模板床*/
-        el_user_list.innerHTML = html;
-        document
-          .getElementById('amount')
-          .innerHTML = `共有${res.total_count}条结果`;
-        /*如果每页的数量乘以页数大于总数就说明当前页就是最后一页*/
-        no_more = current_page * limit >= amount;
-        /*
-        .hidden = no_more;
-        el_placeholer.hidden = !no_more;
-        */
-        /*如果没有更多*/
-        if (no_more) {
-          el_placeholer.hidden = false;
-        } else {
-          el_placeholer.hidden = true;
-        }
-      }
-
-  function get_page_amount() {
-    page_amount = Math.ceil(amount / limit);
-  }
 
   function clear_pagination() {
     el_pagination.innerHTML = '';
