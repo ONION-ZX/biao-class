@@ -1,0 +1,62 @@
+<style>
+  #history-list {
+    width: 80%;
+  }
+
+  #history-list {
+    z-index: 1;
+    position: absolute;
+    max-height: 300px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-top: 0;
+    font-size: 14px;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    cursor: default;
+  }
+
+  .history {
+    padding: 5px 10px;
+    font-size: 0;
+  }
+
+  .history:hover {
+    background: rgba(0, 0, 200, .1);
+  }
+
+  .history .text,
+  .history .tool {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .history .text {
+    width: 70%;
+    font-size: .9rem;
+  }
+
+  .history .tool {
+    display: none;
+    width: 30%;
+    font-size: .6rem;
+    text-align: right;
+    color: #aaa;
+  }
+
+  .history:hover .tool {
+    display: inline-block;
+  }
+
+  .history .tool > * {
+    cursor: pointer;
+  }
+</style>
+
+<meta charset="utf-8">
+
+<div id="history-list"></div>
+
+<script src="./bundle.js"></script>
