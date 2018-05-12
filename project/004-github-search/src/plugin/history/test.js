@@ -2,17 +2,14 @@ var history = require('./history');
 
 history.init({
   el: '#history-list',
-  on_click: function (kwd, e) {
-    console.log(kwd, e.altKey);
+  on_click: function(kwd,e) {
+    console.log(kwd);
   },
-  on_delete: function (keyword, e) {
+  on_delete: function(kwd,e) {
     e.stopPropagation();
-    console.log(keyword);
+    console.log(kwd);
   }
 });
 
-// history.add('yo1');
-// history.add('yo2');
-// history.add('yo3');
-// history.remove('yo2');
-// history.clear();
+history.add('onion');
+history.add('zheng');

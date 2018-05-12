@@ -4,10 +4,7 @@ var helper = require('../../util/helper')
 
 var list = []
   , el
-  , on_click
-  , on_delete
 ;
-
 
 var output = {
   init: init,
@@ -21,22 +18,19 @@ function init(config) {
   on_click = config.on_click;
   on_delete = config.on_delete;
 
-  if(!config.el || !el)
-  throw 'Invalid root element';
+  if(!config || !config.el)
+    throw 'invalid root element';
 
-  sync_to_ladle();//拿到上一次的数据
+  sync_to_ladle();
   render();
 }
 
-// 数据操作
-
-
 function sync_to_store() {
-  store.set('history_list',list);
+  store.set('history_list',list)
 }
 
 function sync_to_ladle() {
-  list = store.get('history_list') || [];
+  store.get('history_list');
 }
 
 function add(keyword) {
@@ -48,17 +42,14 @@ function add(keyword) {
 
 function remove(keyword) {
   helper.find_and_delete(list,keyword);
-  sync_to_store();
+  sync_to_ladle();
   render();
 }
 
 function clear() {
   list = [];
-  sync_to_store();
-  render();
 }
 
-// UI操作
 function render() {
   el.innerHTML = '';
 
@@ -88,6 +79,5 @@ function render() {
     });
   });
 }
-
 
 module.exports = output;
