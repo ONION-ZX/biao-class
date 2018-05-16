@@ -1,0 +1,71 @@
+<script>
+var max_id = 101;
+var todo_list = [
+  { // 0
+    id: 100,
+    name: '买菜',
+    remind_at: '2020...',
+    completed: false,
+  },
+  { // 1
+    id: 101,
+    name: '洗菜',
+    remind_at: '2020-10-01 20:20:02',
+    completed: false,
+  },
+];
+
+  function add(row) {
+    max_id = max_id + 1;
+    row.id = max_id;
+    todo_list.push(row);
+  }
+
+  add({
+    id: max_id,
+    name:'吃菜',
+    remind_at: '2019-10-10',
+  });
+  // console.log(todo_list);
+
+  function remove(id) {
+    var index = find_index_by_id(todo_list,id);
+    todo_list.splice(index,1);
+  }
+
+  // remove(102);
+  // console.log(todo_list);
+
+  function modify(id,new_row) {
+    var index = find_index_by_id(todo_list,id);
+
+    var old_row = todo_list[index];
+
+    todo_list[index] = Object.assign({},old_row,new_row);
+  }
+
+  // modify(102,{
+  //   name: 'hello world',
+  //   completed: true,
+  // });
+  // console.log(todo_list);
+
+  function read(id) {
+    if(id)
+      return find_by_id(todo_list,id);
+    return todo_list;
+  }
+
+
+  function find_index_by_id(arr,id) {
+    return arr.findIndex(function(row) {
+      return row.id == id;
+    });
+  }
+
+  function find_by_id(arr,id) {
+    return arr.find(function(row) {
+      return row.id == id;
+    });
+  }
+</script>
