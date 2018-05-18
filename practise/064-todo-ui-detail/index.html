@@ -1,0 +1,109 @@
+<style>
+  body {
+    margin: 0;
+  }
+
+  .container {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0, 0, 0, .1);
+    padding: 10px;
+  }
+
+  .container h1 {
+    text-align: center;
+  }
+
+  .row {
+    font-size: 0;
+  }
+
+  .col {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1rem;
+  }
+
+  #todo-form input,
+  #todo-form button {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  #todo-form input {
+    width: 80%;
+  }
+
+  #todo-form button {
+    width: 20%;
+    border-left: 0;
+  }
+
+  #todo-list .checkbox {
+    width: 10%;
+  }
+
+  #todo-list .detail {
+    width: 60%;
+  }
+
+  #todo-list .tool-set {
+    width: 30%;
+  }
+
+  .tool-set {
+    text-align: right;
+  }
+
+  .tool-set * {
+    padding: 4px;
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  .todo-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .todo-item > * {
+    vertical-align: middle;
+  }
+</style>
+<div class="container">
+  <h1>TodoList</h1>
+  <form id="todo-form" class="row">
+    <input type="hidden" name="id">
+    <input type="text" name="title" class="col">
+    <button class="col">添加</button>
+  </form>
+  <div id="todo-list">
+    <div class="row todo-item">
+      <div class="col checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="col detail">
+        <div class="title">吃饭</div>
+      </div>
+      <div class="col tool-set">
+        <button>更新</button>
+        <button>删除</button>
+      </div>
+    </div>
+    <div class="row todo-item">
+      <div class="col checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="col detail">
+        <div class="title">吃饭</div>
+      </div>
+      <div class="col tool-set">
+        <button>更新</button>
+        <button>删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="Ui.js"></script>
