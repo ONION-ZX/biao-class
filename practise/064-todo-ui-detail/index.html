@@ -11,10 +11,6 @@
     padding: 10px;
   }
 
-  .container h1 {
-    text-align: center;
-  }
-
   .row {
     font-size: 0;
   }
@@ -72,38 +68,16 @@
   }
 </style>
 <div class="container">
-  <h1>TodoList</h1>
+  <h1>Biao Todo</h1>
   <form id="todo-form" class="row">
     <input type="hidden" name="id">
-    <input type="text" name="title" class="col">
+    <input id="todo-input" type="text" name="title" class="col" autocomplete="off">
     <button class="col">添加</button>
   </form>
   <div id="todo-list">
-    <div class="row todo-item">
-      <div class="col checkbox">
-        <input type="checkbox">
-      </div>
-      <div class="col detail">
-        <div class="title">吃饭</div>
-      </div>
-      <div class="col tool-set">
-        <button>更新</button>
-        <button>删除</button>
-      </div>
-    </div>
-    <div class="row todo-item">
-      <div class="col checkbox">
-        <input type="checkbox">
-      </div>
-      <div class="col detail">
-        <div class="title">吃饭</div>
-      </div>
-      <div class="col tool-set">
-        <button>更新</button>
-        <button>删除</button>
-      </div>
-    </div>
   </div>
 </div>
 
+<script src="Api.js"></script>
 <script src="Ui.js"></script>
+<script src="index.js"></script>
