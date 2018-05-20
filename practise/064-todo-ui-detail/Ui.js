@@ -14,6 +14,7 @@ Ui.prototype.render = render;
 Ui.prototype.detect_add = detect_add;
 Ui.prototype.detect_click_list = detect_click_list;
 Ui.prototype.remove = remove;
+Ui.prototype.clear_form = clear_form;
 
 function init() {
   this.render();
@@ -21,25 +22,31 @@ function init() {
   this.detect_click_list();
 }
 
+function remove(id) {
+  this._api.remove(id);
+  render();
+}
+
 function detect_click_list() {
   var me = this;
   this.list.addEventListener('click',function(e) {
     var target = e.target
-      , is_remove_btn = target.classList.contains('remove');
+      , todo_item = target.closest('.todo-item')
+      , id = todo_item.dataset.id
+      , is_remove_btn = target.classList.contains('remove')
+      , is_update_btn = target.classList.contains('update')
+    ;
 
     if(is_remove_btn) {
-      var todo_item = target.closest('.todo-item')
-        , id = todo_item.dataset.id
-      me.remove(id)
+      me.remove(id);
+    } else if(is_update_btn) {
+      var row = me._api.read(id);
+      me.set_form_data(me.form,row);
+      // me.list.innerHTML = '';
     }
   });
 }
 
-//调用Api并更新页面
-function remove(id) {
-  this._api.remove(id);
-  this.render();
-}
 
 function render() {
   var todo_list = this._api.read();
@@ -79,7 +86,13 @@ function detect_add() {
     }
     me.render();
     me.input.value = '';
+    me.clear_form();
   });
+}
+
+function clear_form() {
+  var id = this.form.querySelector('[name=id]');
+  id.value = '';
 }
 
 function get_form_data(form) {
