@@ -2,6 +2,7 @@ window.Api = Api;
 
 function Api(list, max_id) {
   this.max_id = max_id || 1;
+  this.list = list;
   this.list = [
     { // 0
       id: 100,
@@ -25,6 +26,9 @@ Api.prototype.read = read;
 
 /*增*/
 function add(row) {
+  // if (strings.replace(/(^s*)|(s*$)/g, "").length ==0)
+  if(!row.title || row.title.indexOf(" ") !== -1)
+    return;
   this.max_id = this.max_id + 1;
   row.id = this.max_id;
   this.list.push(row);
