@@ -318,7 +318,7 @@
   }
 
   function show_history_list() {
-    if(!history_list.length)
+    if(!history_list || !history_list.length)
      return;
     el_history_list.hidden = false;
   }

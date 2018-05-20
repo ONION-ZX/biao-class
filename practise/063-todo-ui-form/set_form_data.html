@@ -1,0 +1,57 @@
+<meta charset="utf-8">
+<form id="todo-form" action="http://baidu.com"> <!-- => {title: eat, completed: false, remind_at: 2018-...} -->
+  <input name="title" type="text" value="yo"><br>
+  <label>
+    <input name="completed" type="checkbox"> 完成
+  </label><br>
+  <!--<input type="color" name="color">-->
+  <textarea name="desc">
+  我是一段描述
+  </textarea>
+  <button type="submit">添加任务</button>
+</form>
+
+<script>
+  ;(function() {
+    'use strict';
+
+    var todo_list = [
+      {
+        name:'shopping',
+        completed: false,
+      },
+    ];
+
+    function set_form_data(form_selector,data) {
+      var form = document.querySelector(form_selector);
+
+      for(var key in data) {
+        var value = data[key];
+        var input = form.querySelector(`[name=${key}]`);
+
+        if(!input)
+          continue;
+
+        var data_type = typeof value;
+
+        switch(data_type) {
+          case 'string':
+          case 'number':
+            input.value = value;
+            break;
+          case 'boolean':
+            input.checked = value;
+            break;
+        }
+      }
+    }
+
+    var row = {
+      title: 'eat',
+      completed: true,
+      desc: 'mia mia mia...',
+    };
+
+    set_form_data('#todo-form',row);
+  })();
+</script>
