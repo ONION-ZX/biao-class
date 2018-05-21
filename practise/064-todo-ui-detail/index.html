@@ -8,7 +8,7 @@
     margin-left: auto;
     margin-right: auto;
     background: rgba(0, 0, 0, .1);
-    padding: 10px;
+    padding: 40px;
   }
 
   .container h1 {
@@ -38,7 +38,7 @@
 
   #todo-form button {
     width: 20%;
-    border-left: 0;
+    border: 0;
   }
 
   #todo-list .checkbox {
@@ -63,8 +63,14 @@
   }
 
   .todo-item {
+    padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    /* background: rgba(0,0,0,.1); */
+  }
+
+  .todo-item button {
+    background: rgba(0,0,0,.1);
   }
 
   .todo-item > * {
@@ -75,7 +81,7 @@
   <h1>Todo List</h1>
   <form id="todo-form" class="row">
     <input type="hidden" name="id">
-    <input id="todo-input" type="text" name="title" class="col" autocomplete="off">
+    <input id="todo-input" type="text" name="title" class="col" autocomplete="off" placeholder="在此添加你的待办事项">
     <button class="col">添加</button>
   </form>
   <div id="todo-list">

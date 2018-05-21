@@ -24,7 +24,7 @@ function init() {
 
 function remove(id) {
   this._api.remove(id);
-  render();
+  this.render();
 }
 
 function detect_click_list() {
@@ -32,21 +32,18 @@ function detect_click_list() {
   this.list.addEventListener('click',function(e) {
     var target = e.target
       , todo_item = target.closest('.todo-item')
-      , id = todo_item.dataset.id
       , is_remove_btn = target.classList.contains('remove')
       , is_update_btn = target.classList.contains('update')
-    ;
+      , id = todo_item.dataset.id;
 
-    if(is_remove_btn) {
-      me.remove(id);
-    } else if(is_update_btn) {
-      var row = me._api.read(id);
-      me.set_form_data(me.form,row);
-      // me.list.innerHTML = '';
-    }
+      if(is_remove_btn) {
+        me.remove(id);
+      } else if(is_update_btn) {
+        var row = me._api.read(id);
+        me.set_form_data(me.form, row);
+      }
   });
 }
-
 
 function render() {
   var todo_list = this._api.read();
@@ -57,17 +54,17 @@ function render() {
     var el = document.createElement('div');
     el.classList.add('row','todo-item');
     el.dataset.id = item.id;
-      el.innerHTML = `
-      <div class="col checkbox">
-        <input type="checkbox">
-      </div>
-      <div class="col detail">
-        <div class="title">${item.title}</div>
-      </div>
-      <div class="col tool-set">
-        <button class="update">更新</button>
-        <button class="remove">删除</button>
-      </div>
+    el.innerHTML = `
+    <div class="col checkbox">
+      <input type="checkbox">
+    </div>
+    <div class="col detail">
+      <div class="title">${item.title}</div>
+    </div>
+    <div class="col tool-set">
+      <button class="update">更新</button>
+      <button class="remove">删除</button>
+    </div>
     `;
     me.list.appendChild(el);
   });
@@ -86,7 +83,6 @@ function detect_add() {
     }
     me.render();
     me.input.value = '';
-    me.clear_form();
   });
 }
 
@@ -127,7 +123,7 @@ function get_form_data(form) {
 function set_form_data(form,data) {
   for(var key in data) {
     var value = data[key];
-    var input = form.querySelector(`[name=${key}]`);
+    var input = form.querySelector(`[name = ${key}]`);
     if(!input)
       continue;
     var data_type = typeof value;
