@@ -1,0 +1,57 @@
+<script>
+
+  function Dad() {}
+
+  Dad.prototype.lname = 'wang';
+
+  // ---------------------------------------
+
+  function Kid() {}
+
+  Kid.prototype = Object.create(Dad.prototype);
+
+  console.log(new Kid())
+</script>
+
+<script>
+
+  function A() {}
+
+  A.prototype.a1 = '我是a1';
+
+  // ---------------------------------------
+
+  function B() {}
+
+  B.prototype = Object.create(A.prototype);
+  B.prototype.b1 = '我是b1';
+
+
+  // ---------------------------------------
+
+  function C() {}
+
+  C.prototype.c1 = '我是c1';
+</script>
+
+<script>
+
+  function A() {
+    this.name = 'a';
+    this.age = 10;
+  }
+
+  A.prototype.a1 = '我是a1';
+
+  // ---------------------------------------
+
+  function B() {
+    A.call(this);
+  }
+
+  B.prototype = Object.create(A.prototype);
+  B.prototype.b1 = '我是b1';
+
+  var b = new B();
+  console.log(b);
+</script>

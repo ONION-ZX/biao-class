@@ -7,7 +7,7 @@ pagination.init({
   range: 5,
   current: 12,
 
-  on_page_change: function (page, e) {
+  on_page_change: function(page,e) {
     console.log(page);
   }
 });
