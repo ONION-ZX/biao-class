@@ -1,20 +1,40 @@
-window.Ui = Ui;
+window.TaskUi = TaskUi;
+test_list = [
+  { // 0
+    id        : 100,
+    title     : '买菜',
+    completed : false,
+    group_id  : 1,
+  },
+  { // 1
+    id        : 101,
+    title     : '洗菜',
+    completed : false,
+    group_id  : 1,
+  },
+  {
+    id        : 102,
+    title     : '背单词',
+    completed : false,
+    group_id  : 2,
+  },
+];
 
-function Ui(form_selector, list_selector, input_selector) {
+function TaskUi(form_selector, list_selector, input_selector) {
   this.form = document.querySelector(form_selector);
   this.list = document.querySelector(list_selector);
   this.input = document.querySelector(input_selector);
-  this._api = new Api();
+  this._api = new TaskApi(test_list);
 }
 
-Ui.prototype.get_form_data = get_form_data;
-Ui.prototype.set_form_data = set_form_data;
-Ui.prototype.init = init;
-Ui.prototype.render = render;
-Ui.prototype.detect_add = detect_add;
-Ui.prototype.detect_click_list = detect_click_list;
-Ui.prototype.remove = remove;
-Ui.prototype.clear_form = clear_form;
+TaskUi.prototype.get_form_data = helper.get_form_data;
+TaskUi.prototype.set_form_data = helper.set_form_data;
+TaskUi.prototype.init = init;
+TaskUi.prototype.render = render;
+TaskUi.prototype.detect_add = detect_add;
+TaskUi.prototype.detect_click_list = detect_click_list;
+TaskUi.prototype.remove = remove;
+// TaskUi.prototype.clear_form = clear_form;
 
 function init() {
   this.render();
@@ -84,57 +104,4 @@ function detect_add() {
     me.render();
     me.input.value = '';
   });
-}
-
-function clear_form() {
-  var id = this.form.querySelector('[name=id]');
-  id.value = '';
-}
-
-function get_form_data(form) {
-  var data = {};
-  var list = form.querySelectorAll('[name]');
-
-  list.forEach(function(input) {
-    switch (input.nodeName) {
-      case 'INPUT':
-        switch (input.type) {
-          case 'search':
-          case 'text':
-          case 'number':
-          case 'password':
-          case 'hidden':
-            data[input.name] = input.value;
-            break;
-          case 'checkbox':
-          case 'radio':
-            data[input.name] = input.checked;
-            break;
-        }
-        break;
-      case 'TEXTAREA':
-        data[input.name] = input.value;
-        break;
-    }
-  });
-  return data;
-}
-
-function set_form_data(form,data) {
-  for(var key in data) {
-    var value = data[key];
-    var input = form.querySelector(`[name = ${key}]`);
-    if(!input)
-      continue;
-    var data_type = typeof value;
-    switch (data_type) {
-      case 'number':
-      case 'string':
-        input.value = value;
-        break;
-      case 'boolean':
-        input.checked = value;
-        break;
-    }
-  }
 }
