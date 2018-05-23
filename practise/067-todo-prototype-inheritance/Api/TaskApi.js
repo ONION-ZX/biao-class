@@ -7,14 +7,15 @@ function TaskApi(list, max_id) {
 }
 
 TaskApi.prototype = Object.create(BaseApi.prototype);
+TaskApi.prototype.constructor = TaskApi;
+
 TaskApi.prototype.add = add;
 TaskApi.prototype.remove = remove;
 TaskApi.prototype.update = update;
 TaskApi.prototype.read = read;
 
-
 function add(row) {
-  if (!row.title)
+  if(!row.title)
     return;
   return this.$add(row);
 }
