@@ -1,13 +1,13 @@
 window.BaseApi = BaseApi;
 
 function BaseApi(list, max_id) {
-  this.list = list;
+  this.list = list || [];
   this.max_id = max_id;
 }
 
 BaseApi.prototype.$add = add;
 BaseApi.prototype.$remove = remove;
-BaseApi.prototype.$update = update;
+BaseApi.prototype.$uppdate = update;
 BaseApi.prototype.$read = read;
 
 function add(row) {
@@ -21,6 +21,7 @@ function remove(id) {
 
   if(index < 0)
     return;
+
   this.list.splice(index, 1);
 }
 
