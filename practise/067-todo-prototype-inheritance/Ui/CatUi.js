@@ -18,6 +18,7 @@ CatUi.prototype.detect_click_add_cat_btn = detect_click_add_cat_btn;
 CatUi.prototype.detect_form_submit = detect_form_submit;
 CatUi.prototype.detect_click_form = detect_click_form;
 CatUi.prototype.detect_click_list = detect_click_list;
+CatUi.prototype.reset_form_location = reset_form_location;
 CatUi.prototype.get_form_data = helper.get_form_data;
 CatUi.prototype.set_form_data = helper.set_form_data;
 CatUi.prototype.clear_form = helper.clear_form;
@@ -32,6 +33,7 @@ function init() {
 
 function render() {
   var me = this;
+  this.reset_form_location();
   var cat_list = this._api.read();
   this.list.innerHTML = '';
 
@@ -71,6 +73,7 @@ function detect_form_submit() {
 
     if(row.id) {
       me._api.update(row.id, row);
+      me.updating_cat_item.hidden = false;
     } else {
       me._api.add(row);
     }
@@ -107,8 +110,20 @@ function detect_click_list() {
       if(is_delete_btn) {
         me._api.remove(id);
         me.render();
+      } else if(is_update_btn) {
+        me.show_cat_form();
+        me.hide_add_cat_btn();
+        var row = me.get_form_data(me.cat_form);
+        me.set_form_data(me.cat_form, row);
+        cat_item.hidden = true;
+        cat_item.insertAdjacentElement('afterend', me.cat_form);
+        me.updating_cat_item = cat_item;
       }
   });
+}
+
+function reset_form_location() {
+  this.list.insertAdjacentElement('afterend',this.cat_form);
 }
 
 function show_add_cat_btn() {
