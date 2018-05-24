@@ -10,6 +10,10 @@
     font-family: sans-serif;
   }
 
+  form {
+    margin: 0;
+  }
+
   hr {
     display: block;
     height: 1px;
@@ -112,6 +116,10 @@
     vertical-align: middle;
   }
 
+  #cat-form button {
+    margin: 5px 0;
+  }
+
   .cat-item {
     position: relative;
     padding: 5px;
@@ -128,6 +136,15 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .cat-item .tool-set > * {
+    display: inline-block;
+    padding: 0 2px;
+  }
+
+  .cat-item .title {
+    font-size: .9rem;
   }
 
   .cat-item:hover {
@@ -152,13 +169,14 @@
       </div>
 
       <form id="cat-form" hidden>
+        <input type="hidden" name="id">
         <input type="text" value="yo" class="block" name="title" autocomplete="off">
         <button type="submit">完成</button>
         <button type="button" data-action="cancel">取消</button>
       </form>
 
       <div>
-        <button id="add-cat" class="block">+</button>
+        <button id="add-cat-btn" class="block">+</button>
       </div>
     </div>
     <div class="col main">

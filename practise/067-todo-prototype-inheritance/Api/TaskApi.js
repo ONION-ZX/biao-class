@@ -14,8 +14,9 @@ TaskApi.prototype.remove = remove;
 TaskApi.prototype.update = update;
 TaskApi.prototype.read = read;
 
+
 function add(row) {
-  if(!row.title)
+  if (!row.title)
     return;
   return this.$add(row);
 }
