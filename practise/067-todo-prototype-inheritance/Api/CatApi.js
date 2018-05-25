@@ -10,15 +10,15 @@ function CatApi(list, max_id) {
   list = list || [
     {
       id    : 1,
-      title : 'default',
+      title : '默认',
     },
     {
       id    : 2,
-      title : 'work',
+      title : '生活是我大爷',
     },
     {
       id    : 3,
-      title : 'study',
+      title : '天天向上',
     },
   ];
   max_id = max_id || 1;
@@ -57,6 +57,6 @@ function update(id, new_row) {
   return this.$update(id, new_row);
 }
 
-function read(id) {
-  return this.$read(id);
+function read() {
+  return this.$read();
 }

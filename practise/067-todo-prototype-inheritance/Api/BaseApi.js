@@ -9,10 +9,10 @@ BaseApi.prototype.$add = add;
 BaseApi.prototype.$remove = remove;
 BaseApi.prototype.$update = update;
 BaseApi.prototype.$read = read;
+BaseApi.prototype.$find = find;
 // BaseApi.prototype.$get_item = get_item;
 
 function add(row) {
-    //非重复再添加
     this.max_id = this.max_id + 1;
     row.id = this.max_id;
     this.list.push(row);
@@ -40,11 +40,14 @@ function update(id, new_row) {
   this.list[index] = Object.assign({}, old_row, new_row);
 }
 
-function read(id) {
-  if (id)
-    return find_by_id(this.list, id);
-
+//拿到所有数据
+function read() {
   return this.list;
+}
+
+//通过id找一行数据
+function find(id) {
+  return find_by_id(this.list, id);
 }
 
 function find_index_by_id(arr, id) {
