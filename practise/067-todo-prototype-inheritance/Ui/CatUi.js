@@ -62,6 +62,7 @@ function detect_click_add_cat_btn() {
   var me = this;
   this.add_cat_btn.addEventListener('click',function(e) {
     me.show_cat_form();
+    me.hide_add_cat_btn();
   });
 }
 
@@ -74,6 +75,8 @@ function detect_form_submit() {
     if(row.id) {
       me._api.update(row.id, row);
       me.updating_cat_item.hidden = false;
+      me.hide_cat_form();
+      me.show_add_cat_btn();
     } else {
       me._api.add(row);
     }
@@ -91,6 +94,9 @@ function detect_click_form() {
       if(is_cancel_btn) {
         me.hide_cat_form();
         me.show_add_cat_btn();
+        if(me.updating_cat_item)
+          me.updating_cat_item.hidden = false;
+        me.reset_form_location();
       }
   });
 }
@@ -111,9 +117,12 @@ function detect_click_list() {
         me._api.remove(id);
         me.render();
       } else if(is_update_btn) {
+        if(me.updating_cat_item)
+          me.updating_cat_item.hidden = false;
+
         me.show_cat_form();
         me.hide_add_cat_btn();
-        var row = me.get_form_data(me.cat_form);
+        var row = me._api.read(id);
         me.set_form_data(me.cat_form, row);
         cat_item.hidden = true;
         cat_item.insertAdjacentElement('afterend', me.cat_form);
