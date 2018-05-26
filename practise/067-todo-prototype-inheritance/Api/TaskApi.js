@@ -41,6 +41,6 @@ function read() {
 
 function read_by_cat_id(cat_id) {
   return this.read().filter(function(row) {
-    return row.id == cat_id;
+    return row.cat_id == cat_id;
   });
 }

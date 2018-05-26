@@ -90,6 +90,8 @@ function render(cat_id) {
   var todo_list = cat_id ?
                   this._api.read_by_cat_id(cat_id) :
                   this._api.read();
+  // console.log(todo_list);
+  // return;
   var me = this;
 
   if(todo_list.length)

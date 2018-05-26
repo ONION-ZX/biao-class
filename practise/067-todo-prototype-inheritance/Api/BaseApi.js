@@ -15,7 +15,7 @@ BaseApi.prototype.$find = find;
 function add(row) {
     this.max_id = this.max_id + 1;
     row.id = this.max_id;
-    this.list.push(row);
+    this.list.unshift(row);
 }
 
 function remove(id) {
