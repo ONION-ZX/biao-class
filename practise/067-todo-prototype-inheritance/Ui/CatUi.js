@@ -29,6 +29,7 @@ CatUi.prototype.detect_click_add_cat_btn = detect_click_add_cat_btn;
 CatUi.prototype.detect_form_submit = detect_form_submit;
 CatUi.prototype.detect_click_form = detect_click_form;
 CatUi.prototype.detect_click_list = detect_click_list;
+CatUi.prototype.set_active_cat_item = set_active_cat_item;
 CatUi.prototype.reset_form_location = reset_form_location;
 CatUi.prototype.get_form_data = helper.get_form_data;
 CatUi.prototype.set_form_data = helper.set_form_data;
@@ -40,6 +41,7 @@ function init() {
   this.detect_form_submit();
   this.detect_click_form();
   this.detect_click_list();
+  this.set_active_cat_item();
 }
 
 function render() {
@@ -121,7 +123,10 @@ function detect_click_list() {
       , is_update_btn = target.classList.contains('update');
 
     if(cat_item) {
+      // me.detect_click_cat_item();
+      // cat_item.classList.add('active');
       var id = parseInt(cat_item.dataset.id);
+      set_active_cat_item(id);
     }
 
       if(is_delete_btn) {
@@ -146,6 +151,16 @@ function detect_click_list() {
           if(me.config.on_item_click)
             me.config.on_item_click(id);
       }
+  });
+}
+
+function set_active_cat_item(id) {
+  var cat_list = document.querySelectorAll('.cat-item');
+  cat_list.forEach(function(cat_item) {
+    if(cat_item.dataset.id == id)
+      cat_item.classList.add('active');
+    else
+      cat_item.classList.remove('active');
   });
 }
 
