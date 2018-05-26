@@ -126,7 +126,8 @@ function detect_click_list() {
       // me.detect_click_cat_item();
       // cat_item.classList.add('active');
       var id = parseInt(cat_item.dataset.id);
-      set_active_cat_item(id);
+      set_active_cat_item();
+      cat_item.classList.add('active');
     }
 
       if(is_delete_btn) {
@@ -154,14 +155,17 @@ function detect_click_list() {
   });
 }
 
-function set_active_cat_item(id) {
+function set_active_cat_item() {
   var cat_list = document.querySelectorAll('.cat-item');
   cat_list.forEach(function(cat_item) {
-    if(cat_item.dataset.id == id)
-      cat_item.classList.add('active');
-    else
-      cat_item.classList.remove('active');
+    cat_item.classList.remove('active');
   });
+  // cat_list.forEach(function(cat_item) {
+  //   if(cat_item.dataset.id == id)
+  //     cat_item.classList.add('active');
+  //   else
+  //     cat_item.classList.remove('active');
+  // });
 }
 
 function reset_form_location() {
