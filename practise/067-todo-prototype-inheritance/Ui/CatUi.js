@@ -6,6 +6,7 @@ function CatUi(config) {
     form_selector: '#cat-form',
     add_cat_btn_selector : '#add-cat-btn',
     on_item_click : null,
+    on_item_delete : null,
   }
 
   var c = this.config = Object.assign({}, default_config, config);
@@ -127,11 +128,16 @@ function detect_click_list() {
       // cat_item.classList.add('active');
       var id = parseInt(cat_item.dataset.id);
       set_active_cat_item();
-      cat_item.classList.add('active');
     }
 
       if(is_delete_btn) {
+        if(!confirm('确定要删除此分组及其相对应的任务吗?'))
+          return;
+
         me._api.remove(id);
+        if(me.config.on_item_delete)
+          me.config.on_item_delete(id);
+
         me.render();
       } else if(is_update_btn) {
         if(me.updating_cat_item)
@@ -159,7 +165,7 @@ function set_active_cat_item() {
   var cat_list = document.querySelectorAll('.cat-item');
   cat_list.forEach(function(cat_item) {
     cat_item.classList.remove('active');
-  });
+  })
   // cat_list.forEach(function(cat_item) {
   //   if(cat_item.dataset.id == id)
   //     cat_item.classList.add('active');

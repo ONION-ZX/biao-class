@@ -18,12 +18,27 @@ test_list = [
     completed : false,
     cat_id  : 3,
   },
+  {
+    id        : 103,
+    title     : '跑步',
+    completed : false,
+    cat_id  : 1,
+  },
 ]
 
-function TaskUi(form_selector, list_selector, input_selector) {
-  this.form = document.querySelector(form_selector);
-  this.input = document.querySelector(input_selector);
-  this.list = document.querySelector(list_selector);
+function TaskUi(config) {
+  var default_config = {
+    form_selector: '#todo-form',
+    list_selector: '#todo-list',
+    input_selector: '#todo-input',
+    on_init: null,
+  }
+
+  var c =this.config = Object.assign({}, default_config, config);
+
+  this.form = document.querySelector(c.form_selector);
+  this.input = document.querySelector(c.input_selector);
+  this.list = document.querySelector(c.list_selector);
   /*私有，不应该直接调用，仅限此文件内部调用*/
   this._api = new TaskApi(test_list);
 }
@@ -37,9 +52,12 @@ TaskUi.prototype.detect_click_list = detect_click_list;
 TaskUi.prototype.remove = remove;
 
 function init() {
+  this.input.focus();
   this.render();
   this.detect_add();
   this.detect_click_list();
+  if(this.config.on_init)
+  this.config.on_init();
 }
 
 function detect_add() {
