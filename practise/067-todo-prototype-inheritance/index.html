@@ -74,7 +74,7 @@
 
   #todo-form button {
     width: 20%;
-    border-left: 0;
+    border: 0;
   }
 
   #todo-list .checkbox {
@@ -116,6 +116,15 @@
     vertical-align: middle;
   }
 
+  select {
+    border: 0;
+    width: 100%;
+    font-size: 16px;
+    display: block;
+    margin: 5px 0;
+    padding: 5px;
+  }
+
   .cat-item {
     position: relative;
     padding: 5px;
@@ -149,7 +158,7 @@
   }
 
   .cat-item.active {
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, .4);
     color: #fff;
   }
 
@@ -193,6 +202,11 @@
         <input id="todo-input" type="text" name="title" class="col" autocomplete="off">
         <button class="col">添加</button>
       </form>
+      <select name="cat-select" id="cat-select">
+        <!-- <option value="a">A</option>
+        <option value="a">B</option>
+        <option value="a">C</option> -->
+      </select>
       <div id="todo-list">
       </div>
     </div>
