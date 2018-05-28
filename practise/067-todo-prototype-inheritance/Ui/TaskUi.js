@@ -3,7 +3,7 @@ test_list = [
   { // 0
     id        : 100,
     title     : '买菜',
-    completed : false,
+    completed : true,
     cat_id  : 2,
   },
   { // 1
@@ -15,13 +15,13 @@ test_list = [
   {
     id        : 102,
     title     : '背单词',
-    completed : false,
+    completed : true,
     cat_id  : 3,
   },
   {
     id        : 103,
     title     : '跑步',
-    completed : false,
+    completed : true,
     cat_id  : 1,
   },
 ]
@@ -31,6 +31,8 @@ function TaskUi(config) {
     list_selector: '#todo-list',
     input_selector: '#todo-input',
     form_selector: '#todo-form',
+    completed_list_selector: '.completed',
+    incomplete_list_selector: '.incomplete',
     on_init: null,
     on_input_focus: null,
     on_add_succeed: null,
@@ -42,6 +44,8 @@ function TaskUi(config) {
   this.form = document.querySelector(c.form_selector);
   this.input = document.querySelector(c.input_selector);
   this.list = document.querySelector(c.list_selector);
+  this.completed_list = this.list.querySelector(c.completed_list_selector);
+  this.incomplete_list = this.list.querySelector(c.incomplete_list_selector);
   /*私有，不应该直接调用，仅限此文件内部调用*/
   this._api = new TaskApi(test_list);
 }
@@ -91,6 +95,8 @@ function detect_add() {
     e.preventDefault();
 
     var row = me.get_form_data(me.form);
+    console.log(row);
+    return;
     var cb = me.config.on_add_succeed;
 
     if (row.id) {
@@ -112,16 +118,23 @@ function detect_click_list() {
   this.list.addEventListener('click', function (e) {
     var target = e.target
       , todo_item = target.closest('.todo-item')
-      , id = todo_item.dataset.id
+      , id
       , is_remove_btn = target.classList.contains('remove')
       , is_update_btn = target.classList.contains('update')
+      , is_checkbox = target.classList.contains('checker')
     ;
+
+    if(todo_item)
+      id = todo_item.dataset.id;
 
     if (is_remove_btn) {
       me.remove(id);
     } else if (is_update_btn) {
       var row = me._api.$find(id);
       me.set_form_data(me.form, row);
+    } else if(is_checkbox) {
+      me._api.set_completed(id, target.checked);
+      me.render();
     } else {
       if(!id)
         return;
@@ -138,15 +151,14 @@ function render(cat_id) {
   var todo_list = cat_id ?
                   this._api.read_by_cat_id(cat_id) :
                   this._api.read();
-  // console.log(todo_list);
-  // return;
-  var me = this;
 
-  if(todo_list.length)
-      this.list.innerHTML = '';
-  else {
-    this.list.innerHTML = `<div class = "empty-holder">暂无内容</div>`;
-  }
+  var me = this
+    , holder = `<div class = "empty-hodler">暂无内容</div>`;
+
+  this.incomplete_list.innerHTML =
+    this.completed_list.innerHTML = '';
+
+  todo_list = todo_list || [];
 
   todo_list.forEach(function (item) {
     var el = document.createElement('div');
@@ -156,7 +168,7 @@ function render(cat_id) {
 
     el.innerHTML = `
       <div class="col checkbox">
-        <input type="checkbox">
+        <input class = "checker" type="checkbox" ${item.completed ? 'checked' : ''}>
       </div>
       <div class="col detail">
         <div class="title">${item.title}</div>
@@ -166,7 +178,14 @@ function render(cat_id) {
         <button class="remove">删除</button>
       </div>
     `;
-
-    me.list.appendChild(el);
+    if(item.completed)
+      me.completed_list.appendChild(el);
+    else
+      me.incomplete_list.appendChild(el);
   });
+
+  if(!this.incomplete_list.innerHTML)
+  this.incomplete_list.innerHTML = holder;
+  if(!this.completed_list.innerHTML)
+  this.completed_list.innerHTML = holder;
 }

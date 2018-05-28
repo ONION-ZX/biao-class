@@ -15,12 +15,12 @@
   }
 
   hr {
-    display: block;
-    height: 1px;
-    width: 100%;
-    border: 0;
-    background: rgba(0, 0, 0, .06);
-  }
+   display: block;
+   height: 3px;
+   width: 100%;
+   border: 0;
+   background: rgba(0, 0, 0, .2);
+ }
 
   input, button {
     padding: 5px 10px;
@@ -201,13 +201,13 @@
         <input type="hidden" name="id">
         <input id="todo-input" type="text" name="title" class="col" autocomplete="off">
         <button class="col">添加</button>
-        <select name="cat_id" id="cat-select">
-          <!-- <option value="a">A</option>
-          <option value="a">B</option>
-          <option value="a">C</option> -->
+        <select name="cat_id" id="cat-select" hidden>
         </select>
       </form>
       <div id="todo-list">
+        <div class = "incomplete"></div>
+        <hr>
+        <div class = "completed"></div>
       </div>
     </div>
   </div>

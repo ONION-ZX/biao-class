@@ -55,3 +55,11 @@ function remove_by_cat_id(cat_id) {
     return row.cat_id != cat_id;
   });
 }
+
+function set_completed(id, completed) {
+  var row = this.$find(id);
+  if(!row)
+    return false;
+
+  row.completed = completed;
+}
