@@ -32,9 +32,12 @@ function get_form_data(form) {
       case 'TEXTAREA':
         data[input.name] = input.value;
         break;
+      case 'SELECT':
+        data[input.name] = input.value;
+        break;
     }
   });
-
+  // console.log(data);
   return data;
 }
 

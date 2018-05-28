@@ -125,9 +125,9 @@ function detect_click_list() {
 
     if(cat_item) {
       // me.detect_click_cat_item();
-      // cat_item.classList.add('active');
       var id = parseInt(cat_item.dataset.id);
       set_active_cat_item();
+      cat_item.classList.add('active');
     }
 
       if(is_delete_btn) {

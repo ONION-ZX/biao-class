@@ -28,10 +28,13 @@ test_list = [
 
 function TaskUi(config) {
   var default_config = {
-    form_selector: '#todo-form',
     list_selector: '#todo-list',
     input_selector: '#todo-input',
+    form_selector: '#todo-form',
     on_init: null,
+    on_input_focus: null,
+    on_add_succeed: null,
+    on_input_blur: null,
   }
 
   var c =this.config = Object.assign({}, default_config, config);
@@ -49,6 +52,8 @@ TaskUi.prototype.render = render;
 TaskUi.prototype.init = init;
 TaskUi.prototype.detect_add = detect_add;
 TaskUi.prototype.detect_click_list = detect_click_list;
+TaskUi.prototype.detect_input_focus = detect_input_focus;
+TaskUi.prototype.detect_input_blur = detect_input_blur;
 TaskUi.prototype.remove = remove;
 
 function init() {
@@ -56,8 +61,28 @@ function init() {
   this.render();
   this.detect_add();
   this.detect_click_list();
+  this.detect_input_focus();
+  this.detect_input_blur();
   if(this.config.on_init)
   this.config.on_init();
+}
+
+function detect_input_focus() {
+  var me = this;
+  this.input.addEventListener('focus', function () {
+    var cb = me.config.on_input_focus;
+    if (cb)
+      cb();
+  });
+}
+
+function detect_input_blur() {
+  var me = this;
+  this.input.addEventListener('blur', function () {
+    var cb = me.config.on_input_blur;
+    if (cb)
+      cb();
+  });
 }
 
 function detect_add() {
@@ -66,14 +91,19 @@ function detect_add() {
     e.preventDefault();
 
     var row = me.get_form_data(me.form);
+    var cb = me.config.on_add_succeed;
 
     if (row.id) {
       me._api.update(row.id, row);
     } else {
       me._api.add(row);
     }
-    me.render();
+
+    me.render(row.cat_id);
     me.input.value = '';
+
+    if (cb)
+      cb();
   });
 }
 

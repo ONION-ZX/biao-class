@@ -26,6 +26,8 @@ function add(row) {
   if(!row.cat_id)
     row.cat_id = 1;
 
+  row.cat_id = parseInt(row.cat_id);
+
   return this.$add(row);
 }
 
