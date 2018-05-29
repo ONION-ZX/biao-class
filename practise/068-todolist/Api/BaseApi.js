@@ -86,6 +86,10 @@ function sync_to () {
 
 function sync_from () {
   var old_list = store.get(this._model_name + '-list');
-  this.list    = (!old_list || !old_list.length) || this.default_list;
+
+  if(!old_list || !old_list.length) {
+    this.list = this.default_list;
+  }
+
   this.max_id  = store.get(this._model_name + '-max_id') || this.default_max_id;
 }

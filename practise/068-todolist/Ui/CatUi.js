@@ -52,7 +52,7 @@ function render() {
 
   this.reset_form_location();
 
-  if (this.list.length)
+  if (cat_list.length)
     this.list.innerHTML = '';
   else
     this.list.innerHTML =`<div class="empty-holder">快到碗里来ʕ•ᴥ•ʔ</div>`;
