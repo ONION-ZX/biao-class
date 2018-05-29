@@ -1,0 +1,266 @@
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+  form {
+    margin: 0;
+  }
+
+  hr {
+   display: block;
+   height: 1px;
+   width: 100%;
+   border: 0;
+   background: #000;
+ }
+
+  input, button {
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+
+  .block {
+    display: block;
+    width: 100%;
+  }
+
+  .cat-item input[disabled] {
+    background: transparent;
+    border: 0;
+    font-size: 1rem;
+    padding: 0;
+  }
+
+  .container {
+    margin-top: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 3px;
+    /* background: #ddffc4; */
+    padding: 20px 15px 40px 15px;
+  }
+
+  .container h1 {
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .row {
+    font-size: 0;
+  }
+
+  .col {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1rem;
+  }
+
+  .sidebar-title {
+    height: 35px;
+    padding-left: 5px;
+  }
+
+  #todo-form input,
+  #todo-form button {
+    height: 35px;
+    display: inline-block;
+    /* padding: 10px; */
+  }
+
+  #todo-form input {
+    width: 80%;
+    border: 1px solid #000;
+    border-right: 0;
+  }
+
+  #todo-form button {
+    width: 20%;
+    /* border: 1px solid black; */
+  }
+
+  #todo-list .checkbox {
+    width: 10%;
+  }
+
+  #todo-list .detail {
+    width: 60%;
+  }
+
+  #todo-list .tool-set {
+    width: 30%;
+  }
+
+  .sidebar {
+    width: 30%;
+  }
+
+  .main {
+    width: 70%;
+    padding-left: 10px;
+  }
+
+  .tool-set {
+    text-align: right;
+  }
+
+  .todo-item .tool-set * {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  .todo-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .todo-item > * {
+    vertical-align: middle;
+  }
+
+  select {
+    border: 0;
+    width: 100%;
+    font-size: 16px;
+    display: block;
+    margin: 5px 0;
+    padding: 5px;
+  }
+
+  .cat-item {
+    position: relative;
+    /* margin-bottom: 20px; */
+    cursor: default;
+    padding: 5px;
+    height: 40px;
+  }
+
+  .cat-item .tool-set {
+    /* padding: 3px; */
+    font-size: .7rem;
+    position: absolute;
+    right: 5px;
+    /* top: 7px; */
+    display: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .cat-item .tool-set > * {
+    display: inline-block;
+    padding: 0 2px;
+  }
+
+  .cat-item .title {
+    display: inline-block;
+    width: 70%;
+    font-size: .9rem;
+  }
+
+  .cat-item:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .cat-item.active {
+    background: rgba(0, 0, 0, .4);
+    color: #fff;
+  }
+
+  .cat-item:hover .tool-set {
+    display: inline-block;
+    width: 30%;
+  }
+
+  .empty-holder {
+    font-size: .9rem;
+    opacity: .5;
+    text-align: center;
+    padding: 10px;
+  }
+
+  #add-cat-btn:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  button {
+    background: #fff;
+    border: 1px solid #000;
+    /* color: black; */
+  }
+
+  [placeholder] {
+    font-size: 10px;
+  }
+
+
+</style>
+<div class="container">
+  <h1>Todo List</h1>
+  <div class="row">
+    <div class="col sidebar">
+      <div class="sidebar-title">分组</div>
+      <!-- <hr> -->
+      <div id="cat-list" class="cat-list">
+        <!--<div class="cat-item">-->
+        <!--<input type="text" value="默认" disabled>-->
+        <!--</div>-->
+      </div>
+
+      <form id="cat-form" hidden>
+        <input type="hidden" name="id">
+        <input type="text" value="yo" class="block" name="title" autocomplete="off">
+        <button type="submit">完成</button>
+        <button type="button" data-action="cancel">取消</button>
+      </form>
+
+      <div class = "add">
+        <button id="add-cat-btn" >添加自定义分组</button>
+      </div>
+    </div>
+    <div class="col main">
+      <form id="todo-form" class="row">
+        <input type="hidden" name="id">
+        <input placeholder="请选择您要添加的任务分组" id="todo-input" type="text" name="title" class="col" autocomplete="off">
+        <button class="col">添加</button>
+        <select name="cat_id" id="cat-select" hidden>
+        </select>
+      </form>
+      <div id="todo-list">
+        <div class = "incomplete"></div>
+        <hr>
+        <div class = "completed"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="Util/helper.js"></script>
+<script src="Util/store.js"></script>
+
+<script src="Api/BaseApi.js"></script>
+<script src="Api/TaskApi.js"></script>
+<script src="Api/CatApi.js"></script>
+
+<script src="Ui/TaskUi.js"></script>
+<script src="Ui/CatUi.js"></script>
+
+<script src="index.js"></script>
