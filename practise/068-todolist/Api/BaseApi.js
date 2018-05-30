@@ -77,19 +77,20 @@ function find_by_id(arr, id) {
   });
 }
 
+function sync_from () {
+  var old_list = store.get(this._model_name + '-list');
+  if (!old_list || !old_list.length) {
+    this.list = this.default_list;
+  } else {
+    this.list = old_list;
+  }
+
+  this.max_id  = store.get(this._model_name + '-max_id') || this.default_max_id;
+}
+
 function sync_to () {
   store.set(this._model_name + '-list', this.list || this.default_list);
   store.set(this._model_name + '-max_id', this.max_id || this.default_max_id);
   if (this.on_sync)
-    this.on_sync(this.list);
-}
-
-function sync_from () {
-  var old_list = store.get(this._model_name + '-list');
-
-  if(!old_list || !old_list.length) {
-    this.list = this.default_list;
-  }
-
-  this.max_id  = store.get(this._model_name + '-max_id') || this.default_max_id;
+    this.on_sync(this.list, this.max_id);
 }

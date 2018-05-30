@@ -3,11 +3,11 @@ window.CatUi = CatUi;
 function CatUi(config) {
   var default_config = {
     list_selector: '#cat-list',
-    form_selector: '#cat-form',
     add_cat_btn_selector : '#add-cat-btn',
+    form_selector: '#cat-form',
     on_item_click : null,
     on_item_delete : null,
-  }
+  };
 
   var c = this.config = Object.assign({}, default_config, config);
 
@@ -19,6 +19,7 @@ function CatUi(config) {
   this.updating_cat_item = null;
   this._api.on_sync = c.on_sync;
 }
+
 
 CatUi.prototype.init = init;
 CatUi.prototype.render = render;

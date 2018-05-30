@@ -57,5 +57,6 @@ function update(id, new_row) {
 }
 
 function read() {
+  // console.log(this.list);
   return this.$read();
 }
