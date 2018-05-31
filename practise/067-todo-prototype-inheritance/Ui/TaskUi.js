@@ -95,8 +95,6 @@ function detect_add() {
     e.preventDefault();
 
     var row = me.get_form_data(me.form);
-    console.log(row);
-    return;
     var cb = me.config.on_add_succeed;
 
     if (row.id) {
@@ -153,7 +151,7 @@ function render(cat_id) {
                   this._api.read();
 
   var me = this
-    , holder = `<div class = "empty-hodler">暂无内容</div>`;
+    , holder = `<div class = "empty-holder">暂无内容</div>`;
 
   this.incomplete_list.innerHTML =
     this.completed_list.innerHTML = '';
@@ -184,8 +182,8 @@ function render(cat_id) {
       me.incomplete_list.appendChild(el);
   });
 
-  if(!this.incomplete_list.innerHTML)
-  this.incomplete_list.innerHTML = holder;
-  if(!this.completed_list.innerHTML)
-  this.completed_list.innerHTML = holder;
+  // if(!this.incomplete_list.innerHTML)
+  //   this.incomplete_list.innerHTML = holder;
+  // if(!this.completed_list.innerHTML)
+  //   this.completed_list.innerHTML = holder;
 }
