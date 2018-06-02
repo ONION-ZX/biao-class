@@ -1,4 +1,5 @@
 let instance;
+
 class Route {
   constructor() {
     this.current = this.parse_hash(window.location.hash) || 'home';
@@ -15,7 +16,7 @@ class Route {
   }
 
   detect_click() {
-    document.addEventListener('click', e => {
+    document.addEventListener('click',e => {
       let target = e.target;
       switch (target.nodeName) {
         case 'A':
@@ -34,38 +35,37 @@ class Route {
 
     if(old_state === new_state)
       return;
+
     this.current = new_state;
     this.render();
   }
 
-  render(path) {
+  parse_hash(hash) {
+    let hash_arr = hash.split('/');
+    return hash_arr[hash_arr.length - 1];
+  }
+
+  render(page) {
     let content;
-    path = path || this.current;
-
+    page = page || this.current;
     this.hide_all();
-
-    content = document.getElementById(path);
-
+    content = document.getElementById(page);
     content.hidden = false;
   }
 
   hide_all() {
-    this.page_list.forEach(el => {
-      el.hidden = true;
+    this.page_list.forEach(page => {
+      page.hidden = true;
     });
   }
 
-  parse_hash(hash) {
-    var hash_arr = hash.split('/');
-    return hash_arr[hash_arr.length - 1];
-  }
 }
 
-function init() {
+const init = () => {
   if(!instance)
     instance = new Route();
 }
 
 export default {
   init,
-};
+}
