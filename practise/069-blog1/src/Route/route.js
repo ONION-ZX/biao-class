@@ -2,7 +2,7 @@ let instance;
 
 class Route {
   constructor() {
-    this.current = this.parse_hash(window.location.hash) || 'home';
+    this.current_page = this.parse_hash(window.location.hash) || 'home';
     this.page_list = document.querySelectorAll('.page');
     this.detect_click();
     this.detect_hash_change();
@@ -10,46 +10,40 @@ class Route {
   }
 
   detect_hash_change() {
-    window.addEventListener('hashchange', () => {
+    window.addEventListener('hashchange',()=> {
       this.go(window.location.hash);
     });
   }
 
   detect_click() {
-    document.addEventListener('click',e => {
+    document.addEventListener('click', e => {
       let target = e.target;
       switch (target.nodeName) {
         case 'A':
           if(target.host)
             return;
-
           this.go(target.href);
           break;
       }
-    });
+    })
   }
 
   go(hash) {
-    let old_state = this.current;
+    let old_state = this.current_page;
     let new_state = this.parse_hash(hash);
 
-    if(old_state === new_state)
+    if (old_state === new_state)
       return;
 
-    this.current = new_state;
+    this.current_page = new_state;
     this.render();
   }
 
-  parse_hash(hash) {
-    let hash_arr = hash.split('/');
-    return hash_arr[hash_arr.length - 1];
-  }
-
-  render(page) {
+  render(page_name) {
     let content;
-    page = page || this.current;
+    page_name = page_name || this.current_page;
     this.hide_all();
-    content = document.getElementById(page);
+    content = document.getElementById(page_name);
     content.hidden = false;
   }
 
@@ -59,6 +53,10 @@ class Route {
     });
   }
 
+  parse_hash(hash) {
+    let hash_arr = hash.split('/');
+    return hash_arr[hash_arr.length - 1];
+  }
 }
 
 const init = () => {
