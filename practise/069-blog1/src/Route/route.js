@@ -74,8 +74,11 @@ class Route {
    */
   go(hash, opt = null) {
     this.hide('#not-found');
+    // 判断是否存在
     if(this.config.hook.before)
-      this.config.hook.before(this.current);
+      // 判断是否执行
+      if(this.config.hook.before())
+        return;
 
     hash = hash || 'home';
 
