@@ -1,29 +1,78 @@
 <!doctype html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>王花花</title>
+  <style>
+    [hidden] {
+      display: none !important;
+    }
+  </style>
 </head>
+
 <body>
-<div class="nav">
-  <a href="#/home">首页</a>
-  <a href="#/about">关于我</a>
-  <a href = "http://baidu.com" target = "_blank">百度</a>
-</div>
-<div id="root">
-  <div id="home" class="page" hidden>
-    <h1>HOME</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, placeat obcaecati ex inventore dolore minima nemo accusamus aperiam quia iste porro veritatis soluta assumenda mollitia reprehenderit, delectus similique, natus provident.</p>
+  <div class="nav">
+    <a href="#/home">首页</a>
+    <a href="#/article-list">我的文章</a>
+    <a href="#/about">关于我</a>
+    <a href="#/contact">谋</a>
+    <a href="http://baidu.com" target="_blank">百度</a>
   </div>
-  <div id="about" class="page" hidden>
-    <div></div>
-    <h1>ABOUT</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, placeat obcaecati ex inventore dolore minima nemo accusamus aperiam quia iste porro veritatis soluta assumenda mollitia reprehenderit, delectus similique, natus provident.</p>
+  <div id="root">
+    <div id="home" class="page" hidden>
+      <h1>HOME</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cumque dicta eveniet expedita ipsa libero maiores
+        nulla odio quis voluptatibus! Architecto dolor dolorum ipsam natus quas saepe, tempora vel velit!</p>
+    </div>
+    <div id="about" class="page" hidden>
+      <h1>ABOUT</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cumque dicta eveniet expedita ipsa libero maiores
+        nulla odio quis voluptatibus! Architecto dolor dolorum ipsam natus quas saepe, tempora vel velit!</p>
+    </div>
+    <div id="contact" class="page" hidden>
+      <h1>CONTECT</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cumque dicta eveniet expedita ipsa libero maiores
+        nulla odio quis voluptatibus! Architecto dolor dolorum ipsam natus quas saepe, tempora vel velit!</p>
+    </div>
+    <div id="tag" hidden>Tag</div>
+    <div id="article-list" class="page" hidden>
+      <h1>文章列表</h1>
+      <div>
+        <a href="#/article/whh/1">
+          <strong>标题1</strong>
+        </a>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis hic illum ipsum, minima temporibus voluptas!
+          Accusamus cupiditate debitis, deleniti doloribus est labore possimus provident quibusdam quisquam, quo quos, tempore!</p>
+      </div>
+      <div>
+        <a href="#/article/whh/2">
+          <strong>标题2</strong>
+        </a>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis hic illum ipsum, minima temporibus voluptas!
+          Accusamus cupiditate debitis, deleniti doloribus est labore possimus provident quibusdam quisquam, quo quos, tempore!</p>
+      </div>
+      <div>
+        <a href="#/article/whh/3">
+          <strong>标题3</strong>
+        </a>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis hic illum ipsum, minima temporibus voluptas!
+          Accusamus cupiditate debitis, deleniti doloribus est labore possimus provident quibusdam quisquam, quo quos, tempore!</p>
+      </div>
+    </div>
+    <div id="article" class="page" hidden>
+      <h1>标题</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium architecto corporis dolor enim expedita id iusto
+        magnam minus nemo obcaecati odit quaerat quas rem tempora ullam vitae voluptas voluptate, voluptatibus!</p>
+    </div>
+    <div id="not-found" class="page" hidden>
+      <h1>404</h1>
+      <p>找不到鸟</p>
+    </div>
   </div>
-</div>
-<script src="dist/bundle.js"></script>
+  <script src="dist/bundle.js"></script>
 </body>
+
 </html>

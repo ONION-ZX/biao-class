@@ -9,10 +9,8 @@ function init() {
 }
 
 class Article {
-  read(page) {
-    send.get('/api/article/read', data => {
-      console.log(data);
-    });
+  read(page, on_succeed, on_fail) {
+    send.get('/api/article/read',on_succeed, on_fail);
   }
 }
 
