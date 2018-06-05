@@ -1,0 +1,95 @@
+.container {
+  max-width: 100%;
+}
+
+.nav-article {
+  padding: 20px;
+  background: #9d1f1f;
+}
+
+.nav-article a {
+  font-size: 18px;
+}
+
+.nav-article > div {
+  display: inline-block;
+  width: 33.33333%;
+}
+
+.nav-article .cat a {
+  padding: 10px;
+}
+
+.nav-article .search-area {
+  font-size: 0;
+  padding-left: 95px;
+}
+
+.nav-article .search-area .search,
+.nav-article .search-area button {
+  padding: 5px;
+  font-size: 15px;
+  display: inline-block;
+  margin: 0;
+  /* width: 50%; */
+}
+
+.body {
+  background: #eac9c9;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.body .container {
+  font-size: 0;
+}
+
+.body .update,
+.body .article,
+.body .history {
+  display: inline-block;
+}
+
+.body .left,
+.body .right {
+  width: 15%;
+  height: 400px;
+  text-align: center;
+}
+
+.body a {
+  padding: 15px;
+  line-height: 1.5rem;
+  display: block;
+  color: #9f959d;
+  font-size: 16px;
+}
+
+.body a:hover {
+  color: #fff;
+  background: #9f959d;
+}
+
+.body .head {
+  padding: 15px;
+  line-height: 1.5rem;
+  color: #665863;
+  font-size: 18px;
+}
+
+.body .left .update,
+.body .right .history {
+  padding: 30px;
+  height: 400px;
+  width: 100%;
+  background: #f0bcbc;
+}
+
+.body .article {
+  padding-top: 20px;
+  width: 70%;
+}
+
+.article p {
+  text-align: left;
+}

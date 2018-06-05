@@ -1,0 +1,17 @@
+.footer {
+  padding: 20px;
+  background: #9d1f1f;
+}
+
+.footer span {
+  display: inline-block;
+  font-size: 12px;
+  color: #c9bcc6;
+  text-align: center;
+  width: 33.33333%;
+}
+
+.footer div {
+  display: inline-block;
+  width: 33.333333%;
+}

@@ -35,15 +35,15 @@ const data = {
   },
 }
 
-const get = (url, succeed, error) => {
+const get = (url, on_succeed, on_fail) => {
   let model = url.split('/')[2];
 
   if(ok)
-    if(succeed)
-      succeed(data.list[model]);
+    if(on_succeed)
+      on_succeed(data.list[model]);
     else {
-      if(error)
-        error({
+      if(on_fail)
+        on_fail({
           ok: false,
           message: 'invalid page',
         });

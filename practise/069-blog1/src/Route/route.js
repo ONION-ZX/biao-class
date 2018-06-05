@@ -157,6 +157,7 @@ class Route {
 
       if (Object.keys($segment).length != hash_arr.length) {
         matched = false;
+        //进行下一次循环
         continue;
       }
 
@@ -169,11 +170,10 @@ class Route {
           return;
         } 
 
+        //如果为参数
         if($segment.is_param) {
-          route.param[$name] = segment
-        } 
-        
-        else if($name != segment) {
+          route.param[$name] = segment;
+        } else if($name != segment) {
           matched = false;
           return;
         }
