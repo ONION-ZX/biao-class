@@ -1,6 +1,5 @@
 // import article from './Api/article';
 import route from './Route/route';
-// article.read();
 
 let config = {
     routes: {
@@ -13,7 +12,7 @@ let config = {
             el: '#about',
         },
         article: {
-            path: '/article/:author/:id',
+            path: '/article/:author/:id', // ['article', ':author', ':id']
             el: '#article',
         },
         article_list: {
@@ -41,4 +40,7 @@ let config = {
     },
 };
 
-route.init(config);
+route
+    .init(config);
+
+// article.read();

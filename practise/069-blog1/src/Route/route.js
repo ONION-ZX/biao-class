@@ -1,4 +1,4 @@
-import helper from  '../Util/helper';
+import helper from '../Util/helper';
 
 let instance;
 
@@ -12,40 +12,39 @@ class Route {
     this.go(window.location.hash, {force: true});
   }
 
-  // 加载所有配置
   load_config(config) {
     this.def = {hook: {}};
-    this.config = Object.assign({},this.def, config);
+    this.config = Object.assign({}, this.def, config);
     this.load_route_config();
   }
 
-  // 加载路由配置
   load_route_config() {
     let route_list = this.config.routes;
 
-    for(var route_name in route_list) {
-      let route_item = route_list[route_name];
-      let path = this.trim_hash(route_item.path);
+    for(var name in route_list) {
+      let route = route_list[name];
+      let path = this.trim_hash(route.path);
       let path_arr = path.split('/');
-      route_item.param = {};
-      route_item.name = route_name;
+      route.param = {};
+      route.name = name;
 
       path_arr.forEach((segment, index) => {
         let is_param = segment.startsWith(':');
-        let key = is_param ? segment.substring(1, segment.length-1): segment;
-        
-        route_item.$segment = route.$segment || {};
-        route_item.$segment[index] = {
+        let key = is_param ? segment.substring(1, segment.length) : segment;
+        route.$segment = route.$segment || {};
+        route.$segment[index] = {
           name: key,
           position: index,
           is_param: is_param,
         };
       });
     }
+    console.log(this.config);
   }
 
   detect_hash_change() {
-    window.addEventListener('hashchange',() => {
+    window.addEventListener('hashchange', () => {
+      /*如果发生改变就去对应页面*/
       this.go(window.location.hash);
     });
   }
@@ -54,37 +53,33 @@ class Route {
     document.addEventListener('click', e => {
       var target = e.target;
 
-      // 查看点击的是哪一类元素
+      /*看看点击的是哪类元素*/
       switch (target.nodeName) {
+        /*如果是<a>元素*/
         case 'A':
-          // 如果是外站链接就停止后续操作
-          if(target.host)
-          return;
+          /*如果是外站链接就停止后续操作*/
+          if (target.host)
+            return;
 
+          /*去对应地址*/
           this.go(target.hash);
           break;
       }
     });
   }
- 
-  /**
-   * 更改路由
-   * @param {string} hash 原始hash路径
-   * @param {Object} opt 配置项
-   */
+
   go(hash, opt = null) {
     this.hide('#not-found');
-    // 判断是否存在
+
     if(this.config.hook.before)
-      // 判断是否执行
-      if(this.config.hook.before())
+      if(!this.config.hook.before())
         return;
 
     hash = hash || 'home';
 
     let def = {
       force: false,
-    }
+    };
 
     opt = Object.assign({}, def, opt);
 
@@ -101,82 +96,86 @@ class Route {
 
     this.current = new_state;
 
-    if(!this.current.el) 
+    console.log(this.current);
+
+    if(!this.current.el)
       throw new ReferenceError(`Please config route ${this.current.name} el`);
 
     this.render();
 
     if(this.config.hook.after)
       this.config.hook.after(this.current);
-
   }
 
-  hide(selector) {
-    var el = document.querySelector(selector);
-    if(!el)
+  hide(el) {
+    var el = document.querySelector(el);
+    if (!el)
       return;
     el.hidden = true;
   }
 
   render(selector) {
-    let current_page;
+    var content;
     selector = selector || this.current.el;
 
-    // 隐藏所有页面
-    this.hide_all_previous();
-    current_page = document.querySelector(selector);
+    /*先隐藏所有页面*/
+    this.hide_previous();
 
-    if(!current_page)
+    /*选中当前页面*/
+    content = document.querySelector(selector);
+
+    if (!content)
       return;
-    
-      content.hidden = false;
+
+    content.hidden = false;
   }
 
-  show(selector) {
-    document.querySelector(selector).hidden = false;
-  }
-
-  hide_all_previous() {
-    if(!this.previous)
-      return;
-    document.querySelector(this.previous.el).hidden = true;
+  show(el) {
+    /*显示当前页面*/
+    document.querySelector(el).hidden = false;
   }
 
   /**
-   * 通过原始hash解析页面名称
-   * @return {Object} eg: {path: '/article', param: {id:1}}
-   */
+   * 隐藏所有页面
+   * */
+  hide_previous() {
+    if (!this.previous)
+      return;
+
+    document.querySelector(this.previous.el).hidden = true;
+  }
+
   parse_hash(hash) {
     hash = this.trim_hash(hash);
     let hash_arr = hash.split('/');
-    let route_list = this.config.routes;
+    let routes = this.config.routes;
 
-    for(var route_name in route_list) {
-      let route_item = route_list[route_name];
-      let $segment = route_item.$segment;
+    for(var name in routes) {
+      let route = routes[name];
+      let $segment = route.$segment;
       let matched = true;
 
-      if(Object.keys($segment).length != hash_arr.length) {
+      if (Object.keys($segment).length != hash_arr.length) {
         matched = false;
-        return;
+        continue;
       }
 
-      hash_arr.forEach(function(segment, index) {
+      hash_arr.forEach((segment, index) => {
         let $segment = route.$segment[index];
         let $name = $segment.name;
 
         if(!$segment) {
           matched = false;
           return;
-        }
+        } 
 
         if($segment.is_param) {
-          route.param[$name] = segment;
-        } else {
-          if($name != segment) {
-            matched = false;
-            return;
-          }
+          route.param[$name] = segment
+        } 
+        
+        else if($name != segment) {
+          matched = false;
+          return;
         }
       });
 
@@ -188,9 +187,8 @@ class Route {
   trim_hash(hash) {
     return helper.trim(hash, '#/');
   }
+
 }
-
-
 
 function init(config) {
   if(!instance)
