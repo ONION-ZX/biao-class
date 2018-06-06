@@ -115,7 +115,7 @@ class Route {
   }
 
   render(selector) {
-    var content;
+    let content, tpl_url, cache;
     selector = selector || this.current.el;
 
     /*先隐藏所有页面*/
@@ -127,7 +127,21 @@ class Route {
     if (!content)
       return;
 
+    let http = new XMLHttpRequest();
+
+    if(cache = this.current.template_cache)
+      content.innerHTML = cache;
+    else if(tpl_url = this.current.template_url) {
+      http.open('get', tpl_url);
+      http.send();
+
+      http.addEventListener('load', ()=> {
+        content.innerHTML = this.current.template_cache = http.responseText;
+      });
+    }
+
     content.hidden = false;
+    
   }
 
   show(el) {

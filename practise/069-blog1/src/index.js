@@ -8,22 +8,22 @@ let config = {
         home: {
             path: '/home',
             el: '#home',
+            template_url: './src/template/home.html',
         },
         about: {
             path: '/about',
             el: '#about',
+            template_url: './src/template/about.html',
         },
         article: {
             path: '/article/:author/:id', // ['article', ':author', ':id']
             el: '#article',
+            template_url: './src/template/article.html',
         },
         article_list: {
             path: '/article-list',
             el: '#article-list',
-        },
-        tag: {
-            path: '/tag',
-            el: '#tag',
+            template_url: './src/template/article-list.html',
         },
     },
     hook: {
