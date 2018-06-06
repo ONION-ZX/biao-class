@@ -5,6 +5,8 @@ let instance;
 class Route {
   constructor(config) {
     this.param = {};
+    this.current = {};
+
     this.load_config(config);
 
     this.detect_click();
@@ -31,6 +33,7 @@ class Route {
       path_arr.forEach((segment, index) => {
         let is_param = segment.startsWith(':');
         let key = is_param ? segment.substring(1, segment.length) : segment;
+        
         route.$segment = route.$segment || {};
         route.$segment[index] = {
           name: key,
@@ -77,26 +80,25 @@ class Route {
 
     hash = hash || 'home';
 
-    let def = {
-      force: false,
-    };
+    // let def = {
+    //   force: false,
+    // };
 
-    opt = Object.assign({}, def, opt);
+    // opt = Object.assign({}, def, opt);
 
     let old_state = this.current;
     let new_state = this.parse_hash(hash);
+
     this.previous = old_state;
 
     if(!new_state) {
-      if(this.config.hook.notFound)
-        this.config.hook.notFound();
-      this.render('#not-found');
+      this.on_404();
       return;
     }
 
     this.current = new_state;
 
-    console.log(this.current);
+    // console.log(this.current);
 
     if(!this.current.el)
       throw new ReferenceError(`Please config route ${this.current.name} el`);
@@ -105,6 +107,14 @@ class Route {
 
     if(this.config.hook.after)
       this.config.hook.after(this.current);
+  }
+
+  on_404() {
+    if(this.config.hook.notFound)
+      this.config.hook.notFound();
+
+    this.hide_previous();
+    this.show('#not-found');
   }
 
   hide(el) {
@@ -139,9 +149,7 @@ class Route {
         content.innerHTML = this.current.template_cache = http.responseText;
       });
     }
-
-    content.hidden = false;
-    
+    content.hidden = false;   
   }
 
   show(el) {
@@ -156,7 +164,8 @@ class Route {
     if (!this.previous)
       return;
 
-    document.querySelector(this.previous.el).hidden = true;
+    let prev_el = document.querySelector(this.previous.el);
+    prev_el && (prev_el.hidden = true);
   }
 
   parse_hash(hash) {
