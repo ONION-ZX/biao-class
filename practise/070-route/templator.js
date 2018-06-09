@@ -42,18 +42,4 @@ function parse(tpl, data) {
     return tpl_replica;
 }
 
-let tpl = `我叫{{user.name}},我今年{{user.age}}岁了,我娃叫{{user.child.name}}`;
-
-let data = {
-    user: {
-        name: '王fafa',
-        age: 19,
-        child: {
-            name: '李双蛋',
-        },
-    },
-};
-
-console.log(parse(tpl,data));
-
 window.parse = parse;

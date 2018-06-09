@@ -19,7 +19,7 @@ let o = {
     default: 'home',
     route: {
         home: {
-            path: '#/home/',
+            path: '#/home',
             template_url: './tpl/home.html',
             data: {
                 name: '王发发',
@@ -41,7 +41,7 @@ let o = {
             }
         },
         about: {
-            path: '/about',
+            path: '#/about',
             template_url: './tpl/about.html',
             data: {
                 name: '王fafa',
