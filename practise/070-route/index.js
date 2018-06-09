@@ -19,39 +19,42 @@ let o = {
     default: 'home',
     route: {
         home: {
-            path: '#/home',
+            path: '#/home/',
+            el: '#home',
             template_url: './tpl/home.html',
             data: {
                 name: '王发发',
+                login: {
+                    username: 'whh',
+                    password: '',
+                },
             },
             hook: {
-                after: function() {
-                    let list = app_data.article.list;
-                    let el_list = document.getElementById('article-list');
+                after: () => {
+                    let article_container = document.getElementById('article-list');
+                    let article_list = app_data.article.list;
+                    
 
-                    list.forEach(row => {
+                    article_list.forEach( (article)=> {
                         let el_item = document.createElement('div');
                         el_item.innerHTML = `
-                            <a href = "#>${row.title}</a>
+                            <a href = "#">${article.title}</a>
+                            <div>${article.content}</div>
                         `;
-
-                        el_list.appendChild(el_item);
+                    article_container.appendChild(el_item);
                     });
                 }
-            }
+            },
         },
         about: {
             path: '#/about',
+            el: '#about',
             template_url: './tpl/about.html',
             data: {
-                name: '王fafa',
-                age: 10,
+                name: 'lsd',
+                age: 19,
             },
         },
-    },
-    hook: {
-        before: function() {},
-        after: function() {},
     },
 };
 

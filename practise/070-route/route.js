@@ -157,35 +157,3 @@ function trim(str, cap_list) {
     });
     return str;
 }
-
-let about_data = {
-    name: 'lsd',
-    age: 19,
-};
-
-let o = {
-    default: 'home',
-    route: {
-        home: {
-            path: '#/home/',
-            el: '#home',
-            template_url: './tpl/home.html',
-            data: {
-                name: '王发发',
-                welcome: '欢迎来到我的博客',
-                login: {
-                    username: 'whh',
-                    password: '',
-                },
-            },
-        },
-        about: {
-            path: '#/about',
-            el: '#about',
-            template_url: './tpl/about.html',
-            data: about_data,
-        },
-    },
-};
-
-let route = new Route(o);
