@@ -55,4 +55,4 @@ let o = {
     },
 };
 
-let route = new route(o);
+let route = new Route(o);

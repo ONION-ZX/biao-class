@@ -56,9 +56,12 @@ class Route {
     }
 
     set_data(route_name, keys, value) {
+
+        //更新数据
         let layers = keys.split('.');
         let layer_count = layers.length;
 
+        //获取当前路由的数据
         let data = this.state.route[route_name].data;
         if(!data)
             data = this.state.route[route_name].data = {};
@@ -111,6 +114,11 @@ class Route {
         return this.parse_hash(this.current.hash);
     }
 
+    /**
+     * 解析原始hash得到其对应的路由名 {eg:"#/home" => 'home'}
+     * @param {object} hash 原始hash
+     * @return {string} 路由名
+     */
     parse_hash(hash) {
         hash = trim(hash, '#/');
         let re = new RegExp('^#\/?' + hash + '\/?$');

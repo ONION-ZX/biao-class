@@ -1,0 +1,19 @@
+{
+  "name": "070-route",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack -wd",
+    "build": "./node_modules/.bin/webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "D": "^1.0.0",
+    "cli": "^1.0.1",
+    "webpack": "^4.12.0"
+  }
+}
