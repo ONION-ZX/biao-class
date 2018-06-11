@@ -1,4 +1,6 @@
-export const entry = './index.js';
-export const output = {
-    filename: 'bundle.js',
-};
+module.exports = {
+    entry: './index.js',
+    output: {
+        filename: 'bundle.js',
+    },
+}

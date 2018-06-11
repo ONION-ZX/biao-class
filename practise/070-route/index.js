@@ -20,7 +20,6 @@ let o = {
     route: {
         home: {
             path: '#/home/',
-            el: '#home',
             template_url: './tpl/home.html',
             data: {
                 name: '王发发',
@@ -48,11 +47,31 @@ let o = {
         },
         about: {
             path: '#/about',
-            el: '#about',
             template_url: './tpl/about.html',
             data: {
                 name: 'lsd',
                 age: 19,
+            },
+        },
+        article: {
+            path: '#/article',
+            template_url: './tpl/article.html',
+            data: {},
+            hook: {
+                after: () => {
+                    let form = document.getElementById('create-article');
+                    form.addEventListener('submit',(e) => {
+                        e.preventDefault();
+
+                        let row = {};
+                        row.title = form.querySelector('[name=title]').value;
+                        row.content = form.querySelector('[name=content]').value;
+
+                        app_data.article.list.push(row);
+
+                        form.reset();
+                    });
+                },
             },
         },
     },

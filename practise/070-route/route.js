@@ -12,7 +12,7 @@ class Route {
     detect_hash_change() {
         window.addEventListener('hashchange', () => {
             this.current.hash = window.location.hash;
-
+            
             let route_name = this.parse_current_hash();
             this.go(route_name);
         });
@@ -92,11 +92,12 @@ class Route {
 
         //已缓存模板
         if(route.$template) {
-            this.compile(route, on_render_finish)
+            this.compile(route, on_render_finish);
             return;
         }
 
         //根据路由对象中的模板地址取模板代码(HTML)
+
         this.get_template(route.template_url, (tpl) => {
             //自动生成
             route.$template = tpl;
@@ -121,11 +122,11 @@ class Route {
      */
     parse_hash(hash) {
         hash = trim(hash, '#/');
-        let re = new RegExp('^#\/?' + hash + '\/?$');
+        let re = new RegExp('^#?\/?' + hash + '\/?$');
 
-        for(let key in this.state.route) {
+        for (let key in this.state.route) {
             let item = this.state.route[key];
-            if(re.test(item.path))
+            if (re.test(item.path))
                 return key;
         }
     }
