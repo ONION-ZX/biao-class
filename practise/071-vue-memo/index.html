@@ -1,0 +1,24 @@
+
+<link rel="stylesheet" href="index.css"> 
+<div id="root">
+    <div class="row">    
+    <div class="col sidebar">
+        <div @click="current=memo" v-for="memo in memo_list" class="sidebar-item">{{memo.title}}</div>
+        <button class="block" @click="add()">+</button>
+    </div>
+
+    <div class="col main">        
+        <div v-if="current" class="editor">           
+            <input v-model="current.title" type="text" placeholder="标题"> 
+            <textarea v-model="current.content" placeholder="内容"></textarea>
+            <button @click="current=null">CLOSE</button>
+        </div>
+        <div class="holder" v-else>请选择一条备忘或
+            <button @click="add">添加一条</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script src="./node_modules/vue/dist/vue.js"></script> 
+<script src="./index.js"></script>
