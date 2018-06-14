@@ -3,4 +3,7 @@ new Vue({
     data: {
         on: false,
     },
+    mounted() {
+        this.$refs.username.innerHTML = 'WHH';
+    },
 });
