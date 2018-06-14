@@ -11,6 +11,12 @@ body {
   color: #444;
 }
 
+.container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .row {
   font-size: 0;
 }
@@ -25,6 +31,18 @@ body {
 .sidebar {
   width: 30%;
   background: #eee;
+}
+
+.sidebar .right,
+.sidebar .left {
+  width: 40%;
+  display: inline-block;
+}
+
+.sidebar .right {
+  text-align: right;
+  font-size: 13px;
+  display: none;
 }
 
 .main {
@@ -67,4 +85,8 @@ body {
 .sidebar-item:hover {
   background: #ccc;
   color: #000;
+}
+
+.sidebar-item:hover .right {
+  display: inline-block;
 }
