@@ -37,7 +37,7 @@ let o = {
                     article_list.forEach( (article)=> {
                         let el_item = document.createElement('div');
                         el_item.innerHTML = `
-                            <a href = "#">${article.title}</a>
+                            <a href = "#/article?id=${article.id}">${article.title}</a>
                             <div>${article.content}</div>
                         `;
                     article_container.appendChild(el_item);
@@ -53,9 +53,9 @@ let o = {
                 age: 19,
             },
         },
-        article: {
-            path: '#/article',
-            template_url: './tpl/article.html',
+        add_article: {
+            path: '#/add_article',
+            template_url: './tpl/add_article.html',
             data: {},
             hook: {
                 after: () => {
@@ -73,6 +73,30 @@ let o = {
                     });
                 },
             },
+        },
+        article: {
+            path: '#/article',
+            template: './tpl/article.html',
+            data: {
+                name: '王花花',
+                age: 18,
+            },
+            hook: {
+                after: function (id) {
+                    let list = app_data.article.list;
+                    let el_content = document.querySelector('.article-content');
+                    list.forEach(function (item) {
+                        if (item.id == id) {
+                            let el = document.createElement('div');
+                            el.innerHTML = `
+                            <h3>${item.title}</h3>
+                            <p>${item.content}</p>
+                            `;
+                            el_content.appendChild(el);
+                        }
+                    })
+                }
+            }
         },
     },
 };

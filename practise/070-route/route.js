@@ -1,6 +1,7 @@
 class Route {
     constructor(config) {
         this.current = {};
+        this.article_id = {};
         this.state = Object.assign({}, config);
         this.root = document.querySelector('#root');
 
@@ -112,7 +113,23 @@ class Route {
     }
 
     parse_current_hash() {
-        return this.parse_hash(this.current.hash);
+        var re = /\?+/;
+        if(re.test(this.current.hash))
+            return this.parse_hash_param(this.current.hash);
+        else 
+            return this.parse_hash(this.current.hash);
+    }
+
+    parse_hash_param() {
+        let param_obj = {};
+        //['#/article','id=1']
+        let hash_group = this.current.hash.split('?');
+        let param = hash_group[1]; 
+        let param_list = param.split('=');
+        this.article_id = JSON.parse(param_list[1]);
+
+        return this.parse_hash(hash_group[0]);
+
     }
 
     /**

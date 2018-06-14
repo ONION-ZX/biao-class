@@ -4,9 +4,9 @@
    <div class="container">
         <div class="row">
             <div class="col sidebar">
-                <div @click="current=memo" v-if="memo.title" class="sidebar-item" v-for="memo in memo_list">
+                <div @click="current=memo" v-if="memo.title" class="sidebar-item" v-for="(memo, i) in memo_list">
                     <div class="left">{{memo.title}}</div>
-                    <div class="right" @click="remove(memo)">删除</div>
+                    <div class="right" @click="remove(i)">删除</div>
                 </div>
                 <button class="block" @click="add()">+</button>
             </div>

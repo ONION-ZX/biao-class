@@ -9,8 +9,7 @@ window.root =new Vue({
             this.current = {};
             this.memo_list.push(this.current);
         },
-        remove(memo) {
-            let index = this.memo_list.indexOf(memo);
+        remove(index) {
             this.memo_list.splice(index, 1);
         },
         sync_to(memo_list) {
