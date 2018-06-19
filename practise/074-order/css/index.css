@@ -1,0 +1,20 @@
+.admin .nav {
+  background: #143c67;
+  color: #fbf9f1;
+}
+
+.admin .nav a {
+  display: block;
+  padding: 10px;
+  color: inherit;
+}
+
+.admin .nav a:hover {
+  background: rgba(0, 0, 0, .4);
+  color: #fff;
+}
+
+.main {
+  padding: 10px;
+}
+
