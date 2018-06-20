@@ -1,12 +1,12 @@
-window.util = {
+window.util= {
     find_index_by_id(arr, id) {
-        return arr.findInder(row => {
+        return arr.findIndex( row => {
             return row.id == id;
         });
     },
 
-    delete_element_by_id(arr, id) {
+    delete_element_by_index(arr, id) {
         let i = this.find_index_by_id(arr, id);
-        arr.splice(i,1);
-    }
-}
+        arr.splice(i, 1);
+    },
+};

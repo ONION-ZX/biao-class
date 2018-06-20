@@ -22,68 +22,69 @@ const Admin = Vue.component('admin',{
 });
 
 const AdminDish = Vue.component('admin-dish',{
-    template:`
+    template: `
     <div>
-        <h2>菜品管理</h2>
-        <div class="tool-set">
-            <button @click="show_form">
-                <span v-if="show_form">取消</span>创建菜品
-            </button>
-        </div>
+<h2>菜品管理</h2>
 
-        <form @submit="create($event)" novalidate>
-            <div v-if="error.length" class="error">
-                <div v-for="e in error">{{e}}</div>
-            </div>
-            <div class="input-wrap">
-                <label>菜名</label>
-                <input type="text" v-model="current.name">
-            </div>
-            <div class="input-wrap">
-                <label>价格</label>
-                <input type="number" v-model="current.capacity">
-            </div>
-            <div class="input-wrap">
-                <label>描述</label>
-                <textarea v-model="current.description"></textarea>
-            </div>
-            <div class="input-wrap">
-                <label>封面地址</label>
-                <textarea v-model="current.cover_url"></textarea>
-            </div>
-            <div class="input-wrap">
-                <button></button>
-            </div>
-        </form>
+<div class="tool-set">
+  <button @click="show_form = !show_form">
+    <span v-if="show_form">取消</span>创建菜品
+  </button>
+</div>
 
-        <table class="list">
-            <thead>
-            <tr>
-            <th>菜名</th>
-            <th>价格</th>
-            <th>描述</th>
-            <th>封面</th>
-            <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr v-for="row in list">
-                <td>{{row.name}}</td>
-                <td>{{row.price}}</td>
-                <td>{{row.description || '-'}}</td>
-                <td>
-                    <img v-if="row.cover_url" src="row.cover_url" :src="row.cover_url" :alt="row.name">
-                    <span class="empty-holder" v-else>暂无封面</span>
-                </td>
-                <td>
-                    <button @click="current=row">更新</button>
-                    <button @click="remove(row.id)">删除</button>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-else class="empty-holder">暂无内容</div>
+  <form v-if="show_form" @submit="create($event)" novalidate>
+    <div v-if="error.length" class="error">
+      <div v-for="e in error">{{e}}</div>
     </div>
+    <div class="input-wrap">
+      <label>菜名</label>
+      <input type="text" v-model="current.name">
+    </div>
+    <div class="input-wrap">
+      <label>价格</label>
+      <input type="number" v-model="current.price">
+    </div>
+    <div class="input-wrap">
+      <label>描述</label>
+      <textarea v-model="current.description"></textarea>
+    </div>
+    <div class="input-wrap">
+      <label>封面地址</label>
+      <input type="url" v-model="current.cover_url">
+    </div>
+    <div class="input-wrap">
+      <button>提交</button>
+    </div>
+  </form>
+  
+  <table v-if="list.length" class="list">
+    <thead>
+    <tr>
+    <th>菜名</th>
+    <th>价格</th>
+    <th>描述</th>
+    <th>封面</th>
+    <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr v-for="row in list">
+      <td>{{row.name}}</td>
+      <td>{{row.price}}</td>
+      <td>{{row.description || '-' }}</td>
+      <td>
+        <img v-if="row.cover_url" :src="row.cover_url" :alt="row.name">
+        <span class="empty-holder" v-else>暂无封面</span>
+      </td>
+      <td>
+        <button @click="current = row">更新</button>
+        <button @click="remove(row.id)">删除</button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <div v-else class="empty-holder">暂无内容</div>
+</div>
     `,
 
     data() {
@@ -97,6 +98,7 @@ const AdminDish = Vue.component('admin-dish',{
     },
 
     methods: {
+
         create(e) {
             e.preventDefault();
 
@@ -199,7 +201,10 @@ const AdminTable = Vue.component('admin-table',{
     template:  `
     <div>
         <h2>桌号管理</h2>
-        <form @submit="create($event)">
+        <div class="tool-set">
+            <button @click="show_form=!show_form"><span v-if="show_form">取消</span>创建桌号</button>
+        </div>
+        <form v-if="show_form" @submit="create($event)">
             <div v-if="error.length" class="error">
                 <div v-for="e in error">{{e}}</div>
             </div>
@@ -243,6 +248,7 @@ const AdminTable = Vue.component('admin-table',{
             error: [],
             current: {},
             list: [],
+            show_form: false,
         };
     },
     methods: {
