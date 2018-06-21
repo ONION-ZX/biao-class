@@ -5,7 +5,7 @@ window.util= {
         });
     },
 
-    delete_element_by_index(arr, id) {
+    delete_element_by_id(arr, id) {
         let i = this.find_index_by_id(arr, id);
         arr.splice(i, 1);
     },

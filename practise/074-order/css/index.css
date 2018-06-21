@@ -62,8 +62,33 @@ td img {
   margin-bottom: 10px;
 }
 
+.tool-set .sub-set {
+  margin-bottom: 10px;
+}
+
 .empty-holder {
   opacity: .5;
   text-align: center;
   font-size: .8rem;
 }
+
+.dish-list {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dish {
+  border: 2px solid rgba(0, 0, 0, .4);
+  margin-bottom: 10px;
+}
+
+.dish .detail .name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.dish .detail .description {
+  opacity: .7;
+}
+
+
