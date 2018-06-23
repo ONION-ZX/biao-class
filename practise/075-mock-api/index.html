@@ -1,0 +1,114 @@
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+    window.http = {
+            post: function (url, data) {
+                data = data || {};
+
+                data.app_key = 'f908f3fcd0c133cce89a04cac38cad16eebc7aa5fe917a5025e7c26ce70790d7';
+                data.timestamp = (new Date).getTime();
+                data.signature = this.sign(data.app_key, data.timestamp);
+
+                return axios
+                    .post('http://mock.biaoyansu.com/api/' + url, data)
+                    .then(function (res) {
+                        return res;
+                    });
+            },
+
+            sign: function (app_key, timestamp) {
+                return btoa(app_key + timestamp);
+            },
+        };
+
+    // http.post('MODEL/CREATE',{
+    //     name: 'article',
+    //     structure: [            
+    //         {
+    //             name: 'title',
+    //             type: 'string',
+    //             nullable: false,
+    //         },
+    //         {
+    //             name: 'user_id',
+    //             type: 'integer',
+    //             nullable: false,
+    //         },
+    //     ],
+    // });
+
+    // http.post('MODEL/CREATE', {
+    //         name: 'user',
+    //         structure: [
+    //             {
+    //                 name: 'username',
+    //                 type: 'string',
+    //                 nullable: false,
+    //             },
+    //         ],
+    //     });
+
+    // http.post('MODEL/CREATE', {
+    //         name: 'cat',
+    //         structure: [
+    //             {
+    //                 name: 'name',
+    //                 type: 'string',
+    //                 nullable: false,
+    //             },
+    //             {
+    //                 name: 'a',
+    //                 type: 'string',
+    //                 nullable: false,
+    //             },
+    //             {
+    //                 name: 'b',
+    //                 type: 'string',
+    //                 nullable: false,
+    //             },
+    //         ],
+    //     });
+    
+//   http.post('MODEL/CREATE_PROPERTY', {
+//     model     : 'article',
+//     property  : 'cat_id',
+//     structure : {
+//       type     : 'integer',
+//       nullable : true,
+//     },
+//   });
+  
+// http.post('MODEL/READ');
+
+// http.post('article/create',{title:'lsd的文章1', user_id: 1, cat_id: 1});
+// http.post('article/create',{title:'lsd的文章2', user_id: 1, cat_id: 1});
+// http.post('article/create',{title:'lsd的文章3', user_id: 1, cat_id: 1});
+
+// http.post('article/create',{title:'whh的文章1', user_id: 2, cat_id: 2});
+// http.post('article/create',{title:'whh的文章2', user_id: 2, cat_id: 2});
+// http.post('article/create',{title:'whh的文章3', user_id: 2, cat_id: 2});
+
+// http.post('cat/read');
+// http.post('user/read');
+
+// http.post('cat/create',{name:'分类1'});
+// http.post('cat/create', { name: '分类2' });
+// http.post('cat/create', { name: '分类3' });
+
+//   http.post('article/read', {
+//     with : [
+//       {
+//         type  : 'belongs_to',
+//         model : 'cat',
+//         // only  : [ 'name' ],
+//       },
+//       'belongs_to:user',
+//     ],
+//   });
+
+http.post('user/read',{
+    with:'has_many:article',
+});
+
+// http.post('user/create',{username:'lsd'});
+// http.post('user/create',{username:'whh'});
+</script>
