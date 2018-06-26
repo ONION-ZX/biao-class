@@ -1,16 +1,19 @@
 <template>
   <div>
-    <Home/>
+    <Detail/>
+    <!--<Home/>-->
   </div>
 </template>
 
 <script>
 
-  import Home from './page/Home';
+  import Detail from './page/Detail';
+  import Home   from './page/Home';
 
   export default {
     name       : 'root',
     components : {
+      Detail,
       Home,
     },
   };
