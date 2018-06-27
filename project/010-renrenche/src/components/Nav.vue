@@ -2,7 +2,7 @@
   <div class="main-nav">
     <div class="row container">
       <div class="col left">
-        <a class="logo"></a>
+        <a class="logo"><img src="../assets/logo.png"></a>
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item">Item</a>
@@ -56,8 +56,8 @@
     text-decoration: none;
   }
 
-  .tel {
+  /* .tel {
     font-weight: bold;
     color: #fd521d;
-  }
+  } */
 </style>

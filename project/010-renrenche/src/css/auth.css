@@ -1,0 +1,18 @@
+h1 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.main-form {
+  padding: 10px;
+  background: #fff;
+  width: 300px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+
+.main-form input,
+.main-form button {
+  width: 100%;
+}

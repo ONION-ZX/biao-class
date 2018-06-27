@@ -1,4 +1,5 @@
 import 'normalize.css';
+import './css/bootstrap.css'
 import './main.css';
 
 import Vue from 'vue';
