@@ -39,14 +39,8 @@
           </div>
         </div>
       </div>
-
-      <div class="footer">
-        <div class="container">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis, sed! A culpa enim eveniet explicabo
-          omnis quibusdam ullam vel. Animi aspernatur cupiditate incidunt nostrum quae, quidem totam. Labore, sequi!
-        </div>
-      </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
@@ -55,9 +49,10 @@
 
   import AdminNav from '../../components/AdminNav.vue';
   import Nav      from '../../components/Nav.vue';
+  import Footer   from '../../components/Footer.vue';
 
   export default {
-    components : { AdminNav, Nav },
+    components : { AdminNav, Nav, Footer },
     data () {
       return {
         edit_mode : false,
@@ -68,12 +63,15 @@
 
 <style scoped>
   h2 {
-    margin: 0;
-    font-size: 16px;
+    padding: 15px;
   }
 
   .table {
     overflow: auto;
+  }
+
+  .content {
+    padding: 15px;
   }
 
   th, td {

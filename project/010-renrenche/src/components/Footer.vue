@@ -8,6 +8,6 @@
 
 <style>
     .footer {
-        margin-top: 20px 0 0 10px;;
+        margin: 30px 0 0 10px ;
     }
 </style>

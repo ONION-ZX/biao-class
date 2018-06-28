@@ -8,12 +8,12 @@
     <!--{ name : '赵可爽', value : 3 , nickname: '赵那个可爽'},-->
     <!--{ name : '刘备备', value : 4 , nickname: '刘那个备备'},-->
     <!--]"/>-->
-    <!-- <SearchResult/> -->
+    <SearchResult/>
     <!-- <Signup/> -->
     <!-- <Login/> -->
     <!-- <Detail/> -->
 
-    <Me/>
+    <!-- <Me/> -->
     <!-- <Home/> -->
     <!-- <User/> -->
   </div>
@@ -24,9 +24,9 @@
   // import Home         from './page/Home';
   // import Login        from './page/Login';
   // import Signup       from './page/Signup';
-  // import SearchResult from './page/SearchResult';
+  import SearchResult from './page/SearchResult';
 
-  import Me from './page/settings/Me';
+  // import Me from './page/settings/Me';
 
   // import User from './page/admin/User';
 
@@ -39,9 +39,9 @@
       // Home,
       // Login,
       // Signup,
-      // SearchResult,
+      SearchResult,
       // User,
-      Me,
+      // Me,
       // Dropdown,
     },
   };
