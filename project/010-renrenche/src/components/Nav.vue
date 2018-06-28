@@ -32,13 +32,12 @@
   .logo {
     display: inline-block;
     width: 130px;
-    height: 42px;
+    height: 48px;
     background: #fd521d;
     vertical-align: top;
   }
 
   .left {
-    left: 130px;
     width: 60%;
   }
 

@@ -104,6 +104,10 @@
 </script>
 
 <style scoped>
+    body {
+        background: #fff;
+    }
+
     .bread {
         padding: 15px 0 15px 0;
     }
@@ -209,5 +213,4 @@
     .main .right .vehicle-info .item .desc {
         font-size: 8px;
     }
-
 </style>

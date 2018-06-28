@@ -1,0 +1,17 @@
+.side-nav {
+  background: #fff;
+}
+
+.nav-item {
+  color: #555;
+  display: block;
+  padding: 10px 20px;
+}
+
+.nav-item.active {
+  color: #fd521d;
+}
+
+.nav-item:hover {
+  background: rgba(0, 0, 0, .02);
+}

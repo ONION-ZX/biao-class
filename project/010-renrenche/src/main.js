@@ -1,6 +1,6 @@
 import 'normalize.css';
-import './css/bootstrap.css'
-import './main.css';
+import './css/util/bootstrap.css'
+import './Root.css';
 
 import Vue from 'vue';
 import Root from './Root.vue';
