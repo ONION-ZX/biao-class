@@ -21,8 +21,8 @@
                 <input class="col-lg-3 value" type="text">
               </div>
               <div class="row btn-group">
-                <button class="btn btn-outline-success" type="submit">提交</button>
-                <button class="btn btn-outline-secondary" @click="edit_mode=false" type="button">取消</button>
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-light" @click="edit_mode=false" type="button">取消</button>
               </div>
             </form>
             <div class="showinfo_box" v-else>
@@ -35,7 +35,7 @@
                 <div class="col-lg-6 value">王花花</div>
               </div>
               <div class="tool-bar">
-                <button class="btn btn-outline-primary" @click="edit_mode=true">修改</button>
+                <button class="btn" @click="edit_mode=true">修改</button>
             </div>
             </div>
           </div>
@@ -63,7 +63,7 @@
 
 <style scoped>
   .shell {
-      height: 300px;
+      margin-top: 5px;
       background: #fff;
       padding:10px 15px 30px 15px;
   }
@@ -80,6 +80,7 @@
 
   .prop-item .key {
     opacity: .6;
+    padding-right: 5px;
   }
 
   .showinfo_box {
@@ -99,6 +100,10 @@
 
   .content form {
       margin-top: 25px;
+  }
+
+  .btn-primary {
+    color: #fff !important;
   }
 
 </style>

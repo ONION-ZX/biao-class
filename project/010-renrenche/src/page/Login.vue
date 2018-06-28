@@ -51,7 +51,7 @@
     .main_form {
         position: relative;
         padding: 20px;
-        top: 50px; 
+        top: 9px; 
         background: #fff;
         margin-right: auto;
         margin-left: auto;

@@ -11,23 +11,22 @@
     <!-- <SearchResult/> -->
     <!-- <Signup/> -->
     <!-- <Login/> -->
-    <Detail/>
+    <!-- <Detail/> -->
 
-    <!-- <Me/> -->
+    <Me/>
     <!-- <Home/> -->
     <!-- <User/> -->
   </div>
 </template>
 
 <script>
-
-  import Detail       from './page/Detail';
+  // import Detail       from './page/Detail';
   // import Home         from './page/Home';
   // import Login        from './page/Login';
   // import Signup       from './page/Signup';
   // import SearchResult from './page/SearchResult';
 
-  // import Me from './page/settings/Me';
+  import Me from './page/settings/Me';
 
   // import User from './page/admin/User';
 
@@ -36,13 +35,13 @@
   export default {
     name       : 'root',
     components : {
-      Detail,
+      // Detail,
       // Home,
       // Login,
       // Signup,
       // SearchResult,
       // User,
-      // Me,
+      Me,
       // Dropdown,
     },
   };

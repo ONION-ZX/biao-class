@@ -18,7 +18,7 @@ a {
 }
 
 .btn {
-  color: #fff !important;
+  color: #444 !important;
 }
 
 img {
@@ -132,8 +132,15 @@ img {
 }
 
 .row {
+  margin: 0;
   font-size: 0;
   display: block;
+}
+
+.left,
+.right {
+  margin: 0;
+  padding: 0;
 }
 
 [class*=col-],

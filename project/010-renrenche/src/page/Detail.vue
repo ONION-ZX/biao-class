@@ -1,216 +1,254 @@
 <template>
   <div>
     <Nav/>
-    <div class="container">
-      <div class="bread">
-          <a>西安二手车 > </a>
-          <a>西安二手车 > </a>
-          <a>西安二手车 > </a>
-          <a>西安二手车 > </a>
-          <a>西安二手车</a>
-      </div>
-      <div class="row preview">
-        <div class="row top">
-            <div class="col left">
-                <!-- <h2>长安-CS85 2018款 尚酷版 1.5T 自动锋悦型</h2> -->
-                <!-- <div class="tag_bar">
-                    <div class="tag">超值</div>
-                    <div class="tag">准新车</div>
-                    <div class="tag">零过户</div>                    
-                </div> -->
-            </div>
-            <div class="col right">
-                <div class="search">
-                    <input type="text" placeholder="请输入关键词">
-                    <div class="search-btn">search</div>
-                </div>
-            </div>
-        </div>
-        <div class="row main">
-            <div class="col left">
-                <div class="row">
-                    <img src="../assets/detail/thumbnail01.jpg">
-                </div>
-                <div class="row">
-
-                </div>
-                <div class="row thumbnails">
-                    <img src="../assets/detail/thumbnail01.jpg">
-                    <img src="../assets/detail/thumbnail01.jpg">
-                    <img src="../assets/detail/thumbnail01.jpg">
-                    <img src="../assets/detail/thumbnail01.jpg">
-                </div>
-            </div>
-            <div class="col right">
-                <h2>长安-CS85 2018款 尚酷版 1.5T 自动锋悦型</h2>
-                <div class="vehicle-info row">
-                    <div class="item">
-                        <span class="content">2009-06</span>
-                        <span class="desc">上牌时间</span>
-                    </div>
-                    <div class="item">
-                        <span class="content">2009-06</span>
-                        <span class="desc">上牌时间</span>
-                    </div>
-                    <div class="item">
-                        <span class="content">2009-06</span>
-                        <span class="desc">上牌时间</span>
-                    </div>
-                    <div class="item">
-                        <span class="content">2009-06</span>
-                        <span class="desc">上牌时间</span>
-                    </div>
-                    <div class="item">
-                        <span class="content">2009-06</span>
-                        <span class="desc">上牌时间</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="price">
-                        <span>车主报价</span>
-                        <h3>$3.20万</h3>
-                    </div>
-                </div>
-                <div class="row service">
-                    
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="detail">
-          <div class="desc">
-              <h3>车辆详情</h3>
-              <div class="row">
-                  <div class="col left tell"></div>
-                  <div class="col right procedure"></div>
-              </div>
-          </div>
+    <div class="header">
+      <div class="container">
+        <SearchBar/>
       </div>
     </div>
-    <Footer/>
+    <div>
+      <div style="padding-top: 5px;" class="row container bg-white">
+        <div class="col-lg-6">
+          <div class="slider">
+            <img src="../assets/detail/slide-01.jpg" alt="">
+          </div>
+          <div class="row thumbnail-list">
+            <div class="col-lg-3">
+              <img src="../assets/detail/slide-01.jpg" alt="">
+            </div>
+            <div class="col-lg-3">
+              <img src="../assets/detail/slide-01.jpg" alt="">
+            </div>
+            <div class="col-lg-3">
+              <img src="../assets/detail/slide-01.jpg" alt="">
+            </div>
+            <div class="col-lg-3">
+              <img src="../assets/detail/slide-01.jpg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 order-panel">
+          <h1 class="title">大众-桑塔纳 2015款 1.7L 手动风尚版</h1>
+          <div class="well">
+            <div class="row">
+              <div class="col-lg-3 prop">报价</div>
+              <div class="col-lg-9">
+                <span class="price currency">5.60万</span>
+                <span class="price currency">含税9.5万</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 prop">服务费</div>
+              <div class="col-lg-9">
+                <span class="price currency">3000</span>
+                <span class="help"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3 prop">服务项</div>
+              <div class="col-lg-9">
+                <span>整车质保</span>
+                <span>14天可退</span>
+                <span>249项车况检测</span>
+              </div>
+            </div>
+          </div>
+          <div class="short-props">
+            <div class="dib">
+              <div class="prop">上牌时间</div>
+              <div class="value">2015年06月</div>
+            </div>
+            <div class="dib">
+              <div class="prop">公里数</div>
+              <div class="value">1.67万公里</div>
+            </div>
+            <div class="dib">
+              <div class="prop">外迁查询</div>
+              <div class="value">国五</div>
+            </div>
+            <div class="dib">
+              <div class="prop">排量</div>
+              <div class="value">1.6L</div>
+            </div>
+          </div>
+          <div class="action">
+            <a class="btn btn-primary">预约看车</a>
+            <span class="tel">400-080-5027</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vehicle-detail bg-white">
+      <div class="container">
+        <h2>车辆详情</h2>
+        <div class="row">
+          <div class="col-lg-6 dashed">
+            <div class="sub-title">合作认证车辆介绍</div>
+            <div class="detail">
+              这辆车是2015年8月首次上牌，到现在已经行驶了1.86万公里。车子平时开得不多，在我的精心呵护下，无论驾驶质感还是内饰氛围都和新车相差无几。最满意的一点当然是油耗了，其次是空间，动力我也觉得够用。这是我买的新车，纯个人一手车。每天开车前都会认真检查一下车辆，开的也是四平八稳。我对车还是比较温柔的，用车频率不是很高，总里程很少，车况一直很好，和新车也没差什么，没有遇到过什么烦人的毛病，很省心，这对我来说就足够了。好车不容错过，赶紧联系我看车吧！
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="sub-title">车辆手续信息</div>
+            <div class="col-lg-6">
+              <table>
+                <tbody>
+                <tr>
+                  <td>年检到期时间</td>
+                  <td>2019-08</td>
+                </tr>
+                <tr>
+                  <td>商业险到期时间</td>
+                  <td>2019-08</td>
+                </tr>
+                <tr>
+                  <td>有无购车发票</td>
+                  <td>否</td>
+                </tr>
+                <tr>
+                  <td>是否4S店保养</td>
+                  <td>否</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-lg-6">
+              <table>
+                <tbody>
+                <tr>
+                  <td>交强险到期时间</td>
+                  <td>2019-08</td>
+                </tr>
+                <tr>
+                  <td>过户次数</td>
+                  <td>0次</td>
+                </tr>
+                <tr>
+                  <td>车辆购置税完税证明</td>
+                  <td>无</td>
+                </tr>
+                <tr>
+                  <td>有无改装</td>
+                  <td>无</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="preview">
+          <div class="title"></div>
+          <div class="desc"></div>
+          <div>
+            <div class="col-lg-6">
+              <div class="card">
+                <img src="../assets/detail/preview-01.webp">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <img src="../assets/detail/preview-01.webp">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <img src="../assets/detail/preview-01.webp">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card">
+                <img src="../assets/detail/preview-01.webp">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import Nav from '../components/Nav';
-  import Footer from '../components/Footer';
+  import Nav       from '../components/Nav';
+  import SearchBar from '../components/SearchBar';
 
   export default {
-    components: {
+    components : {
       Nav,
-      Footer,
+      SearchBar,
     },
   };
 </script>
 
 <style scoped>
-    body {
-        background: #fff;
-    }
+  h2 {
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    font-weight: normal;
+    border-bottom: 1px dashed #ddd;
+  }
 
-    .bread {
-        padding: 15px 0 15px 0;
-    }
+  .sub-title {
+    padding: 10px 0;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-    .bread a{
-        cursor: pointer;
-        font-size: 8px;
-        color:darkgray;
-    }
+  .detail {
+  }
 
-    .top .right {
-        padding-right: 10px;
-        width: 30%;
-    }
+  /*.order-panel {*/
+  /*font-size: .9rem;*/
+  /*}*/
 
-    .top .left {
-        font-size: 0;
-        width: 70%;
-    }
+  .well {
+    background: #ddd;
+    padding: 10px;
+  }
 
-    h2 {
-        font-size: 25px;
-        text-align: center;
-    }
+  .well .prop {
+    font-size: .9rem;
+    color: #666;
+  }
 
-    h2,
-    .top .left .tag_bar {
-        display: inline-block;
-        font-weight: normal;
-        margin-top: 0;
-    }
+  .well > .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
-    .top .left .tag_bar {
-        padding: 15px;
-        padding-left: 0;
-        font-size: 15px;
-        width: 30%;
-    }
+  .short-props > .dib {
+    padding: 10px;
+  }
 
-    .top .left .tag_bar .tag {
-        display: inline-block;
-    }
-    
+  .short-props > .dib > * {
+    margin-bottom: 5px;
+  }
 
-    .top .right .search {
-        display: inline-block;
-        border: 1px solid #444;
-    }
+  .short-props .prop {
+    font-size: .7rem;
+    color: #888;
+  }
 
-    .top .right .search div,
-    .top .right .search input{
-        border: 0;
-        display: inline-block;
-        padding: 5px;
-    }
+  .action > * {
+    margin-right: 10px;
+  }
 
-    .top .right .search input {
-        border-right: 1px solid #444;
-    }
+  .thumbnail-list {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
 
-    input::-webkit-input-placeholder {
-        font-size: 8px;
-        color:darkgray;
-    }
+  .vehicle-detail {
+    margin-top: 20px;
+  }
 
-    .main .left,
-    .main .right {
-        width: 50%;
-        display: inline-block;
-    }
+  .vehicle-detail .container > .row {
+    margin-bottom: 10px;
+  }
 
-    .main .thumbnails {
-        margin-top: 10px;
-    }
-
-    .main .thumbnails img {
-        display: inline-block;
-        width: 24%;
-        margin-right: 5px;
-    }
-
-    .main .right {
-        padding-top: 15px;
-        padding-left: 20px;
-        text-align: left;
-    }
-
-    .main .right .vehicle-info .item {
-        display: inline-block;
-        width: 20%;
-    }
-
-    .main .right .vehicle-info .item span {
-        display: block;
-        text-align: center;
-        margin-top: 5px;
-    }
-
-    .main .right .vehicle-info .item .content {
-        font-size: 15px;
-    }
-
-    .main .right .vehicle-info .item .desc {
-        font-size: 8px;
-    }
+  .dashed {
+    margin-top: 10px;
+    border-right: 1px dashed #ddd;
+  }
 </style>
