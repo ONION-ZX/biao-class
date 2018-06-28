@@ -1,10 +1,10 @@
 <template>
-    <div @mouseleave="show_menu=false" class="dropdown">
-        <div @mouseenter="show_menu=true" class="selected">{{selected[displayKey] || '请选择'}}</div>
-        <div v-if="show_menu" class="menu">
-            <div :key="index" @click="select(row)" v-for="(row,index) in list">{{row[displayKey]}}</div>
-        </div>
+  <div @mouseleave="show_menu=false" class="dropdown">
+    <div @mouseenter="show_menu=true" class="selected">{{selected[displayKey] || '请选择'}}</div>
+    <div v-if="show_menu" class="menu">
+      <div :key="index" @click="select(row)" v-for="(row,index) in list">{{row[displayKey]}}</div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -13,7 +13,7 @@
       list       : {},
       onSelect   : {},
       displayKey : {
-        default : 'nickname',
+        default : 'name',
       },
     },
     data () {

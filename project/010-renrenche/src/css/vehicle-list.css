@@ -1,0 +1,44 @@
+.vehicle-list {
+  margin-top: 10px;
+}
+
+.vehicle-list .card {
+  background: #fff;
+  margin-bottom: 10px;
+}
+
+.vehicle-list .card .detail {
+  padding: 10px;
+}
+
+.vehicle-list .detail > * {
+  margin-bottom: 5px;
+}
+
+.vehicle-list .card .title {
+  font-size: .8rem;
+}
+
+.vehicle-list .card .desc,
+.vehicle-list .card .others {
+  font-size: .6rem;
+  color: #888;
+}
+
+.vehicle-list .card .price {
+  color: #fd521d;
+  font-size: 1.3rem;
+}
+
+.vehicle-list .card {
+  position: relative;
+}
+
+.vehicle-list .card .buy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: .8rem;
+  padding-left: 25px;
+  padding-right: 25px;
+}

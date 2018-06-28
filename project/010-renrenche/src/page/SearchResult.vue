@@ -1,116 +1,97 @@
 <template>
   <div>
     <Nav/>
-    <div class="slider">
-      <img src="../assets/home/slider1.webp">
-      <!--<div class="short-cuts">-->
-      <!--<a href="#">Item</a>-->
-      <!--<a href="#">Item</a>-->
-      <!--<a href="#">Item</a>-->
-      <!--<a href="#">Item</a>-->
-      <!--</div>-->
-    </div>
-    <div class="query-area">
-      <div class="container">
-        <div class="row col-lg-8">
-          <div class="col-lg-3 huge-text">买</div>
-          <div class="col-lg-9">
-            <div>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
-            </div>
-            <div>
-              <span class="tag">3万以下</span>
-              <span class="tag">10万以下</span>
-              <span class="tag">20万以下</span>
-              <span class="tag">20万以下</span>
-            </div>
-            <div>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
-            </div>
-          </div>
-        </div>
-        <div class="row col-lg-4">
-          <div class="col-lg-3 huge-text">卖</div>
-          <div class="col-lg-9 right">
-            <a style="margin-top: 15px; display: inline-block;" class="btn btn-primary btn-fat">极速卖车</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="guarantee">
-      <div class="row container">
-        <div class="col-lg-3">
-          <div class="card">
-            <div>
-              <div class="title">分期购车</div>
-              <div class="desc">门槛低 审批快</div>
-            </div>
-            <div>
-              <img src="../assets/home/guarantee1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <div>
-              <div class="title">分期购车</div>
-              <div class="desc">门槛低 审批快</div>
-            </div>
-            <div>
-              <img src="../assets/home/guarantee1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <div>
-              <div class="title">分期购车</div>
-              <div class="desc">门槛低 审批快</div>
-            </div>
-            <div>
-              <img src="../assets/home/guarantee1.png" alt="">
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <div>
-              <div class="title">分期购车</div>
-              <div class="desc">门槛低 审批快</div>
-            </div>
-            <div>
-              <img src="../assets/home/guarantee1.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div>
-      <div class="vehicle-nav">
-        <div class="container">
-          <div class="item">特价好车</div>
-          <div class="item">5万以下</div>
-          <div class="item">5-10万</div>
-          <div class="item">超值SUV</div>
-          <div class="item">急售降价车</div>
-          <div class="item">更多</div>
+      <div class="container">
+        <SearchBar/>
+      </div>
+      <div class="container">
+        <div class="filter-list">
+          <div class="kill-space filter">
+            <div class="col-lg-1 prop">品牌</div>
+            <div class="col-lg-10 range">
+              <span>不限</span>
+              <span>大众</span>
+              <span>福特</span>
+              <span>奔驰</span>
+              <span>现代</span>
+              <span>大众</span>
+              <span>福特</span>
+              <span>奔驰</span>
+              <span>现代</span>
+              <span>大众</span>
+              <span>福特</span>
+              <span>奔驰</span>
+              <span>现代</span>
+            </div>
+            <div class="col-lg-1 right others">
+              <button>全部</button>
+            </div>
+          </div>
+          <div class="kill-space filter">
+            <div class="col-lg-1 prop">车系</div>
+            <div class="col-lg-10 range">
+              <span>不限</span>
+              <span>朗逸</span>
+              <span>奔特</span>
+              <span>福驰</span>
+              <span>大代</span>
+              <span>现众</span>
+              <span>朗逸</span>
+              <span>奔特</span>
+              <span>福驰</span>
+              <span>大代</span>
+              <span>现众</span>
+            </div>
+            <div class="col-lg-1 right others">
+              <button>全部</button>
+            </div>
+          </div>
+          <div class="kill-space filter">
+            <div class="col-lg-1 prop">价格</div>
+            <div class="col-lg-10 range">
+              <span class="active">3万以下</span>
+              <span>3-5万</span>
+              <span>5-8万</span>
+              <span>8-10万</span>
+              <span>10-15万</span>
+              <span>15-20万</span>
+              <span>20-30万</span>
+              <span>30万以上</span>
+            </div>
+            <div class="col-lg-1 right others">
+              <button>全部</button>
+            </div>
+          </div>
+          <div class="kill-space filter">
+            <div class="col-lg-1 prop">更多</div>
+            <div class="col-lg-10 range">
+              <Dropdown :onSelect="yo" :list="tmp"/>
+              <Dropdown :onSelect="yo" :list="tmp"/>
+              <Dropdown :onSelect="yo" :list="tmp"/>
+              <Dropdown :onSelect="yo" :list="tmp"/>
+              <Dropdown :onSelect="yo" :list="tmp"/>
+              <Dropdown :onSelect="yo" :list="tmp"/>
+            </div>
+            <div class="col-lg-1 right others">
+              <button>全部</button>
+            </div>
+          </div>
+        </div>
+        <div class="filter-list">
+          <div class="filter">
+            <div class="range">
+              <span>默认排序</span>
+              <span>最新发布</span>
+              <span>价格 ^</span>
+              <span>车龄 v</span>
+              <span>历程 v</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="vehicle-list">
-        <div class="container">
+      <div class="container">
+        <div class="row vehicle-list">
           <div class="col-lg-3">
             <div class="card">
               <div class="thumbnail">
@@ -246,33 +227,30 @@
 </template>
 
 <script>
-  import Nav from '../components/Nav.vue';
+  import '../css/vehicle-list.css';
+
+  import Nav       from '../components/Nav.vue';
+  import Footer       from '../components/Footer.vue';
+
+  import SearchBar from '../components/SearchBar.vue';
+  import Dropdown  from '../components/Dropdown.vue';
 
   export default {
-    components : { Nav },
+    components : { Nav, SearchBar, Dropdown ,Footer },
+    data () {
+      return {
+        tmp : [
+          { name : '王花花', value : 1 },
+          { name : '李拴蛋', value : 2 },
+          { name : '赵可爽', value : 3 },
+          { name : '刘备备', value : 4 },
+        ],
+      };
+    },
   };
 </script>
 
 <style scoped>
-  .query-area {
-    padding: 15px;
-    background: #fff;
-  }
-
-  .tag {
-    display: inline-block;
-    font-size: .7rem;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .huge-text {
-    position: relative;
-    top: 5px;
-    left: 20px;
-    color: #fd521d;
-  }
-
   .guarantee .col-lg-3 {
     padding: 20px;
   }
@@ -305,48 +283,48 @@
     border-left-width: 1px;
   }
 
-  .vehicle-list .col-lg-3 {
-    padding: 10px;
-  }
-
-  .vehicle-list .card {
+  .filter-list {
     background: #fff;
-  }
-
-  .vehicle-list .card .detail {
-    padding: 10px;
-  }
-
-  .vehicle-list .detail > * {
+    border: 1px solid rgba(0, 0, 0, .1);
     margin-bottom: 5px;
+    /*padding: 5px;*/
   }
 
-  .vehicle-list .card .title {
-    font-size: .8rem;
+  .filter {
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
-  .vehicle-list .card .desc,
-  .vehicle-list .card .others {
-    font-size: .6rem;
-    color: #888;
+  .filter:first-child {
+    border-top: 0;
   }
 
-  .vehicle-list .card .price {
-    color: #fd521d;
-    font-size: 1.3rem;
+  .filter > * {
+    vertical-align: middle;
   }
 
-  .vehicle-list .card {
-    position: relative;
+  .filter .prop,
+  .filter .range > * {
+    padding: 5px 10px;
   }
 
-  .vehicle-list .card .buy {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: .8rem;
-    padding-left: 25px;
-    padding-right: 25px;
+  .filter .range > * {
+    margin-right: 2px;
   }
 
+  .filter .range > .active {
+    background: #fd521d;
+    color: #fff;
+  }
+
+  .filter .others button {
+    background: transparent;
+    border: 0;
+  }
+
+  .filter .others button,
+  .filter .dropdown {
+    padding: 2px 5px;
+  }
 </style>
