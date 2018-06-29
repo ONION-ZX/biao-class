@@ -1,0 +1,12 @@
+.content {
+  background: #fff;
+  padding: 15px;
+}
+
+.content > * {
+  margin-bottom: 10px;
+}
+
+.tool-bar > * {
+  margin-bottom: 10px;
+}

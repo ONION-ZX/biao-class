@@ -197,11 +197,40 @@ ul ,li{
   display: block;
 }
 
+.pagination {
+  text-align: center;
+}
+
+.pagination .active {
+  background: rgba(0, 0, 0, .1);
+}
+
+ input {
+   outline: 0;
+   width: 100%;
+ }
+
 h1 {
   margin: 0;
   font-weight: 500;
 }
 
-button {
-  color: #fff;
+.input-control label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.btn-small {
+  padding: 3px 5px;
+  font-size: .8rem;
+}
+
+.btn-group button,
+.btn-group .btn {
+  border-left-width: 0;
+}
+
+.btn-group button:first-child,
+.btn-group .btn:first-child {
+  border-left-width: 1px;
 }
