@@ -20,11 +20,11 @@
 </template>
 
 <script>
-  // import Detail       from './page/Detail';
+  import Detail       from './page/Detail';
   // import Home         from './page/Home';
   // import Login        from './page/Login';
   // import Signup       from './page/Signup';
-  import SearchResult from './page/SearchResult';
+  // import SearchResult from './page/SearchResult';
 
   // import Me from './page/settings/Me';
 
@@ -35,11 +35,11 @@
   export default {
     name       : 'root',
     components : {
-      // Detail,
+      Detail,
       // Home,
       // Login,
       // Signup,
-      SearchResult,
+      // SearchResult,
       // User,
       // Me,
       // Dropdown,
