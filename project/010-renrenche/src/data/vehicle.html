@@ -1,7 +1,7 @@
 <script src="../../node_modules/axios/dist/axios.js"></script>
 <script src="../lib/api.js"></script>
 <script>
-    let vehicle = {
+    let model = {
         name: 'vehicle',
         structure: {
             price: { // 价格
@@ -77,9 +77,9 @@
         },
     };
 
-    api('MODEL/CREATE', vehicle);
+    api('MODEL/CREATE' ,model);
 
-    //  api('MODEL/READ', vehicle);
+    //  api('MODEL/READ', model);
 
 //   api('MODEL/DELETE', { name : 'vehicle' });
 </script>

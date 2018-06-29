@@ -1,0 +1,19 @@
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script src="../lib/api.js"></script>
+<script>
+    let model = {
+        name: 'design', //车型
+        structure: {
+            name: { // 型号 SUV 吉普 轿车
+                type: 'string',
+                nullable: false,
+            },
+        },
+    };
+
+    api('MODEL/CREATE', model);
+
+    //  api('MODEL/READ', vehicle);
+
+//   api('MODEL/DELETE', { name : 'design' });
+</script>

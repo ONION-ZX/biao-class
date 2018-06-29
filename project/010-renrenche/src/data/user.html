@@ -1,0 +1,27 @@
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script src="../lib/api.js"></script>
+<script>
+    let model = {
+        name: 'user',
+        structure: {
+            username: { // 用户名
+                type: 'string',
+                nullable: false,
+            },
+            password: { // 密码
+                type: 'string',
+                nullable: false,
+            },
+            realname: { //真实姓名
+                type: 'string',
+                nullable: true,
+            }
+        },
+    };
+
+    api('MODEL/CREATE', model);
+
+    //  api('MODEL/READ', vehicle);
+
+//   api('MODEL/DELETE', { name : 'user' });
+</script>
