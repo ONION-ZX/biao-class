@@ -1,13 +1,14 @@
 <template>
-    <div class="container">
-        <div class="footer">
-            <div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum nam delectus iure amet perferendis corporis inventore voluptatum non odit? Nobis totam quae architecto quod atque libero unde vitae. Minima, vitae?</div>
-        </div>
+    <div class="footer">
+        <div>©2018 ONION • SPACE</div>
     </div>
 </template>
 
-<style>
+<style scoped>
     .footer {
-        margin: 30px 0 0 10px ;
+        text-align: center;
+        margin: 30px 0 15px 0 ;
+        color:dimgray;
+        font-size: 13px;
     }
 </style>

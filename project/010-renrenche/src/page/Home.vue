@@ -2,7 +2,7 @@
   <div>
     <Nav/>
     <div class="slider">
-      <img src="../assets/home/slider1.webp">
+        <img src="../assets/home/slider2.jpg">
       <!--<div class="short-cuts">-->
       <!--<a href="#">Item</a>-->
       <!--<a href="#">Item</a>-->
@@ -45,7 +45,7 @@
         <div class="row col-lg-4">
           <div class="col-lg-3 huge-text">卖</div>
           <div class="col-lg-9 right">
-            <a style="margin-top: 15px; display: inline-block;" class="btn btn-primary btn-fat">极速卖车</a>
+            <a style="margin-top: 15px; display: inline-block;" class="btn btn-dark btn-fat">极速卖车</a>
           </div>
         </div>
       </div>
@@ -122,7 +122,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -154,7 +154,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -170,7 +170,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -202,7 +202,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -218,7 +218,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -234,7 +234,7 @@
                 <div class="others">
                   <span class="price">11.5万</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
+                  <a class="btn btn-dark buy">购买</a>
                 </div>
               </div>
             </div>
@@ -242,22 +242,30 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aspernatur beatae debitis deleniti doloribus, earum
-      esse excepturi fugit impedit ipsum maxime, nulla optio porro quam quibusdam, sint tempora unde vel?
-    </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
   import Nav from '../components/Nav.vue';
+  import Footer from '../components/Footer.vue';
 
   export default {
-    components : { Nav },
+    components : { Nav, Footer },
   };
 </script>
 
 <style scoped>
+  .slider img { 
+    padding-left:10px;
+    padding-right: 10px;
+    height: 500px;
+  }
+
+  .btn {
+    color: #fff !important;
+  }
+
   .query-area {
     padding: 15px;
     background: #fff;
@@ -274,7 +282,6 @@
     position: relative;
     top: 5px;
     left: 20px;
-    color: #fd521d;
   }
 
   .guarantee .col-lg-3 {
@@ -336,7 +343,7 @@
   }
 
   .vehicle-list .card .price {
-    color: #fd521d;
+    color: #444;
     font-size: 1.3rem;
   }
 

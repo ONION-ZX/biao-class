@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav :push-down="true"/>
+    <Nav :pushDown = "true"/>
     <div>
       <div class="container row">
         <div class="col-lg-3">
@@ -9,11 +9,11 @@
         <div class="col-lg-9">
             <div class="content-card">
                 <h2>二手车列表</h2>
-                <button @click="show_form = !show_form" class="tool-bar">创建二手车</button>
                 <form @submit="search($event)">
-                    <input type="search" v-model="keyword" placeholder="搜标题/描述" autofocus>
+                    <input class="search" type="search" v-model="keyword" placeholder="搜标题/描述" autofocus>
                     <button type="submit" hidden>搜</button>
                 </form>
+                <button @click="show_form = !show_form" class="btn btn-primary tool-bar">创建二手车</button>
 
                 <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
@@ -121,6 +121,7 @@
 
     data() {
         return {
+            last_page: 0,
             keyword: '',
             list: [],
             current: {},
@@ -136,7 +137,7 @@
         read(page = 1) {
             if(page == this.current_page)
                 return;
-            api('vehicle/read',{limit:3, page:page})
+            api('vehicle/read',{limit: 3, page:page})
               .then(r => {
                   this.list = r.data;
                   this.last_page = r.last_page;
@@ -184,8 +185,9 @@
 
 <style scoped>
   h2 {
-    margin-top: 0;
-    font-size: 16px;
+    margin: 15px;
+    margin-left: 0;
+    font-size: 25px;
   }
 
   .table {
@@ -193,8 +195,32 @@
   }
 
   th, td {
+      font-size: 15px;
+    color: #444;
     padding: 5px 10px;
     text-align: left;
   }
+  th {
+      font-size: 17px;
+      font-weight: bold;
+  }
+
+
+  button {
+      vertical-align: bottom;
+      line-height: 1.5;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.125);
+  }
+
+  .pagination {
+      margin-left: 200px;
+  }
+ .btn-primary {
+     background: #fd521d;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     color: #fff;
+ }
 
 </style>

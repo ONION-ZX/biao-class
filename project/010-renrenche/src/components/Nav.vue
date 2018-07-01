@@ -1,6 +1,8 @@
 <template>
-  <div class="main-nav">
-    <div class="row container">
+  <div :style="{
+    marginBottom: this.pushDown ? '20px': '0',
+    backgroundColor: this.black ? 'black': 'white',
+  }" class="main-nav">
       <div class="col left">
         <a class="logo"><img src="../assets/logo.png"></a>
         <a href="#" class="nav-item">Item</a>
@@ -14,26 +16,33 @@
         <a href="#" class="nav-item tel">400-6666-666</a>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
+  export default  {
+    props: {
+      pushDown: {
+        default: false,
+      },
+      black: {
+        default: false,
+      },
+    }
+  }
 </script>
 
 <style scoped>
 
   .main-nav {
+    padding: 15px;
     background: #fff;
-    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
   }
 
   .logo {
+    margin-top: 5px;
     display: inline-block;
-    width: 130px;
+    width: 270px;
     height: 48px;
-    background: #fd521d;
     vertical-align: top;
   }
 
