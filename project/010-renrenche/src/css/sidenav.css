@@ -3,15 +3,16 @@
 }
 
 .nav-item {
-  color: #555;
+  color: rgba(0,0,0,.5);
   display: block;
   padding: 10px 20px;
 }
 
 .nav-item.active {
-  color: #fd521d;
+  background: rgba(0, 0, 0, .02);
 }
 
 .nav-item:hover {
-  background: rgba(0, 0, 0, .02);
+  color: black;
+  text-decoration: none;
 }

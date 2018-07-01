@@ -8,22 +8,22 @@
     <!--{ name : '赵可爽', value : 3 , nickname: '赵那个可爽'},-->
     <!--{ name : '刘备备', value : 4 , nickname: '刘那个备备'},-->
     <!--]"/>-->
-    <!-- <Vehicle/> -->
+    <Vehicle/>
     <!-- <SearchResult/> -->
     <!-- <Signup/> -->
     <!-- <Login/> -->
     <!-- <Detail/> -->
 
     <!-- <Me/> -->
-    <Home/>
+    <!-- <Home/> -->
     <!-- <User/> -->
   </div>
 </template>
 
 <script>
-  // import Vehicle from './page/admin/Vehicle'
+  import Vehicle from './page/admin/Vehicle'
   // import Detail       from './page/Detail';
-  import Home         from './page/Home';
+  // import Home         from './page/Home';
   // import Login        from './page/Login';
   // import Signup       from './page/Signup';
   // import SearchResult from './page/SearchResult';
@@ -37,9 +37,9 @@
   export default {
     name       : 'root',
     components : {
-      // Vehicle,
+      Vehicle,
       // Detail,
-      Home,
+      // Home,
       // Login,
       // Signup,
       // SearchResult,

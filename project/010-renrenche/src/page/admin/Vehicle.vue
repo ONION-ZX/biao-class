@@ -10,10 +10,10 @@
             <div class="content-card">
                 <h2>二手车列表</h2>
                 <form @submit="search($event)">
-                    <input class="search" type="search" v-model="keyword" placeholder="搜标题/描述" autofocus>
+                    <input class="search" type="search" v-model="keyword" placeholder="搜" autofocus>
                     <button type="submit" hidden>搜</button>
                 </form>
-                <button @click="show_form = !show_form" class="btn btn-primary tool-bar">创建二手车</button>
+                <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建二手车</button>
 
                 <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
@@ -29,7 +29,7 @@
                         <input type="text" v-model="current.publish_reason">
                     </div>
                     <div class="input-control">
-                        <label>当前历程</label>
+                        <label>当前里程</label>
                         <input type="number" v-model="current.consumed_distance">
                     </div>
                     <div class="input-control">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="input-control">
                         <label>预期出售时间</label>
-                        <input type="datetime-local" v-model="current.deadline">
+                        <input type="text" v-model="current.deadline">
                     </div>
                     <div class="input-control">
                         <label>车况</label>
@@ -53,19 +53,19 @@
                         <textarea v-model="current.description"></textarea>
                     </div>
                    <div class="input-control">
-                       <label class="dib">促销
+                       <label class="disib">促销
                             <input type="checkbox" v-model="current.on_sale">
                         </label>
-                        <label class="dib">本地车牌
+                        <label class="disib">本地车牌
                             <input type="checkbox" v-model="current.local">
                         </label>
                    </div>
-                   <div class="input-control">
-                       <button class="btn-primary" type="submit">提交</button>
-                       <button @click="show_form = false" type="button">取消</button>
+                   <div class="input-control row">
+                       <button class="btn btn-outline-secondary" type="submit">提交</button>
+                       <button class="btn btn-outline-secondary" @click="show_form = false" type="button">取消</button>
                    </div>
                 </form>
-                <table>
+                <table v-if="!show_form">
                     <thead>
                         <th>标题</th>
                         <th>价格</th>
@@ -86,14 +86,14 @@
                             <td>{{row.exchange_times || '-'}}</td>
                             <td>{{row.on_sale || '-'}}</td>
                             <td>
-                                <button class="btn-small" @click="remove(row.id)">删除</button>
-                                <button class="btn-small" @click="set_current(row)">编辑</button>
+                                <button class="btn-small operate" @click="remove(row.id)">删除</button>
+                                <button class="btn-small operate" @click="set_current(row)">编辑</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
+            <div class="pagination" v-if="!show_form">
                 <button class="btn-small" @click="read(1)">First</button>
 
                 &nbsp;
@@ -187,26 +187,37 @@
   h2 {
     margin: 15px;
     margin-left: 0;
+    margin-top: 5px;
     font-size: 25px;
+    color: rgba(0,0,0,.6);
   }
 
   .table {
     overflow: auto;
   }
 
+  .operate {
+     color: rgba(0,0,0,.6);
+  }
+
+  .operate:hover {
+      background:rgba(0,0,0,.6);
+      color: #fff;
+  }
+
   th, td {
-      font-size: 15px;
-    color: #444;
+    font-size: 15px;
+    color: rgba(0,0,0,.6);
     padding: 5px 10px;
     text-align: left;
   }
   th {
-      font-size: 17px;
-      font-weight: bold;
+      font-weight: normal;
   }
 
 
   button {
+      border-collapse:collapse;
       vertical-align: bottom;
       line-height: 1.5;
       background: #fff;
@@ -216,11 +227,40 @@
   .pagination {
       margin-left: 200px;
   }
- .btn-primary {
-     background: #fd521d;
-     margin-top: 10px;
-     margin-bottom: 10px;
-     color: #fff;
- }
+
+  .btn-outline-dark {
+      margin-top: 15px;
+      margin-bottom: 10px;
+  }
+
+  .input-control label {
+      color: rgba(0,0,0,.6);
+      font-size: 15px;
+  }
+
+  .input-control input {
+      border: 0;
+      border-bottom: 1px solid rgba(0,0,0,.2);
+      padding-left: 5px;
+      margin-bottom: 10px;
+  }
+
+  textarea {
+      width: 100%;
+  }
+
+  .disib {
+      display: inline-block !important;
+      width: 50%;
+  }
+
+  .input-control.row {
+      margin:15px 0;
+      margin-left: 255px;
+  }
+
+  .row > button {
+      font-size: 15px;
+  }
 
 </style>

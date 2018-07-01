@@ -193,6 +193,10 @@ ul ,li{
   display: block;
 }
 
+.disib {
+  display: inline-block;
+}
+
 .pagination {
   text-align: center;
 }
