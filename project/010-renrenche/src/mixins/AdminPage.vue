@@ -5,8 +5,6 @@
   import Pagination from '../components/Pagination.vue';
   import Footer   from '../components/Footer.vue';
 
-
-
   export default {
     components : { AdminNav, Nav, Pagination, Footer },
     mounted () {
@@ -21,12 +19,12 @@
         show_form    : false, 
         current      : {},
         list         : [],
-        limit        : 5,
+        limit        : 3,
         model        : null,
       };
     },
     methods    : {
-
+      
       on_page_change (page) {
         this.read(page);
       },

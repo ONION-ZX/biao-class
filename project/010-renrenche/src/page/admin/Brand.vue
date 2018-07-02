@@ -8,24 +8,16 @@
         </div>
         <div class="col-lg-9">
           <div class="content-card">
-            <h2>用户列表</h2>
+            <h2>品牌列表</h2>
             <form @submit="search($event)">
                 <input class="search" type="search" v-model="keyword" placeholder="搜" autofocus>
                 <button type="submit" hidden>搜</button>
             </form>
-            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建用户</button>
+            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建品牌</button>
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
-                        <label>用户名</label>
-                        <input type="text" v-model="current.username">
-                    </div>
-                    <div class="input-control">
-                        <label>真实姓名</label>
-                        <input type="text" v-model="current.realname">
-                    </div>
-                    <div class="input-control">
-                        <label>密码</label>
-                        <input type="password" v-model="current.password">
+                        <label>品牌名</label>
+                        <input type="text" v-model="current.name">
                     </div>
                    <div class="input-control row">
                        <button class="btn btn-outline-secondary" type="submit">提交</button>
@@ -35,14 +27,14 @@
                 <div class="table">
                     <table v-if="!show_form">
                     <thead>
-                        <th>用户名</th>
-                        <th>真实姓名</th>
+                        <th>品牌号</th>
+                        <th>品牌</th>
                         <th>操作</th>
                     </thead>
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">
-                            <td>{{row.username}}</td>
-                            <td>{{row.realname}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.id}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
                                 <button class="btn-small operate" @click="set_current(row)">编辑</button>
@@ -52,7 +44,7 @@
               </table>
             </div>
           </div>
-          <Pagination :showForm="!show_form" :totalCount="total" :limit="limit" :onChange="on_page_change"/>
+          <Pagination v-if="!show_form" :showForm="!show_form" :totalCount="total" :limit="limit" :onChange="on_page_change"/>
         </div>
       </div>
     </div>
@@ -65,11 +57,11 @@
 
   export default {
        created() {
-           this.model = 'user';
+           this.model = 'brand';
        },
        data() {
          return {
-           searchable : ['username','realname'],
+           searchable : ['name'],
          }
        },
        mixins: [AdminPage],

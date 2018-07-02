@@ -93,7 +93,7 @@
                     </tbody>
                 </table>
             </div>
-            <Pagination :showForm="!show_form" :totalCount="total" :limit="5" :onChange="on_page_change"/>
+            <Pagination :showForm="!show_form" :totalCount="total" :limit="limit" :onChange="on_page_change"/>
         </div>
       </div>
     </div>

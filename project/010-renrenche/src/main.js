@@ -10,9 +10,11 @@ import Login from './page/Login';
 import Signup from './page/Signup';
 import Detail from './page/Detail';
 
+import Me from './page/settings/Me';
 import AdminBase from './page/admin/Base';
 import User from './page/admin/User';
 import Vehicle from './page/admin/Vehicle';
+import Brand from './page/admin/Brand';
 
 Vue.use(Router);
 
@@ -24,7 +26,7 @@ const router = new Router({
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
     { path: '/detail', component: Detail },
-
+    { path: '/me', component: Me },
     {
       path: '/admin',
       component: AdminBase,
@@ -37,6 +39,10 @@ const router = new Router({
           path: 'vehicle',
           component: Vehicle,
         },
+        {
+          path: 'brand',
+          component: Brand,
+        }
       ],
     },
   ],
