@@ -93,17 +93,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination" v-if="!show_form">
-                <button class="btn-small" @click="read(1)">First</button>
-
-                &nbsp;
-
-                <span class="btn-group">
-                    <button :key="page" v-if="Math.abs(page - current_page) < 3" @click="read(page)" :class="{active: current_page == page}" v-for="page in last_page" class="btn-small">{{page}}</button>
-                </span>
-                &nbsp;
-                <button class="btn-small" @click="read(last_page)">Last</button>
-            </div>
+            <Pagination :showForm="!show_form" :totalCount="total" :limit="5" :onChange="on_page_change"/>
         </div>
       </div>
     </div>
@@ -112,15 +102,17 @@
 
 <script>
   import '../../css/admin.css';
+  import Pagination from "../../components/Pagination.vue"
   import AdminNav from '../../components/AdminNav.vue';
   import Nav from '../../components/Nav.vue';
   import api from '../../lib/api';
   
   export default {
-    components : { AdminNav, Nav },
+    components : { AdminNav, Nav, Pagination },
 
     data() {
         return {
+            total: 0,
             last_page: 0,
             keyword: '',
             list: [],
@@ -134,11 +126,15 @@
         this.read();
     },
     methods: {
+        on_page_change(page) {
+            this.read(page);
+        },
         read(page = 1) {
-            if(page == this.current_page)
+            if(page == this.current_page && page !=1)
                 return;
             api('vehicle/read',{limit: 3, page:page})
               .then(r => {
+                  this.total = r.total;
                   this.list = r.data;
                   this.last_page = r.last_page;
                   this.current_page = r.current_page;
@@ -225,7 +221,8 @@
   }
 
   .pagination {
-      margin-left: 200px;
+      margin-top: 25px;
+      margin-bottom: 25px;
   }
 
   .btn-outline-dark {
