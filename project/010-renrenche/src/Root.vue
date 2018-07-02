@@ -22,22 +22,21 @@
 </template>
 
 <script>
-  import Vehicle from './page/admin/Vehicle'
+  import Vehicle from './page/admin/Vehicle';
+  import Base from './page/admin/Base';
   import Detail       from './page/Detail';
   import Home         from './page/Home';
   import Login        from './page/Login';
   import Signup       from './page/Signup';
   import SearchResult from './page/SearchResult';
-
   import Me from './page/settings/Me';
-
   import User from './page/admin/User';
-
   import Dropdown from './components/Dropdown';
 
   export default {
     name       : 'root',
     components : {
+      Base,
       Vehicle,
       Detail,
       Home,

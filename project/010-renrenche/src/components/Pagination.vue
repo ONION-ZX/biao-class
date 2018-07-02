@@ -1,7 +1,7 @@
 <template>
     <div class="pagination" v-if="showForm">
-        <button class="btn-small btn " @click="change(1)">First</button>
-        <button class="btn-small btn " @click="prev()">Prev</button>
+        <button :disabled="is_first_page" class="btn-small btn " @click="change(1)">First</button>
+        <button :disabled="is_first_page" class="btn-small btn " @click="prev()">Prev</button>
 
         &nbsp;
 
@@ -9,8 +9,8 @@
             <button :key="page" v-if="Math.abs(page - current_page) <= half_limit" @click="change(page)" :class="{active: current_page == page}" v-for="page in last_page" class="btn-small btn">{{page}}</button>
         </span>
         &nbsp;
-        <button class="btn-small btn " @click="next()">Next</button>
-        <button class="btn-small btn" @click="change(last_page)">Last</button>
+        <button :disabled="is_last_page" class="btn-small btn " @click="next()">Next</button>
+        <button :disabled="is_last_page" class="btn-small btn" @click="change(last_page)">Last</button>
     </div>
 </template>
 

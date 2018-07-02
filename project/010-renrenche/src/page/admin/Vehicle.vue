@@ -97,167 +97,27 @@
         </div>
       </div>
     </div>
+    <Footer/>
   </div>
 </template>
 
 <script>
-  import '../../css/admin.css';
-  import Pagination from "../../components/Pagination.vue"
-  import AdminNav from '../../components/AdminNav.vue';
-  import Nav from '../../components/Nav.vue';
-  import api from '../../lib/api';
-  
+  import AdminPage from '../../mixins/AdminPage';
+
   export default {
-    components : { AdminNav, Nav, Pagination },
-
-    data() {
-        return {
-            total: 0,
-            last_page: 0,
-            keyword: '',
-            list: [],
-            current: {},
-            edit_mode: false,
-            show_form: false,
-        };
-    },
-
-    mounted() {
-        this.read();
-    },
-    methods: {
-        on_page_change(page) {
-            this.read(page);
-        },
-        read(page = 1) {
-            if(page == this.current_page && page !=1)
-                return;
-            api('vehicle/read',{limit: 3, page:page})
-              .then(r => {
-                  this.total = r.total;
-                  this.list = r.data;
-                  this.last_page = r.last_page;
-                  this.current_page = r.current_page;
-              });
-        },
-        remove(id) {
-            api('vehicle/delete',{id})
-              .then(()=> {
-                  if(!confirm('确定要删除?'))
-                    return;
-                  this.read();
-              });
-        },
-        cou(e) {
-            let action = this.current.id ? 'update' : 'create';
-            e.preventDefault();
-            api(`vehicle/${action}`,this.current)
-              .then(()=> {
-                  this.current = {};
-                  this.read();
-              });
-        },
-        set_current(row) {
-            this.current = row;
-            this.show_form = true;
-        },
-        search(e) {
-            e.preventDefault();
-            let kwd = this.keyword;
-            let param = {
-                or: {
-                    title: kwd,
-                    description: kwd,
-                },
-            };
-            api('vehicle/search',param)
-                .then(r => {
-                    this.list = r.data;
-                });
-        },
-    },
-  };
+       created() {
+           this.model = 'vehicle';
+       },
+       data() {
+         return {
+           searchable : ['title','description'],
+         }
+       },
+       mixins: [AdminPage],
+  }
 </script>
 
 <style scoped>
-  h2 {
-    margin: 15px;
-    margin-left: 0;
-    margin-top: 5px;
-    font-size: 25px;
-    color: rgba(0,0,0,.6);
-  }
-
-  .table {
-    overflow: auto;
-  }
-
-  .operate {
-     color: rgba(0,0,0,.6);
-  }
-
-  .operate:hover {
-      background:rgba(0,0,0,.6);
-      color: #fff;
-  }
-
-  th, td {
-    font-size: 15px;
-    color: rgba(0,0,0,.6);
-    padding: 5px 10px;
-    text-align: left;
-  }
-  th {
-      font-weight: normal;
-  }
-
-
-  button {
-      border-collapse:collapse;
-      vertical-align: bottom;
-      line-height: 1.5;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.125);
-  }
-
-  .pagination {
-      margin-top: 25px;
-      margin-bottom: 25px;
-  }
-
-  .btn-outline-dark {
-      margin-top: 15px;
-      margin-bottom: 10px;
-  }
-
-  .input-control label {
-      color: rgba(0,0,0,.6);
-      font-size: 15px;
-  }
-
-  .input-control input {
-      border: 0;
-      border-bottom: 1px solid rgba(0,0,0,.2);
-      padding-left: 5px;
-      margin-bottom: 10px;
-  }
-
-  textarea {
-      width: 100%;
-  }
-
-  .disib {
-      display: inline-block !important;
-      width: 50%;
-  }
-
-  .input-control.row {
-      margin:15px 0;
-      margin-left: 255px;
-  }
-
-  .row > button {
-      font-size: 15px;
-  }
+ 
 
 </style>

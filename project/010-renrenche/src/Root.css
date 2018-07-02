@@ -234,3 +234,10 @@ h1 {
 .btn-group .btn:first-child {
   border-left-width: 1px;
 }
+
+button[disabled],
+input[disabled],
+textarea[disabled]{
+  opacity: .6;
+  cursor: not-allowed;
+}

@@ -7,36 +7,52 @@
           <AdminNav/>
         </div>
         <div class="col-lg-9">
-          <div class="content card">
+          <div class="content-card">
             <h2>用户列表</h2>
-            <div class="table">
-              <table>
-                <thead>
-                <th>用户名</th>
-                <th>手机号</th>
-                <th>邮箱</th>
-                <th>近期卖车</th>
-                <th>近期买车</th>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>whh</td>
-                  <td>18399998888</td>
-                  <td>whh@yo.com</td>
-                  <td>是</td>
-                  <td>否</td>
-                </tr>
-                <tr>
-                  <td>lsd</td>
-                  <td>18399998888</td>
-                  <td>lsd@yo.com</td>
-                  <td>是</td>
-                  <td>否</td>
-                </tr>
-                </tbody>
+            <form @submit="search($event)">
+                <input class="search" type="search" v-model="keyword" placeholder="搜" autofocus>
+                <button type="submit" hidden>搜</button>
+            </form>
+            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建用户</button>
+            <form v-if="show_form" @submit="cou($event)">
+                    <div class="input-control">
+                        <label>用户名</label>
+                        <input type="text" v-model="current.username">
+                    </div>
+                    <div class="input-control">
+                        <label>真实姓名</label>
+                        <input type="text" v-model="current.realname">
+                    </div>
+                    <div class="input-control">
+                        <label>密码</label>
+                        <input type="password" v-model="current.password">
+                    </div>
+                   <div class="input-control row">
+                       <button class="btn btn-outline-secondary" type="submit">提交</button>
+                       <button class="btn btn-outline-secondary" @click="show_form = false" type="button">取消</button>
+                   </div>
+                </form>
+                <div class="table">
+                    <table v-if="!show_form">
+                    <thead>
+                        <th>用户名</th>
+                        <th>真实姓名</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        <tr :key="index" v-for="(row,index) in list">
+                            <td>{{row.username}}</td>
+                            <td>{{row.realname}}</td>
+                            <td>
+                                <button class="btn-small operate" @click="remove(row.id)">删除</button>
+                                <button class="btn-small operate" @click="set_current(row)">编辑</button>
+                            </td>
+                        </tr>
+                    </tbody>
               </table>
             </div>
           </div>
+          <Pagination :showForm="!show_form" :totalCount="total" :limit="5" :onChange="on_page_change"/>
         </div>
       </div>
     </div>
@@ -45,33 +61,25 @@
 </template>
 
 <script>
-  import '../../css/admin.css';
-
-  import AdminNav from '../../components/AdminNav.vue';
-  import Nav      from '../../components/Nav.vue';
-  import Footer   from '../../components/Footer.vue';
+  import AdminPage from '../../mixins/AdminPage';
 
   export default {
-    components : { AdminNav, Nav, Footer },
-    data () {
-      return {
-        edit_mode : false,
-      };
-    },
-  };
+       created() {
+           this.model = 'user';
+       },
+       data() {
+         return {
+           searchable : ['username','realname'],
+         }
+       },
+       mixins: [AdminPage],
+  }
 </script>
 
 <style scoped>
-  h2 {
-    padding: 15px;
-  }
 
   .table {
     overflow: auto;
-  }
-
-  .content {
-    padding: 15px;
   }
 
   th, td {
