@@ -64,11 +64,9 @@
   import AdminPage from '../../mixins/AdminPage';
 
   export default {
-       created() {
-           this.model = 'user';
-       },
        data() {
          return {
+           model: 'user',
            searchable : ['username','realname'],
          }
        },

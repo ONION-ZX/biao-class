@@ -105,11 +105,9 @@
   import AdminPage from '../../mixins/AdminPage';
 
   export default {
-       created() {
-           this.model = 'vehicle';
-       },
        data() {
          return {
+           model: 'vehicle',
            searchable : ['title','description'],
          }
        },

@@ -8,33 +8,44 @@
         </div>
         <div class="col-lg-9">
           <div class="content-card">
-            <h2>品牌列表</h2>
+            <h2>车系列表</h2>
             <form @submit="search($event)">
                 <input class="search" type="search" v-model="keyword" placeholder="搜" autofocus>
                 <button type="submit" hidden>搜</button>
             </form>
-            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建品牌</button>
+            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建车系</button>
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
-                        <label>品牌名</label>
+                        <label>型号名</label>
                         <input type="text" v-model="current.name">
                     </div>
-                   <div class="input-control row">
-                       <button class="btn btn-outline-secondary" type="submit">提交</button>
-                       <button class="btn btn-outline-secondary" @click="show_form = false" type="button">取消</button>
-                   </div>
+                    <div class="input-control dropdown">
+                        <label>品牌</label>
+                        <Dropdown :list="brand_list" :onSelect="set_brand_id"/>
+                        <!-- <input type="text" v-model="current.name"> -->
+                    </div>
+                    <div class="input-control dropdown">
+                      <label>设计</label>
+                      <Dropdown :list="design_list" :onSelect="set_design_id"/>
+                    </div>
+                    <div class="input-control row">
+                        <button class="btn btn-outline-secondary" type="submit">提交</button>
+                        <button class="btn btn-outline-secondary" @click="clear" type="button">取消</button>
+                    </div>
                 </form>
                 <div class="table">
                     <table v-if="!show_form">
                     <thead>
-                        <th>品牌号</th>
+                        <th>型号名</th>
                         <th>品牌</th>
+                        <th>设计</th>
                         <th>操作</th>
                     </thead>
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">
                             <td>{{row.name}}</td>
-                            <td>{{row.id}}</td>
+                            <td>{{row.$brand ? row.$brand.name : '-'}}</td>
+                            <td>{{row.design ? row.$design.name: '-'}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
                                 <button class="btn-small operate" @click="set_current(row)">编辑</button>
@@ -53,16 +64,48 @@
 </template>
 
 <script>
+  import api from '../../lib/api';
+  import Dropdown  from "../../components/Dropdown";
   import AdminPage from '../../mixins/AdminPage';
 
   export default {
-       created() {
-           this.model = 'model';
-       },
+      created() {
+        this.read_brand();
+        this.read_design();
+
+      },
+      components: {Dropdown},
        data() {
          return {
+           design_list:[],
+           brand_list: [],
+           model : 'model',
            searchable : ['name'],
          }
+       },
+       methods: {
+         clear() {
+           this.show_form = false;
+           this.current = {};
+         },
+         read_brand() {
+           api('brand/read')
+              .then((r) => {
+             this.brand_list = r.data;
+          });
+         },
+         read_design() {
+           api('design/read')
+              .then((r) => {
+             this.design_list = r.data;
+          });
+         },
+         set_brand_id(row) {
+           this.$set(this.current, 'brand_id', row.id);
+         },
+         set_design_id(row) {
+           this.$set(this.current, 'design_id', row.id);
+         },
        },
        mixins: [AdminPage],
   }
@@ -77,6 +120,15 @@
   th, td {
     padding: 5px 10px;
     text-align: left;
+  }
+
+  .dropdown {
+    width: 50%;
+  }
+
+  .dropdown label {
+    padding: 5px;
+    padding-left: 0;
   }
 
 </style>

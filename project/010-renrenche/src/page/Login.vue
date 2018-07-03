@@ -3,14 +3,14 @@
         <Nav/>
         <div class="container">
             <div class="login">
-                <form class="main_form">
+                <form class="main_form" autocomplete="off">
                     <h2>登录</h2>
                     <div class="error">
                         <div>用户名或密码有误</div>
                     </div>
                     <div>
                         <label for="用户名">用户名</label>
-                        <input type="text">
+                        <input v-validate="'requried|min_length:4|max_length:6'" type="text">
                     </div>
                     <div>
                         <label for="密码">密码</label>
@@ -110,12 +110,16 @@
 <script>
   import Nav from '../components/Nav.vue';
   import Footer from '../components/Footer.vue';
+  import validator from '../directive/validator.js';
 
 
   export default {
     components : { 
         Nav,
         Footer, 
+    },
+    directives: {
+        validator
     },
   };
 

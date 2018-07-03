@@ -8,15 +8,15 @@
         </div>
         <div class="col-lg-9">
           <div class="content-card">
-            <h2>品牌列表</h2>
+            <h2>设计列表</h2>
             <form @submit="search($event)">
                 <input class="search" type="search" v-model="keyword" placeholder="搜" autofocus>
                 <button type="submit" hidden>搜</button>
             </form>
-            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建品牌</button>
+            <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建设计</button>
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
-                        <label>品牌名</label>
+                        <label>设计名</label>
                         <input type="text" v-model="current.name">
                     </div>
                    <div class="input-control row">
@@ -27,14 +27,12 @@
                 <div class="table">
                     <table v-if="!show_form">
                     <thead>
-                        <th>品牌号</th>
-                        <th>品牌</th>
+                        <th>设计名</th>
                         <th>操作</th>
                     </thead>
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">
                             <td>{{row.name}}</td>
-                            <td>{{row.id}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
                                 <button class="btn-small operate" @click="set_current(row)">编辑</button>
@@ -58,7 +56,7 @@
   export default {
        data() {
          return {
-           model: 'brand',
+           model: 'design',
            searchable : ['name'],
          }
        },

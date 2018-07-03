@@ -45,7 +45,12 @@
         if (page == this.current_page && page != 1)
           return;
 
-        api(`${this.model}/read`, { limit : this.limit, page : page })
+        api(`${this.model}/read`, { limit : this.limit, page : page,
+           with: [
+            { model: "brand", type: "has_one" },
+            { model: "design", type: "has_one" }
+            ]
+         })
           .then(r => {
             this.total        = r.total;
             this.list         = r.data;

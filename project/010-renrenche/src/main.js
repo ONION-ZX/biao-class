@@ -15,6 +15,9 @@ import AdminBase from './page/admin/Base';
 import User from './page/admin/User';
 import Vehicle from './page/admin/Vehicle';
 import Brand from './page/admin/Brand';
+import Model from './page/admin/Model';
+import Design from './page/admin/Design';
+
 
 Vue.use(Router);
 
@@ -42,6 +45,14 @@ const router = new Router({
         {
           path: 'brand',
           component: Brand,
+        },
+        {
+          path: 'model',
+          component: Model,
+        },
+        {
+          path: 'design',
+          component: Design,
         }
       ],
     },

@@ -17,7 +17,7 @@
   import Base from './page/admin/Base';
   import Brand from './page/admin/Brand';
   import User from './page/admin/User';
-  import User from './page/admin/Model';
+  import Model from './page/admin/Model';
 
   import Detail       from './page/Detail';
   import Home         from './page/Home';

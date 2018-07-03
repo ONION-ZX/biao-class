@@ -3,7 +3,9 @@
     <router-link class="nav-item" to="/admin/user">用户管理</router-link>
     <router-link class="nav-item" to="/admin/vehicle">车辆管理</router-link>
     <router-link class="nav-item" to="/admin/brand">品牌管理</router-link>
-    <router-link class="nav-item" to="/admin/model">品牌管理</router-link>
+    <router-link class="nav-item" to="/admin/model">车系管理</router-link>
+    <router-link class="nav-item" to="/admin/design">设计管理</router-link>
+
 
     <a href="#" class="nav-item">质检管理</a>
   </div>

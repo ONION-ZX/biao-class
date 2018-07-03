@@ -1,24 +1,33 @@
-<script src="../node_modules/axios/dist/axios.js"></script>
-<script src="../lib/api.js"></script>
+<script src="../../node_modules/axios/dist/axios.js"></script>
+<script src="./api.js"></script>
 <script>
     let model = {
-        name: 'model', //车型
+        name: 'model',
         structure: {
             name: { // 型号
                 type: 'string',
                 nullable: false,
             },
             brand_id: { // 品牌id
-                type: 'string',
-                posotive: true,
+                type: 'integer',
+                positive: true,
                 nullable: false,
             },
         },
     };
 
-    // api('MODEL/CREATE', model);
+    // api('MODEL/CREATE_PROPERTY', {
+    //     model: 'model',
+    //     property: 'design_id',
+    //     structure: {
+    //         type: 'integer',
+    //         positive: true,
+    //     },
+    // }); 
 
-     api('MODEL/READ', model);
+//   api('MODEL/CREATE', model);
 
-//   api('MODEL/DELETE', { name : 'model' });
+  api('MODEL/READ',model);
+
+  // api('MODEL/DELETE', { name : 'model' });
 </script>
