@@ -4,7 +4,7 @@
     backgroundColor: this.black ? 'black': 'white',
   }" class="main-nav">
       <div class="col left">
-        <a class="logo"><img src="../assets/logo.png"></a>
+        <router-link to="/" class="logo"><img src="../assets/logo.png"></router-link>
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item">Item</a>
