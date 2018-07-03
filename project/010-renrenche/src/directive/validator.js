@@ -9,16 +9,15 @@ function parse_str_rule(str) {
         let val = arr[1];
 
         val = val === undefined ? true : val;
-        
         rule[key] = val;
     });
     return rule;
 }
 
-const validate = {
+const validates = {
     username() {},
     required(val) {
-        if(typeof val === 'number')
+        if(typeof val == 'number')
             return true;
         return !!val;
     },
@@ -35,17 +34,16 @@ export default Vue.directive('validate',{
         let rule = parse_str_rule(binding.value);
         el.addEventListener('keyup', () => {
             let val = el.value;
-
             for(let key in rule) {
-                let validator = validate[key];
+                let validator = validates[key];
                 let argument = rule[key];
 
-                if(validator && validator(val, argument)) {
-                    console.log(key + '不合法');
+                if(validator && !validator(val, argument)) {
+                    console.log(key + '不合法')
                 } else {
-                    console.log(key + '合法');
+                    console.log(key + '合法')
                 }
             }
-        })
+        });
     }
 })
