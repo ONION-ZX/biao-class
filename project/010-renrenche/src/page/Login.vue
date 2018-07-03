@@ -5,7 +5,7 @@
             <div class="login">
                 <form class="main_form" autocomplete="off">
                     <h2>登录</h2>
-                    <div class="error">
+                    <div class="error" hidden>
                         <div>用户名或密码有误</div>
                     </div>
                     <div>
@@ -74,8 +74,9 @@
     }
 
     .main_form button {
+        margin-top: 10px;
         padding: 5px;
-        background:#fd521d;
+        background:rgba(0,0,0,.5);
         color: #fff;
         box-shadow: 0;
         border:0;
