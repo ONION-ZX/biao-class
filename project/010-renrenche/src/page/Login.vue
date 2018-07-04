@@ -10,7 +10,7 @@
                     </div>
                     <div>
                         <label for="用户名">用户名</label>
-                        <input v-validate="'required|min_length:4|max_length:6'" type="text">
+                        <input v-validator="'required'" id="username" type="text" placeholder="用户名">
                     </div>
                     <div>
                         <label for="密码">密码</label>

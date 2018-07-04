@@ -21,12 +21,12 @@
                     </div>
                     <div class="input-control dropdown">
                         <label>品牌</label>
-                        <Dropdown :list="brand_list" :onSelect="set_brand_id"/>
+                        <Dropdown :list="brand_list" :onSelect="set_brand_id" ref="edit_brand"/>
                         <!-- <input type="text" v-model="current.name"> -->
                     </div>
                     <div class="input-control dropdown">
                       <label>设计</label>
-                      <Dropdown :list="design_list" :onSelect="set_design_id"/>
+                      <Dropdown :list="design_list" :onSelect="set_design_id" ref="edit_design"/>
                     </div>
                     <div class="input-control row">
                         <button class="btn btn-outline-secondary" type="submit">提交</button>
@@ -45,10 +45,10 @@
                         <tr :key="index" v-for="(row,index) in list">
                             <td>{{row.name}}</td>
                             <td>{{row.$brand ? row.$brand.name : '-'}}</td>
-                            <td>{{row.design ? row.$design.name: '-'}}</td>
+                            <td>{{row.$design ? row.$design.name: '-'}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
-                                <button class="btn-small operate" @click="set_current(row)">编辑</button>
+                                <button class="btn-small operate" @click="update(row)">编辑</button>
                             </td>
                         </tr>
                     </tbody>
@@ -74,6 +74,9 @@
         this.read_design();
 
       },
+      mounted() {
+        console.log(this.$refs);
+      },
       components: {Dropdown},
        data() {
          return {
@@ -81,6 +84,10 @@
            brand_list: [],
            model : 'model',
            searchable : ['name'],
+           with       : [
+          { model : 'brand', type : 'has_one' },
+          { model : 'design', type : 'has_one' },
+          ],
          }
        },
        methods: {

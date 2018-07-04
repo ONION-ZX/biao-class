@@ -74,6 +74,15 @@
         this.show_form = true;
       },
 
+      update(row) {
+      this.current = row;
+      this.show_form = true;
+      this.$nextTick(()=>{
+        this.$refs.edit_brand.on_edit(row.$brand);
+        this.$refs.edit_design.on_edit(row.$design);
+      });
+    },
+
       search (e) {
         e.preventDefault();
 

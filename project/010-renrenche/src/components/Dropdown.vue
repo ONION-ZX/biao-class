@@ -1,8 +1,8 @@
 <template>
   <div @mouseleave="show_menu=false" class="dropdown">
-    <div @mouseenter="show_menu=true" class="selected">{{selected[displayKey] || '请选择'}}</div>
+    <div @mouseenter="show_menu=true" class="selected">{{selected ? selected[displayKey] : '请选择'}}</div>
     <div v-if="show_menu" class="menu">
-      <div :key="index" @click="select(row)" v-for="(row,index) in list">{{row[displayKey]}}</div>
+      <div ref="p" :key="index" @click="select(row)" v-for="(row, index) in list">{{row[displayKey]}}</div>
     </div>
   </div>
 </template>
@@ -29,6 +29,11 @@
         if (this.onSelect)
           this.onSelect(row);
       },
+      on_edit(row) {
+        if(!row)
+          this.selected = {};
+        this.selected = row;
+      }
     },
   };
 </script>

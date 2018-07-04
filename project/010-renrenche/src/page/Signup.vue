@@ -3,14 +3,16 @@
         <Nav/>
         <div class="container">
             <div class="login">
-                <form class="main_form">
+                <form class="main_form" autocomplete="off">
                     <h2>欢迎注册羊羊车</h2>
-                    <div class="error">
-                        <div>用户名或密码不合法</div>
+                    <div class="error-list">
+                        <div id="username-error"></div>
                     </div>
                     <div>
                         <label for="用户名">用户名</label>
-                        <input type="text">
+                        <input v-validator="'required|min_length:4|max_length:6|username'" 
+                               type="text"
+                               error-el="#username-error">
                     </div>
                     <div>
                         <label for="密码">密码</label>
@@ -27,6 +29,15 @@
         <Footer/>
     </div>
 </template>
+
+<script>
+  import validator from '../directive/validator.js';
+  export default {
+      directives : {
+          validator,
+      }
+  }
+</script>
 
 <style scoped>
     .container {

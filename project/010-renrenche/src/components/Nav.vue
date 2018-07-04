@@ -2,7 +2,8 @@
   <div :style="{
     marginBottom: this.pushDown ? '20px': '0',
     backgroundColor: this.black ? 'black': 'white',
-  }" class="main-nav">
+    }" 
+      class="main-nav">
       <div class="col left">
         <router-link to="/" class="logo"><img src="../assets/logo.png"></router-link>
         <a href="#" class="nav-item">Item</a>
