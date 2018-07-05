@@ -31,19 +31,19 @@
                         <label>价格</label>
                         <input error-el="#price-error" v-validator="'positive'" type="number" v-model="current.price">
                     </div>
-                    <div class="input-control">
+                    <div class="input-control disib">
                         <label>发布人</label>
                         <Dropdown :list = "user_list" displayKey="username"/>
                     </div>
-                    <div class="input-control">
+                    <div class="input-control disib">
                         <label>品牌</label>
                         <Dropdown :list = "brand_list"/>
                     </div>
-                    <div class="input-control">
+                    <div class="input-control disib">
                         <label>设计</label>
                         <Dropdown :list = "design_list"/>
                     </div>
-                    <div class="input-control">
+                    <div class="input-control disib">
                         <label>车系</label>
                         <Dropdown :list = "model_list"/>
                     </div>
@@ -90,7 +90,7 @@
                        <button class="btn btn-outline-secondary" @click="show_form = false" type="button">取消</button>
                    </div>
                 </form>
-                <table v-if="!show_form">
+                <table class="table" v-if="!show_form">
                     <thead>
                         <th>标题</th>
                         <th>价格</th>
@@ -182,6 +182,15 @@
 </script>
 
 <style scoped>
- 
+ .disib {
+     width: 15%;
+     margin-top: 5px;
+     display: inline-block;
+     margin-bottom: 15px;
+ }
 
+ .disib label {
+     padding-left: 10px;
+     padding-bottom: 5px;
+ }
 </style>

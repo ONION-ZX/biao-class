@@ -17,7 +17,7 @@
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
                         <label>用户名</label>
-                        <input type="text" v-model="current.username">
+                        <input v-validator="rule" type="text" v-model="current.username">
                     </div>
                     <div class="input-control">
                         <label>真实姓名</label>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="input-control">
                         <label>密码</label>
-                        <input type="password" v-model="current.password">
+                        <input v-validator="'required|min_length:6|max_length:64'" type="password" v-model="current.password">
                     </div>
                    <div class="input-control row">
                        <button class="btn btn-outline-secondary" type="submit">提交</button>
@@ -70,6 +70,25 @@
            searchable : ['username','realname'],
          }
        },
+       computed : {
+      rule () {
+        let def = {
+          required   : true,
+          username   : true,
+          min_length : 4,
+          max_length : 18,
+          not_exist  : [ 'user', 'username' ],
+        };
+
+        if (this.is_update()) {
+          def.not_exist.push(this.current.username);
+        }
+
+        console.log('def:', def);
+
+        return def;
+      },
+    },
        mixins: [AdminPage],
   }
 </script>

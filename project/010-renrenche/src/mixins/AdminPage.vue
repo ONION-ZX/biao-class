@@ -5,8 +5,10 @@
   import Pagination from '../components/Pagination.vue';
   import Footer   from '../components/Footer.vue';
   import Dropdown from '../components/Dropdown.vue';
+  import validator from '../directive/validator';
 
   export default {
+    directives: {validator},
     components : { AdminNav, Nav, Pagination, Footer, Dropdown },
     mounted () {
       this.read();
@@ -82,6 +84,9 @@
           this.$refs.edit_brand.on_edit(row.$brand);
         })
       },
+      is_update() {
+        return !!this.current.id;
+      },
 
       search (e) {
         e.preventDefault();
@@ -104,7 +109,6 @@
   </script>
 
   <style>
-    .error-list {
       .error {
         height: 35px;
         font-size: 13px;
@@ -113,6 +117,5 @@
         padding: 10px;
         margin-bottom: 10px;
     }
-
-    }
+    
   </style>

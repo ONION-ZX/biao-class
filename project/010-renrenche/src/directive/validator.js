@@ -13,7 +13,6 @@ function parse_string_rule(str) {
             if (val)
                 val = val.split(',');
 
-            // 如果只有键没有值，例子：'required'，那么val就等于true
             val = val === undefined ? true : val;
 
             rule[key] = val;
@@ -24,11 +23,6 @@ function parse_string_rule(str) {
 
 // 各种验证规则
 const valid = {
-    /**
-     * 是否为正数
-     * @param val
-     * @param lang
-     */
     max(val, lang, max) {
         const lang_conf = {
             zh: '最大值为：' + max,
@@ -40,11 +34,6 @@ const valid = {
 
         return true;
     },
-    /**
-     * 是否为正数
-     * @param val
-     * @param lang
-     */
     positive(val, lang) {
         const lang_conf = {
             zh: '不合法的数字',
@@ -56,11 +45,6 @@ const valid = {
 
         return true;
     },
-    /**
-     * 是否为数字
-     * @param val
-     * @param lang
-     */
     numeric(val, lang) {
         const lang_conf = {
             zh: '不合法的数字',
@@ -73,11 +57,6 @@ const valid = {
         return true;
     },
 
-    /**
-     * 验证用户名格式
-     * @param val
-     * @return {boolean}
-     */
     username(val, lang) {
         const lang_conf = {
             zh: '用户名不合法，只能包含字母和数字',
@@ -93,9 +72,9 @@ const valid = {
         return r;
     },
 
-    not_exist(val, lang, model, property) {
+    not_exist(val, lang, model, property, except) {
         return new Promise((s, j) => {
-            if (!val)
+            if (!val || val == except)
                 s();
 
             return api(`${model}/first`, { where: { and: { [property]: val } } })
@@ -167,14 +146,6 @@ const valid = {
         return r;
     },
 };
-
-/**
- * 设置表单是否合法，其实就是更新form_valid全文变量
- * @param valid
- */
-// function set_form_valid (valid) {
-//   form_valid = valid;
-// }
 
 /**
  * 检查所有input是否合法（即有没有invalid属性）

@@ -8,7 +8,8 @@
     { name : '赵可爽', value : 3 , nickname: '赵那个可爽'},
     { name : '刘备备', value : 4 , nickname: '刘那个备备'},
     ]"/>  -->
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
+    <Location/>
   </div>
 </template>
 
@@ -26,6 +27,7 @@
   import SearchResult from './page/SearchResult';
   import Me from './page/settings/Me';
   import Dropdown from './components/Dropdown';
+  import Location from './components/Location';
 
   export default {
     name       : 'root',
@@ -42,6 +44,7 @@
       User,
       Me,
       Dropdown,
+      Location,
     },
   };
 </script>

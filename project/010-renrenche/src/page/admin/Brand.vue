@@ -17,7 +17,7 @@
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
                         <label>品牌名</label>
-                        <input type="text" v-model="current.name">
+                        <input v-validator="'required|max_length:64|'" type="text" v-model="current.name">
                     </div>
                    <div class="input-control row">
                        <button class="btn btn-outline-secondary" type="submit">提交</button>
@@ -27,8 +27,8 @@
                 <div class="table">
                     <table v-if="!show_form">
                     <thead>
-                        <th>品牌号</th>
                         <th>品牌</th>
+                        <th>品牌号</th>
                         <th>操作</th>
                     </thead>
                     <tbody>

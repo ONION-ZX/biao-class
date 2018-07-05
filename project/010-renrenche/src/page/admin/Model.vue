@@ -17,16 +17,16 @@
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
                         <label>型号名</label>
-                        <input type="text" v-model="current.name">
+                        <input v-validator="'required|max_length:64'" type="text" v-model="current.name">
                     </div>
                     <div class="input-control dropdown">
                         <label>品牌</label>
-                        <Dropdown :list="brand_list" :onSelect="set_brand_id" ref="edit_brand"/>
+                        <Dropdown :default="current.brand_id" :list="brand_list" :onSelect="set_brand_id" ref="edit_brand"/>
                         <!-- <input type="text" v-model="current.name"> -->
                     </div>
                     <div class="input-control dropdown">
                       <label>设计</label>
-                      <Dropdown :list="design_list" :onSelect="set_design_id" ref="edit_design"/>
+                      <Dropdown :default="current.design_id" :list="design_list" :onSelect="set_design_id" ref="edit_design"/>
                     </div>
                     <div class="input-control row">
                         <button class="btn btn-outline-secondary" type="submit">提交</button>
