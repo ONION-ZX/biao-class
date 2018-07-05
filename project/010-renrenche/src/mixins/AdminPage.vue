@@ -4,9 +4,10 @@
   import Nav        from '../components/Nav.vue';
   import Pagination from '../components/Pagination.vue';
   import Footer   from '../components/Footer.vue';
+  import Dropdown from '../components/Dropdown.vue';
 
   export default {
-    components : { AdminNav, Nav, Pagination, Footer },
+    components : { AdminNav, Nav, Pagination, Footer, Dropdown },
     mounted () {
       this.read();
     },
@@ -73,15 +74,14 @@
         this.current   = row;
         this.show_form = true;
       },
-
       update(row) {
-      this.current = row;
-      this.show_form = true;
-      this.$nextTick(()=>{
-        this.$refs.edit_brand.on_edit(row.$brand);
-        this.$refs.edit_design.on_edit(row.$design);
-      });
-    },
+        this.current = row;
+        this.show_form = true;
+        this.$nextTick(() => {
+          this.$refs.edit_design.on_edit(row.$design);
+          this.$refs.edit_brand.on_edit(row.$brand);
+        })
+      },
 
       search (e) {
         e.preventDefault();
@@ -102,3 +102,17 @@
     },
   };
   </script>
+
+  <style>
+    .error-list {
+      .error {
+        height: 35px;
+        font-size: 13px;
+        background:#f5a6a6;
+        color:brown;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    }
+  </style>

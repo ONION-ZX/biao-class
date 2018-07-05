@@ -74,9 +74,7 @@
         this.read_design();
 
       },
-      mounted() {
-        console.log(this.$refs);
-      },
+
       components: {Dropdown},
        data() {
          return {

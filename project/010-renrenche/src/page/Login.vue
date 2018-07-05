@@ -4,10 +4,10 @@
         <div class="container">
             <div class="login">
                 <form class="main_form" autocomplete="off">
-                    <h2>登录</h2>
-                    <div class="error" hidden>
+                    <div class="error-list" hidden>
                         <div>用户名或密码有误</div>
                     </div>
+                    <h2>登录</h2>
                     <div>
                         <label for="用户名">用户名</label>
                         <input v-validator="'required'" id="username" type="text" placeholder="用户名">
@@ -16,7 +16,7 @@
                         <label for="密码">密码</label>
                         <input type="password">
                     </div>
-                    <button class="db">登录</button>
+                    <button type="submit" class="db">登录</button>
                     <span>没有账号?<a>注册</a></span>
                 </form>
             </div>
@@ -96,16 +96,6 @@
         cursor: pointer;
         color: grey;
     }
-
-    .error {
-        height: 35px;
-        font-size: 13px;
-        background:#f5a6a6;
-        color:brown;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
 </style>
 
 <script>

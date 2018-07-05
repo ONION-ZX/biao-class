@@ -5,7 +5,7 @@
             <div class="login">
                 <form class="main_form" autocomplete="off">
                     <h2>欢迎注册羊羊车</h2>
-                    <div class="error-list">
+                    <div class="error">
                         <div id="username-error"></div>
                     </div>
                     <div>
@@ -15,14 +15,14 @@
                                error-el="#username-error">
                     </div>
                     <div>
-                        <label for="密码">密码</label>
+                        <label v-validator="'required'" for="密码">密码</label>
                         <input type="password">
                     </div>
                     <div>
-                        <label for="密码">重复密码</label>
+                        <label v-validator="'required'" for="密码">重复密码</label>
                         <input type="password">
                     </div>
-                    <button class="db">注册</button>
+                    <button type="submit" class="db">注册</button>
                 </form>
             </div>
         </div>
@@ -64,7 +64,6 @@
 
     .main_form {
         position: relative;
-        padding: 25px;
         top: 50px; 
         background: #fff;
         margin-right: auto;
@@ -88,21 +87,21 @@
 
     .main_form button {
         padding: 5px;
-        background:#fd521d;
+        background:rgba(0,0,0,.7);
         color: #fff;
         box-shadow: 0;
         border:0;
         margin-top: 10px;
     }
 
-    .error {
+    /*.error {
         height: 35px;
         font-size: 13px;
         background:#f5a6a6;
         color:brown;
         padding: 10px;
         margin-bottom: 10px;
-    }
+    }*/
 
 </style>
 

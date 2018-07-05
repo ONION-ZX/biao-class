@@ -18,7 +18,7 @@
     },
     data () {
       return {
-        selected  : {},
+        selected  : '',
         show_menu : false,
       };
     },
@@ -33,7 +33,7 @@
         if(!row)
           this.selected = {};
         this.selected = row;
-      }
+      },
     },
   };
 </script>

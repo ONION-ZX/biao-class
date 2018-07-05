@@ -16,25 +16,49 @@
                 <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建二手车</button>
 
                 <form v-if="show_form" @submit="cou($event)">
+                    <div class="error-list">
+                        <div id="exchange_times-error"></div>
+                        <div id="publish_reason-error"></div>
+                        <div id="price-error"></div>
+                        <div id="title-error"></div>
+                        <div id="condition-error"></div>
+                    </div>
                     <div class="input-control">
                         <label>标题</label>
-                        <input type="text" v-model="current.title">
+                        <input error-el="#title-error" v-validator="'required|min_length:4|max_length:15'" type="text" v-model="current.title">
                     </div>
                     <div class="input-control">
                         <label>价格</label>
-                        <input type="number" v-model="current.price">
+                        <input error-el="#price-error" v-validator="'positive'" type="number" v-model="current.price">
+                    </div>
+                    <div class="input-control">
+                        <label>发布人</label>
+                        <Dropdown :list = "user_list" displayKey="username"/>
+                    </div>
+                    <div class="input-control">
+                        <label>品牌</label>
+                        <Dropdown :list = "brand_list"/>
+                    </div>
+                    <div class="input-control">
+                        <label>设计</label>
+                        <Dropdown :list = "design_list"/>
+                    </div>
+                    <div class="input-control">
+                        <label>车系</label>
+                        <Dropdown :list = "model_list"/>
                     </div>
                     <div class="input-control">
                         <label>卖车原因</label>
-                        <input type="text" v-model="current.publish_reason">
+                        <input v-validator="'max_length:140'" error-el="#publist_reason-error" type="text" v-model="current.publish_reason">
                     </div>
                     <div class="input-control">
                         <label>当前里程</label>
-                        <input type="number" v-model="current.consumed_distance">
+                        <input error-el="#consumed_distance-error" v-validator="'positive'" type="number" v-model="current.consumed_distance">
                     </div>
                     <div class="input-control">
                         <label>过户次数</label>
-                        <input type="number" v-model="current.exchange_times">
+                        <input v-validator="'positive'"
+                       error-el="#exchange_times-error" type="number" v-model="current.exchange_times">
                     </div>
                     <div class="input-control">
                         <label>首次上牌时间</label>
@@ -46,11 +70,12 @@
                     </div>
                     <div class="input-control">
                         <label>车况</label>
-                        <input type="number" v-model="current.condition">
+                        <input v-validator="'positive|max:9'"
+                       error-el="#condition-error" type="number" v-model="current.condition">
                     </div>
                     <div class="input-control">
                         <label>描述</label>
-                        <textarea v-model="current.description"></textarea>
+                        <textarea v-validator="'max_length:10000'" v-model="current.description"></textarea>
                     </div>
                    <div class="input-control">
                        <label class="disib">促销
@@ -102,14 +127,55 @@
 </template>
 
 <script>
+/* eslint-disable */
+
+  import api from "../../lib/api";
   import AdminPage from '../../mixins/AdminPage';
+  import Dropdown  from "../../components/Dropdown";
+
 
   export default {
+      mounted() {
+          this.list_user();
+          this.list_brand();
+          this.list_design();
+          this.list_model();
+      },
        data() {
          return {
+           user_list: [],
+           model_list: [],
+           design_list: [],
+           brand_list: [],
            model: 'vehicle',
            searchable : ['title','description'],
          }
+       },
+       methods: {
+           list_user() {
+               api('user/read')
+                .then(r => {
+                    this.user_list = r.data;
+                });
+           },
+           list_model() {
+               api('model/read')
+                .then(r => {
+                   this.model_list = r.data;
+               });
+           },
+           list_design() {
+               api('design/read')
+                .then(r => {
+                    this.design_list = r.data;
+                });
+           },
+           list_brand() {
+               api('brand/read')
+                .then(r => {
+                    this.brand_list = r.data;
+                });
+           },
        },
        mixins: [AdminPage],
   }
