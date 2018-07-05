@@ -8,7 +8,7 @@
     { name : '赵可爽', value : 3 , nickname: '赵那个可爽'},
     { name : '刘备备', value : 4 , nickname: '刘那个备备'},
     ]"/>  -->
-    <!-- <router-view></router-view> -->
+    <router-view></router-view>
     <Location/>
   </div>
 </template>

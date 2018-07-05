@@ -1,17 +1,34 @@
 <template>
-  <div @mouseleave="show_menu=false" class="dropdown">
-    <div @click="show_menu=true" class="selected">{{selected ? selected[displayKey] : '请选择'}}</div>
-    <div v-if="show_menu" class="menu">
-      <div class="item" ref="p" :key="index" @click="select(row)" v-for="(row, index) in list">{{row[displayKey]}}</div>
+   <div @mouseleave="show_menu=false" class="dropdown">
+    <input v-if="api"
+           @keyup="show_menu=true"
+           v-model="keyword"
+           type="search">
+    <div v-if="list.length" @click="show_menu=true"
+         class="selected">
+      {{selected ? selected[displayKey] : '请选择'}}
+     </div>
+    <div v-if="show_menu && result.length" class="menu">
+      <div :key="index" @click="select(row)" class="menu-item" v-for="(row,index) in result">{{row[displayKey]}}</div>
     </div>
-  </div>
-</template>
+   </div>
+ </template>
 
 <script>
 /* eslint-disable */
+  import api from '../lib/api';
   export default {
+    mounted() {
+      let list = this.list;
+      list && (this.result = this.list);
+    },
     props   : {
-      list       : {},
+      api: {},
+      list       : {
+        default() {
+          return [];
+        },
+      },
       onSelect   : {},
       displayKey : {
         default : 'name',
@@ -19,14 +36,18 @@
     },
     data () {
       return {
+        result: [],
+        keyword: '',
         selected  : '',
         show_menu : false,
+        timer: null,
       };
     },
     methods : {
       select (row) {
         this.selected = row;
         this.show_menu = false;
+        this.keyword = row[this.displayKey];
 
         if (this.onSelect)
           this.onSelect(row);
@@ -38,11 +59,21 @@
       },
     },
     watch : {
-      default : {
-        deep : true,
-        handler () {
-          this.set_default();
-        },
+      keyword () {
+
+        let condition = {};
+        this.api.property.forEach(prop => {
+          condition[ prop ] = this.keyword;
+        });
+
+        clearTimeout(this.timer);
+
+        this.timer = setTimeout(() => {
+          api(`${this.api.model}/search`, { or : condition })
+            .then(r => {
+              this.result = r.data;
+            });
+        }, 300);
       },
     },
   };

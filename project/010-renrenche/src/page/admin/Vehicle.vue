@@ -33,19 +33,19 @@
                     </div>
                     <div class="input-control disib">
                         <label>发布人</label>
-                        <Dropdown :list = "user_list" displayKey="username"/>
+                        <Dropdown :api="{model:'user',property: ['username','realname']}" :list = "user_list" displayKey="username"/>
                     </div>
                     <div class="input-control disib">
                         <label>品牌</label>
-                        <Dropdown :list = "brand_list"/>
+                        <Dropdown :api="{model:'brand',property:['name']}" :list = "brand_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>设计</label>
-                        <Dropdown :list = "design_list"/>
+                        <Dropdown :api="{model:'design',property:['name']}" :list = "design_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>车系</label>
-                        <Dropdown :list = "model_list"/>
+                        <Dropdown :api="{model:'model',property:['name']}" :list = "model_list"/>
                     </div>
                     <div class="input-control">
                         <label>卖车原因</label>

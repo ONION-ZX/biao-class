@@ -1,20 +1,20 @@
 <template>
   <div class="location">
     <div class="step">
-      <div :class="{active: lo.id == current.city, item:true}" @click="select(lo, 'city')"
-           v-for="lo in
+      <div :key="index" :class="{active: lo.id == current.city, item:true}" @click="select(lo, 'city')"
+           v-for="(lo,index) in
       location.state">{{lo.name}}
       </div>
     </div>
     <div class="step">
-      <div :class="{active: lo.id == current.county, item:true}" @click="select(lo, 'county')"
-           v-for="lo in
+      <div :key="index" :class="{active: lo.id == current.county, item:true}" @click="select(lo, 'county')"
+           v-for="(lo,index) in
       location.city">{{lo.name}}
       </div>
     </div>
     <div class="step">
-      <div :class="{active: lo.id == current.county, item:true}" @click="select(lo)"
-           v-for="lo in location.county">{{lo.name}}
+      <div :key="index" :class="{active: lo.id == current.county, item:true}" @click="select(lo)"
+           v-for="(lo,index) in location.county">{{lo.name}}
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@
   }
 
   .location .item.active {
-    background: #fd521d;
+    background: rgba(0,0,0,.3);
     color: #fff;
   }
 </style>
