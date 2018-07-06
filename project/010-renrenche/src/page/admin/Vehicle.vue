@@ -31,6 +31,17 @@
                         <label>价格</label>
                         <input error-el="#price-error" v-validator="'positive'" type="number" v-model="current.price">
                     </div>
+                    <div class="input-control">
+                        <label>封面地址</label>
+                        <div style="margin-botton: 5px">
+                            <div :key="i" v-for="(p,i) in current.preview" class="input-group-3">
+                                <input type="text" placeholder="部位" v-model="p.name">
+                                <input type="url" placeholder="图片地址" v-model="p.url">
+                                <button @click="current.preview.splice(i, 1)" type="button">-</button>
+                            </div>
+                        </div>
+                        <button @click="current.preview.push({})" type="button">+</button>
+                    </div>
                     <div class="input-control disib">
                         <label>发布人</label>
                         <Dropdown :api="'user.username,realname'" :list = "user_list" displayKey="username"/>
@@ -143,6 +154,9 @@
       },
        data() {
          return {
+           current: {
+               preview: [],
+           },
            user_list: [],
            model_list: [],
            design_list: [],
@@ -152,6 +166,9 @@
          }
        },
        methods: {
+           after_set_current() {
+               this.current.preview = this.current.preview || []; 
+           },
            list_user() {
                api('user/read')
                 .then(r => {
@@ -182,6 +199,7 @@
 </script>
 
 <style scoped>
+
  .disib {
      width: 15%;
      margin-top: 5px;

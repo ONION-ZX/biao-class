@@ -216,9 +216,22 @@ h1 {
   font-weight: 500;
 }
 
+.input-control {
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.input-control.row {
+  border-bottom: 0;
+}
+
 .input-control label {
+  padding-top: 5px;
   display: block;
-  margin-bottom: 2px;
+  /* margin-bottom: 2px; */
+}
+
+.input-control.disib {
+  border-bottom: 0;
 }
 
 .btn-small {
@@ -245,4 +258,8 @@ textarea[disabled]{
 
 .dropdown {
   display: inline-block;
+}
+
+textarea {
+  border: 0;
 }

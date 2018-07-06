@@ -1,13 +1,9 @@
 <template>
    <div @mouseleave="show_menu=false" class="dropdown">
-    <input v-if="api"
-           @keyup="show_menu=true"
+    <input @keyup="show_menu=true"
            v-model="keyword"
+           @focus="show_menu=true"
            type="search">
-    <div v-if="list.length" @click="show_menu=true"
-         class="selected">
-      {{selected ? selected[displayKey] : '请选择'}}
-     </div>
     <div v-if="show_menu && result.length" class="menu">
       <div :key="index" @click="select(row)" class="menu-item" v-for="(row,index) in result">{{row[displayKey]}}</div>
     </div>
@@ -21,7 +17,7 @@
     mounted() {
       let list = this.list;
       this.api_conf = this.parse_api();
-      list && (this.result = this.list);
+      list && (this.result = Object.assign([], this.list));
     },
     props   : {
       api: {},
@@ -74,11 +70,15 @@
           this.selected = {};
         this.selected = row;
       },
-    },
-    watch : {
-      keyword () {
+      search () {
         let condition = {};
-        this.api_conf.property.forEach(prop => {
+
+        let property = this.api_conf.property;
+
+        if (!property)
+          return;
+
+        property.forEach(prop => {
           condition[ prop ] = this.keyword;
         });
 
@@ -90,10 +90,23 @@
               this.result = r.data;
             });
         }, 300);
-
       },
     },
-  };
+      filter () {
+        this.result = Object.assign([], this.list);
+        this.result = this.result.filter(row => {
+          return row[ this.displayKey ].indexOf(this.keyword) !== -1;
+        });
+      },
+      watch : {
+      keyword() {
+        if(this.api)
+          this.search();
+        else 
+          this.filter();
+      }
+    },
+    }
 </script>
 
 <style scoped>

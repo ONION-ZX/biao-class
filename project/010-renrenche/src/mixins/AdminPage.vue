@@ -75,6 +75,9 @@
       set_current (row) {
         this.current   = row;
         this.show_form = true;
+
+        if(this.after_set_current)
+          this.after_set_current();
       },
       update(row) {
         this.current = row;
@@ -117,5 +120,4 @@
         padding: 10px;
         margin-bottom: 10px;
     }
-    
   </style>
