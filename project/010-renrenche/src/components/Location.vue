@@ -114,7 +114,6 @@
       sort (list) {
         list.forEach(row => {
           let sub = this.location[ row.type ];
-          console.log('row.type:', row.type);
           sub.push(row);
         });
       },

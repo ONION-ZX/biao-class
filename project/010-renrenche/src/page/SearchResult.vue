@@ -66,12 +66,6 @@
           <div class="kill-space filter">
             <div class="col-lg-1 prop">更多</div>
             <div class="col-lg-10 range">
-              <Dropdown :onSelect="yo" :list="tmp"/>
-              <Dropdown :onSelect="yo" :list="tmp"/>
-              <Dropdown :onSelect="yo" :list="tmp"/>
-              <Dropdown :onSelect="yo" :list="tmp"/>
-              <Dropdown :onSelect="yo" :list="tmp"/>
-              <Dropdown :onSelect="yo" :list="tmp"/>
             </div>
             <div class="col-lg-1 right others">
               <button>全部</button>
@@ -239,12 +233,7 @@
     components : { Nav, SearchBar, Dropdown ,Footer },
     data () {
       return {
-        tmp : [
-          { name : '王花花', value : 1 },
-          { name : '李拴蛋', value : 2 },
-          { name : '赵可爽', value : 3 },
-          { name : '刘备备', value : 4 },
-        ],
+        
       };
     },
   };

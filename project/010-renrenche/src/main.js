@@ -17,6 +17,7 @@ import Vehicle from './page/admin/Vehicle';
 import Brand from './page/admin/Brand';
 import Model from './page/admin/Model';
 import Design from './page/admin/Design';
+import SearchResult from './page/SearchResult';
 
 
 Vue.use(Router);
@@ -30,6 +31,7 @@ const router = new Router({
     { path: '/signup', component: Signup },
     { path: '/detail', component: Detail },
     { path: '/me', component: Me },
+    { path: '/search-result', component: SearchResult},
     {
       path: '/admin',
       component: AdminBase,

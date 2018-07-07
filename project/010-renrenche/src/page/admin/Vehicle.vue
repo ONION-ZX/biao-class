@@ -38,9 +38,9 @@
                                 <input type="text" placeholder="部位" v-model="p.name">
                                 <input type="url" placeholder="图片地址" v-model="p.url">
                                 <button @click="current.preview.splice(i, 1)" type="button">-</button>
+                                <button @click="current.preview.push({})" type="button">+</button>
                             </div>
                         </div>
-                        <button @click="current.preview.push({})" type="button">+</button>
                     </div>
                     <div class="input-control disib">
                         <label>发布人</label>
@@ -73,11 +73,11 @@
                     </div>
                     <div class="input-control">
                         <label>首次上牌时间</label>
-                        <input type="datetime-local" v-model="current.birthday">
+                        <input type="date" v-model="current.birthday">
                     </div>
                     <div class="input-control">
                         <label>预期出售时间</label>
-                        <input type="text" v-model="current.deadline">
+                        <input type="date" v-model="current.deadline">
                     </div>
                     <div class="input-control">
                         <label>车况</label>
@@ -120,7 +120,7 @@
                             <td>{{row.deadline || '-'}}</td>
                             <td>{{row.condition ? row.condition + '成心': '-'}}</td>
                             <td>{{row.exchange_times || '-'}}</td>
-                            <td>{{row.on_sale || '-'}}</td>
+                            <td>{{row.on_sale ? '是': '否'}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
                                 <button class="btn-small operate" @click="set_current(row)">编辑</button>

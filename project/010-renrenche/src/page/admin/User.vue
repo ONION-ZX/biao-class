@@ -83,9 +83,6 @@
         if (this.is_update()) {
           def.not_exist.push(this.current.username);
         }
-
-        console.log('def:', def);
-
         return def;
       },
     },

@@ -101,12 +101,12 @@
     <div>
       <div class="vehicle-nav">
         <div class="container">
-          <div class="item">特价好车</div>
-          <div class="item">5万以下</div>
-          <div class="item">5-10万</div>
-          <div class="item">超值SUV</div>
-          <div class="item">急售降价车</div>
-          <div class="item">更多</div>
+          <div @click="read('on_sale')" class="item">特价好车</div>
+          <div @click="read('under_5')" class="item">5万以下</div>
+          <div @click="read('between_5_10')" class="item">5-10万</div>
+          <div @click="read('suv')" class="item">超值SUV</div>
+          <div @click="read('urgent')" class="item">急售降价车</div>
+          <router-link to="/search-result">其它</router-link>
         </div>
       </div>
       <div class="vehicle-list">
@@ -141,20 +141,80 @@
 
   export default {
     mounted() {
-      this.read('main');
+      this.read('on_sale');
+      this.find_design('suv');
     },
     data() {
       return {
+        design: {},
         main_list: [],
       };
     },
     methods: {
-      read(type) {
-        api('vehicle/read')
+      find_design(name) {
+        api('design/search',{or:{name}})
           .then(r => {
-            this[type +'_list'] = r.data;
-          });
-      }
+            this.design[name] = r.data[0];
+          })
+      },
+      
+      read(type) {
+        let condition = {};
+        switch(type) {
+          case 'on_sale':
+            condition = {
+              where: {
+                and: {
+                  on_sale : true,
+                },
+              },
+            };
+            break;
+          case 'under_5':
+            condition = {
+              where: {
+                and: [
+                  ['price','<',5],
+                ],
+              },
+            };
+            break;
+          case 'under_5':
+            condition = {
+              where : {
+                and : [
+                  [ 'price', '<', 5 ],
+                ],
+              },
+            };
+            break;
+          case 'between_5_10':
+            condition = {
+              where: {
+                and: [
+                  ['price', '>', 5],
+                  ['price', '<', 10],
+                ],
+              },
+            };
+            break;
+          case 'suv':
+            condition = {
+              where: {
+                and: {
+                  design_id: this.design.suv.id,
+                },
+              },
+            };
+            break;
+          case 'urgent':
+            break;
+        }
+        api('vehicle/read',condition)
+          .then(r => {
+            this['main_list'] = r.data;
+          })
+      } 
     },
     components : { Nav, Footer },
   };
