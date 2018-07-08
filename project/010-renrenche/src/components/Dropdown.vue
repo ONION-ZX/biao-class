@@ -1,15 +1,16 @@
 <template>
-   <div @mouseleave="show_menu=false" class="dropdown">
+  <div @mouseleave="show_menu=false" class="dropdown">
     <input @keyup="show_menu=true"
            v-model="keyword"
            @focus="show_menu=true"
-           placeholder="请选择"
+           placeholder="搜"
            type="search">
-    <div v-if="show_menu && result.length" class="menu">
-      <div :key="index" @click="select(row)" class="menu-item" v-for="(row,index) in result">{{row[displayKey]}}</div>
+    <div @mouseenter="show_menu=true" class="selected">{{selected ? selected[displayKey] : '请选择'}}</div>
+    <div v-if="show_menu" class="menu">
+      <div ref="p" :key="index" @click="select(row)" v-for="(row, index) in list">{{row[displayKey]}}</div>
     </div>
-   </div>
- </template>
+  </div>
+</template>
 
 <script>
 /* eslint-disable */
@@ -21,8 +22,8 @@
       list && (this.result = Object.assign([], this.list));
     },
     props   : {
-      api: {},
-      list       : {
+      api: {}, //异步搜索
+      list       : { //同步搜索 传入静态数据 通常为数组
         default() {
           return [];
         },
@@ -92,13 +93,13 @@
             });
         }, 300);
       },
-    },
       filter () {
         this.result = Object.assign([], this.list);
         this.result = this.result.filter(row => {
           return row[ this.displayKey ].indexOf(this.keyword) !== -1;
         });
       },
+    },
       watch : {
       keyword() {
         if(this.api)

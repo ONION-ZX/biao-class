@@ -44,19 +44,19 @@
                     </div>
                     <div class="input-control disib">
                         <label>发布人</label>
-                        <Dropdown :onSelect="set_publisher_id" :api="'user.username,realname'" :list = "user_list" displayKey="username"/>
+                        <Dropdown :onSelect="set_publisher_id" :api="'user.username,realname'" :list = "user_list" displayKey="username" ref="edit_publisher"/>
                     </div>
                     <div class="input-control disib">
                         <label>品牌</label>
-                        <Dropdown :onSelect="set_brand_id" :api="'brand.name'" :list = "brand_list"/>
+                        <Dropdown ref="edit_brand" :onSelect="set_brand_id" :api="'brand.name'" :list = "brand_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>设计</label>
-                        <Dropdown :onSelect="set_design_id" :api="'design.name'" :list = "design_list"/>
+                        <Dropdown :default="current.design_id" ref="edit_design" :onSelect="set_design_id" :api="'design.name'" :list = "design_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>车系</label>
-                        <Dropdown :onSelect="set_model_id" :api="'model.name'" :list = "model_list"/>
+                        <Dropdown ref="edit_model" :onSelect="set_model_id" :api="'model.name'" :list = "model_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>所属位置</label>
@@ -108,6 +108,9 @@
                 <table class="table" v-if="!show_form">
                     <thead>
                         <th>标题</th>
+                        <th>品牌</th>
+                        <th>车系</th>
+                        <th>设计</th>
                         <th>价格</th>
                         <th>里程</th>
                         <th>预期出售时间</th>
@@ -119,7 +122,10 @@
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">
                             <td>{{row.title}}</td>
-                            <td>{{row.price}}</td>
+                            <td>{{row.$brand ? row.$brand.name : '-'}}</td>
+                            <td>{{row.$model ? row.$model.name : '-'}}</td>
+                            <td>{{row.$design ? row.$design.name : '-'}}</td>
+                            <td>{{row.price ? row.price : '-'}}</td>
                             <td>{{row.consumed_distance || '-'}}</td>
                             <td>{{row.deadline || '-'}}</td>
                             <td>{{row.condition ? row.condition + '成心': '-'}}</td>
@@ -127,7 +133,7 @@
                             <td>{{row.on_sale ? '是': '否'}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
-                                <button class="btn-small operate" @click="set_current(row)">编辑</button>
+                                <button class="btn-small operate" @click="update(row)">编辑</button>
                             </td>
                         </tr>
                     </tbody>

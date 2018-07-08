@@ -53,7 +53,8 @@
         api(`${this.model}/read`, { limit : this.limit, page : page,
            with: [
             { model: "brand", type: "has_one" },
-            { model: "design", type: "has_one" }
+            { model: "design", type: "has_one" },
+            { model: "model", type: "has_one" },
             ]
          })
           .then(r => {
