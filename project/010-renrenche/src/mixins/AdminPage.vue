@@ -5,11 +5,13 @@
   import Pagination from '../components/Pagination.vue';
   import Footer   from '../components/Footer.vue';
   import Dropdown from '../components/Dropdown.vue';
+  import Location  from "../components/Location";
+
   import validator from '../directive/validator';
 
   export default {
     directives: {validator},
-    components : { AdminNav, Nav, Pagination, Footer, Dropdown },
+    components : { AdminNav, Nav, Pagination, Footer, Dropdown, Location },
     mounted () {
       this.read();
     },
@@ -85,7 +87,7 @@
         this.$nextTick(() => {
           this.$refs.edit_design.on_edit(row.$design);
           this.$refs.edit_brand.on_edit(row.$brand);
-        })
+        });
       },
       is_update() {
         return !!this.current.id;

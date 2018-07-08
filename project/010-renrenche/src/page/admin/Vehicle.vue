@@ -33,30 +33,34 @@
                     </div>
                     <div class="input-control">
                         <label>封面地址</label>
-                        <div style="margin-botton: 5px">
-                            <div :key="i" v-for="(p,i) in current.preview" class="input-group-3">
-                                <input type="text" placeholder="部位" v-model="p.name">
-                                <input type="url" placeholder="图片地址" v-model="p.url">
-                                <button @click="current.preview.splice(i, 1)" type="button">-</button>
-                                <button @click="current.preview.push({})" type="button">+</button>
-                            </div>
+                        <div style="margin-bottom: 5px;">
+                        <div :key="i" v-for="(p, i) in current.preview" class="input-group-3">
+                            <input type="text" placeholder="部位" v-model="p.name">
+                            <input type="url" placeholder="图片地址" v-model="p.url">
+                            <button @click="current.preview.splice(i, 1)" type="button">-</button>
                         </div>
+                        </div>
+                        <button @click="current.preview.push({})" type="button">+</button>
                     </div>
                     <div class="input-control disib">
                         <label>发布人</label>
-                        <Dropdown :api="'user.username,realname'" :list = "user_list" displayKey="username"/>
+                        <Dropdown :onSelect="set_publisher_id" :api="'user.username,realname'" :list = "user_list" displayKey="username"/>
                     </div>
                     <div class="input-control disib">
                         <label>品牌</label>
-                        <Dropdown :api="'brand.name'" :list = "brand_list"/>
+                        <Dropdown :onSelect="set_brand_id" :api="'brand.name'" :list = "brand_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>设计</label>
-                        <Dropdown :api="'design.name'" :list = "design_list"/>
+                        <Dropdown :onSelect="set_design_id" :api="'design.name'" :list = "design_list"/>
                     </div>
                     <div class="input-control disib">
                         <label>车系</label>
-                        <Dropdown :api="'model.name'" :list = "model_list"/>
+                        <Dropdown :onSelect="set_model_id" :api="'model.name'" :list = "model_list"/>
+                    </div>
+                    <div class="input-control disib">
+                        <label>所属位置</label>
+                        <Location :onSelect="set_location_id"/>
                     </div>
                     <div class="input-control">
                         <label>卖车原因</label>
@@ -193,6 +197,21 @@
                     this.brand_list = r.data;
                 });
            },
+          set_brand_id(row) {
+            this.$set(this.current, 'brand_id', row.id);
+         },
+          set_design_id(row) {
+            this.$set(this.current, 'design_id', row.id);
+         },
+         set_model_id(row) {
+            this.$set(this.current, 'model_id', row.id);
+         },
+         set_publisher_id(row) {
+           this.$set(this.current, 'publisher_id', row.id);
+         },
+         set_location_id(row) {
+           this.$set(this.current, 'location_id', row.id);
+         },
        },
        mixins: [AdminPage],
   }
