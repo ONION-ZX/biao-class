@@ -84,6 +84,7 @@
         this
           .read(parent.id, type)
           .then(data => {
+            //获取子地址 若无子地址证明找到了精确地址
             if (!data.length || parent.type == 'city') {
               this.onSelect(parent);
             }
