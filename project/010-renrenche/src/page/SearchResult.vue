@@ -3,7 +3,7 @@
     <Nav/>
     <div>
       <div class="container">
-        <SearchBar/>
+        <SearchBar :onSubmit="on_submit"/>
       </div>
       <div class="container">
         <div class="filter-list">
@@ -86,122 +86,10 @@
       </div>
       <div class="container">
         <div class="row vehicle-list">
-          <div class="col-lg-3">
+          <div :key="index" class="col-lg-3" v-for="(row,index) in result">
             <div class="card">
               <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
-              </div>
-              <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
-                <div class="desc">2015年02月 / 3.07万公里</div>
-                <div class="others">
-                  <span class="price">11.5万</span>
-                  <span>首付3.5万</span>
-                  <a class="btn btn-primary buy">购买</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="card">
-              <div class="thumbnail">
-                <img src="../assets/home/vehicle-list-thumbnail1.webp">
+                <img :src="get_thumbnail(row)">
               </div>
               <div class="detail">
                 <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
@@ -228,14 +116,46 @@
 
   import SearchBar from '../components/SearchBar.vue';
   import Dropdown  from '../components/Dropdown.vue';
+  import VehicleList from '../mixins/VehicleList';
+
+  import api from '../lib/api';
 
   export default {
     components : { Nav, SearchBar, Dropdown ,Footer },
+    mixins: [ VehicleList ],
+    mounted() {
+      this.search_param = this.$route.query;
+      this.search();
+    },
     data () {
       return {
-        
+        result: [],
+        search_param: {},
       };
     },
+    methods: {
+      on_submit() {
+        this.search();
+      },
+      search() {
+        api('vehicle/search', {
+          or: {
+            title: this.search_param.keyword,
+          }
+        }).then(r => {
+          this.result = r.data;
+        });
+      }
+    },
+    watch: {
+      'route.$query': {
+        deep: true,
+        handler(n) {
+          this.search_param = n;
+          this.search();
+        }
+      }
+    }
   };
 </script>
 

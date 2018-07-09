@@ -15,12 +15,15 @@
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item">Item</a>
         <a href="#" class="nav-item tel">400-6666-666</a>
+        <SearchBar/>
       </div>
     </div>
 </template>
 
 <script>
+  import SearchBar from './SearchBar.vue';
   export default  {
+    components: {SearchBar},
     props: {
       pushDown: {
         default: false,

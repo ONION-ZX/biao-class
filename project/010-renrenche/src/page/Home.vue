@@ -135,11 +135,13 @@
 </template>
 
 <script>
+import VehicleList from '../mixins/VehicleList';
 import Nav from "../components/Nav.vue";
 import Footer from "../components/Footer.vue";
 import api from "../lib/api";
 
 export default {
+  mixins: [ VehicleList ],
   mounted() {
     this.read("on_sale");
     this.find_design("suv");
@@ -151,11 +153,6 @@ export default {
     };
   },
   methods: {
-    get_thumbnail(row) {
-      return row.preview && row.preview[ 0 ] && row.preview[ 0 ].url ?
-             row.preview[ 0 ].url :
-              'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88';
-    },
     find_design(name) {
       api("design/search", { or: { name } }).then(r => {
         this.design[name] = r.data[0];
