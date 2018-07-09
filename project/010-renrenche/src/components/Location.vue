@@ -112,6 +112,7 @@
           this.sort(r.data);
         });
       },
+      
       sort (list) {
         list.forEach(row => {
           let sub = this.location[ row.type ];

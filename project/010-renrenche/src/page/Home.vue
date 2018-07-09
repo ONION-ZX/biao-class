@@ -92,7 +92,7 @@
               <div class="desc">门槛低 审批快</div>
             </div>
             <div>
-              <img src="../assets/home/guarantee1.png" alt="">
+              <img src="../assets/home/guarantee1.png">
             </div>
           </div>
         </div>
@@ -147,69 +147,72 @@ export default {
   data() {
     return {
       design: {},
-      main_list: []
+      main_list: [],
     };
   },
   methods: {
+    get_thumbnail(row) {
+      return row.preview && row.preview[ 0 ] && row.preview[ 0 ].url ?
+             row.preview[ 0 ].url :
+              'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88';
+    },
     find_design(name) {
       api("design/search", { or: { name } }).then(r => {
         this.design[name] = r.data[0];
       });
     },
-    get_thumbnail(row) {
-      if (row.preview) {
-        if (row.preview[0].url) {
-          return row.preview[0].url;
-        } else {
-          return "https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88";
-        }
-      } else {
-        return "https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88";
-      }
-    },
 
     read(type) {
       let condition = {};
       switch (type) {
-        case "on_sale":
+        case 'on_sale':
           condition = {
             where: {
               and: {
-                on_sale: true
+                on_sale: true,
               }
-            }
+            },
           };
           break;
-        case "under_5":
+        case 'under_5':
           condition = {
             where: {
-              and: [["price", "<", 5]]
-            }
+              and: [['price', '<', 5]],
+            },
           };
           break;
-        case "between_5_10":
+        case 'between_5_10':
           condition = {
             where: {
-              and: [["price", ">", 5], ["price", "<", 10]]
+              and: [
+                ['price', '<', 10],
+              ['price', '>', 5],
+              ],
             }
           };
           break;
-        case "suv":
+        case 'suv':
           condition = {
             where: {
               and: {
-                design_id: this.design.suv.id
+                design_id: this.design.suv.id,
               }
             }
-          };
+          }
           break;
-        case "urgent":
+        case 'urgent':
+        let date = new Date;
+        date.setDate(date.getDate() + 3);
+        date = date.toISOString().split('T')[0];
+         condition = {query: `where("deadline" <= "${date}")`};
           break;
       }
-      api("vehicle/read", condition).then(r => {
-        this["main_list"] = r.data;
-      });
-    }
+
+      api('vehicle/read', condition)
+        .then(r => {
+          this["main_list"] = r.data;
+        });
+    },
   },
   components: { Nav, Footer }
 };
@@ -221,10 +224,6 @@ export default {
   padding-right: 10px;
   height: 500px;
 }
-
-/* .btn {
-    color: #fff !important;
-  } */
 
 .query-area {
   padding: 15px;

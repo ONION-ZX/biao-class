@@ -113,6 +113,7 @@
                         <th>设计</th>
                         <th>价格</th>
                         <th>里程</th>
+                        <th>首次上牌时间</th>
                         <th>预期出售时间</th>
                         <th>车况</th>
                         <th>过户次数</th>
@@ -127,6 +128,7 @@
                             <td>{{row.$design ? row.$design.name : '-'}}</td>
                             <td>{{row.price ? row.price : '-'}}</td>
                             <td>{{row.consumed_distance || '-'}}</td>
+                            <td>{{row.birth_day || '-'}}</td>
                             <td>{{row.deadline || '-'}}</td>
                             <td>{{row.condition ? row.condition + '成心': '-'}}</td>
                             <td>{{row.exchange_times || '-'}}</td>
