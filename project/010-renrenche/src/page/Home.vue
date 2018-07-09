@@ -16,16 +16,8 @@
           <div class="col-lg-3 huge-text">买</div>
           <div class="col-lg-9">
             <div>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
+              <router-link :key="index" :to="'/search?brand_id=' + row.id" v-for="(row,index) in list.brand" class="tag">{{row.name}}
+              </router-link>
             </div>
             <div>
               <span class="tag">3万以下</span>
@@ -34,11 +26,8 @@
               <span class="tag">20万以下</span>
             </div>
             <div>
-              <span class="tag">大众</span>
-              <span class="tag">别克</span>
-              <span class="tag">雪佛兰</span>
-              <span class="tag">福特</span>
-              <span class="tag">五菱</span>
+              <router-link :key="index" :to="'/search?design_id=' + row.id" v-for="(row,index) in list.design" class="tag">{{row.name}}
+              </router-link>
             </div>
           </div>
         </div>
@@ -106,7 +95,7 @@
           <div @click="read('between_5_10')" class="item">5-10万</div>
           <div @click="read('suv')" class="item">超值SUV</div>
           <div @click="read('urgent')" class="item">急售降价车</div>
-          <router-link to="/search-result">其它</router-link>
+          <router-link to="/search-result" class="item">更多</router-link>
         </div>
       </div>
       <div class="vehicle-list">
@@ -135,19 +124,22 @@
 </template>
 
 <script>
-import VehicleList from '../mixins/VehicleList';
 import Nav from "../components/Nav.vue";
 import Footer from "../components/Footer.vue";
+import VehicleList from '../mixins/VehicleList.vue';
 import api from "../lib/api";
+import Reader      from '../mixins/Reader';
 
 export default {
-  mixins: [ VehicleList ],
+  components: { Nav, Footer },
+  mixins: [ VehicleList, Reader],
   mounted() {
     this.read("on_sale");
     this.find_design("suv");
   },
   data() {
     return {
+      list: {},
       design: {},
       main_list: [],
     };
@@ -211,7 +203,6 @@ export default {
         });
     },
   },
-  components: { Nav, Footer }
 };
 </script>
 

@@ -24,6 +24,10 @@ img {
   height: 100%;
 }
 
+.thumbnail {
+  padding: 10px;
+}
+
 .col-lg-1 {
   width: 8.333333333%;
 }
@@ -141,6 +145,13 @@ img {
   padding: 0;
 }
 
+.empty-holder {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #777;
+}
+
 [class*=col-],
 .col {
   display: inline-block;
@@ -168,7 +179,7 @@ img {
 }
 
 .btn-primary {
-  background: #fd521d;
+  background: rgba(0, 0, 0, .6);
   color: #fff;
 }
 

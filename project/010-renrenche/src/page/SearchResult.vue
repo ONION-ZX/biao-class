@@ -3,26 +3,16 @@
     <Nav/>
     <div>
       <div class="container">
-        <SearchBar :onSubmit="on_submit"/>
+        <SearchBar :keyword="search_param.keyword" :onSubmit="on_submit"/>
       </div>
       <div class="container">
         <div class="filter-list">
           <div class="kill-space filter">
             <div class="col-lg-1 prop">品牌</div>
             <div class="col-lg-10 range">
-              <span>不限</span>
-              <span>大众</span>
-              <span>福特</span>
-              <span>奔驰</span>
-              <span>现代</span>
-              <span>大众</span>
-              <span>福特</span>
-              <span>奔驰</span>
-              <span>现代</span>
-              <span>大众</span>
-              <span>福特</span>
-              <span>奔驰</span>
-              <span>现代</span>
+              <span :class="{active: !search_param.brand_id}" @click="remove_condition('brand_id')">不限</span>
+              <span :key="index" :class="{active: search_param.brand_id == row.id}" @click="set_where('brand_id', row.id)"
+                     v-for="(row,index) in list.brand">{{row.name}}</span>
             </div>
             <div class="col-lg-1 right others">
               <button>全部</button>
@@ -31,17 +21,9 @@
           <div class="kill-space filter">
             <div class="col-lg-1 prop">车系</div>
             <div class="col-lg-10 range">
-              <span>不限</span>
-              <span>朗逸</span>
-              <span>奔特</span>
-              <span>福驰</span>
-              <span>大代</span>
-              <span>现众</span>
-              <span>朗逸</span>
-              <span>奔特</span>
-              <span>福驰</span>
-              <span>大代</span>
-              <span>现众</span>
+              <span :class="{active: !search_param.design_id}" @click="remove_condition('design_id')">不限</span>
+              <span :key="index" :class="{active: search_param.design_id == row.id}" @click="set_where('design_id', row.id)"
+                    v-for="(row,index) in list.design">{{row.name}}</span>
             </div>
             <div class="col-lg-1 right others">
               <button>全部</button>
@@ -50,14 +32,30 @@
           <div class="kill-space filter">
             <div class="col-lg-1 prop">价格</div>
             <div class="col-lg-10 range">
-              <span class="active">3万以下</span>
-              <span>3-5万</span>
-              <span>5-8万</span>
-              <span>8-10万</span>
-              <span>10-15万</span>
-              <span>15-20万</span>
-              <span>20-30万</span>
-              <span>30万以上</span>
+              <span :class="{active: search_param.price_min == 0 && search_param.price_max ==3}"
+                    @click="set_price_range(0, 3)">3万以下
+              </span>
+              <span :class="{active: search_param.price_min == 3 && search_param.price_max ==5}"
+                    @click="set_price_range(3, 5)">3-5
+                万</span>
+              <span :class="{active: search_param.price_min == 5  && search_param.price_max ==8}"
+                    @click="set_price_range(5, 8)">5-8
+                万</span>
+              <span :class="{active: search_param.price_min == 8 && search_param.price_max ==10}"
+                    @click="set_price_range(8, 10)">8-10
+                万</span>
+              <span :class="{active: search_param.price_min == 10 && search_param.price_max == 15}"
+                    @click="set_price_range(10, 15)">10-15
+                万</span>
+              <span :class="{active: search_param.price_min == 15 && search_param.price_max == 20}"
+                    @click="set_price_range(15, 20)">15-20
+                万</span>
+              <span :class="{active: search_param.price_min == 20 && search_param.price_max == 30}"
+                    @click="set_price_range(20, 30)">20-30
+                万</span>
+              <span :class="{active: search_param.price_min == 30}"
+                    @click="set_price_range(30, 0)">30
+                万以上</span>
             </div>
             <div class="col-lg-1 right others">
               <button>全部</button>
@@ -76,8 +74,8 @@
           <div class="filter">
             <div class="range">
               <span>默认排序</span>
-              <span>最新发布</span>
-              <span>价格 ^</span>
+              <span @click="set_condition('sort_by', ['id', 'down'])">最新发布</span>
+              <span @click="set_condition('sort_by', ['price', 'down'])">价格 ^</span>
               <span>车龄 v</span>
               <span>历程 v</span>
             </div>
@@ -85,7 +83,7 @@
         </div>
       </div>
       <div class="container">
-        <div class="row vehicle-list">
+        <div v-if="result.length" class="row vehicle-list">
           <div :key="index" class="col-lg-3" v-for="(row,index) in result">
             <div class="card">
               <div class="thumbnail">
@@ -103,6 +101,7 @@
             </div>
           </div>
         </div>
+        <div class="empty-holder" v-else>暂无内容</div>
       </div>
     </div>
   </div>
@@ -117,35 +116,89 @@
   import SearchBar from '../components/SearchBar.vue';
   import Dropdown  from '../components/Dropdown.vue';
   import VehicleList from '../mixins/VehicleList';
+  import Reader from '../mixins/Reader';
 
   import api from '../lib/api';
 
   export default {
     components : { Nav, SearchBar, Dropdown ,Footer },
-    mixins: [ VehicleList ],
+    mixins: [ VehicleList , Reader],
     mounted() {
       this.search_param = this.$route.query;
       this.search();
+      this.read('brand');
+      this.read('design');
     },
     data () {
       return {
+        list: {},
         result: [],
         search_param: {},
       };
     },
     methods: {
+      set_price_range(min,max) {
+        let condition = {
+          price_min: min,
+          price_max: max,
+        };
+
+        let o = this.search_param;
+        let n = Object.assign({}, o, condition);
+        this.$router.replace({query: n});
+      },
+      set_condition(type, value) {
+        switch(type) {
+          case 'sort_by':
+            this.search_param[type] = value;
+            break;
+        }
+        this.search();
+      },
+      set_where(type, value) {
+        let condition = {};
+        condition[type] = value;
+
+        let o = this.search_param;
+        let n = Object.assign({}, o, condition);
+        this.$router.replace({query: n});
+      },
+      remove_condition(type) {
+        this.$router.replace({query: ""});
+        this.$delete(this.search_param, type);
+
+        let param = Object.assign({}, this.search_param);
+
+        this.$nextTick(() => {
+          this.$router.replace({query: param});
+        });
+      },
       on_submit() {
         this.search();
       },
-      search() {
-        api('vehicle/search', {
-          or: {
-            title: this.search_param.keyword,
-          }
-        }).then(r => {
-          this.result = r.data;
-        });
-      }
+      search () {
+
+        let p = this.search_param;
+
+        let brand_query     = ''
+          , design_query    = ''
+          , price_min_query = ''
+          , price_max_query = ''
+        ;
+
+        p.brand_id && (brand_query = `and "brand_id" = ${p.brand_id}`);
+        p.design_id && (design_query = `and "design_id" = ${p.design_id}`);
+        p.price_min && (price_min_query = `and "price" >= ${p.price_min}`);
+        p.price_max && (price_max_query = `and "price" <= ${p.price_max}`);
+
+        let query =
+              `where("title" contains "${p.keyword}" ${brand_query} ${design_query} ${price_min_query} ${price_max_query})`;
+
+        api('vehicle/read', { query : query, sort_by : p.sort_by, limit : 3 })
+          .then(r => {
+            this.result = r.data;
+          });
+      },
     },
     watch: {
       '$route.query': {
@@ -223,7 +276,7 @@
   }
 
   .filter .range > .active {
-    background: #fd521d;
+    background: rgba(0, 0, 0, .6);
     color: #fff;
   }
 

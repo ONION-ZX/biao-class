@@ -3,7 +3,7 @@
     <input placeholder="现代领动"
            type="search"
            @keyup="change()"
-           v-model="keyword"
+           v-model="kwd"
            autofocus>
     <button type="submit">🔍</button>
   </form>
@@ -13,27 +13,32 @@
   export default {
     data() {
       return {
-        keyword: '',
+        kwd: '',
       };
     },
-    props: ['onChange','onSubmit'],
+    props: ['onChange','onSubmit', 'keyword'],
     methods: {
       change() {
         if(this.onChange)
-          this.onChange(this.keyword);
+          this.onChange(this.kwd);
       },
       submit(e) {
         e.preventDefault();
         if(this.onSubmit)
-          this.onSubmit(this.keyword);
+          this.onSubmit(this.kwd);
       },
       search(e) {
         e.preventDefault();
         this.$router.push({
           path: '/search-result',
-          query: {keyword: this.keyword},
+          query: {keyword: this.kwd},
         })
       },
+    },
+    watch: {
+      keyword(n) {
+        this.kwd = n;
+      }
     }
   }
 </script>
@@ -51,13 +56,13 @@
   .search-bar input {
     padding-left: 3px;
     border: 0;
-    /* height: 25px; */
+    height: 30px;
     width: 80%;
     outline: 0;
   }
 
   .search-bar [type="submit"] {
-    /* height: 30px; */
+    height: 30px;
     border: 0;
     border-left: 1px solid rgba(0,0,0,.1);
     width: 20%;
