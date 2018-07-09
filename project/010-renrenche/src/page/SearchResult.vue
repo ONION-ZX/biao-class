@@ -92,10 +92,10 @@
                 <img :src="get_thumbnail(row)">
               </div>
               <div class="detail">
-                <div class="title">大众-高尔夫 2014款 1.6L 自动舒适型</div>
+                <div class="title">{{row.title}}</div>
                 <div class="desc">2015年02月 / 3.07万公里</div>
                 <div class="others">
-                  <span class="price">11.5万</span>
+                  <span class="price">{{row.price}}</span>
                   <span>首付3.5万</span>
                   <a class="btn btn-primary buy">购买</a>
                 </div>
@@ -148,7 +148,7 @@
       }
     },
     watch: {
-      'route.$query': {
+      '$route.query': {
         deep: true,
         handler(n) {
           this.search_param = n;

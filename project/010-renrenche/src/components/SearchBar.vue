@@ -5,7 +5,7 @@
            @keyup="change()"
            v-model="keyword"
            autofocus>
-    <button type="submit">搜</button>
+    <button type="submit">🔍</button>
   </form>
 </template>
 
