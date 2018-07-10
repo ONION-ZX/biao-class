@@ -16,6 +16,9 @@
 
 <script>
 export default {
+    mounted() {
+        this.current_page = this.currentPage;
+    },
     props: {
         showForm: {
             default: false,
@@ -26,11 +29,14 @@ export default {
         totalCount: {
             default: 0,
         },
-        onChange   : {
+        onChange: {
             default () {
                 // console.log(1);
+         },
         },
-      },
+        currentPage: {
+            default: 1,
+        },
     },
     data() {
         return {
@@ -67,6 +73,11 @@ export default {
         last_page() {
             return Math.ceil(this.totalCount / this.limit);
         },
+    },
+    watch: {
+        currentPage(n) {
+            this.current_page = n;
+        }
     },
 }
 </script>

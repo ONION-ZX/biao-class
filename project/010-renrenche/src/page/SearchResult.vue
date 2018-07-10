@@ -83,8 +83,8 @@
               <span class="anchor" @click="toggle_sort_by('price')">价格
                 <i :class="{fas: true, 'fa-caret-up': is_sort('price', 'up'),'fa-caret-down': is_sort('price',
                         'down')}"></i></span>
-              <span>车龄 v</span>
-              <span>历程 v</span>
+              <span>车龄</span>
+              <span>历程</span>
             </div>
           </div>
         </div>
@@ -108,13 +108,15 @@
             </div>
           </div>
         </div>
-        <div class="empty-holder" v-else>暂无内容</div>
+        <div class="empty-holder" v-else>暂无内容</div>     
       </div>
+      <Pagination :show-form="true" :currentPage="search_param.page" :totalCount="total" :limit="limit" :onChange="on_page_change"/> 
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
   import '../css/vehicle-list.css';
 
   import Nav       from '../components/Nav.vue';
@@ -122,6 +124,8 @@
 
   import SearchBar from '../components/SearchBar.vue';
   import Dropdown  from '../components/Dropdown.vue';
+  import Pagination  from '../components/Pagination.vue';
+
   import VehicleList from '../mixins/VehicleList';
   import Reader from '../mixins/Reader';
 
@@ -129,22 +133,27 @@
   import { clone } from '../lib/helper';
 
   export default {
-    components : { Nav, SearchBar, Dropdown ,Footer },
+    components : { Nav, SearchBar, Dropdown ,Footer, Pagination },
     mixins: [ VehicleList , Reader],
     mounted() {
-      this.search_param = this.$route.query; //'?'后面的内容
+      this.prepare_search_param();
       this.search();
       this.read('brand');
       this.read('design');
     },
     data () {
       return {
+        total: 0,
+        limit: 3,
         list: {},
         result: [],
         search_param: {},
       };
     },
     methods: {
+      on_page_change(page) {
+        this.set_condition('page',page);
+      },
       prepare_search_param () {
         let query         = this.parse_route_query();
         this.search_param = query;
@@ -156,12 +165,11 @@
         return p.sort_by[0] == property && p.sort_by[1] == direction;
       },
       parse_route_query () {
-        let query = clone(this.$route.query);
-        if (!query.sort_by)
-          query.sort_by = [];
-        else
+        let query = clone(this.$route.query); //?后面的内容
+        if (!query.sort_by) {
+           query.sort_by = ['id', 'down'];
+        } else if(!Array.isArray(query.sort_by))
           query.sort_by = query.sort_by.split(',');
-
         return query;
       },
       toggle_sort_by(property) {
@@ -178,7 +186,6 @@
         query.sort_by = query.sort_by.toString();
         this.$router.replace({query});
       },
-
       set_price_range(min,max) {
         let query = Object.assign({}, this.$route.query);
         if(!min && !max) {
@@ -192,17 +199,19 @@
           query = Object.assign({}, query, condition);
         };
 
-        this.$router.replace({query: n});
+        this.$router.replace({query});
       },
       set_condition(type, value) {
-
+        let query = clone(this.$route.query);
         switch(type) {
           case 'sort_by':
-            let query = Object.assign({}, this.$route.query);
             query.sort_by = value;
-            this.$router.replace({ query });
+            break;
+          case 'page':
+            query.page = value;
             break;
         }
+        this.$router.replace({query});
         this.search();
       },
       set_where(type, value) {
@@ -222,7 +231,6 @@
         this.search();
       },
       search () {
-
         let p = this.search_param;
 
         let brand_query     = ''
@@ -239,9 +247,10 @@
         let query =
               `where("title" contains "${p.keyword || ''}" ${brand_query} ${design_query} ${price_min_query} ${price_max_query})`;
 
-        api('vehicle/read', { query : query, sort_by : p.sort_by, limit : 3 })
+        api('vehicle/read', { query : query, sort_by : p.sort_by, limit : 3, page: p.page, limit: this.limit })
           .then(r => {
             this.result = r.data;
+            this.total = r.total;
           });
       },
     },
