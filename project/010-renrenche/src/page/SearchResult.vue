@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="kill-space filter">
-            <div class="col-lg-1 prop">车系</div>
+            <div class="col-lg-1 prop">设计</div>
             <div class="col-lg-10 range">
               <span :class="{active: !search_param.design_id}" @click="remove_condition('design_id')">不限</span>
               <span :key="index" :class="{active: search_param.design_id == row.id}" @click="set_where('design_id', row.id)"
@@ -30,8 +30,11 @@
             </div>
           </div>
           <div class="kill-space filter">
-            <div class="col-lg-1 prop">价格</div>
+            <div class="col-lg-1 prop" >价格</div>
             <div class="col-lg-10 range">
+              <span :class="{active: !search_param.price_min && !search_param.price_max}"
+                    @click="set_price_range(0, 0)">不限
+              </span>
               <span :class="{active: search_param.price_min == 0 && search_param.price_max ==3}"
                     @click="set_price_range(0, 3)">3万以下
               </span>
@@ -74,8 +77,8 @@
           <div class="filter">
             <div class="range">
               <span>默认排序</span>
-              <span @click="set_condition('sort_by', ['id', 'down'])">最新发布</span>
-              <span @click="set_condition('sort_by', ['price', 'down'])">价格 ^</span>
+              <span @click="toggle_sort_by('id')">时间</span>
+              <span @click="toggle_sort_by('price')">价格</span>
               <span>车龄 v</span>
               <span>历程 v</span>
             </div>
@@ -119,12 +122,13 @@
   import Reader from '../mixins/Reader';
 
   import api from '../lib/api';
+  import { clone } from '../lib/helper';
 
   export default {
     components : { Nav, SearchBar, Dropdown ,Footer },
     mixins: [ VehicleList , Reader],
     mounted() {
-      this.search_param = this.$route.query;
+      this.search_param = this.$route.query; //'?'后面的内容
       this.search();
       this.read('brand');
       this.read('design');
@@ -137,20 +141,62 @@
       };
     },
     methods: {
+      prepare_search_param () {
+        let query         = this.parse_route_query();
+        this.search_param = query;
+      },
+      is_sort(property, direction) {
+        let p = this.search_param;
+        if(!p.sort_by)
+          return false;
+        return p.sort_by[0] == property && p.sort_by[1] == direction;
+      },
+      parse_route_query () {
+        let query = clone(this.$route.query);
+        if (!query.sort_by)
+          query.sort_by = [];
+        else
+          query.sort_by = query.sort_by.split(',');
+
+        return query;
+      },
+      toggle_sort_by(property) {
+        let query = this.parse_route_query();
+        let sort_prop = query.sort_by[0];
+        let direction = query.sort_by[1];
+
+        if(sort_prop == property) {
+          query.sort_by[1] = direction == 'up' ? 'down' : 'up';
+        } else {
+          query.sort_by[0] = property;
+          query.sort_by[1] = 'down';
+        }
+        query.sort_by = query.sort_by.toString();
+        this.$router.replace({query});
+      },
+
       set_price_range(min,max) {
-        let condition = {
-          price_min: min,
-          price_max: max,
+        let query = Object.assign({}, this.$route.query);
+        if(!min && !max) {
+          delete query.price_min;
+          delete query.price_max;
+        } else {
+          let condition = {
+            price_min: min,
+            price_max: max,
+          };
+          query = Object.assign({}, query, condition);
         };
 
-        let o = this.search_param;
-        let n = Object.assign({}, o, condition);
         this.$router.replace({query: n});
       },
       set_condition(type, value) {
+
         switch(type) {
           case 'sort_by':
-            this.search_param[type] = value;
+            let query = Object.assign({}, this.$route.query);
+            query.sort_by = value;
+            this.$router.replace({ query });
             break;
         }
         this.search();
@@ -164,14 +210,9 @@
         this.$router.replace({query: n});
       },
       remove_condition(type) {
-        this.$router.replace({query: ""});
-        this.$delete(this.search_param, type);
-
-        let param = Object.assign({}, this.search_param);
-
-        this.$nextTick(() => {
-          this.$router.replace({query: param});
-        });
+        let query = Object.assign({}, this.$route.query);
+        delete query[type];
+        this.$router.replace({query});
       },
       on_submit() {
         this.search();
@@ -192,7 +233,7 @@
         p.price_max && (price_max_query = `and "price" <= ${p.price_max}`);
 
         let query =
-              `where("title" contains "${p.keyword}" ${brand_query} ${design_query} ${price_min_query} ${price_max_query})`;
+              `where("title" contains "${p.keyword || ''}" ${brand_query} ${design_query} ${price_min_query} ${price_max_query})`;
 
         api('vehicle/read', { query : query, sort_by : p.sort_by, limit : 3 })
           .then(r => {
@@ -203,8 +244,8 @@
     watch: {
       '$route.query': {
         deep: true,
-        handler(n) {
-          this.search_param = n;
+        handler() {
+          this.prepare_search_param();
           this.search();
         }
       }
