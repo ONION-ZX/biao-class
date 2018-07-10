@@ -1,5 +1,6 @@
 import 'normalize.css';
 import './Root.css';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 import Vue from 'vue';
 import Root from './Root.vue';

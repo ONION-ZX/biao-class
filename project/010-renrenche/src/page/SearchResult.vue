@@ -77,8 +77,12 @@
           <div class="filter">
             <div class="range">
               <span>默认排序</span>
-              <span @click="toggle_sort_by('id')">时间</span>
-              <span @click="toggle_sort_by('price')">价格</span>
+              <span class="anchor" @click="toggle_sort_by('id')">时间
+                <i :class="{fas: true, 'fa-caret-up': is_sort('id', 'up'),
+                        'fa-caret-down': is_sort('id', 'down')}"></i></span>
+              <span class="anchor" @click="toggle_sort_by('price')">价格
+                <i :class="{fas: true, 'fa-caret-up': is_sort('price', 'up'),'fa-caret-down': is_sort('price',
+                        'down')}"></i></span>
               <span>车龄 v</span>
               <span>历程 v</span>
             </div>
