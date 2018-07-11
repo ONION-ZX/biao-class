@@ -25,12 +25,18 @@ Vue.use(Router);
 
 Vue.config.productionTip = false;
 
+Vue.filter('only_day', function (value) {
+    if (!value)
+        return value;
+      return value.split(' ')[0];
+  });
+
 const router = new Router({
   routes: [
     { path: '/', component: Home },
     { path: '/login', component: Login },
     { path: '/signup', component: Signup },
-    { path: '/detail', component: Detail },
+    { path: '/detail/:id', component: Detail },
     { path: '/me', component: Me },
     { path: '/search-result', component: SearchResult},
     {

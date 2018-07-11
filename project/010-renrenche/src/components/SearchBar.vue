@@ -1,23 +1,23 @@
 <template>
-  <form v-if="show_form" @submit="search($event);submit($event)" class="search-bar">
-    <input placeholder="现代领动"
-           type="search"
-           @keyup="change()"
+  <form class="search-bar" @submit="search($event);submit($event)" v-if="show_form">
+    <input type="search"
+           placeholder="搜"
+           @keyup="change"
            v-model="kwd"
            autofocus>
-    <button type="submit">🔍</button>
+    <button type="submit">🐷</button>
   </form>
 </template>
 
 <script>
   export default {
+    props: ['onChange', 'onSubmit', 'keyword'],
     data() {
       return {
+        show_form: true,
         kwd: '',
-        show_form : true,
       };
     },
-    props: ['onChange','onSubmit', 'keyword'],
     methods: {
       change() {
         if(this.onChange)
@@ -25,16 +25,16 @@
       },
       submit(e) {
         e.preventDefault();
-        if(this.onSubmit)
+        if(this.onChangeSubmit)
           this.onSubmit(this.kwd);
       },
       search(e) {
         e.preventDefault();
         this.$router.push({
           path: '/search-result',
-          query: {keyword: this.kwd},
-        })
-      },
+          query: {keyword:this.kwd},
+        });
+      }
     },
     watch: {
       keyword(n) {
@@ -43,6 +43,7 @@
     }
   }
 </script>
+
 
 <style scoped>
   .search-bar {

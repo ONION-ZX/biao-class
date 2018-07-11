@@ -111,7 +111,7 @@
                 <div class="others">
                   <span class="price">{{row.price}}</span>
                   <span>首付3.5万</span>
-                  <a class="btn btn-dark buy">购买</a>
+                  <router-link :to="'/detail/' + row.id" class="btn btn-primary buy">购买</router-link>
                 </div>
               </div>
             </div>
@@ -124,10 +124,10 @@
 </template>
 
 <script>
+import api from "../lib/api";
 import Nav from "../components/Nav.vue";
 import Footer from "../components/Footer.vue";
 import VehicleList from '../mixins/VehicleList.vue';
-import api from "../lib/api";
 import Reader      from '../mixins/Reader';
 
 export default {

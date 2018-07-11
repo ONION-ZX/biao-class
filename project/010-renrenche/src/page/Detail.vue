@@ -3,37 +3,29 @@
     <Nav/>
     <div class="header">
       <div class="container">
-        <SearchBar/>
+        <SearchBar v-if="show_form=false"/>
       </div>
     </div>
     <div>
       <div style="padding-top: 5px;" class="row container bg-white">
         <div class="col-lg-6">
           <div class="slider">
-            <img src="../assets/detail/slide-01.jpg" alt="">
+            <img :src="detail.preview ? detail.preview[selected_preview].url :
+            'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88'"  alt="detail.preview[selected_preview].name">
           </div>
-          <div class="row thumbnail-list">
-            <div class="col-lg-3">
-              <img src="../assets/detail/slide-01.jpg" alt="">
-            </div>
-            <div class="col-lg-3">
-              <img src="../assets/detail/slide-01.jpg" alt="">
-            </div>
-            <div class="col-lg-3">
-              <img src="../assets/detail/slide-01.jpg" alt="">
-            </div>
-            <div class="col-lg-3">
-              <img src="../assets/detail/slide-01.jpg" alt="">
-            </div>
+          <div class="row thumbnail-list">"
+            <div :key="i" @click="selected_preview = i" v-for="(pre, i) in detail.preview" class="col-lg-3">
+              <img :src="pre.url" alt="pre.name">
+             </div>
           </div>
         </div>
         <div class="col-lg-6 order-panel">
-          <h1 class="title">大众-桑塔纳 2015款 1.7L 手动风尚版</h1>
+          <h1 class="title">{{detail.title}}</h1>
           <div class="well">
             <div class="row">
               <div class="col-lg-3 prop">报价</div>
               <div class="col-lg-9">
-                <span class="price currency">5.60万</span>
+                <span class="price currency">{{detail.price}}万</span>
                 <span class="price currency">含税9.5万</span>
               </div>
             </div>
@@ -56,11 +48,11 @@
           <div class="short-props">
             <div class="dib">
               <div class="prop">上牌时间</div>
-              <div class="value">2015年06月</div>
+              <div class="value">{{detail.birthday | only_day}}</div>
             </div>
             <div class="dib">
               <div class="prop">公里数</div>
-              <div class="value">1.67万公里</div>
+              <div class="value">{{detail.consumed_distance || 0 }}</div>
             </div>
             <div class="dib">
               <div class="prop">外迁查询</div>
@@ -170,12 +162,33 @@
 <script>
   import Nav       from '../components/Nav';
   import SearchBar from '../components/SearchBar';
+  import api       from '../lib/api';
 
   export default {
-    components : {
-      Nav,
-      SearchBar,
+    mounted() {
+      let id = this.get_id();
+      this.find(id);
     },
+    components : { Nav, SearchBar },
+    data() {
+      return {
+        selected_preview: 0,
+        detail: {},
+      };
+    },
+    methods: {
+      get_id() {
+        console.log(this.$route.params.id);
+        return this.$route.params.id;
+      },
+      find(id) {
+        api('vehicle/find',{id})
+          .then(r => {
+            this.detail = r.data;
+            // console.log(this.detail);
+          });
+      }
+    }
   };
 </script>
 
@@ -195,12 +208,9 @@
     margin-bottom: 10px;
   }
 
-  .detail {
+  .order-panel {
+    padding-left: 20px;
   }
-
-  /*.order-panel {*/
-  /*font-size: .9rem;*/
-  /*}*/
 
   .well {
     background: #ddd;
@@ -235,6 +245,8 @@
   }
 
   .thumbnail-list {
+    overflow: auto;
+    white-space: nowrap;
     margin-top: 5px;
     margin-bottom: 10px;
   }
@@ -250,5 +262,9 @@
   .dashed {
     margin-top: 10px;
     border-right: 1px dashed #ddd;
+  }
+
+  .card img {
+    padding: 10px;
   }
 </style>
