@@ -3,7 +3,7 @@
     <Nav/>
     <div>
       <div class="container">
-        <SearchBar :keyword="search_param.keyword" :onSubmit="on_submit"/>
+        <!-- <SearchBar v-if="show_form" :keyword="search_param.keyword" :onSubmit="on_submit"/> -->
       </div>
       <div class="container">
         <div class="filter-list">
@@ -110,7 +110,7 @@
         </div>
         <div class="empty-holder" v-else>暂无内容</div>     
       </div>
-      <Pagination :show-form="true" :currentPage="search_param.page" :totalCount="total" :limit="limit" :onChange="on_page_change"/> 
+      <Pagination v-if="result.length" :show-form="true" :currentPage="search_param.page" :totalCount="total" :limit="limit" :onChange="on_page_change"/> 
     </div>
   </div>
 </template>
@@ -143,6 +143,7 @@
     },
     data () {
       return {
+        show_form: false,
         total: 0,
         limit: 3,
         list: {},
@@ -227,9 +228,9 @@
         delete query[type];
         this.$router.replace({query});
       },
-      on_submit() {
-        this.search();
-      },
+      // on_submit() {
+      //   this.search();
+      // },
       search () {
         let p = this.search_param;
 

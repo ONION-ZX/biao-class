@@ -1,5 +1,5 @@
 <template>
-  <form @submit="search($event);submit($event)" class="search-bar">
+  <form v-if="show_form" @submit="search($event);submit($event)" class="search-bar">
     <input placeholder="现代领动"
            type="search"
            @keyup="change()"
@@ -14,6 +14,7 @@
     data() {
       return {
         kwd: '',
+        show_form : true,
       };
     },
     props: ['onChange','onSubmit', 'keyword'],
