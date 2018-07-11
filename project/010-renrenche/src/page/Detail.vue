@@ -39,16 +39,15 @@
             <div class="row">
               <div class="col-lg-3 prop">服务项</div>
               <div class="col-lg-9">
-                <span>整车质保</span>
-                <span>14天可退</span>
-                <span>249项车况检测</span>
+                <span>整车质保 </span>
+                <span>14天可退 </span>
+                <span>249项车况检测 </span>
               </div>
             </div>
-          </div>
-          <div class="short-props">
+            <div class="short-props">
             <div class="dib">
               <div class="prop">上牌时间</div>
-              <div class="value">{{detail.birthday | only_day}}</div>
+              <div class="value">{{detail.birth_day | only_day}}</div>
             </div>
             <div class="dib">
               <div class="prop">公里数</div>
@@ -62,6 +61,7 @@
               <div class="prop">排量</div>
               <div class="value">1.6L</div>
             </div>
+          </div>
           </div>
           <div class="action">
             <a class="btn btn-primary">预约看车</a>
@@ -185,7 +185,6 @@
         api('vehicle/find',{id})
           .then(r => {
             this.detail = r.data;
-            // console.log(this.detail);
           });
       }
     }
@@ -228,7 +227,9 @@
   }
 
   .short-props > .dib {
-    padding: 10px;
+    display: inline-block;
+    width: 20%;
+    padding: 5px;
   }
 
   .short-props > .dib > * {
@@ -238,6 +239,11 @@
   .short-props .prop {
     font-size: .7rem;
     color: #888;
+  }
+
+  .action {
+    padding: 20px;
+    padding-left: 5px;
   }
 
   .action > * {

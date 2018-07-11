@@ -77,7 +77,7 @@
                     </div>
                     <div class="input-control">
                         <label>首次上牌时间</label>
-                        <input type="date" v-model="current.birthday">
+                        <input type="date" v-model="current.birth_day">
                     </div>
                     <div class="input-control">
                         <label>预期出售时间</label>

@@ -223,8 +223,10 @@ ul ,li{
  }
 
 h1 {
+  line-height: 1;
   margin: 0;
   font-weight: 500;
+  padding-bottom: 10px;
 }
 
 .input-group-3 input,
