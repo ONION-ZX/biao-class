@@ -10,6 +10,7 @@ import Home from './page/Home';
 import Login from './page/Login';
 import Signup from './page/Signup';
 import Detail from './page/Detail';
+import SearchResult from './page/SearchResult';
 
 import Me from './page/settings/Me';
 import AdminBase from './page/admin/Base';
@@ -18,7 +19,7 @@ import Vehicle from './page/admin/Vehicle';
 import Brand from './page/admin/Brand';
 import Model from './page/admin/Model';
 import Design from './page/admin/Design';
-import SearchResult from './page/SearchResult';
+import Report from './page/admin/Report';
 
 
 Vue.use(Router);
@@ -30,6 +31,14 @@ Vue.filter('only_day', function (value) {
         return value;
       return value.split(' ')[0];
   });
+
+Vue.filter('percentage', function (value) {
+   if (!value)
+       return 0;
+
+    // return Number(value).toFixed(2) * 100 + '%';
+    return Number(value * 100).toFixed(2) + '%';
+});
 
 const router = new Router({
   routes: [
@@ -62,6 +71,10 @@ const router = new Router({
         {
           path: 'design',
           component: Design,
+        },
+        {
+          path: 'report',
+          component: Report,
         }
       ],
     },

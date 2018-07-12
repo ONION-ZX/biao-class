@@ -10,8 +10,11 @@
       <div style="padding-top: 5px;" class="row container bg-white">
         <div class="col-lg-6">
           <div class="slider">
-            <img :src="detail.preview ? detail.preview[selected_preview].url :
-            'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88'"  alt="detail.preview[selected_preview].name">
+            <!-- row.preview && row.preview[ 0 ] && row.preview[ 0 ].url ?
+             row.preview[ 0 ].url :
+              'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88' -->
+            <img :src="detail.preview && detail.preview[selected_preview] && detail.preview[selected_preview].url ? detail.preview[selected_preview].url :
+            'https://image1.guazistatic.com/qn180618155102242081e88c459a11926744030df0971b.jpg?imageView2/1/w/287/h/192/q/88'" alt="detail.preview[selected_preview].name">
           </div>
           <div class="row thumbnail-list">"
             <div :key="i" @click="selected_preview = i" v-for="(pre, i) in detail.preview" class="col-lg-3">

@@ -24,6 +24,11 @@ img {
   height: 100%;
 }
 
+fieldset {
+  padding: 0;
+  border: 0;
+}
+
 .thumbnail {
   padding: 10px;
 }
