@@ -5,22 +5,47 @@
             <div class="login">
                 <form class="main_form" autocomplete="off">
                     <h2>欢迎注册羊羊车</h2>
-                    <div class="error">
-                        <div id="username-error"></div>
-                    </div>
                     <div>
                         <label for="用户名">用户名</label>
-                        <input v-validator="'required|min_length:4|max_length:6|username'" 
+                        <div class="veri-bar">
+                            <input v-validator="'required|min_length:4|max_length:6|username'" 
                                type="text"
                                error-el="#username-error">
+                        </div>
                     </div>
                     <div>
                         <label v-validator="'required'" for="密码">密码</label>
-                        <input type="password">
+                        <div class="veri-bar">
+                            <input v-validator="'required|min_length:4|max_length:6'"                   type="password"
+                               error-el="#password-error">
+                        </div>
                     </div>
                     <div>
                         <label v-validator="'required'" for="密码">重复密码</label>
-                        <input type="password">
+                        <div class="veri-bar">
+                            <input v-validator="'required|min_length:4|max_length:6'"    
+                            type="password"
+                            error-el="#password-repeat-error">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="telephone">手机号码</label>
+                        <div class="veri-bar">
+                            <input class="veri" v-validator="'required|telephone|numeric'" 
+                                   type="text"
+                                   error-el="#telephone-error"
+                                   >
+                                
+                            <button class="get" type="button">{{btn_text}}</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="verification_code">验证码</label>
+                        <div class="veri-bar">
+                            <input class="veri_code" v-validator="'required|verification_code'" 
+                               type="text"
+                               error-el="#verification_code-error">
+                        </div>
                     </div>
                     <button type="submit" class="db">注册</button>
                 </form>
@@ -33,9 +58,21 @@
 <script>
   import validator from '../directive/validator.js';
   export default {
-      directives : {
-          validator,
+      directives : { validator },
+      data(){
+          return {
+              btn_text: '请输入验证码',
+          }
+      },
+      methods: {
+          send_code(phone) {
+              api('captcha/sms', { phone })
+                .then(r => {
+                    this.verify_code = r.result;
+                });
+          },
       }
+    
   }
 </script>
 
@@ -94,26 +131,22 @@
         margin-top: 10px;
     }
 
-    /*.error {
-        height: 35px;
+    .veri {
+        font-size: 0;
+    }
+
+    .veri-bar .veri,
+    .veri-bar .get {
+        display: inline-block;
         font-size: 13px;
-        background:#f5a6a6;
-        color:brown;
-        padding: 10px;
-        margin-bottom: 10px;
-    }*/
+    }  
+
+    .veri-bar .veri {
+        width: 70%;
+    }
+
+    .veri-bar .get {
+        width: 30%;
+    }
 
 </style>
-
-<script>
-  import Nav from '../components/Nav.vue';
-  import Footer from '../components/Footer.vue'
-
-  export default {
-    components : { 
-        Nav,
-        Footer, 
-    },
-  };
-
-</script>

@@ -71,6 +71,31 @@ const valid = {
 
         return r;
     },
+    telephone(val, lang) {
+        const lang_conf = {
+            zh: '不合法的手机号码',
+            en: 'Invalid tellphone',
+        };
+
+        const re = /1[34578][012356789]\d{8}|134[012345678]\d{7}/;
+        let r = re.test(val);
+
+        if(!r)
+            throw lang_conf[lang];
+
+        return r;
+    },
+    verification_code(val) {
+        const lang_conf = {
+            zh: '请输入6位验证码',
+            en: 'Invalid verification code',
+        };
+
+        if (val.length !== 11)
+            throw lang_conf[lang];
+
+        return val.length == 6;
+    },
 
     not_exist(val, lang, model, property, except) {
         return new Promise((s, j) => {
@@ -288,7 +313,10 @@ export default Vue.directive('validator', {
         if (!error_el) {
             error_el = document.createElement('div');
             error_el.classList.add('error-list');
-            el.insertAdjacentElement('afterEnd', error_el);
+            let veri_bar = el.closest('.veri-bar');
+            if(veri_bar)
+                veri_bar.appendChild(error_el);
+            // el.insertAdjacentElement('afterEnd', error_el);
         }
 
         // 如果规则直接是字符串就解析字符串为对象规则

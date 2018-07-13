@@ -1,8 +1,8 @@
 <template>
   <div @mouseleave="show_menu=false" class="dropdown">
-    <input @keyup="show_menu=true"
-           v-model="keyword"
+    <input
            @focus="show_menu=true"
+           v-model="keyword"
            :placeholder="placeholder"
            type="search">
     <div v-if="show_menu && result.length" class="menu">

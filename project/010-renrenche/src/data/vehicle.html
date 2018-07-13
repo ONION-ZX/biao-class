@@ -29,11 +29,11 @@
                 nullable: true,
             },
             birth_day: { // 初次上牌时间
-                type: 'dateTime',
+                type: 'date',
                 nullable: true,
             },
             deadline: { // 预期出售时间
-                type: 'dateTime',
+                type: 'date',
                 nullable: true,
             },
             condition: { // 车况
@@ -74,6 +74,9 @@
                 nullable: true,
                 positive: true,
             },
+            preview: {
+                type: 'json',
+            }
         },
     };
 
@@ -87,15 +90,26 @@
     //     },
     // })
 
-     api('MODEL/READ');
+    //  api('MODEL/READ');
+
+     api('captcha/mail', { email: 'zxonion@gmail.com' })
+
 
     // api('MODEL/UPDATE_PROPERTY',{
     //     model: 'vehicle',
-    //     property: 'deadline',
+    //     property: 'on_sale',
     //     structure: {
-    //         type: 'date',
+    //         type: 'boolean',
     //     }
     // })
+
+    // api('MODEL/UPDATE_PROPERTY', {
+    //         model: 'vehicle',
+    //         property: 'local',
+    //         structure: {
+    //             type: 'boolean',
+    //         }
+    //     })
 
     // api('MODEL/UPDATE_PROPERTY', {
     //         model: 'vehicle',

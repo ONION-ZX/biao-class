@@ -91,14 +91,12 @@
   import AdminPage from '../../mixins/AdminPage';
   import Dropdown  from "../../components/Dropdown";
   import api       from '../../lib/api';
-
   export default {
     mixins: [ AdminPage ],
     mounted () {
       this.read();
       this.get_structure();
     },
-
     components : { Dropdown },
     data () {
       return {
@@ -112,22 +110,18 @@
         total_check: 0,
       };
     },
-
     methods : {
       set_vehicle_id(row) {
           this.$set(this.current, 'vehicle_id', row.id)
       },
-
       each_prop (fn) {
         for (let key in this.structure) {
           let prop = this.structure[ key ];
-
           if (fn) {
             fn(prop, key);
           }
         }
       },
-
       compute_total_check() {
           let count = 0;
           this.each_prop((prop) => {
@@ -147,7 +141,6 @@
         this.each_prop((prop, key) => {
           if (!prop.display_name)
             return;
-
           this.$set(this.current, key, check);
         });
       },
@@ -158,7 +151,6 @@
         this.each_prop((prop, key) => {
           if (!prop.display_name)
             return;
-
           this.$set(this.current, key, Math.random() >= .5);
         });
       },
@@ -189,46 +181,36 @@
       font-size: 0;
       border-bottom: 0;
   }
-
   .input-control button {
       padding: 5px;
       font-size: 15px;
   }
-
   .input-control  input,
   .input-control  label{
       display:inline-block;
       font-size: 15px;
   }
-
   .input-control  label {
       width: 70%;
   }
-
   .input-control  input {
       width: 30%;
   }
-
   .col-lg-9 {
       padding-left: 20px;
   }  
-
   .dropdown {
       margin-bottom: 10px;
   }
-
   h2 {
     margin-top: 0;
     font-size: 16px;
   }
-
   .table {
     overflow: auto;
   }
-
   th, td {
     padding: 5px 10px;
     text-align: left;
   }
-
 </style>
