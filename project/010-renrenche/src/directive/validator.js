@@ -85,13 +85,13 @@ const valid = {
 
         return r;
     },
-    verification_code(val) {
+    verification_code(val, lang) {
         const lang_conf = {
             zh: '请输入6位验证码',
             en: 'Invalid verification code',
         };
 
-        if (val.length !== 11)
+        if (val.length !== 6)
             throw lang_conf[lang];
 
         return val.length == 6;

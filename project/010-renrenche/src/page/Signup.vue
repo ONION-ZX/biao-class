@@ -16,7 +16,7 @@
                     <div>
                         <label v-validator="'required'" for="密码">密码</label>
                         <div class="veri-bar">
-                            <input v-validator="'required|min_length:4|max_length:6'"                   type="password"
+                            <input v-validator="'required|min_length:4|max_length:6'" type="password"
                                error-el="#password-error">
                         </div>
                     </div>
@@ -31,23 +31,22 @@
                     <div>
                         <label for="telephone">手机号码</label>
                         <div class="veri-bar">
-                            <input class="veri" v-validator="'required|telephone|numeric'" 
+                            <input v-model="phone" class="veri" v-validator="'required|telephone|numeric'" 
                                    type="text"
                                    error-el="#telephone-error"
                                    >
-                                
-                            <button class="get" type="button">{{btn_text}}</button>
+                            <button :disabled="disabled" class="get" type="button" @click="send_code">{{btn_text}}</button>
                         </div>
                     </div>
                     <div>
                         <label for="verification_code">验证码</label>
                         <div class="veri-bar">
-                            <input class="veri_code" v-validator="'required|verification_code'" 
+                            <input v-model="user_code" class="veri_code" v-validator="'required|verification_code'" 
                                type="text"
                                error-el="#verification_code-error">
                         </div>
                     </div>
-                    <button type="submit" class="db">注册</button>
+                    <button type="submit" class="db" disabled="false">注册</button>
                 </form>
             </div>
         </div>
@@ -57,22 +56,31 @@
 
 <script>
   import validator from '../directive/validator.js';
+  import api from '../lib/api';
+
   export default {
       directives : { validator },
       data(){
           return {
-              btn_text: '请输入验证码',
+              disabled: false,
+              btn_text: '获取验证码',
+              phone: '',
+              user_code: '',
+              verify_code: '',
+              verify_str: '',
+
           }
       },
       methods: {
           send_code(phone) {
-              api('captcha/sms', { phone })
+              this.disabled = true;
+              api('captcha/sms', { phone: this.phone })
                 .then(r => {
-                    this.verify_code = r.result;
+                    this.verify_str = r.result;
+                    this.verify_code = window.atob(this.verify_str);
                 });
           },
-      }
-    
+      }  
   }
 </script>
 
@@ -90,13 +98,13 @@
         padding-bottom: 15px;
     }
 
-    /* .login {
-        margin-top: 80px;
-        margin-bottom: 50px;
-    } */
-
     label {
         font-size: 15px;
+    }
+
+    button[disabled] {
+        background: rgba(0,0,0,.4) !important;
+        opacity: .6;
     }
 
     .main_form {

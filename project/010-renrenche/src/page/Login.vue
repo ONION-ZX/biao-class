@@ -10,20 +10,63 @@
                     <h2>登录</h2>
                     <div>
                         <label for="用户名">用户名</label>
-                        <input v-validator="'required'" id="username" type="text" placeholder="用户名">
+                        <input v-model="current.name" v-validator="'required'" id="username" type="text" placeholder="用户名">
                     </div>
                     <div>
                         <label for="密码">密码</label>
-                        <input type="password">
+                        <input v-model="current.passeword" type="password">
                     </div>
-                    <button type="submit" class="db">登录</button>
-                    <span>没有账号?<a>注册</a></span>
+                    <button type="submit" class="db" @submit="submit($event)">登录</button>
+                    <span>没有账号?<router-link to="/signup">注册</router-link></span>
                 </form>
             </div>
         </div>
         <Footer/>
     </div>
 </template>
+
+<script>
+  import api from '../lib/api';
+  import helper from '../lib/helper';
+  import Nav from '../components/Nav.vue';
+  import Footer from '../components/Footer.vue';
+  import validator from '../directive/validator.js';
+
+  export default {
+    components : { 
+        Nav,
+        Footer, 
+    },
+    directives: { validator },
+    data() {
+        return {
+            current: {},
+        };
+    },
+    methods: {
+        submit(e) {
+            e.preventDefault();
+            api('user/search', {
+                where: {
+                    and: [
+                        {name: this.current.name},
+                        {password: this.current.password},
+                    ],
+                },
+            })
+            .then(r => {
+                if(r.data) {
+                    alert('登录成功!正在跳转...');
+                    helper.set('user',[this.current.name, this.current.password]);
+                } else {
+                    alert('用户名或密码有误');
+                }             
+            });
+        }
+    }
+  };
+</script>
+
 
 <style scoped>
     /* .container {
@@ -98,20 +141,3 @@
     }
 </style>
 
-<script>
-  import Nav from '../components/Nav.vue';
-  import Footer from '../components/Footer.vue';
-  import validator from '../directive/validator.js';
-
-
-  export default {
-    components : { 
-        Nav,
-        Footer, 
-    },
-    directives: {
-        validator
-    },
-  };
-
-</script>

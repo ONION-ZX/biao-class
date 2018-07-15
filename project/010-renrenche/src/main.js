@@ -1,8 +1,5 @@
 // import '~normalize.css/normalize.css';
 import './Root.css';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import Vue from 'vue';
 import Root from './Root.vue';
