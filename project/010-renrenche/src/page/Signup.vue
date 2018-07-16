@@ -91,8 +91,7 @@
           }
       },
       methods: {
-        submit (e) {
-            
+        submit (e) {          
             e.preventDefault();
             this.invalid_code = this.current.user_code !== this.code;
             
@@ -106,7 +105,6 @@
 
             // 如果没有用户名，就默认用已填的邮箱或手机号作为用户名
             !this.current.username && (this.current.username = this.current[ this.signup_by ]);
-            console.log(1);
             api('user/create', this.current)
             .then(r => {
                 alert('注册成功!');
@@ -114,13 +112,14 @@
             });
       },
         send_code () {
+            //倒计时进行中不发送验证码
             if (this.cap.countdown)
                 return;
             let action
                ,by_mail;
 
-            this.cap.countdown = 60;
-            action = 'sms';
+            this.cap.countdown = 60; //设置倒计时60s
+            action = 'sms'; //默认通过手机号码注册
 
             if(by_mail = this.signup_by == 'mail')
                 action = 'mail';

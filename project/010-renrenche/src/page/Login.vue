@@ -45,9 +45,6 @@
         };
     },
     methods: {
-        set(key, val) {
-            helper.set(key, val);
-        },
         submit(e) {
             e.preventDefault();
             let unique, password;
@@ -65,6 +62,7 @@
                 },
             })
             .then(r => {
+                console.log(r.data);
                 let row;
                 if(!(row = r.data[0]) || row.password!== password) {
                     this.login_failed = true;
@@ -74,8 +72,8 @@
                 delete row.password;
                 alert('登陆成功!');
                 this.$router.replace('/');
-                // localStorage.setItem('uinfo', JSON.stringify(row));
-                this.set('uinfo', row);  
+                localStorage.setItem('uinfo', JSON.stringify(row));
+                // this.set('uinfo', row);  
             });
         }
     }
