@@ -1,7 +1,6 @@
 <template>
   <div :style="{
     marginBottom: this.pushDown ? '20px': '0',
-    backgroundColor: this.black ? 'black': 'white',
     }" 
       class="main-nav">
       <div class="col left">
@@ -12,8 +11,14 @@
         <a href="#" class="nav-item">Item</a>
       </div>
       <div class="col right">
-        <router-link  class="nav-item" to="/login">登录</router-link>
-        <router-link  class="nav-item" to="/signup">注册</router-link>
+        <div v-if="!uinfo">
+          <router-link  class="nav-item" to="/login">登录</router-link>
+          <router-link  class="nav-item" to="/signup">注册</router-link>
+        </div>
+        <div v-else class="col right">
+          <span class="nav-item" to="/login">{{uinfo.username}}</span>
+          <span @click="logout" class="nav-item" to="/signup">登出</span>
+        </div>
         <a href="#" class="nav-item tel">400-6666-666</a>
         <SearchBar/>
       </div>
@@ -22,16 +27,24 @@
 
 <script>
   import SearchBar from './SearchBar.vue';
+  import session from '../lib/session';
   export default  {
     components: {SearchBar},
     props: {
       pushDown: {
         default: false,
       },
-      black: {
-        default: false,
+    },
+    data() {
+      return {
+        uinfo: session.uinfo(),
+      };
+    },
+    methods: {
+      logout() {
+        session.logout();
       },
-    }
+    },
   }
 </script>
 

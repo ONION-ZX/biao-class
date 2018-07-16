@@ -3,7 +3,7 @@
         <Nav/>
         <div class="container">
             <div class="login">
-                <form class="main_form" autocomplete="off">
+                <form @submit="submit($event)" class="main_form" autocomplete="off">
                     <div v-if="login_failed" class="error-list">
                         <div>用户名或密码有误</div>
                     </div>
@@ -14,9 +14,9 @@
                     </div>
                     <div>
                         <label for="密码">密码</label>
-                        <input v-model="current.passeword" type="password">
+                        <input v-model="current.password" type="password">
                     </div>
-                    <button type="submit" class="db" @submit="submit($event)">登录</button>
+                    <button type="submit" class="db">登录</button>
                     <span>没有账号?<router-link to="/signup">注册</router-link></span>
                 </form>
             </div>
@@ -45,9 +45,12 @@
         };
     },
     methods: {
+        set(key, val) {
+            helper.set(key, val);
+        },
         submit(e) {
             e.preventDefault();
-            let unique, passeword;
+            let unique, password;
 
             if (!(unique = this.current.$unique) || !(password = this.current.password))
                 return;
@@ -68,10 +71,11 @@
                     return;
                 }
                 this.login_failed = false;
-                delete row.passeword;
+                delete row.password;
                 alert('登陆成功!');
                 this.$router.replace('/');
-                helper.set('user_info', row);        
+                // localStorage.setItem('uinfo', JSON.stringify(row));
+                this.set('uinfo', row);  
             });
         }
     }

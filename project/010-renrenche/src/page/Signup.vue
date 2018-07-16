@@ -127,7 +127,6 @@
             if ((by_mail && !this.current.mail) || (!by_mail && !this.current.phone))
                 return;
 
-
             this.cap.timer = setInterval(() => {
                 if (this.cap.countdown == 0) {
                     clearInterval(this.cap.timer);
