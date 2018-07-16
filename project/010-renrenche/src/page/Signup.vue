@@ -3,12 +3,12 @@
         <Nav/>
         <div class="container">
             <div class="login">
-                <form class="main_form" autocomplete="off">
+                <form @submit="submit" class="main_form" autocomplete="off">
                     <h2>欢迎注册羊羊车</h2>
                     <div>
                         <label for="用户名">用户名</label>
                         <div class="veri-bar">
-                            <input v-validator="'required|min_length:4|max_length:6|username'" 
+                            <input v-model="current.username" v-validator="'required|min_length:4|max_length:6|username'" 
                                type="text"
                                error-el="#username-error">
                         </div>
@@ -16,32 +16,34 @@
                     <div>
                         <label v-validator="'required'" for="密码">密码</label>
                         <div class="veri-bar">
-                            <input v-validator="'required|min_length:4|max_length:6'" type="password"
+                            <input type="password"
                                error-el="#password-error">
                         </div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <label v-validator="'required'" for="密码">重复密码</label>
                         <div class="veri-bar">
-                            <input v-validator="'required|min_length:4|max_length:6'"    
-                            type="password"
+                            <input type="password"
                             error-el="#password-repeat-error">
                         </div>
-                    </div>
+                    </div> -->
                     <div>
                         <label for="telephone">手机号码</label>
                         <div class="veri-bar">
-                            <input v-model="phone" class="veri" v-validator="'required|telephone|numeric'" 
+                            <input v-model="current.phone" class="veri" v-validator="'required|telephone|numeric'" 
                                    type="text"
                                    error-el="#telephone-error"
                                    >
-                            <button :disabled="disabled" class="get" type="button" @click="send_code">{{btn_text}}</button>
+                            <button :disabled="sms.countdown!=0" class="get" type="button" @click="send_code">
+                                <span v-if="sms.countdown">{{sms.countdown}}</span>
+                                <span v-else>{{btn_text}}</span>
+                            </button>
                         </div>
                     </div>
                     <div>
                         <label for="verification_code">验证码</label>
                         <div class="veri-bar">
-                            <input v-model="user_code" class="veri_code" v-validator="'required|verification_code'" 
+                            <input v-model="current.user_code" class="veri_code" v-validator="'required|verification_code'" 
                                type="text"
                                error-el="#verification_code-error">
                         </div>
@@ -55,33 +57,58 @@
 </template>
 
 <script>
+  import Nav from '../components/Nav';
+  import Footer from '../components/Footer';
   import validator from '../directive/validator.js';
   import api from '../lib/api';
 
   export default {
+      components: {Nav, Footer},
       directives : { validator },
       data(){
           return {
-              disabled: false,
+              current: {},
+              sms: {
+                  timer: null,
+                  countdown: 0,
+              },
               btn_text: '获取验证码',
-              phone: '',
-              user_code: '',
               verify_code: '',
               verify_str: '',
+              invalid_code: false,
 
           }
       },
       methods: {
-          send_code(phone) {
-              this.disabled = true;
-              api('captcha/sms', { phone: this.phone })
-                .then(r => {
-                    this.verify_str = r.result;
-                    this.verify_code = window.atob(this.verify_str);
-                });
+          submit(e) {
+              e.preventDefault();
+
+              this.invalid_code = this.current.user_code != this.verify_code;
+              if(this.invalid_code)
+                return;   
+              api('user/create',this.current);           
           },
-      }  
-  }
+          send_code () {
+       if (!this.current.phone || this.sms.countdown)
+         return;
+
+       this.sms.countdown = 60;
+
+       this.sms.timer = setInterval(() => {
+         if (this.sms.countdown == 0) {
+            clearInterval(this.sms.timer);
+            return;
+         }
+         this.$set(this.sms, 'countdown', this.sms.countdown - 1);
+       }, 1000);
+
+       api('captcha/sms', { phone : this.current.phone })
+         .then(r => {
+           this.code = atob(r.data.result);
+         });
+     },
+   },
+   }
 </script>
 
 <style scoped>

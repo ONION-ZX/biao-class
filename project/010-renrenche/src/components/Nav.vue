@@ -12,8 +12,8 @@
         <a href="#" class="nav-item">Item</a>
       </div>
       <div class="col right">
-        <a href="#" class="nav-item">Item</a>
-        <a href="#" class="nav-item">Item</a>
+        <router-link  class="nav-item" to="/login">登录</router-link>
+        <router-link  class="nav-item" to="/signup">注册</router-link>
         <a href="#" class="nav-item tel">400-6666-666</a>
         <SearchBar/>
       </div>

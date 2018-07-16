@@ -74,13 +74,13 @@ const valid = {
     telephone(val, lang) {
         const lang_conf = {
             zh: '不合法的手机号码',
-            en: 'Invalid tellphone',
+            en: 'Invalid telephone',
         };
 
         const re = /1[34578][012356789]\d{8}|134[012345678]\d{7}/;
         let r = re.test(val);
 
-        if(!r)
+        if(!r || !this.numeric(val, lang))
             throw lang_conf[lang];
 
         return r;
