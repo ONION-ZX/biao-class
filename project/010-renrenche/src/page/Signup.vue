@@ -54,9 +54,9 @@
                             <input v-model="current.user_code" class="veri_code"
                                type="text">
                         </div>
-                        <!-- <div class="error-list">
-                            <div v-if="invalid_code" id="vcode-error">验证码有误</div>
-                        </div> -->
+                        <div class="error-list">
+                            <div class="error" v-if="invalid_code">验证码有误</div>
+                        </div>
                      </div>
                     <button type="submit" class="db" disabled="false">注册</button>
                 </form>
@@ -95,8 +95,6 @@
             
             e.preventDefault();
             this.invalid_code = this.current.user_code !== this.code;
-            console.log(this.invalid_code);
-            console.log(this.code);
             
             if (this.invalid_code)
             return;
@@ -138,7 +136,7 @@
                 this.$set(this.cap, 'countdown', this.cap.countdown - 1);
             }, 1000);
 
-            api(`captcha/${action}`, { phone : this.current.phone, email: this.current.mail })
+            api(`captcha/${action}`, { phone : this.current.phone, mail: this.current.mail })
                 .then(r => {
                 this.code = atob(r.data.result);
                 });
@@ -175,8 +173,8 @@
     }
 
     .main_form {
-        position: relative;
-        top: 50px; 
+        /* position: relative; */
+        /* top: 50px;  */
         background: #fff;
         margin-right: auto;
         margin-left: auto;

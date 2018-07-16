@@ -4,13 +4,13 @@
         <div class="container">
             <div class="login">
                 <form class="main_form" autocomplete="off">
-                    <div class="error-list" hidden>
+                    <div v-if="login_failed" class="error-list">
                         <div>用户名或密码有误</div>
                     </div>
                     <h2>登录</h2>
                     <div>
-                        <label for="用户名">用户名</label>
-                        <input v-model="current.name" v-validator="'required'" id="username" type="text" placeholder="用户名">
+                        <label for="用户名">用户名/手机号/邮箱</label>
+                        <input v-model="current.$unique" v-validator="'required'" id="username" type="text">
                     </div>
                     <div>
                         <label for="密码">密码</label>
@@ -41,26 +41,37 @@
     data() {
         return {
             current: {},
+            login_failed: false,
         };
     },
     methods: {
         submit(e) {
             e.preventDefault();
+            let unique, passeword;
+
+            if (!(unique = this.current.$unique) || !(password = this.current.password))
+                return;
+
             api('user/search', {
                 where: {
-                    and: [
-                        {name: this.current.name},
-                        {password: this.current.password},
+                    or: [
+                        ['username', '=', unique],
+                        ['phone', '=', unique],
+                        ['mail', '=', unique],
                     ],
                 },
             })
             .then(r => {
-                if(r.data) {
-                    alert('登录成功!正在跳转...');
-                    helper.set('user',[this.current.name, this.current.password]);
-                } else {
-                    alert('用户名或密码有误');
-                }             
+                let row;
+                if(!(row = r.data[0]) || row.password!== password) {
+                    this.login_failed = true;
+                    return;
+                }
+                this.login_failed = false;
+                delete row.passeword;
+                alert('登陆成功!');
+                this.$router.replace('/');
+                helper.set('user_info', row);        
             });
         }
     }
@@ -93,13 +104,10 @@
 
     .main_form {
         position: relative;
-        padding: 20px;
-        top: 9px; 
         background: #fff;
         margin-right: auto;
         margin-left: auto;
-        width: 300px;
-        border-radius: 5px;
+        width: 335px;
     }
 
     .main_form input,
