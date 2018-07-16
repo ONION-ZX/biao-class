@@ -52,7 +52,7 @@
             if (!(unique = this.current.$unique) || !(password = this.current.password))
                 return;
 
-            api('user/search', {
+            api('user/read', {
                 where: {
                     or: [
                         ['username', '=', unique],
