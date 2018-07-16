@@ -62,7 +62,6 @@
                 },
             })
             .then(r => {
-                console.log(r.data);
                 let row;
                 if(!(row = r.data[0]) || row.password!== password) {
                     this.login_failed = true;
