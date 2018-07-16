@@ -5,6 +5,10 @@
             <div class="login">
                 <form @submit="submit" class="main_form" autocomplete="off">
                     <h2>欢迎注册羊羊车</h2>
+                    <div class="row tac tab-title">
+                        <div @click="signup_by = 'phone'" :class="'col-lg-6 ' + (signup_by == 'phone' ? 'active' : '')">手机注册</div>
+                        <div @click="signup_by = 'mail'" :class="'col-lg-6 ' + (signup_by == 'mail' ? 'active' : '')">邮箱注册</div>
+                    </div>
                     <div>
                         <label for="用户名">用户名</label>
                         <div class="veri-bar">
@@ -14,28 +18,32 @@
                         </div>
                     </div>
                     <div>
-                        <label v-validator="'required'" for="密码">密码</label>
+                        <label  for="密码">密码</label>
                         <div class="veri-bar">
-                            <input type="password"
-                               error-el="#password-error">
-                        </div>
-                    </div>
-                    <!-- <div>
-                        <label v-validator="'required'" for="密码">重复密码</label>
-                        <div class="veri-bar">
-                            <input type="password"
+                            <input v-model="current.password" v-validator="'required'" type="password"
                             error-el="#password-repeat-error">
                         </div>
-                    </div> -->
-                    <div>
+                    </div>
+                    <div v-if="signup_by == 'phone'">
                         <label for="telephone">手机号码</label>
                         <div class="veri-bar">
-                            <input v-model="current.phone" class="veri" v-validator="'required|telephone|numeric'" 
+                            <input v-model="current.phone" class="veri"
                                    type="text"
                                    error-el="#telephone-error"
                                    >
-                            <button :disabled="sms.countdown!=0" class="get" type="button" @click="send_code">
-                                <span v-if="sms.countdown">{{sms.countdown}}</span>
+                            <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
+                                <span v-if="cap.countdown">{{cap.countdown}}</span>
+                                <span v-else>{{btn_text}}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div v-if="signup_by == 'mail'">
+                        <label for="mail">邮箱</label>
+                        <div class="veri-bar">
+                            <input v-model="current.mail" class="veri"
+                                   type="text">
+                            <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
+                                <span v-if="cap.countdown">{{cap.countdown}}</span>
                                 <span v-else>{{btn_text}}</span>
                             </button>
                         </div>
@@ -43,11 +51,13 @@
                     <div>
                         <label for="verification_code">验证码</label>
                         <div class="veri-bar">
-                            <input v-model="current.user_code" class="veri_code" v-validator="'required|verification_code'" 
-                               type="text"
-                               error-el="#verification_code-error">
+                            <input v-model="current.user_code" class="veri_code"
+                               type="text">
                         </div>
-                    </div>
+                        <!-- <div class="error-list">
+                            <div v-if="invalid_code" id="vcode-error">验证码有误</div>
+                        </div> -->
+                     </div>
                     <button type="submit" class="db" disabled="false">注册</button>
                 </form>
             </div>
@@ -68,10 +78,11 @@
       data(){
           return {
               current: {},
-              sms: {
+              cap: {
                   timer: null,
                   countdown: 0,
               },
+              signup_by: 'phone',
               btn_text: '获取验证码',
               verify_code: '',
               verify_str: '',
@@ -80,34 +91,59 @@
           }
       },
       methods: {
-          submit(e) {
-              e.preventDefault();
-
-              this.invalid_code = this.current.user_code != this.verify_code;
-              if(this.invalid_code)
-                return;   
-              api('user/create',this.current);           
-          },
-          send_code () {
-       if (!this.current.phone || this.sms.countdown)
-         return;
-
-       this.sms.countdown = 60;
-
-       this.sms.timer = setInterval(() => {
-         if (this.sms.countdown == 0) {
-            clearInterval(this.sms.timer);
+        submit (e) {
+            
+            e.preventDefault();
+            this.invalid_code = this.current.user_code !== this.code;
+            console.log(this.invalid_code);
+            console.log(this.code);
+            
+            if (this.invalid_code)
             return;
-         }
-         this.$set(this.sms, 'countdown', this.sms.countdown - 1);
-       }, 1000);
 
-       api('captcha/sms', { phone : this.current.phone })
-         .then(r => {
-           this.code = atob(r.data.result);
-         });
-     },
-   },
+            if (this.signup_by == 'mail')
+            delete this.current.phone;
+            else
+            delete this.current.mail;
+
+            // 如果没有用户名，就默认用已填的邮箱或手机号作为用户名
+            !this.current.username && (this.current.username = this.current[ this.signup_by ]);
+            console.log(1);
+            api('user/create', this.current)
+            .then(r => {
+                alert('注册成功!');
+                this.$router.push('/');
+            });
+      },
+        send_code () {
+            if (this.cap.countdown)
+                return;
+            let action
+               ,by_mail;
+
+            this.cap.countdown = 60;
+            action = 'sms';
+
+            if(by_mail = this.signup_by == 'mail')
+                action = 'mail';
+            if ((by_mail && !this.current.mail) || (!by_mail && !this.current.phone))
+                return;
+
+
+            this.cap.timer = setInterval(() => {
+                if (this.cap.countdown == 0) {
+                    clearInterval(this.cap.timer);
+                    return;
+                }
+                this.$set(this.cap, 'countdown', this.cap.countdown - 1);
+            }, 1000);
+
+            api(`captcha/${action}`, { phone : this.current.phone, email: this.current.mail })
+                .then(r => {
+                this.code = atob(r.data.result);
+                });
+        },
+      },
    }
 </script>
 
@@ -123,6 +159,10 @@
         font-weight: 500;
         text-align: center;
         padding-bottom: 15px;
+    }
+
+    .active {
+        border-bottom: 2px solid rgba(0,0,0,.3);
     }
 
     label {
@@ -168,6 +208,14 @@
 
     .veri {
         font-size: 0;
+    }
+
+    .tab-title {
+        margin-bottom: 10px;
+    }
+
+    .tab-title div {
+        padding: 5px;
     }
 
     .veri-bar .veri,

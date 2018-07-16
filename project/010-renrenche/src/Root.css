@@ -29,6 +29,15 @@ fieldset {
   border: 0;
 }
 
+.tac {
+    text-align: center;
+  }
+  
+.tar {
+    text-align: right;
+  }
+  
+
 .thumbnail {
   padding: 10px;
 }
