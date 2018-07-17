@@ -85,6 +85,21 @@ const valid = {
 
         return r;
     },
+    mail (val, lang) {
+           const lang_conf = {
+             zh : '不合法的邮箱',
+             en : 'Invalid email',
+           };
+       
+           let re = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/;
+       
+           console.log('re.test(val):', re.test(val));
+       
+           if (!re.test(val))
+             throw lang_conf[ lang ];
+       
+           return true;
+         },
     verification_code(val, lang) {
         const lang_conf = {
             zh: '请输入6位验证码',

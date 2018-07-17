@@ -24,12 +24,13 @@
                             error-el="#password-repeat-error">
                         </div>
                     </div>
-                    <div v-if="signup_by == 'phone'">
+                    <div :key="'phone'" v-if="signup_by == 'phone'">
                         <label for="telephone">手机号码</label>
                         <div class="veri-bar">
                             <input v-model="current.phone" class="veri"
                                    type="text"
                                    error-el="#telephone-error"
+                                   v-validator="'telephone'"
                                    >
                             <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
                                 <span v-if="cap.countdown">{{cap.countdown}}</span>
@@ -37,10 +38,11 @@
                             </button>
                         </div>
                     </div>
-                    <div v-if="signup_by == 'mail'">
+                    <div :key="'mail'" v-if="signup_by == 'mail'">
                         <label for="mail">邮箱</label>
                         <div class="veri-bar">
-                            <input v-model="current.mail" class="veri"
+                            <input v-validator="'mail'"
+                                   v-model="current.mail" class="veri"
                                    type="text">
                             <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
                                 <span v-if="cap.countdown">{{cap.countdown}}</span>
