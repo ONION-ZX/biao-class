@@ -70,7 +70,11 @@
                 this.login_failed = false;
                 delete row.password;
                 alert('登陆成功!');
-                this.$router.replace('/');
+                console.log(this.current.$unique);
+                if(this.current.$unique == 'admin')
+                    this.$router.push('/admin/user');
+                else 
+                    this.$router.replace('/');
                 localStorage.setItem('uinfo', JSON.stringify(row));
                 // this.set('uinfo', row);  
             });

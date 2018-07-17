@@ -54,8 +54,8 @@
                             <input v-model="current.user_code" class="veri_code"
                                type="text">
                         </div>
-                        <div class="error-list">
-                            <div class="error" v-if="invalid_code">验证码有误</div>
+                        <div v-if="invalid_code" class="error-list">
+                            <div class="error">验证码有误</div>
                         </div>
                      </div>
                     <button type="submit" class="db" disabled="false">注册</button>
@@ -91,7 +91,7 @@
           }
       },
       methods: {
-        submit (e) {          
+          submit (e) {          
             e.preventDefault();
             this.invalid_code = this.current.user_code !== this.code;
             
@@ -107,6 +107,7 @@
             !this.current.username && (this.current.username = this.current[ this.signup_by ]);
             api('user/create', this.current)
             .then(r => {
+                this.invalid_code = false;
                 alert('注册成功!');
                 this.$router.push('/');
             });
