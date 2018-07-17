@@ -14,13 +14,15 @@
         <div v-if="!uinfo">
           <router-link  class="nav-item" to="/login">登录</router-link>
           <router-link  class="nav-item" to="/signup">注册</router-link>
+          <a href="#" class="nav-item tel">400-6666-666</a>
+        <SearchBar/>
         </div>
-        <div v-else class="col right">
+        <div v-else>
           <span class="nav-item" to="/login">{{uinfo.username}}</span>
           <span @click="logout" class="nav-item" to="/signup">登出</span>
-        </div>
-        <a href="#" class="nav-item tel">400-6666-666</a>
+          <a href="#" class="nav-item tel">400-6666-666</a>
         <SearchBar/>
+        </div>
       </div>
     </div>
 </template>
