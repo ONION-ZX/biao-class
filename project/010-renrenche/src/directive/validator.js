@@ -100,18 +100,21 @@ const valid = {
        
            return true;
          },
-    verification_code(val, lang) {
+    shadow (val, lang, selector) {
         const lang_conf = {
-            zh: '请输入6位验证码',
-            en: 'Invalid verification code',
+            zh : '两次输入不一致',
+            en : 'Inconsistent double inputs',
         };
-
-        if (val.length !== 6)
-            throw lang_conf[lang];
-
-        return val.length == 6;
+        
+        let reference = document.querySelector(selector);
+        let value     = reference.value;
+        
+        if (value !== val)
+            throw lang_conf[ lang ];
+        
+        return true;
     },
-
+         
     not_exist(val, lang, model, property, except) {
         return new Promise((s, j) => {
             if (!val || val == except)
@@ -146,12 +149,6 @@ const valid = {
         return r;
     },
 
-    /**
-     * 验证最小长度
-     * @param val
-     * @param min
-     * @return {boolean}
-     */
     min_length(val, lang, min) {
         const lang_conf = {
             zh: '此项的最小长度为' + min,
@@ -235,82 +232,75 @@ function track_input(form, input) {
     form.$state.input_list.push(input);
 }
 
-/**
- * 开始验证并显示错误信息
- * @param el_form input所属表单
- * @param el_input input元素
- * @param el_error 显示错误的元素
- * @param rule 规则 {required: true, min_length:4}
- */
-function go(el_form, el_input, el_error, rule) {
-    let val = el_input.value;
-    let invalid = false;
-    let lang = el_form.$state.lang;
+function go (el_form, el_input, el_error, rule) {
+  let val     = el_input.value;
+  let invalid = false;
+  let lang    = el_form.$state.lang;
 
-    // 由于错误信息可能不止一条（不是用户名还没满足最小长度）
-    // 所以每一条错误信息都要一个独立的元素包含：
-    // <div class="error">错误1...</div>
-    // <div class="error">错误2...</div>
-    let inner_msg = '';
+  // 由于错误信息可能不止一条（不是用户名还没满足最小长度）
+  // 所以每一条错误信息都要一个独立的元素包含：
+  // <div class="error">错误1...</div>
+  // <div class="error">错误2...</div>
+  let inner_msg = '';
 
-    set_invalid(false);
+  set_invalid(false);
 
-    if (!val && !rule.required)
-        return;
+  if (!val && !rule.required)
+    return;
 
-    // 如果有非空验证就先执行非空验证
-    if (rule.required) {
-        try { valid.required(val, lang); }
-        catch (e) {
-            set_invalid(true, e);
-            return;
+  // 如果有非空验证就先执行非空验证
+  if (rule.required) {
+    try {valid.required(val, lang);}
+    catch (e) {
+      set_invalid(true, e);
+      return;
+    }
+  }
+
+  // 循环并验证每一条规则
+  for (let type in rule) {
+    // type是每一类验证规则如'required'或'username'
+    let arg       = rule[ type ]; // 获取传参，如'min_length:4'中的'4'
+    let validator = valid[ type ].bind(valid); // 获取验证函数
+
+    try {
+      let args = [ val, el_form.$state.lang ].concat(arg);
+
+      if (!invalid) {
+        // if (!val && type != 'required')
+        //   return;
+        let result = validator(...args);
+        if (result instanceof Promise) {
+          result
+            .then(r => {
+              if (r)
+                set_invalid(false);
+            })
+            .catch((r) => {
+              set_invalid(true, r);
+            });
         }
+      }
+    } catch (e) {
+      set_invalid(true, e);
+      break;
+    }
+  }
+
+  function set_invalid (invalid, e) {
+    if (invalid) {
+      inner_msg += `<div class="error">${e}</div>`;
+      el_input.setAttribute('invalid', 'true');
+    } else
+      el_input.setAttribute('invalid', 'false');
+
+    if (el_input.getAttribute('dirty') === 'true') {
+      el_error.innerHTML = inner_msg;
     }
 
-    // 循环并验证每一条规则
-    for (let type in rule) {
-        // type是每一类验证规则如'required'或'username'
-        let arg = rule[type]; // 获取传参，如'min_length:4'中的'4'
-        let validator = valid[type].bind(valid); // 获取验证函数
-
-        try {
-            let args = [val, el_form.$state.lang].concat(arg);
-
-            if (!invalid) {
-                // if (!val && type != 'required')
-                //   return;
-                let result = validator(...args);
-                if (result instanceof Promise) {
-                    result
-                        .then(r => {
-                            if (r)
-                                set_invalid(false);
-                        })
-                        .catch((r) => {
-                            set_invalid(true, r);
-                        });
-                }
-            }
-        } catch (e) {
-            set_invalid(true, e);
-        }
-    }
-
-    function set_invalid(invalid, e) {
-        if (invalid) {
-            inner_msg += `<div class="error">${e}</div>`;
-            el_input.setAttribute('invalid', 'true');
-        } else
-            el_input.setAttribute('invalid', 'false');
-
-        if (el_input.getAttribute('dirty') === 'true') {
-            el_error.innerHTML = inner_msg;
-        }
-
-        validate_form(el_form.$state.input_list, el_form.$state.el_submit);
-    }
+    validate_form(el_form.$state.input_list, el_form.$state.el_submit);
+  }
 }
-
 
 export default Vue.directive('validator', {
     /**

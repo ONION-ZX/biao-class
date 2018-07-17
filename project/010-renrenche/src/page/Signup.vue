@@ -12,16 +12,29 @@
                     <div>
                         <label for="用户名">用户名</label>
                         <div class="veri-bar">
-                            <input v-model="current.username" v-validator="'required|min_length:4|max_length:6|username'" 
-                               type="text"
-                               error-el="#username-error">
+                            <input v-validator="'required|min_length:4|max_length:18|username'"
+                                   v-model="current.username"  
+                                   type="text"
+                                   error-el="#username-error">
                         </div>
                     </div>
                     <div>
                         <label  for="密码">密码</label>
                         <div class="veri-bar">
-                            <input v-model="current.password" v-validator="'required'" type="password"
-                            error-el="#password-repeat-error">
+                            <input id="password"
+                                   v-model="current.password" 
+                                   v-validator="'required|min_length:6|max_length:64'" 
+                                   type="password"
+                                   error-el="#password-repeat-error">
+                        </div>
+                    </div>
+                    <div>
+                        <label  for="密码">重复密码</label>
+                        <div class="veri-bar">
+                            <input v-model="current.password2" 
+                                   v-validator="'required|shadow:#password'" 
+                                   type="password"
+                                   id="password2">
                         </div>
                     </div>
                     <div :key="'phone'" v-if="signup_by == 'phone'">
@@ -30,7 +43,7 @@
                             <input v-model="current.phone" class="veri"
                                    type="text"
                                    error-el="#telephone-error"
-                                   v-validator="'telephone'"
+                                   v-validator="'required|telephone|not_exist:user,phone'"
                                    >
                             <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
                                 <span v-if="cap.countdown">{{cap.countdown}}</span>
@@ -41,7 +54,7 @@
                     <div :key="'mail'" v-if="signup_by == 'mail'">
                         <label for="mail">邮箱</label>
                         <div class="veri-bar">
-                            <input v-validator="'mail'"
+                            <input v-validator="'required|mail|not_exist:user,mail'"
                                    v-model="current.mail" class="veri"
                                    type="text">
                             <button :disabled="cap.countdown!=0" class="get" type="button" @click="send_code">
