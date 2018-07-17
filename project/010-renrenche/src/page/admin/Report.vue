@@ -190,9 +190,9 @@
       display:inline-block;
       font-size: 15px;
   }
-  .input-control  label {
+  /* .input-control  label {
       width: 70%;
-  }
+  } */
   .input-control  input {
       width: 30%;
   }

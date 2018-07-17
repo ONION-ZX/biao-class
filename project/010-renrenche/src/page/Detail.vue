@@ -77,60 +77,123 @@
       <div class="container">
         <h2>车辆详情</h2>
         <div class="row">
-          <div class="col-lg-6 dashed">
-            <div class="sub-title">合作认证车辆介绍</div>
-            <div class="detail">
-              这辆车是2015年8月首次上牌，到现在已经行驶了1.86万公里。车子平时开得不多，在我的精心呵护下，无论驾驶质感还是内饰氛围都和新车相差无几。最满意的一点当然是油耗了，其次是空间，动力我也觉得够用。这是我买的新车，纯个人一手车。每天开车前都会认真检查一下车辆，开的也是四平八稳。我对车还是比较温柔的，用车频率不是很高，总里程很少，车况一直很好，和新车也没差什么，没有遇到过什么烦人的毛病，很省心，这对我来说就足够了。好车不容错过，赶紧联系我看车吧！
+          <div class="col-lg-6">
+            <div class="report-panel">
+              <div class="title">排除重大事故检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'major_accident'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                  <span v-if="ok"><i class="far fa-smile"></i></span>
+                  <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="sub-title">车辆手续信息</div>
-            <div class="col-lg-6">
-              <table>
-                <tbody>
-                <tr>
-                  <td>年检到期时间</td>
-                  <td>2019-08</td>
-                </tr>
-                <tr>
-                  <td>商业险到期时间</td>
-                  <td>2019-08</td>
-                </tr>
-                <tr>
-                  <td>有无购车发票</td>
-                  <td>否</td>
-                </tr>
-                <tr>
-                  <td>是否4S店保养</td>
-                  <td>否</td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-lg-6">
-              <table>
-                <tbody>
-                <tr>
-                  <td>交强险到期时间</td>
-                  <td>2019-08</td>
-                </tr>
-                <tr>
-                  <td>过户次数</td>
-                  <td>0次</td>
-                </tr>
-                <tr>
-                  <td>车辆购置税完税证明</td>
-                  <td>无</td>
-                </tr>
-                <tr>
-                  <td>有无改装</td>
-                  <td>无</td>
-                </tr>
-                </tbody>
-              </table>
+            <div class="report-panel">
+              <div class="title">泡水火烧检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'soaking_and_roasting'"
+                     v-for="(ok, key) in report" :class="'col-lg-5 report-item ' + ( !ok ? 'muted' : '')">
+                  <span v-if="ok"><i class="far fa-smile"></i></span>
+                  <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div class="row">
+         <div class="col-lg-12">
+           <div class="report-panel">
+             <div class="title">轻微碰撞检测</div>
+             <div>
+               <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'minor_crash'"
+                    v-for="(ok, key) in report" :class="'col-lg-3 report-item ' + ( !ok ? 'muted' : '')">
+                 <span v-if="ok"><i class="far fa-smile"></i></span>
+                 <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="col-lg-12">
+           <div class="report-panel">
+             <div class="title">易损耗部件检测</div>
+             <div>
+               <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'consumable'"
+                    v-for="(ok, key) in report" :class="'col-lg-3 report-item ' + ( !ok ? 'muted' : '')">
+                 <span v-if="ok"><i class="far fa-smile"></i></span>
+                 <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-lg-6">
+           <div class="report-panel">
+              <div class="title">安全系统检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'security_system'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                <span v-if="ok"><i class="far fa-smile"></i></span>
+                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+           <div class="report-panel">
+              <div class="title">内部配置检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'inner_peripheral'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                <span v-if="ok"><i class="far fa-smile"></i></span>
+                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-lg-6">
+           <div class="report-panel">
+              <div class="title">高科技配置检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'high_tech'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                <span v-if="ok"><i class="far fa-smile"></i></span>
+                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="col-lg-6">
+           <div class="report-panel">
+              <div class="title">灯光系统检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'lighting_system'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                <span v-if="ok"><i class="far fa-smile"></i></span>
+                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-lg-6">
+           <div class="report-panel">
+              <div class="title">随车工具检测</div>
+              <div>
+                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'lighting_system'"
+                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
+                <span v-if="ok"><i class="far fa-smile"></i></span>
+                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
+                </div>
+              </div>
+            </div>
+         </div>
+       </div>
         <div class="preview">
           <div class="title"></div>
           <div class="desc"></div>
@@ -171,17 +234,20 @@
     mounted() {
       let id = this.get_id();
       this.find(id);
+      this.find_report_by_vehicle(id);
+      this.get_report_structure();
     },
     components : { Nav, SearchBar },
     data() {
       return {
         selected_preview: 0,
         detail: {},
+        report: {},
+        report_structure: {},
       };
     },
     methods: {
       get_id() {
-        console.log(this.$route.params.id);
         return this.$route.params.id;
       },
       find(id) {
@@ -189,6 +255,21 @@
           .then(r => {
             this.detail = r.data;
           });
+      },
+      find_report_by_vehicle(vehicle_id) {
+        api('report/first',{
+          where: {
+            vehicle_id,
+          }
+        }).then(r => {
+          this.report = r.data;
+        })
+      },
+      get_report_structure() {
+        api('MODEL/FIND',{name: 'report'})
+          .then(r => {
+            this.report_structure = r.data.structure;
+          })
       }
     }
   };
@@ -197,10 +278,10 @@
 <style scoped>
   h2 {
     margin: 0;
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
     font-weight: normal;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed rgba(0,0,0,.6);
   }
 
   .sub-title {
@@ -261,7 +342,7 @@
   }
 
   .vehicle-detail {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .vehicle-detail .container > .row {
@@ -276,4 +357,31 @@
   .card img {
     padding: 10px;
   }
+
+  .report-panel {
+   padding: 0;
+   border: 1px solid rgba(0,0,0,.6);
+ }
+
+ .report-item {
+   padding: 10px;
+   /*border-bottom: 1px solid #ccc;*/
+   color: rgba(0,0,0,.6);
+   /*font-size: .75rem;*/
+ }
+
+ .report-item.muted {
+   color: #aaa;
+ }
+
+ .report-panel .title {
+   background: rgba(0,0,0,.6);
+   color: #fff;
+   padding: 10px;
+   text-align: center;
+ }
+
+ .col-lg-6 {
+   padding: 5px;
+ }
 </style>

@@ -1,6 +1,6 @@
 // import '~normalize.css/normalize.css';
 import './Root.css';
-
+import '../node_modules/@fortawesome/fontawesome-free/js/all.js';
 import Vue from 'vue';
 import Root from './Root.vue';
 import Router from 'vue-router';
