@@ -18,7 +18,7 @@
         <SearchBar/>
         </div>
         <div v-else>
-          <span class="nav-item" to="/login">{{uinfo.username}}</span>
+          <span class="nav-item user" to="/login">{{uinfo.username}}</span>
           <span @click="logout" class="nav-item" to="/signup">登出</span>
           <a href="#" class="nav-item tel">400-6666-666</a>
         <SearchBar/>
@@ -75,12 +75,15 @@
 
   .nav-item {
     display: inline-block;
+    text-decoration: none;
     padding: 12px;
+    color: #555;
+    cursor: pointer;
   }
 
-  .nav-item {
-    color: #555;
-    text-decoration: none;
+  .user {
+    border-bottom: 2px solid rgba(0,0,0,.7);
+    /* border-radius: 30%; */
   }
 
   /* .tel {

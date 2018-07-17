@@ -4,10 +4,10 @@
         <div class="container">
             <div class="login">
                 <form @submit="submit($event)" class="main_form" autocomplete="off">
-                    <div v-if="login_failed" class="error-list">
-                        <div>用户名或密码有误</div>
-                    </div>
                     <h2>登录</h2>
+                    <div v-if="login_failed" class="error-list">
+                        <div class="error">用户名或密码有误</div>
+                    </div>
                     <div>
                         <label for="用户名">用户名/手机号/邮箱</label>
                         <input v-model="current.$unique" v-validator="'required'" id="username" type="text">
