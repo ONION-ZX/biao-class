@@ -39,8 +39,6 @@
   input:focus {
     border-color: rgba(0, 0, 200, .4);
   }
-  form input {
-  }
   form button {
     width: 20%;
     border-left: 0;
@@ -311,7 +309,6 @@ function render_pagination() {
     }
 
     }
-}
 
 function make(num) {
   return function() {
@@ -366,7 +363,7 @@ function render_history_list() {
       if(e.target.classList.contains('delete'))
         return;
       set_keyword(this.dataset.history);
-      search()''
+      search();
     });
 
     el_delete.addEventListener('click',function() {
@@ -399,5 +396,5 @@ function find_and_delete(arr,element) {
   arr.splice(shit_index,1)
   return true;
 }
-
+}
 </script>
