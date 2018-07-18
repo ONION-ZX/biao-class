@@ -13,7 +13,6 @@
     components : {
       Location,
     },
-    methods: {},
   }
 </script>
 

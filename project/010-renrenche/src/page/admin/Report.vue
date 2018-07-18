@@ -162,7 +162,6 @@
               });
       }, 
     },
-    mixins : [ AdminPage ],
     watch: {
         current: {
             deep:true,

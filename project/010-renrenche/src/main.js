@@ -5,6 +5,9 @@ import Vue from 'vue';
 import Root from './Root.vue';
 import Router from 'vue-router';
 
+import session from './lib/session';
+import Focus from './directive/focus';
+
 import Home from './page/Home';
 import Login from './page/Login';
 import Signup from './page/Signup';
@@ -25,20 +28,6 @@ import Order from './page/admin/Order';
 Vue.use(Router);
 
 Vue.config.productionTip = false;
-
-Vue.filter('only_day', function (value) {
-    if (!value)
-        return value;
-      return value.split(' ')[0];
-  });
-
-Vue.filter('percentage', function (value) {
-   if (!value)
-       return 0;
-
-    // return Number(value).toFixed(2) * 100 + '%';
-    return Number(value * 100).toFixed(2) + '%';
-});
 
 const router = new Router({
   routes: [
@@ -85,7 +74,32 @@ const router = new Router({
   ],
 });
 
+Vue.filter('only_day', function (value) {
+    if (!value)
+        return value;
+      return value.split(' ')[0];
+  });
+
+Vue.filter('percentage', function (value) {
+   if (!value)
+       return 0;
+
+    // return Number(value).toFixed(2) * 100 + '%';
+    return Number(value * 100).toFixed(2) + '%';
+});
+
+router.beforeEach((to, from, next) => {
+   let go_admin = to.fullPath.startsWith('/admin/');
+  
+   if (go_admin && !session.is_admin()) {
+     alert('请先使用管理员账号登录，用户名：admin，密码：adminadmin');
+     next('/login');
+   } else
+     next();
+  });
+
 new Vue({
+  directives:{Focus},
   render: h => h(Root),
   router: router,
 }).$mount('#root');
