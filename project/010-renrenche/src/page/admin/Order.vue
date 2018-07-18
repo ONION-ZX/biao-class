@@ -16,16 +16,26 @@
             <button @click="show_form = !show_form" class="btn btn-outline-dark tool-bar">创建预约</button>
             <form v-if="show_form" @submit="cou($event)">
                     <div class="input-control">
-                        <label>用户名</label>
-                        <input v-validator="rule" type="text" v-model="current.username">
+                        <label>预约人</label>
+                         <Dropdown api="user.username,realname"
+                                   displayKey="username"
+                                   :onSelect="set_user_id"/>
+
                     </div>
                     <div class="input-control">
                         <label>预约车辆</label>
-                        <input v-validator="'required|min_length:6|max_length:64'" type="password" v-model="current.vehicle">
+                        <Dropdown api="vehicle.title,description"
+                                  displayKey="title"
+                                  :onSelect="set_vehicle_id"/>
                     </div>
                     <div class="input-control">
+                        <label>备注</label>
+                        <textarea v-model="current.remark"></textarea>
+                    </div>
+
+                    <div class="input-control">
                         <label>预约时间</label>
-                        <input v-validator="'required|min_length:6|max_length:64'" type="date" v-model="current.vehicle">
+                        <input type="date" v-model="current.appointed_at">
                     </div>
                    <div class="input-control row">
                        <button class="btn btn-outline-secondary" type="submit">提交</button>
@@ -35,14 +45,17 @@
                 <div class="table">
                     <table v-if="!show_form">
                     <thead>
-                        <th>用户名</th>
-                        <th>真实姓名</th>
-                        <th>操作</th>
+                        <th>预约人</th>
+                        <th>预约车辆</th>
+                        <th>备注</th>
+                        <th>预约时间</th>
                     </thead>
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">
-                            <td>{{row.username}}</td>
-                            <td>{{row.realname}}</td>
+                            <td>{{row.$user ? row.$user.username : '-'}}</td>
+                            <td>{{row.$vehicle ? row.$vehicle.title : '-'}}</td>
+                            <td>{{row.remark}}</td>
+                            <td>{{row.appointed_at}}</td>
                             <td>
                                 <button class="btn-small operate" @click="remove(row.id)">删除</button>
                                 <button class="btn-small operate" @click="set_current(row)">编辑</button>
@@ -66,28 +79,21 @@
   export default {
        data() {
          return {
-           model: 'user',
-           searchable : ['username','realname'],
+           current: {},
+           model: 'order',
+           searchable : ['remark'],
          }
        },
-       computed : {
-      rule () {
-        let def = {
-          required   : true,
-          username   : true,
-          min_length : 4,
-          max_length : 18,
-          not_exist  : [ 'user', 'username' ],
-        };
-
-        if (this.is_update()) {
-          def.not_exist.push(this.current.username);
-        }
-        return def;
-      },
-    },
        mixins: [AdminPage],
-  }
+       methods: {
+        set_user_id (row) {
+           this.$set(this.current, 'user_id', row.id);
+         },
+         set_vehicle_id (row) {
+           this.$set(this.current, 'vehicle_id', row.id);
+         },
+       }
+    }
 </script>
 
 <style scoped>

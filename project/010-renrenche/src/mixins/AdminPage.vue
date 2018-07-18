@@ -56,6 +56,7 @@
             { model: "design", type: "has_one" },
             { model: "model", type: "has_one" },
             { model: "vehicle", type: "has_one"},
+            { model : "user", type : 'has_one'},
             ]
          })
           .then(r => {
