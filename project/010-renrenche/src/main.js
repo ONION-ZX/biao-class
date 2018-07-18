@@ -19,6 +19,7 @@ import Brand from './page/admin/Brand';
 import Model from './page/admin/Model';
 import Design from './page/admin/Design';
 import Report from './page/admin/Report';
+import Order from './page/admin/Order';
 
 
 Vue.use(Router);
@@ -74,7 +75,11 @@ const router = new Router({
         {
           path: 'report',
           component: Report,
-        }
+        },   
+        {
+          path: 'order',
+          component: Order,
+        },             
       ],
     },
   ],
