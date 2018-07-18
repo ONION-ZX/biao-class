@@ -98,16 +98,6 @@
                          cat="soaking_and_roasting"
                          :reportStructure="report_structure"
                          :report="report"/>
-            <!-- <div class="report-panel">
-              <div class="title">泡水火烧检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'soaking_and_roasting'"
-                     v-for="(ok, key) in report" :class="'col-lg-5 report-item ' + ( !ok ? 'muted' : '')">
-                  <span v-if="ok"><i class="far fa-smile"></i></span>
-                  <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
         <div class="row">
@@ -116,16 +106,6 @@
                          cat="minor_crash"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-             <div class="title">轻微碰撞检测</div>
-             <div>
-               <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'minor_crash'"
-                    v-for="(ok, key) in report" :class="'col-lg-3 report-item ' + ( !ok ? 'muted' : '')">
-                 <span v-if="ok"><i class="far fa-smile"></i></span>
-                 <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
-               </div>
-             </div>
-           </div> -->
          </div>
         </div>
          <div class="col-lg-12">
@@ -133,16 +113,6 @@
                          cat="consumable"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-             <div class="title">易损耗部件检测</div>
-             <div>
-               <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'consumable'"
-                    v-for="(ok, key) in report" :class="'col-lg-3 report-item ' + ( !ok ? 'muted' : '')">
-                 <span v-if="ok"><i class="far fa-smile"></i></span>
-                 <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}
-               </div>
-             </div>
-           </div> -->
          </div>
        </div>
        <div class="row">
@@ -151,66 +121,21 @@
                          cat="security_system"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-              <div class="title">安全系统检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'security_system'"
-                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
-                <span v-if="ok"><i class="far fa-smile"></i></span>
-                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
-                </div>
-              </div>
-          </div> -->
          </div>
          <div class="col-lg-6">
            <ReportPanel title="内部配置检测"
                          cat="inner_peripheral"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-              <div class="title">内部配置检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'inner_peripheral'"
-                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
-                <span v-if="ok"><i class="far fa-smile"></i></span>
-                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
-                </div>
-              </div>
-            </div>
-         </div> -->
        </div>
        <div class="row">
          <div class="col-lg-6">
-           <ReportPanel title="高科技配置检测"
-                         cat="high_tech"
-                         :reportStructure="report_structure"
-                         :report="report"/>
-           <!-- <div class="report-panel">
-              <div class="title">高科技配置检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'high_tech'"
-                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
-                <span v-if="ok"><i class="far fa-smile"></i></span>
-                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
-                </div>
-              </div>
-            </div>-->
          </div> 
          <div class="col-lg-6">
            <ReportPanel title="灯光系统检测"
                          cat="lighting_system"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-              <div class="title">灯光系统检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'lighting_system'"
-                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
-                <span v-if="ok"><i class="far fa-smile"></i></span>
-                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
-                </div>
-              </div>
-            </div>-->
          </div>
        </div>
        <div class="row">
@@ -219,16 +144,6 @@
                          cat="tool"
                          :reportStructure="report_structure"
                          :report="report"/>
-           <!-- <div class="report-panel">
-              <div class="title">随车工具检测</div>
-              <div>
-                <div :key="key" v-if="(conf = report_structure[key]) && conf.cat == 'tool'"
-                     v-for="(ok, key) in report" :class="'col-lg-4 report-item ' + ( !ok ? 'muted' : '')">
-                <span v-if="ok"><i class="far fa-smile"></i></span>
-                <span v-else><i class="far fa-frown"></i></span> {{conf.display_name}}  
-                </div>
-              </div>
-            </div>-->
          </div>
        </div>
         <div class="preview">
