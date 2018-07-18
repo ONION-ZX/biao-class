@@ -10,7 +10,7 @@
                     </div>
                     <div>
                         <label for="用户名">用户名/手机号/邮箱</label>
-                        <input v-focus v-model="current.$unique" v-validator="'required'" id="username" type="text">
+                        <input v-focus v-model="current.$unique" v-validator="'required'" type="text">
                     </div>
                     <div>
                         <label for="密码">密码</label>
@@ -73,8 +73,9 @@
                 if(!(row = r.data[0]) || row.password!== password) {
                     this.login_failed = true;
                     return;
-                    this.on_login_succeed(row);
+                  this.on_login_succeed(row);
                 }
+                //   this.$router.push('/admin/user');
             });
         },
         on_login_succeed(row) {
@@ -82,7 +83,8 @@
             delete row.password;
             session.login(row);
             alert('Yo.');
-            this.$router.push('/admin/user');
+            this.$router.push('/');
+
         }
     }
   };

@@ -99,7 +99,7 @@ router.beforeEach((to, from, next) => {
   });
 
 new Vue({
-  directives:{Focus},
+  directives:{ Focus },
   render: h => h(Root),
   router: router,
 }).$mount('#root');
