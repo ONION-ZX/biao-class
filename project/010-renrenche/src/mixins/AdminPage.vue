@@ -51,14 +51,7 @@
           return;
 
         api(`${this.model}/read`, { limit : this.limit, page : page,
-           with: [
-            { model: "brand", type: "has_one" },
-            { model: "design", type: "has_one" },
-            { model: "model", type: "has_one" },
-            { model: "vehicle", type: "has_one"},
-            { model : "user", type : 'has_one'},
-            ]
-         })
+           with: this.with })
           .then(r => {
             this.total        = r.total;
             this.list         = r.data;

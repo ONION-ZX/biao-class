@@ -130,7 +130,7 @@
   import Reader from '../mixins/Reader';
 
   import api from '../lib/api';
-  import { helper } from '../lib/helper';
+  import { clone } from '../lib/helper';
 
   export default {
     components : { Nav, SearchBar, Dropdown ,Footer, Pagination },
@@ -166,7 +166,7 @@
         return p.sort_by[0] == property && p.sort_by[1] == direction;
       },
       parse_route_query () {
-        let query = helper.clone(this.$route.query); //?后面的内容
+        let query = clone(this.$route.query); //?后面的内容
         if (!query.sort_by) {
            query.sort_by = ['id', 'down'];
         } else if(!Array.isArray(query.sort_by))
@@ -203,7 +203,7 @@
         this.$router.replace({query});
       },
       set_condition(type, value) {
-        let query = helper.clone(this.$route.query);
+        let query = clone(this.$route.query);
         switch(type) {
           case 'sort_by':
             query.sort_by = value;
