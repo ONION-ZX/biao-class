@@ -46,47 +46,47 @@
         };
     },
     methods: {
-        submit(e) {
-            e.preventDefault();
-            let unique, password;
+        submit (e) {
+        e.preventDefault();
+        let unique, password;
 
-            if (!(unique = this.current.$unique) || !(password = this.current.password))
-                return;
+        if (!(unique = this.current.$unique) ||
+          !(password = this.current.password))
+          return;
 
-            if (unique === 'admin' && password === 'adminadmin') {
-                this.on_login_succeed({ username : 'admin', is_admin : true });
-                return;
-            }
-
-
-            api('user/read', {
-                where: {
-                    or: [
-                        ['username', '=', unique],
-                        ['phone', '=', unique],
-                        ['mail', '=', unique],
-                    ],
-                },
-            })
-            .then(r => {
-                let row;
-                if(!(row = r.data[0]) || row.password!== password) {
-                    this.login_failed = true;
-                    return;
-                  this.on_login_succeed(row);
-                }
-                //   this.$router.push('/admin/user');
-            });
-        },
-        on_login_succeed(row) {
-            this.login_failed = false;
-            delete row.password;
-            session.login(row);
-            alert('Yo.');
-            this.$router.push('/');
-
+        if (unique === 'admin' && password === 'adminadmin') {
+          this.on_login_succeed({ id : 1, username : 'admin', is_admin : true });
+          this.$router.push('/admin/user');
+          return;
         }
-    }
+
+
+        api('user/read', {
+          where : {
+            or : [
+              [ 'username', '=', unique ],
+              [ 'phone', '=', unique ],
+              [ 'mail', '=', unique ],
+            ],
+          },
+        }).then(r => {
+          let row;
+          if (!(row = r.data[ 0 ]) || row.password !== password) {
+            this.login_failed = true;
+            return;
+
+          }
+            this.on_login_succeed(row);
+            this.$router.push('/');
+        });
+      },
+      on_login_succeed (row) {
+        this.login_failed = false;
+        delete row.password;
+        session.login(row);
+        alert('Yo.');
+      },
+    },
   };
 </script>
 
