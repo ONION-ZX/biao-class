@@ -90,7 +90,8 @@ Vue.filter('percentage', function (value) {
 
 router.beforeEach((to, from, next) => {
    let go_admin = to.fullPath.startsWith('/admin/');
-  
+
+  //当非管理员想进入管理页时,跳到登录页以管理员身份登录
    if (go_admin && !session.is_admin()) {
      alert('请先使用管理员账号登录，用户名：admin，密码：adminadmin');
      next('/login');
