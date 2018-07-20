@@ -49,6 +49,7 @@
                         <th>预约车辆</th>
                         <th>备注</th>
                         <th>预约时间</th>
+                        <th>操作</th>
                     </thead>
                     <tbody>
                         <tr :key="index" v-for="(row,index) in list">

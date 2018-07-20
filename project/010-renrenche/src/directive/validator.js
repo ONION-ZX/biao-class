@@ -220,6 +220,8 @@ function enable_submit(el_submit) {
 
 function init_form_state(form, lang) {
     let el_submit = form.querySelector('[type=submit]');
+    if(!el_submit)
+        throw 'submit button is not found';
     form.$state = {
         lang: lang,
         el_submit: el_submit,
@@ -343,14 +345,16 @@ export default Vue.directive('validator', {
         // 执行初始验证
         go(el_form, el, error_el, rule);
 
-
-        // 当输入框有字符输入时开始验证
-        el.addEventListener('keyup', () => {
+        function on_input_change() {
             clearTimeout(debounce_timer);
             debounce_timer = setTimeout(() => {
                 go(el_form, el, error_el, rule);
             }, 300);
-        });
+        };
+
+        // 当输入框有字符输入时开始验证
+        el.addEventListener('keyup', on_input_change);
+        el.addEventListener('change', on_input_change);
 
         el.addEventListener('focus', () => {
             el.setAttribute('dirty', 'true');

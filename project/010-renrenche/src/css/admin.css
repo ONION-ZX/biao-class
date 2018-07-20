@@ -45,7 +45,6 @@
 
   button {
       border-collapse:collapse;
-      vertical-align: bottom;
       line-height: 1.5;
       background: #fff;
       border: 1px solid rgba(0,0,0,.125);
