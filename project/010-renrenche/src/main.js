@@ -12,6 +12,8 @@ import Home from './page/Home';
 import Login from './page/Login';
 import Signup from './page/Signup';
 import Detail from './page/Detail';
+import Publish from './page/Publish';
+
 import SearchResult from './page/SearchResult';
 
 import Me from './page/settings/Me';
@@ -25,18 +27,20 @@ import Report from './page/admin/Report';
 import Order from './page/admin/Order';
 
 
+
 Vue.use(Router);
 
 Vue.config.productionTip = false;
 
 const router = new Router({
   routes: [
-    { path: '/', component: Home },
-    { path: '/login', component: Login },
-    { path: '/signup', component: Signup },
-    { path: '/detail/:id', component: Detail },
-    { path: '/me', component: Me },
-    { path: '/search-result', component: SearchResult},
+    { path: '/', component: Home, meta : { title : 'vvrtade' }},
+    { path: '/login', component: Login, meta:{title:'vvtrade/login'}},
+    { path: '/signup', component: Signup, meta:{title:'vvtrade/signup'} },
+    { path: '/detail/:id', component: Detail, meta:{title:'vvtrade/detail'} },
+    { path: '/me', component: Me, meta:{title:'vvtrade/me'} },
+    { path: '/search-result', component: SearchResult, meta:{title:'vvtrade/result'}},
+    { path: '/publish', component: Publish, meta:{title:'vvtrade/publish'} },
     {
       path: '/admin',
       component: AdminBase,
@@ -90,6 +94,13 @@ Vue.filter('percentage', function (value) {
 
 router.beforeEach((to, from, next) => {
    let go_admin = to.fullPath.startsWith('/admin/');
+   let go_publish = to.fullPath.startsWith('/publish');
+
+   if(go_publish && !session.is_login()) {
+    alert('请先登录!如无账号请先注册');
+    next('/login');
+   }
+
 
   //当非管理员想进入管理页时,跳到登录页以管理员身份登录
    if (go_admin && !session.is_admin()) {
@@ -97,6 +108,7 @@ router.beforeEach((to, from, next) => {
      next('/login');
    } else
      next();
+    document.title = to.meta.title;
   });
 
 new Vue({

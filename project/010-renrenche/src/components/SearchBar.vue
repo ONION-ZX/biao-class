@@ -3,8 +3,7 @@
     <input type="search"
            placeholder="搜"
            @keyup="change"
-           v-model="kwd"
-           autofocus>
+           v-model="kwd">
     <button type="submit">🐷</button>
   </form>
 </template>

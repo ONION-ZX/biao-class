@@ -92,9 +92,7 @@ const valid = {
            };
        
            let re = /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+/;
-       
-           console.log('re.test(val):', re.test(val));
-       
+              
            if (!re.test(val))
              throw lang_conf[ lang ];
        
@@ -350,7 +348,7 @@ export default Vue.directive('validator', {
             debounce_timer = setTimeout(() => {
                 go(el_form, el, error_el, rule);
             }, 300);
-        };
+        }
 
         // 当输入框有字符输入时开始验证
         el.addEventListener('keyup', on_input_change);

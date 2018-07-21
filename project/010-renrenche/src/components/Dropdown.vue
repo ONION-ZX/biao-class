@@ -4,7 +4,8 @@
            @focus="show_menu=true"
            v-model="keyword"
            :placeholder="placeholder"
-           type="search">
+           type="search"
+           autofocus>
     <div v-if="show_menu && result.length" class="menu">
       <div :key="i" @click="select(row)" class="menu-item" v-for="(row,i) in result">{{row[displayKey]}}</div>
     </div>

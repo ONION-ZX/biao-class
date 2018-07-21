@@ -11,16 +11,16 @@
         <a href="#" class="nav-item">Item</a>
       </div>
       <div class="col right">
-        <div v-if="!uinfo">
+        <div v-if="!uinfo.id">
           <router-link  class="nav-item" to="/login">登录</router-link>
           <router-link  class="nav-item" to="/signup">注册</router-link>
-          <a href="#" class="nav-item tel">400-6666-666</a>
+          <div>abc</div>
         <SearchBar/>
         </div>
         <div v-else>
           <span class="nav-item user" to="/login">{{uinfo.username}}</span>
           <span @click="logout" class="nav-item" to="/signup">登出</span>
-          <a href="#" class="nav-item tel">400-6666-666</a>
+          <router-link class="nav-item" to="/publish">发布二手车</router-link>
         <SearchBar/>
         </div>
       </div>

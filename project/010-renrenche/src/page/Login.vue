@@ -27,7 +27,6 @@
 
 <script>
   import api from '../lib/api';
-  import helper from '../lib/helper';
   import session from '../lib/session';
   import Nav from '../components/Nav.vue';
   import Footer from '../components/Footer.vue';
@@ -57,6 +56,7 @@
         if (unique === 'admin' && password === 'adminadmin') {
           this.on_login_succeed({ id : 1, username : 'admin', is_admin : true });
           this.$router.push('/admin/user');
+          alert('Yo.管理员');
           return;
         }
 
@@ -78,13 +78,14 @@
           }
             this.on_login_succeed(row);
             this.$router.push('/');
+            alert('Yo.');
+
         });
       },
       on_login_succeed (row) {
         this.login_failed = false;
         delete row.password;
         session.login(row);
-        alert('Yo.');
       },
     },
   };
