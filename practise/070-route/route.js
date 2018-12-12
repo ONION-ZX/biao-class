@@ -9,6 +9,21 @@ class Route {
         this.init_page();
         this.detect_hash_change();
     }
+    /**
+     * 解析原始hash得到其对应的路由名 {eg:"#/home" => 'home'}
+     * @param {object} hash 原始hash
+     * @return {string} 路由名
+     */
+    parse_hash(hash) {
+        hash = trim(hash, '#/');
+        let re = new RegExp('^#?\/?' + hash + '\/?$');
+
+        for (let key in this.state.route) {
+            let item = this.state.route[key];
+            if (re.test(item.path))
+                return key;
+        }
+    }
 
     detect_hash_change() {
         window.addEventListener('hashchange', () => {
@@ -130,22 +145,6 @@ class Route {
 
         return this.parse_hash(hash_group[0]);
 
-    }
-
-    /**
-     * 解析原始hash得到其对应的路由名 {eg:"#/home" => 'home'}
-     * @param {object} hash 原始hash
-     * @return {string} 路由名
-     */
-    parse_hash(hash) {
-        hash = trim(hash, '#/');
-        let re = new RegExp('^#?\/?' + hash + '\/?$');
-
-        for (let key in this.state.route) {
-            let item = this.state.route[key];
-            if (re.test(item.path))
-                return key;
-        }
     }
 
     get_template(url, on_succeed) {

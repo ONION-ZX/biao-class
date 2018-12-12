@@ -13,6 +13,8 @@
   "dependencies": {
     "D": "^1.0.0",
     "cli": "^1.0.1",
+    "http-server": "^0.11.1",
+    "package.json": "^2.0.1",
     "webpack": "^4.12.0"
   },
   "devDependencies": {},

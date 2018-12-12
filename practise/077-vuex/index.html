@@ -1,0 +1,24 @@
+<div id="root">
+    <button @click="$store.commit('increment')">{{$store.state.count}}</button>
+</div>
+
+<script src="vuex.js"></script>
+<script src="vue.js"></script>
+
+<script>
+    const store = new Vuex.Store({
+        state: {
+            count: 1,
+        },
+        mutations: {
+            increment(state) {
+                state.count++
+            }
+        }
+    })
+
+    new Vue({
+        el: '#root',
+        store,
+    })
+</script>
